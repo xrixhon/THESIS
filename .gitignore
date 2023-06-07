@@ -299,3 +299,17 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
+
+options/.DS_Store
+
+options/elsarticle-harv.bst
+
+options/elsarticle-num-names.bst
+
+options/elsarticle-num.bst
+
+.DS_Store
+
+biblio/bib_ses_2020.bib
+
+biblio/bib_terminology.bib
