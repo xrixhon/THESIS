@@ -1,0 +1,317 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX root = ../thesis_main.tex
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                        AUTHOR AND TITLE                        %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mytitle}{Robust optimisation of the pathway\\ towards a sustainable whole-energy system}
+\newcommand{\mysubtitle}{A hierarchical multi-objective \\reinforcement-learning based approach}
+\newcommand{\myauthor}{Xavier Rixhon}
+
+
+\usepackage[record,style=alttreegroup,nomain,symbols]{glossaries-extra}
+\glsdisablehyper
+\input{options/symbols_and_cmd}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                       LANGUAGE AND FONTS                       %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -- Language ------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[USenglish]{babel}
+\usepackage[T1]{fontenc} % Accents
+
+% -- Fonts ---------------------------------------------------------
+%\usepackage{lmodern}
+%% utopia
+%\usepackage{fourier}
+%% palatino
+%\usepackage{palatino}
+%% pifont
+%\usepackage{pifont}
+%% charter
+%\usepackage{charter}
+
+% stix
+\usepackage[lcgreekalpha]{stix}
+\usepackage{textcomp}
+
+%% better and newer palatino font
+%\usepackage{newpxtext,newpxmath}
+
+%% special font, no ams package included...
+%\usepackage[full]{textcomp}
+%\usepackage[osf]{newtxtext} % osf for text, not math
+%\usepackage{cabin} % sans serif
+%\usepackage[varqu,varl]{inconsolata} % sans serif typewriter
+%\usepackage[bigdelims,vvarbb]{newtxmath} % bb from STIX
+%\usepackage[cal=boondoxo]{mathalfa} % mathcal
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                    TEXT, LAYOUT AND STRUCTURE                  %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -- Paragraphs---- ------------------------------------------------
+\linespread{1.15}
+%\usepackage[parfill]{parskip} %% NOT working with memoir class... see https://tex.stackexchange.com/questions/193485/how-to-use-usepackageparfillparskip-in-memoir-class for discussion
+
+% -- Margins -------------------------------------------------------
+\usepackage[includehead,includefoot,centering,height=20cm,width=12cm,showframe=true]{geometry}
+%\usepackage[includehead,includefoot,centering,height=20cm,width=12cm,showframe=false]{geometry}
+
+%\usepackage[includehead,includefoot,centering,height=20cm,width=12cm,showframe=true]{geometry} %taille des marges
+%\usepackage[includehead, includefoot, top=4.2cm, bottom=5.4cm, left=4.5cm, right=4.5cm,showframe=true]{geometry}%…PhP
+%\usepackage[includehead, includefoot, top=4.8cm, bottom=4.8cm, left=4.5cm, right=4.5cm,showframe=true]{geometry}%4.8 4.8
+
+% -- Layout --------------------------------------------------------
+%\usepackage{layout} % pour afficher le layout des pages
+
+%\usepackage{color}
+%\usepackage[dvipsnames]{xcolor}s
+\usepackage{lineno}
+%\usepackage{ulem} %underline for emphasis
+\usepackage{fancyhdr}% pour en-tetes personnalises
+\usepackage{appendix} % gestion appendix
+\usepackage{tikz}% pour diagrammes
+\usetikzlibrary{shapes.misc}
+\usepackage{setspace}
+
+%\usepackage{titlepages} % for the titlepage examples
+
+%\usepackage{charter}
+%\usepackage[raggedright]{titlesec} % evite les coupures de mot dans les titres
+
+\usepackage{afterpage} % Force content to be on the next page
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+\usepackage{lineno} % Line numbers
+
+\sloppy % evite les debordements de texte dans la marge
+\raggedbottom %regroupe les espaces verticaux automatiques au bas des pages
+
+% -- Structure et Paragraphes --------------------------------------
+%evite les lignes veuves et orphelines
+\clubpenalty=10000
+\widowpenalty=10000
+\interfootnotelinepenalty=10000
+
+%\setcounter{secnumdepth}{3} % numerote les subsubsections
+\setsecnumdepth{subsection}
+\maxtocdepth{subsection}
+
+% -- Style ---------------------------------------------------------
+\normalfont
+% chapter style
+%\chapterstyle{ell}
+%\chapterstyle{madsen}
+%\chapterstyle{bianchi}
+%\chapterstyle{dash}
+%\chapterstyle{thatcher}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}} %pour effacer les en-tetes sur la page vierge avant chaque chapitre
+
+%\pagestyle{ruled}
+\nouppercaseheads
+\makeheadrule{headings}{\textwidth}{0.3pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                     TABLES AND FIGURES                         %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -- Figures -------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{frontend/img/}{chap_intro_ccl/img/}{chap1_ES_PCE/img/}{chap2_electro_uq/img/}{chap3_myopic/img/}{chap4_RL/img/}} % Figures folder different for each input
+%\graphicspath{{img/}} %
+\DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+
+%\usepackage[cleanup,process=auto]{pstool}
+%\usepackage[cleanup,process=all]{pstool} % force process every figure
+%\usepackage{pst-pdf}
+%\usepackage{epstopdf}
+%\usepackage{auto-pst-pdf} 
+%\usepackage{psfrag}
+%\PassOptionsToPackage{psfrag}{process=none}
+
+\usepackage[figuresright]{rotating} %https://tex.stackexchange.com/questions/337/how-to-change-certain-pages-into-landscape-portrait-mode
+
+\def\figwidth{0.9\textwidth}
+\newcommand{\singlefigwidth}{.75\textwidth}
+
+\setfloatadjustment{figure}{\centering}
+\setfloatlocations{figure}{thb}
+\newsubfloat{figure}
+
+\newcommand{\illusname}{Illustration}
+\newcommand{\listillusname}{List of Illustrations}
+\newlistof{listofillus}{loillu}{\listdiagramname}
+\newfloat[chapter]{illustration}{loillu}{\illusname}
+\newlistentry{illustration}{loillu}{0}
+\renewcommand\theillustration{\arabic{illustration}}    
+
+\usetikzlibrary{shapes}
+
+% -- Tables --------------------------------------------------------
+\usepackage{booktabs} % Table customization: \specialrule
+
+\usepackage{longtable} % Long tables on multiple pages
+\usepackage{multirow} % Cellule de tableau sur plusieurs lignes
+\usepackage{multicol} % Cellule de tableau sur plusieurs colonnes
+\usepackage{dcolumn} % Columns aligned on decimal point
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\usepackage{array} % ??
+
+%\usepackage{cellspace} % Espace entre le texte et les bord des cellules
+%\usepackage{tabularx} % Tableau avec largeur fixée
+
+\usepackage{makecell} % Customize table headers with \thead
+\renewcommand\theadfont{\bfseries} % Customize table column headers with \thead
+
+% -- Sub-figures and Captions --------------------------------------
+\usepackage{subfig}
+%\usepackage{wrapfig} % Images dans le texte
+%\usepackage{floatrow} % Tableau et figure côte à côte
+%\usepackage{subcaption} % sub caption
+
+\usepackage[labelfont=bf, labelsep=period, justification=centering]{caption} % style et taille de police des captions
+%\captionsetup[table]{position=below}
+
+%\captionnamefont{\sffamily} % font for the "Figure xx" part
+%\captionnamefont{\footnotesize\sffamily} % font for the "Figure xx" part
+%\captionnamefont{\footnotesize} % font for the "Figure xx" part
+%\captiontitlefont{\footnotesize} % font for the caption part
+%\captiontitlefont{\small}
+% change caption witdth
+%\changecaptionwidth
+%\captionwidth{0.9\textwidth}
+%\captionstyle[\centering]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                      SCIENTIFIC PACKAGES                       %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -- Math ----------------------------------------------------------
+\usepackage{amsmath}
+%\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm} % Extended theorem environments
+%\usepackage{amssymb} % Math symbols %%redundant with stix package
+%\usepackage{esint} % Intégrales multiples
+%\usepackage{esvect} % Vecteurs
+\usepackage{mathtools}
+%\usepackage{pifont}
+
+% Put the equation label in the document, to help writing
+\usepackage{showlabels}
+%\usepackage[final]{showlabels} %disable
+
+\usepackage[boxed]{algorithm2e}
+
+% -- Physics and Chemistry -----------------------------------------
+\usepackage{siunitx} % SI units
+\usepackage[version=4]{mhchem} % Chemical equations
+
+% -- Symbols -------------------------------------------------------
+\usepackage[super]{nth} %text superscript \nth{i}
+\usepackage{textcomp} % Degree symbol °, and certainly others
+%\newcommand{\cmark}{\ding{51}}
+%\newcommand{\xmark}{\ding{55}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                  BIBLIOGRAPHY AND HYPERREF                     %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -- Bibliography --------------------------------------------------
+% For natbib help, see http://merkel.texture.rocks/Latex/natbib.php?lang=fr
+%\usepackage{biblatex}
+\usepackage[square,numbers,compress]{natbib}
+%\usepackage{pdfcomment}
+%\usepackage[square,numbers,compress]{natbibtooltip}
+\usepackage{textcomp} % recognize the textquotesingle from bib
+
+\bibliographystyle{options/elsarticle-num-names}  %Ordered by appearance in the text, with DOI and URL
+
+%\bibliographystyle{options/elsarticle-num}  %Same but \citet command does not work
+%\bibliographystyle{options/elsarticle-harv}  %Harvard style (Author, year, no number)
+%\bibliographystyle{options/elsarticle-num-names-nourldoi}  %Ordered by appearance in the text, with DOI
+%\bibliographystyle{options/elsarticle-names-nourldoi}  %Ordered by alphabet, with DOI
+%\bibliographystyle{options/elsarticle-names-nourl} %Ordered by alphabet, without DOI
+%\bibliographystyle{options/model4-names}
+
+% -- Hyperref ------------------------------------------------------
+\PassOptionsToPackage{hyphens}{url} %this helps breaking URL when too long
+\usepackage[bookmarks]{hyperref}
+\usepackage{cleveref}
+
+% PDF metadata
+\hypersetup{pdftitle={\mytitle}}
+\hypersetup{pdfauthor={\myauthor}}
+\hypersetup{pdfsubject={PhD thesis}}
+\hypersetup{pdfkeywords={Energy System Modelling,EnergyScope,Reinforcement Learning,Policy Optimisation, Electro-fuels}}
+
+% Links color
+\newcommand\myshade{85}
+% from http://latexcolor.com
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{battleshipgrey}{rgb}{0.52, 0.52, 0.51}
+\definecolor{burntumber}{rgb}{0.54, 0.2, 0.14}
+\definecolor{sangria}{rgb}{0.57, 0.0, 0.04}
+\colorlet{mylinkcolor}{sangria}
+\colorlet{mycitecolor}{battleshipgrey}
+
+%\hypersetup{
+%%linkcolor  = mylinkcolor!\myshade!black,
+%%citecolor  = mycitecolor!\myshade!black,
+%%urlcolor   = myurlcolor!\myshade!black,
+%colorlinks = true,
+%}
+
+%\hypersetup{
+%    colorlinks=true,
+%    citecolor = blue,
+%    linkcolor=blue,
+%    urlcolor = blue
+% }
+
+%% Links with color frame
+\hypersetup{
+colorlinks = false,
+%citebordercolor ={red},
+}
+
+%% No color on links (for printing)
+%\hypersetup{hidelinks}
+
+% Adding bookmarks to pdf (works after clearing aux and then 2 clean compilations)
+%\hypersetup{bookmarks={true}} % --> does it by default
+
+%% Reference with Fancy Tooltips (only works with the dedicated compilation script)
+%from: https://tex.stackexchange.com/questions/84681/interactive-pdf-latex-and-article-of-the-future/84700#84700
+%\usepackage[inactive,blur=0.6, fixcolor]{fancytooltips}
+%\usepackage[inactive]{fancytooltips}
+
+% -- Footnotes ------------------------------------------------------
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup} %%Footnotes sans numéro

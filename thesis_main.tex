@@ -1,0 +1,134 @@
+%!TEX root = ../thesis_main.tex
+%!TEX encoding = UTF-8 Unicode
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                          PREAMBLE                              %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\documentclass[a4paper,twoside,10pt,draft]{memoir} %Compilation rapide
+\documentclass[a4paper,twoside,10pt,final]{memoir} %Compilation lente
+
+\input{options/header_thesis}
+
+%\input{options/symbols_and_cmd}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                       FRONT MATTER                             %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{frontend/page_titre}
+
+\frontmatter
+
+% -- Abstract ------------------------------------------------------
+\include{frontend/abstract}
+\clearemptydoublepage
+
+% -- Quote ---------------------------------------------------------
+\input{frontend/citation}
+\clearemptydoublepage
+
+% -- Remerciements -------------------------------------------------
+\chapter*{Remerciements}
+\input{frontend/merci}
+\clearemptydoublepage
+
+% -- Contents ------------------------------------------------------
+\thispagestyle{empty}
+%\mbox{}
+\tableofcontents*
+\clearemptydoublepage
+
+\printunsrtglossaries
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                        MAIN MATTER                             %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+% -- Introduction --------------------------------------------------
+\chapter*[Introduction]{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\input{chap_intro_ccl/intro}
+\clearpage
+
+% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE ---------------------------------
+\chapter{From a whole-energy system model and an uncertainty quantification framework}
+\label{chap:chap1_ES_PCE}
+\input{chap1_ES_PCE/chap1_ES_PCE}
+\clearpage
+
+
+% -- Chapter 2 - UQ on a snapshot model, assessment of electrofuels ---------------------------------
+\chapter{Electrofuels and uncertainties in a target future year}
+\label{chap:chap2_electro_uq}
+\input{chap2_electro_uq/chap2_electro_uq}
+\clearpage
+
+%% -- Chapter 3 - Myopic implementation on the pathway optimisation -----------------------------
+\clearemptydoublepage
+\chapter{From a perfect foresight to a myopic optimisation of the pathway} 
+\label{chap:chap3_myopic}
+\input{chap3_myopic/chap3_myopic}
+\clearpage
+
+
+%% -- Chapter 4 - Reinforcement Learning -
+\clearemptydoublepage
+\chapter{Reinforcement Learning \ce{CO2}-policy robust optimisation}
+\label{chap:chap4_RL}
+\input{chap4_RL/chap4_RL}
+\clearpage
+
+% -- Conclusion ----------------------------------------------------
+\clearemptydoublepage
+\chapter*[Conclusions]{Conclusions} 
+\addcontentsline{toc}{chapter}{Conclusions}
+\input{chap_intro_ccl/conclusion}
+\clearpage
+
+%\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                        BIBLIOGRAPHY                            %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\backmatter
+
+%\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{/Users/xrixhon/Development/GitKraken/THESIS/bib_thesis.bib}
+
+%\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                %%
+%%                        APPENDICES                              %%
+%%                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{appendices}
+%
+%% -- Appendix 1 - Full results -------------------------------------
+%\chapter{Complete results}
+%\label{chap:app_results}
+%\input{appendices/full_res}
+
+
+%\end{appendices}
+
+
+\end{document}

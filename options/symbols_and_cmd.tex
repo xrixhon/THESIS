@@ -1,0 +1,211 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX root = ../thesis_main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	MATH SYMBOLS							%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\glsxtrsetgrouptitle{Abreviation}{Abreviation}
+\glsxtrsetgrouptitle{Notation}{Notation}
+
+% \newcommand{\sdot}{{\bullet}}
+\newcommand{\sdot}{(\cdot)}
+
+% ---------------------------------------------------------------------------- %
+% ACRONYMS
+%% A
+
+%% P
+\newabbreviation[group={Acronyms}]{PCE}{PCE}{Polynomial Chaos Expansion}
+
+%% S
+\newabbreviation[group={Acronyms}]{SDGs}{SDGs}{Sustainable Development Goals}
+
+%% U
+\newabbreviation[group={Acronyms}]{UQ}{UQ}{Uncertainty Quantification}
+
+% ---------------------------------------------------------------------------- %
+% ROMAN
+%% A
+%\glsxtrnewsymbol[group={rs},description={ith ambient particle}]{ai}{\ensuremath{A_i}}
+
+
+% ---------------------------------------------------------------------------- %
+% GREEK
+%\glsxtrnewsymbol[group={gs},description={Yaw angle [$\deg$]}]{beta}{\ensuremath{\beta}}
+
+
+% ---------------------------------------------------------------------------- %
+% Sub- Superscripts
+%% A
+%\glsxtrnewsymbol[group={ss},description={Relative to the ambient}]{uA}{\ensuremath{\sdot_{A}}}
+
+
+
+\renewcommand\glstreegroupheaderfmt[1]{\begingroup\textbf{#1}\vspace{-.2cm}\par\endgroup}
+\glsfindwidesttoplevelname
+\glsxtrsetgrouptitle{Acronyms}{Acronyms}
+\glsxtrsetgrouptitle{rs}{Roman Symbols}
+\glsxtrsetgrouptitle{gs}{Greek Symbols}
+\glsxtrsetgrouptitle{ss}{Sub- Superscripts}
+\glsxtrsetgrouptitle{o}{Operators}
+
+%------------------------
+%% A
+%\newcommand{\ABL}[2]{$U_\mABL=\SIms{#1}$ - $TI_\mABL={#2}\%$}
+%------------------------
+%% B
+
+%------------------------
+%% C
+
+%------------------------
+%% D
+\newcommand{\degree}{^\circ}
+\newcommand{\dd}{\mathrm{d}}
+
+%------------------------
+%% E
+\newcommand{\etal}{\textit{et~al.}}
+\newcommand{\eg}{e.g.\ }
+
+%------------------------
+%% F
+
+%------------------------
+%% G
+
+%------------------------
+%% H
+
+%------------------------
+%% I
+\newcommand{\ie}{i.e.\ }
+
+%------------------------
+%% K
+
+%------------------------
+%% L
+
+%------------------------
+%% M
+
+%------------------------
+%% N
+
+%------------------------
+%% O
+
+%------------------------
+%% P
+
+%------------------------
+%% Q
+
+%------------------------
+%% R
+
+%------------------------
+%% S
+
+%------------------------
+%% T
+
+
+%------------------------
+%% U
+\newcommand{\uh}{\hat{u}}
+\newcommand{\uv}{\mathbf{u}} 
+
+\newcommand{\ub}{\boldsymbol{u}} 
+
+\newcommand{\uconvw}{\tilde{U}_W}
+
+%------------------------
+%% V
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vb}{\boldsymbol{v}}
+
+%------------------------
+%% W
+\newcommand{\wv}{\mathbf{w}}
+\newcommand{\wb}{\boldsymbol{w}}
+\newcommand{\WT}{{\scriptscriptstyle \mathrm{WT}}}
+
+%------------------------
+%% X
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\xb}{\boldsymbol{x}}
+
+%------------------------
+%% Y
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\yb}{\boldsymbol{y}}
+
+%------------------------
+%% Z
+\newcommand{\zv}{\mathbf{z}}
+\newcommand{\zb}{\boldsymbol{z}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	OPERATORS 								%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\der}[2]{\frac{d #1}{d #2}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdern}[3]{\frac{\partial^#3 #1}{\partial #2^#3}}
+
+\newcommand{\avgt}[1]{\left\langle {#1}\right\rangle}
+\newcommand{\avgs}[1]{\overline{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	REFERENCES 							%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eqqref}[1]{Eq.~\eqref{#1}}
+\newcommand{\seqqref}[1]{Eqs.~\eqref{#1}}
+\newcommand{\eqqrefs}[2]{Eqs.~\eqref{#1} and \eqref{#2}}
+\newcommand{\eqqrefc}[2]{Eqs.~\eqref{#1}, \eqref{#2}}
+\newcommand{\eq}[1]{Eq.~\eqref{#1}}
+% \newcommand{\eqs}[1]{Eqs.~(\ref{#1})}
+
+\newcommand{\fig}{Fig.~\ref}
+\newcommand{\figs}{Figs.~\ref}
+\newcommand{\tab}{Table~\ref}
+\newcommand{\sect}{Section~\ref}
+\newcommand{\chap}{Chapter~\ref}
+\newcommand{\chaps}{Chapters~\ref}
+\newcommand{\app}{Appendix~\ref}
+\newcommand{\apps}{Appendices~\ref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	CAPTIONS							%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Color palette
+  
+\usepackage{xcolor}
+\definecolor{myBlue}{rgb}{0.25, 0.25, 0.75}
+\definecolor{myRed}{rgb}{0.8, 0.1, 0.3}
+\definecolor{myGrey0}{rgb}{0.25, 0.25, 0.25}
+\definecolor{myGrey1}{rgb}{0.50, 0.50, 0.50}
+\definecolor{myGrey2}{rgb}{0.75, 0.75, 0.75}
+
+
+\definecolor{Blue0}{rgb}{0.7752402921953095, 0.8583006535947711, 0.9368242983467897}
+\definecolor{Blue1}{rgb}{0.41708573625528644, 0.6806305267204922, 0.8382314494425221}
+\definecolor{Blue2}{rgb}{0.1271049596309112, 0.4401845444059977, 0.7074971164936563}
+\definecolor{Blue3}{rgb}{0.03137254901960784, 0.18823529411764706, 0.4196078431372549}
+
+\definecolor{BluePy}{rgb}{0.69140625, 0.8164, 0.8868}
+\definecolor{RedC}{rgb}{0.9453, 0.7266, 0.6602}
+
+\definecolor{gw}{rgb}{1, 0, 0}
+\definecolor{jb}{rgb}{0, 1, 0}
+\definecolor{tg}{rgb}{0, 0, 1}
+\definecolor{jh}{rgb}{1, 1, 0}
+
+\newcommand{\gw}[1]{{#1}}
+% \newcoxmmand{\gw}[1]{\textcolor{gw}{#1}}
+\newcommand{\jb}[1]{\textcolor{jb}{#1}}
+\newcommand{\tg}[1]{\textcolor{tg}{#1}}
+\newcommand{\jh}[1]{\textcolor{jh}{#1}}

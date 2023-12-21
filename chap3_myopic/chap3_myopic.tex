@@ -1,0 +1,38 @@
+%!TEX root = ../thesis_main.tex
+%!TEX encoding = UTF-8 Unicode
+In this chapter, I highlight the advantages of the myopic pathway, the methodological adaptations needed to have a myopic optimisation from EnergyScope Pathway perfect foresight and detail the difference with the perfect foresight for the case study. 
+
+\section{Why and how myopic}
+\label{sec:chap3_why_how}
+Besides the fact that it is a necessary framework for the application of RL,  explain here why it is interesting, as is, to consider myopic optimisation (time saving, more appropriate to mimic policymakers' shortsightedness, etc.)
+
+Detail the little tweeks to go from a perfect foresight to a myopic optimisation, in terms of implementation.
+
+\section{Case study and results: Belgian energy system under \ce{CO2} trajectory}
+\label{sec:chap3_case_study_results}
+
+\subsection{Case study}
+{\color{red}Question to HJ and FC : J'hésite sur le cas de référence pour la comparaison en termes de trajectoire \ce{CO2}. Voici ce à quoi je pense:
+\begin{enumerate}
+\item Comme ce qu'on a présenté dans le papier Pathway, une décroissance linéaire entre les émissions de 2020 et la neutralité carbone en 2050
+\item Sur base du budget \ce{CO2} identique à celui de la décroissance linéaire (~1.9Gt\ce{CO2}), imposer au myopique la trajectoire \ce{CO2} issue de l'optimisation perfect foresight. Dans cette option, il y a deux sous-choix:
+\begin{itemize}
+\item Imposer la neutralité carbone en 2050, comme dans le cas 1.
+\item Ne pas imposer la neutralité carbone en 2050
+\end{itemize}
+\item Sur base du budget \ce{CO2} que je donne implicitement comme objectif à mon agent (~1.2Gt\ce{CO2}), imposer au myopique la trajectoire \ce{CO2} issue de l'optimisation perfect foresight. Dans cette option, il y a deux sous-choix:
+\begin{itemize}
+\item Imposer la neutralité carbone en 2050, comme dans le cas 1.
+\item Ne pas imposer la neutralité carbone en 2050
+\end{itemize}
+\end{enumerate}
+Perso, je choisirais de me rapprocher le plus possible de ce que je fais ensuite avec l'agent. Du coup, ce serait le cas 3  sans imposer la neutralité carbone 2050. Dans ce cas, pour l'avoir observé, le modèle n'atteint pas la neutralité carbone. 
+
+Quel est votre avis sur la question?
+}
+
+Define the case study and the \ce{CO2} trajectory. 
+
+\subsection{Results and comparison with Perfect foresight}
+
+\subsection{Discussion and perspective with the literature} 
