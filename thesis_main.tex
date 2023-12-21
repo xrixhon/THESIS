@@ -57,46 +57,53 @@
 
 \mainmatter
 
-% -- Introduction --------------------------------------------------
-\chapter*[Introduction]{Introduction}
-\addcontentsline{toc}{chapter}{Introduction}
-\input{chap_intro_ccl/intro}
-\clearpage
+%% -- Introduction --------------------------------------------------
+%\chapter*[Introduction]{Introduction}
+%\addcontentsline{toc}{chapter}{Introduction}
+%\input{chap_intro_ccl/intro}
+%\clearpage
 
-% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE ---------------------------------
-\chapter{From a whole-energy system model and an uncertainty quantification framework}
-\label{chap:chap1_ES_PCE}
-\input{chap1_ES_PCE/chap1_ES_PCE}
-\clearpage
+%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE ---------------------------------
+%\chapter{From a whole-energy system model and an uncertainty quantification framework}
+%\label{chap:chap_ES_PCE}
+%\input{chap_ES_PCE/chap_ES_PCE}
+%\clearpage
 
 
-% -- Chapter 2 - UQ on a snapshot model, assessment of electrofuels ---------------------------------
-\chapter{Electrofuels and uncertainties in a target future year}
-\label{chap:chap2_electro_uq}
-\input{chap2_electro_uq/chap2_electro_uq}
-\clearpage
+%% -- Chapter 2 - UQ on a snapshot model, assessment of electrofuels ---------------------------------
+%\chapter{Electrofuels and uncertainties in a target future year}
+%\label{chap:chap_electro_uq}
+%\input{chap_electro_uq/chap_electro_uq}
+%\clearpage
 
-%% -- Chapter 3 - Myopic implementation on the pathway optimisation -----------------------------
+%% -- Chapter 3 - Case study -----------------------------
 \clearemptydoublepage
-\chapter{From a perfect foresight to a myopic optimisation of the pathway} 
-\label{chap:chap3_myopic}
-\input{chap3_myopic/chap3_myopic}
+\chapter{Case study: the Belgian energy system} 
+\label{chap:case_study}
+\input{chap_case_study/chap_case_study}
 \clearpage
+
+%%% -- Chapter 3 - Myopic implementation on the pathway optimisation -----------------------------
+%\clearemptydoublepage
+%\chapter{From a perfect foresight to a myopic optimisation of the pathway} 
+%\label{chap:chap_myopic}
+%\input{chap_myopic/chap_myopic}
+%\clearpage
 
 
 %% -- Chapter 4 - Reinforcement Learning -
-\clearemptydoublepage
-\chapter{Reinforcement Learning \ce{CO2}-policy robust optimisation}
-\label{chap:chap4_RL}
-\input{chap4_RL/chap4_RL}
-\clearpage
+%\clearemptydoublepage
+%\chapter{Reinforcement Learning \ce{CO2}-policy robust optimisation}
+%\label{chap:chap_RL}
+%\input{chap_RL/chap_RL}
+%\clearpage
 
 % -- Conclusion ----------------------------------------------------
-\clearemptydoublepage
-\chapter*[Conclusions]{Conclusions} 
-\addcontentsline{toc}{chapter}{Conclusions}
-\input{chap_intro_ccl/conclusion}
-\clearpage
+%\clearemptydoublepage
+%\chapter*[Conclusions]{Conclusions} 
+%\addcontentsline{toc}{chapter}{Conclusions}
+%\input{chap_intro_ccl/conclusion}
+%\clearpage
 
 %\clearemptydoublepage
 
@@ -120,15 +127,19 @@
 %%                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\begin{appendices}
-%
-%% -- Appendix 1 - Full results -------------------------------------
-%\chapter{Complete results}
-%\label{chap:app_results}
-%\input{appendices/full_res}
+\begin{appendices}
+
+% -- Appendix 1 - Full results -------------------------------------
+\chapter{Belgian energy system in 2020}
+\label{app:bel_2020}
+\input{appendices/belgium_2020}
+
+\chapter{\ce{CO2}-budget versus linear decrease of emissions}
+\label{app:CO2_budget}
+\input{appendices/CO2_budget}
 
 
-%\end{appendices}
+\end{appendices}
 
 
 \end{document}

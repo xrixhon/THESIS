@@ -263,3 +263,17 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+appendices/.DS_Store
+
+chap_ES_PCE/.DS_Store
+
+chap_methodo/.DS_Store
+
+chap_myopic/.DS_Store
+
+chap_RL/.DS_Store
+
+chap_case_study/.DS_Store
+
+chap_electro_uq/.DS_Store

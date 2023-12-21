@@ -8,9 +8,14 @@
 %%                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\mytitle}{Robust optimisation of the pathway\\ towards a sustainable whole-energy system}
-\newcommand{\mysubtitle}{A hierarchical multi-objective \\reinforcement-learning based approach}
+\newcommand{\mytitle}{Robust optimisation of the pathway\texorpdfstring{\\ towards a sustainable whole-energy system}{}}
+\newcommand{\mysubtitle}{A hierarchical multi-objective\texorpdfstring{\\ reinforcement-learning based approach}{}}
 \newcommand{\myauthor}{Xavier Rixhon}
+
+\def\eg{e.g.\ }
+\def\ie{i.e.\ }
+\def\og{``}
+\def\fg{"}
 
 
 \usepackage[record,style=alttreegroup,nomain,symbols]{glossaries-extra}
@@ -123,6 +128,7 @@
 
 %\pagestyle{ruled}
 \nouppercaseheads
+\pagestyle{headings}
 \makeheadrule{headings}{\textwidth}{0.3pt}
 
 
@@ -134,7 +140,7 @@
 
 % -- Figures -------------------------------------------------------
 \usepackage{graphicx}
-\graphicspath{{frontend/img/}{chap_intro_ccl/img/}{chap1_ES_PCE/img/}{chap2_electro_uq/img/}{chap3_myopic/img/}{chap4_RL/img/}} % Figures folder different for each input
+\graphicspath{{frontend/img/}{chap_intro_ccl/img/}{chap_case_study/img/}{chap_ES_PCE/img/}{chap_electro_uq/img/}{chap_methodo/img/}{chap_myopic/img/}{chap_RL/img/}{appendices/img/}} % Figures folder different for each input
 %\graphicspath{{img/}} %
 \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
 
@@ -215,7 +221,7 @@
 %\usepackage{esint} % Intégrales multiples
 %\usepackage{esvect} % Vecteurs
 \usepackage{mathtools}
-%\usepackage{pifont}
+\usepackage{pifont}
 
 % Put the equation label in the document, to help writing
 \usepackage{showlabels}
@@ -243,7 +249,7 @@
 % -- Bibliography --------------------------------------------------
 % For natbib help, see http://merkel.texture.rocks/Latex/natbib.php?lang=fr
 %\usepackage{biblatex}
-\usepackage[square,numbers,compress]{natbib}
+\usepackage[square,numbers,sort&compress]{natbib}
 %\usepackage{pdfcomment}
 %\usepackage[square,numbers,compress]{natbibtooltip}
 \usepackage{textcomp} % recognize the textquotesingle from bib
