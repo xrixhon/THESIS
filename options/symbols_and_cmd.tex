@@ -17,6 +17,8 @@
 
 %% B
 \newabbreviation[group={Acronyms}]{BEV}{BEV}{battery electric vehicle}
+\newabbreviation[group={Acronyms}]{BTX}{BTX}{benzene, toluene and xylene}
+
 
 %% C
 \newabbreviation[group={Acronyms}]{CCGT}{CCGT}{combined cycle gas turbine}
@@ -25,12 +27,14 @@
 \newabbreviation[group={Acronyms}]{DHN}{DHN}{district heating network}
 
 %% E
+\newabbreviation[group={Acronyms}]{ESTD}{EnergyScope TD}{EnergyScope Typical Days}
 \newabbreviation[group={Acronyms}]{EUD}{EUD}{end-use demand}
 
 %% F
 \newabbreviation[group={Acronyms}]{FC}{FC}{fuel cell}
 
 %% G
+\newabbreviation[group={Acronyms}]{GHG}{GHG}{greenhouse gases}
 \newabbreviation[group={Acronyms}]{GWP}{GWP}{global warming potential}
 
 %% H
@@ -39,14 +43,27 @@
 
 %% L
 \newabbreviation[group={Acronyms}]{LCOE}{LCOE}{levelised cost of energy}
+\newabbreviation[group={Acronyms}]{LFO}{LFO}{light fuel oil}
+\newabbreviation[group={Acronyms}]{LPG}{LPG}{liquefied petroleum gas}
+
+%% M
+\newabbreviation[group={Acronyms}]{MMSA}{MMSA}{Methanol Market Services Asia}
+\newabbreviation[group={Acronyms}]{MTBE}{MTBE}{methyl tert-butyl ether}
+
 
 
 %% N
 \newabbreviation[group={Acronyms}]{NED}{NED}{non-energy demand}
+\newabbreviation[group={Acronyms}]{NG}{NG}{natural gas}
+\newabbreviation[group={Acronyms}]{NRE}{NRE}{non-renewable energy}
+\newabbreviation[group={Acronyms}]{NSC}{NSC}{naphtha steam cracker}
 
 %% P
 \newabbreviation[group={Acronyms}]{PCE}{PCE}{Polynomial Chaos Expansion}
 \newabbreviation[group={Acronyms}]{PV}{PV}{photovoltaic}
+
+%% R
+\newabbreviation[group={Acronyms}]{RE}{RE}{renewable energy}
 
 
 
@@ -241,3 +258,10 @@
 \newcommand{\jb}[1]{\textcolor{jb}{#1}}
 \newcommand{\tg}[1]{\textcolor{tg}{#1}}
 \newcommand{\jh}[1]{\textcolor{jh}{#1}}
+
+% Boxes at the beginning of the chapter
+\usepackage{enumitem}
+\definecolor{dark_blue}{RGB}{0,33,78}
+\definecolor{very_light_blue}{RGB}{227, 241, 255}
+\usepackage{tcolorbox} % to create boxes in the text
+\newtcolorbox{mybox}[1]{colback=very_light_blue,colframe=dark_blue,fonttitle=\bfseries,title=#1}
