@@ -41,9 +41,13 @@
 \newabbreviation[group={Acronyms}]{HP}{HP}{heat pump}
 \newabbreviation[group={Acronyms}]{HVC}{HVC}{high value chemicals}
 
+%% I
+\newabbreviation[group={Acronyms}]{IEA}{IEA}{International Energy Agency}
+
 %% L
 \newabbreviation[group={Acronyms}]{LCOE}{LCOE}{levelised cost of energy}
 \newabbreviation[group={Acronyms}]{LFO}{LFO}{light fuel oil}
+\newabbreviation[group={Acronyms}]{LOO}{LOO}{leave-one-out}
 \newabbreviation[group={Acronyms}]{LPG}{LPG}{liquefied petroleum gas}
 
 %% M
@@ -103,6 +107,13 @@
 %\newcommand{\ABL}[2]{$U_\mABL=\SIms{#1}$ - $TI_\mABL={#2}\%$}
 %------------------------
 %% B
+\newcommand*{\boldcheckmark}{%
+  \textpdfrender{
+    TextRenderingMode=FillStroke,
+    LineWidth=.8pt, % half of the line width is outside the normal glyph
+  }{\checkmark}%
+}
+
 
 %------------------------
 %% C

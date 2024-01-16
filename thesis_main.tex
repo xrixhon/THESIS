@@ -48,6 +48,10 @@
 
 \printunsrtglossaries
 
+% -- Abstract ------------------------------------------------------
+\include{frontend/publications}
+\clearemptydoublepage
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                %%
@@ -63,11 +67,11 @@
 %\input{chap_intro_ccl/intro}
 %\clearpage
 
-%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE ---------------------------------
-%\chapter{From a whole-energy system model and an uncertainty quantification framework}
-%\label{chap:chap_ES_PCE}
-%\input{chap_ES_PCE/chap_ES_PCE}
-%\clearpage
+%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
+\chapter{Methodology: Through a variety of complementary tools}
+\label{chap:chap_methodo}
+\input{chap_methodo/chap_methodo}
+\clearpage
 
 
 %% -- Chapter 2 - UQ on a snapshot model, assessment of electrofuels ---------------------------------
@@ -77,11 +81,11 @@
 %\clearpage
 
 %% -- Chapter 3 - Case study -----------------------------
-\clearemptydoublepage
-\chapter{Case study: the Belgian energy system} 
-\label{chap:case_study}
-\input{chap_case_study/chap_case_study}
-\clearpage
+%\clearemptydoublepage
+%\chapter{Case study: the Belgian energy system} 
+%\label{chap:case_study}
+%\input{chap_case_study/chap_case_study}
+%\clearpage
 
 %%% -- Chapter 4 - UQ on pathway and focus - Atom versus molecules -----------------------------
 %\clearemptydoublepage
@@ -129,10 +133,15 @@
 
 \begin{appendices}
 
-% -- Appendix 1 - Full results -------------------------------------
+% -- Appendix 1 - Case study -------------------------------------
 \chapter{Case study: the Belgian energy system}
 \label{app:case_study}
 \input{appendices/app_case_study}
+
+% -- Appendix 2 - EnergyScope-------------------------------------
+\chapter{EnergyScope Pathway: More details on its choice and its formulation}
+\label{app:EnergyScope}
+\input{appendices/app_EnergyScope}
 
 \end{appendices}
 

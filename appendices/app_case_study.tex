@@ -3,7 +3,7 @@
 The Belgian whole-energy system of 2020 was largely based (88.6\% of the primary energy mix) on \og conventional fuels\fg (\ie oil and oil products (38.2\%), natural gas (29.5\%), uranium (16.3\%) and solid fossil fuels (4.6\%) while the rest mainly accounts for 26.7\,TWh of lignocellulosic and wet biomass, 12.8\,TWh of wind and 5.1\,TWh of solar \cite{spf_economy_2022}. Given the data available in the literature (mostly for the power sector) and, when not available, following the assumptions made by \citet{Limpens2020}, \Cref{tab:Belgium_2020} gives the major technologies used in 2020 to supply the different demands of \Cref{fig:cs_demands}.
 
 \begin{table}[htbp!]
-\caption{Major technologies used to supply the 2020-demands of \Cref{fig:cs_demands} in terms of share of production and installed capacity. $^{(a)}$ The decentralised heating units provide 98\% of the low-temperature heat demand. $^{(b)}$ The private mobility accounts for 80\% of the passengers mobility.}
+\caption{Major technologies used to supply the 2020-demands of \Cref{fig:cs_demands} in terms of share of production and installed capacity.}
 \label{tab:Belgium_2020}
 \begin{minipage}{\linewidth}
 \centering
@@ -23,7 +23,7 @@ The Belgian whole-energy system of 2020 was largely based (88.6\% of the primary
  & Coal boiler & 30\% & 2.3\,GW\\
  & Oil boiler & 20\% & 1.5\,GW\\
 \midrule
-\multirow{3}{*}{Heat Low-Temp. (DEC)$^{(a)}$}
+\multirow{3}{*}{Heat Low-Temp. (DEC)\footnote{\label{foot:DHN_98}The decentralised heating units provide 98\% of the low-temperature heat demand. }}
  & Oil boiler & 48\% & 21.4\,GW\\
  & Gas boiler & 40\% & 17.5\,GW\\
  & Wood boiler & 10\% & 4.4\,GW\\
@@ -33,7 +33,7 @@ The Belgian whole-energy system of 2020 was largely based (88.6\% of the primary
  & Gas boiler & 15\% & 0.3\,GW\\
  & Waste CHP & 15\% & 0.1\,GW\\
 \midrule
-\multirow{2}{*}{Private mobility$^{(b)}$}
+\multirow{2}{*}{Private mobility\footnote{\label{foot:privatemob_80}The private mobility accounts for 80\% of the passengers mobility.}}
  & Diesel car & 49\% & 93.5\,Mpass.-km/h\\
  & Gasoline car & 49\% & 94.7\,Mpass.-km/h\\
  & HEV & 2\% & 5.9\,Mpass.-km/h\\
@@ -79,14 +79,17 @@ This work considers nine groups of uncertain parameters: (i) the cost of purchas
 
 % \textcolor{red}{\textbf{See low-wind speed in 2021 from energy key data edition february 2023 (wind-based production decreased 6.4\% despite additional wind farm installations), to justify the -22\% for c,p,t}}
 
+%$^{(a)}$ Per \cite{Moret2017PhDThesis}, \og I: investment-type, II: operation-type (constant uncertainty over time), III: operation-type (uncertainty increasing over time)\fg. $^{(b)}$ The nominal values of each of the parameters is 0, meaning no variation compared to the nominal values of the impacted parameter in the model. $^{(c)}$ This range has been inferred from the local sensitivity analysis performed by \citet{PATHS2050}.
+
 \begin{table}[htbp!]
-\caption{Application of the uncertainty characterization method to the EnergyScope Pathway model for the year 2025. $^{(a)}$ Per \cite{Moret2017PhDThesis}, \og I: investment-type, II: operation-type (constant uncertainty over time), III: operation-type (uncertainty increasing over time)\fg. $^{(b)}$ The nominal values of each of the parameters is 0, meaning no variation compared to the nominal values of the impacted parameter in the model. $^{(c)}$ This range has been inferred from the local sensitivity analysis performed by \citet{PATHS2050}.}
+\caption{Application of the uncertainty characterization method to the EnergyScope Pathway model for the year 2025. }
 \label{tab:UC_full}
+\begin{minipage}{\linewidth}
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{l l l c c c}
 \toprule
-\multirow{2}{*}{\textbf{Category}} & \multirow{2}{*}{\textbf{Parameter}} & \multirow{2}{*}{\textbf{Meaning}} & \multirow{2}{*}{\textbf{Type}$^{(a)}$}  & \multicolumn{2}{c}{\textbf{Relative variation$^{(b)}$}}\\
+\multirow{2}{*}{\textbf{Category}} & \multirow{2}{*}{\textbf{Parameter}} & \multirow{2}{*}{\textbf{Meaning}} & \multirow{2}{*}{\textbf{Type}\footnote{\label{foot:type_uncert_range}Per \cite{Moret2017PhDThesis}, \og I: investment-type, II: operation-type (constant uncertainty over time), III: operation-type (uncertainty increasing over time)\fg . }}  & \multicolumn{2}{c}{\textbf{Relative variation}\footnote{\label{foot:nom_val_uncert}The nominal values of each of the parameters is 0, meaning no variation compared to the nominal values of the impacted parameter in the model. }}\\
     & & & &	 min 	&	 max \\ 	
 \midrule		
 \multirow{4}{*}{\textbf{Cost of purchasing}} & $c_{\mathrm{op,fossil}}$ & Purchase fossil fuels & II & -64.3\% & 179.8\% \\
@@ -103,7 +106,7 @@ This work considers nine groups of uncertain parameters: (i) the cost of purchas
 & $c_{\mathrm{inv,PV}}$ & CAPEX PV & I & -39.6\% & 39.6\% \\
 & $c_{\mathrm{inv,grid}}$ & CAPEX power grid & I & -39.3\% & 39.3\% \\
 & $c_{\mathrm{inv,grid\_enforce}}$ & CAPEX grid reinforcement & I & -39.3\% & 39.3\% \\
-& $\bm{c_{\mathrm{inv,nuclear\_SMR}}}$ & \textbf{CAPEX \gls{SMR}}$^{(c)}$ & \textbf{I} & \textbf{-40.0\%} & \textbf{44.0\%} \\
+& $\bm{c_{\mathrm{inv,nuclear\_SMR}}}$ & \textbf{CAPEX \gls{SMR}}\footnote{\label{foot:range_SMR}This range has been inferred from the local sensitivity analysis performed by \citet{PATHS2050}.} & \textbf{I} & \textbf{-40.0\%} & \textbf{44.0\%} \\
 \midrule
 \textbf{Maintenance cost} & $c_{\mathrm{maint,var}}$ & Variable OPEX of technologies & I & -48.2\% & 35.7\% \\
 \midrule
@@ -137,4 +140,5 @@ This work considers nine groups of uncertain parameters: (i) the cost of purchas
 \bottomrule							
 
 \end{tabular}}
+\end{minipage}
 \end{table}
