@@ -56,6 +56,106 @@ Methanol & Import & 100\% & -\\
 \end{minipage}
 \end{table}
 
+\section{Belgian energy transition pathway towards carbon-neutrality in 2050} 
+\label{app:bel_PF_TD}
+This section presents the results of the deterministic (\ie all parameters at their respective nominal value) perfect foresight optimisation of the Belgian energy transition pathway constrained to a linear decrease of the \gls{GHG} emissions from 2020 (121~MtCO\textsubscript{2,eq}) to carbon-neutrality in 2050.  After performing a technical investigation of the pathway by checking the greenhouse gas breakdown by energy sectors, the primary energy mix is analysed. To illustrate the sector coupling, a focus is made on the electrification of other sectors. Then, the cost implications in terms of investments and operations are discussed.
+
+\subsection{Greenhouse gases and primary energy}
+% GHG reduction
+Figure \ref{fig:pestd_ghg} shows the \acrfull{GHG} per sector. 
+%As a reminder, the total \acrshort{GHG} is capped linearly between its historical value in 2020 (121~MtCO\textsubscript{2,eq}) and 0 in 2050. This approach is necessary for the myopic approach, while other approaches, such as imposing a carbon budget over the transition or an end goal (carbon neutrality in 2050) would be more realistic\footnote{The carbon budget has been implemented for the perfect foresight in a previous work \cite{limpens2021generating}. In this work, Figure 7.14 shows a Pareto Carbon-budget - transition cost. The study shows that no transition would be 7\% less expensive but emitting 75\% more \gls{GHG} while not achieving carbon neutrality. Moreover, reducing the carbon budget by a little amount could have a small impact on the cost down to a certain amount. As an example, reducing the carbon budget by 13\% will imply an extra cost of 1.3\%.}. 
+The system reaches its upper bound (\ie maximum emissions) every year. 
+
+ \begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{Gwp_per_sector.pdf}
+\caption{Energy sectors have different speed to reduce \gls{GHG} emissions over the transition. The system uses all the allowed \gls{GHG} prescribed by the linear decrease from the emissions in 2020 until carbon-neutrality in 2050.}
+\label{fig:pestd_ghg}
+\end{figure}
+
+The defossilisation\footnote{In a more sustainable future, some of the energy carriers, currently produced mostly from fossil resources, will still consist of hydrocarbons (\eg e-methane or e-methanol). This is why this paper rather uses ``defossilisation" rather than ``decarbonisation" as carbon will still play a key role in a carbon-neutral energy transition \cite{mertens2020carbon}.} of the different sectors are not performed at the same rate. The non-energy demand of methanol and ammonia are substituted by electrofuels. These are the first use of electrofuels as  e-ammonia is the cheapest electrofuel thanks to the high maturity of the Haber-Bosch process. The decentralised heat and mobility sectors are also dropping first. This is a combination of efficiency and substitution of fossil fuels with electricity. Efficiency comes mainly from district heating networks and electrical heat pumps for the heat sector, and public mobility and electric cars for the mobility sector. From 2040 onward, the decreases are mainly due to the substitution of the remaining fossil fuels by electrofuels as illustrated in Figure \ref{fig:pestd_primary_energy}.
+
+Figure \ref{fig:pestd_primary_energy} shows the primary energy mix for the different representative years. The pathway verifies five trends: (i) reduction of primary energy thanks to energy efficiency; (ii) massive integration of endogenous renewable energies; (iii) importance of electrification; (iv) the usage of gas as the last fossil resource; and (v) the obligation to rely on renewable fuels to achieve carbon neutrality.
+
+ \begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{Resources.pdf}
+\caption{Primary energy emitting \gls{GHG} (below Uranium) are reducing linearly with fossil gas remaining until 2045. A part of this energy is replaced by renewable ones and starting from 2040, a significant share of electrofuels. As end-use demands slightly increase (see Figure \ref{fig:cs_demands}), the drop represents energy efficiency (\ie providing the same services with less primary energy).}
+\label{fig:pestd_primary_energy}
+\end{figure}
+
+The energy supply decreases from 554~TWh/y in 2020 down to 368~TWh/y in 2050 (\ie -34\%) whereas, in the meantime, the demands have increased by 19\%, on average. This drop of primary energy consumption reflects the penetration of efficient measures and technologies, such as the previously mentioned public mobility, \gls{DHN} or heat pumps. The results in 2050 are aligned with other studies, such as \citet{Devogelaer2013}\footnote{This study was ordered by the National Planning Bureau in 2013. Five scenarios are proposed.} and My2050\footnote{The Climate Change Service of the Federal Public Service Health launched an initiative in 2012 entitled `\emph{Low Carbon Belgium by 2050}'. This initiative resulted in a report and a calculator in 2013 \cite{Cornet2013}. The Belgian calculator has been improved since then into a recent expert version called \textbf{My2050} \cite{My2050}. From this study, the results of two scenarios will be used: one based on an optimistic evolution of technologies (Technology), and one focusing on an increased dependence on neighbouring countries (EU integration).} \cite{My2050} which estimates respectively a range of 305-417 TWh/y and 307-364~TWh/y for their central scenarios. 
+
+The first fossil energy to phase out is gasoline, which is exclusively used for private cars. Indeed, private mobility is partially replaced by public one\footnote{Given the major role played by private cars in the Belgian passenger mobility nowadays (\ie around 80\% \cite{BFP_mob}), public transport (\eg tramways, buses and trains) is assumed to be able to supply only half of it.}; and the cars are switching from gasoline and diesel to electricity. Then, diesel and \gls{LFO} are decreasing. As diesel is used for trucks and buses mobility, it is harder to phase out compared to gasoline exclusively burned in cars. The first drop of \gls{LFO} reflects the switch from oil boilers to other technologies: heat pumps and gas cogeneration mainly. Then, it is mainly used for the production of \gls{HVC}, this reflects that \gls{HVC} is a feedstock hard to defossilise. Finally, coal is kept mainly for industrial usage because it is a cheap fossil fuel (mainly for industrial usage). To phase it out beforehand, a penalty mechanism, such as a carbon tax, would be required, or its strict ban should be put in place. The last fossil energy present in the system is fossil gas, used for the production of electricity and heat, through cogeneration mainly. Indeed, gas plays a key role to balance the intermittency of solar and wind.
+
+The consumption of uranium declines in 2025, dropping to 2 GW, primarily due to the political framework aimed at phasing out nuclear energy \cite{nuclear_2035}. In the initial stages, significant deployment of endogenous energies takes place. This includes the utilization of wood, wet biomass, and wind energy, followed by the introduction of solar energy. However, solar energy is not fully deployed during this period due to higher integration costs. Starting from 2025, the importation of electrofuels begins, although their significant utilisation is observed from 2035 onwards. Initially, these fuels are predominantly employed as feedstocks in non-energy sectors. From 2040, e-methanol is additionally utilised for the production of High-Value Chemicals (HVCs), e-hydrogen is employed for mobility purposes, and both e-methane and e-ammonia are used for electricity generation through gas \gls{CHP} and ammonia-based \gls{CCGT} plants (see Figure \ref{fig:ELEC_tech_cap}).
+
+In 2020, Belgium has been a net-exporter of electricity, however with the shut-down of nuclear power plants and the increase of electricity consumption, Belgium will become a net importer of electricity. These imports reach their maximal allowed capacity by 2035 (i.e. 30\% of electricity end use). This strong dependence on imported electricity illustrates the need for balancing intermittent renewables without relying on fossil fuels.
+
+\subsection{Electricity sector: Capacities and yearly balance}
+\label{subsubsec:elec_sector}
+To better understand the electricity sector, the installed production capacities are given in Figure \ref{fig:ELEC_tech_cap}, while the supply-demand yearly balance is illustrated in Figure \ref{fig:ELEC_layer}.
+
+\begin{figure}[!htbp]
+     \centering
+         \includegraphics[width=\textwidth]{ELEC_tech_cap.pdf}
+         \caption{The electrical production capacity will experience  massive expansion of wind turbines (onshore and then offshore) and a soaring installed capacity of \gls{PV}. Ammonia \gls{CCGT} are installed at the end of the transition to provide a flexible capacity as gas \gls{CCGT} are phased out.}
+         \label{fig:ELEC_tech_cap}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+     \centering
+         \includegraphics[width=\textwidth]{ELEC_layer.pdf}
+         \caption{The electricity supply (positive values) will remain a mix of different technologies where backup is first mainly provided by gas-\gls{CCGT} and then imported electricity, heat and power cogeneration and later ammonia-\gls{CCGT}. The electricity demand (negative values) is led by the electricity end-use demand, but the share used to electrify heat (heat pumps), vehicles (cars, trains, trams, ...) and industrial heaters drastically increase. This enables a flexible demand that can facilitate the integration of intermittent renewables.}
+         \label{fig:ELEC_layer}
+\end{figure}
+
+As introduced in the primary energy analysis (see Figure \ref{fig:pestd_primary_energy}), renewable capacities soar. By 2050, wind and solar technologies deployments are 60~GW of \gls{PV}, 10~GW of onshore wind turbines and 6~GW of offshore wind turbines. To compensate the intermittency, the system relies on imported electricity, gas \gls{CCGT}, sector coupling and storage. As an illustration, in 2050, 176.8~TWh of electricity transit on the grid which includes 32.4~TWh of electricity imported and 15.4~TWh of electricity from \gls{CCGT}. This result is aligned with other studies that estimates different ranges: 180-310 TWh/y \cite{Devogelaer2013}, 126-140~TWh/y \cite{My2050} and in a more recent study 
+%\footnote{The EnergyVille consortium, made of belgian universities and research institutes, applied the TIMES-BE model to the case of Belgium to assess the energy transition pathways \cite{PATHS2050}. In this study, three scenarios are proposed: electrification, clean molecules and reference (called central in their report). They all reach carbon neutrality in 2050. The first allows more power production with new nuclear plants and more offshore wind. The clean molecules allow the import of synthetic molecules at a lower costs and have a more limited access to cross-border CO\textsubscript{2} storage.} 
+using the TIMES-BE model, 185-196~TWh/y \cite{PATHS2050}. Higher values from \citet{Devogelaer2013} illustrate an almost exclusively electrified energy system. The differences between the study ranges reflect the different assumptions in terms of renewable potentials and availability of nuclear energy. A general trend is that Belgium should maximise its use of endogenous renewable resources, which \citet{dubois2023multi} identified as a cheaper option than importing additional renewable energies from abroad. Demand management reflects the flexible use of electricity, mainly through heat pumps that uncouple the heat demand and the electricity consumption when combined with thermal storage. Gas \gls{CCGT} is also a useful asset to compensate intermittent renewables. However, its capacity remains the same as the one installed in 2020. These results are verifying an hourly adequacy of the power demand. Moreover, in a previous study by \citet{pavivcevic2022bidirectionnal}, the snapshot version of the model has been coupled with Dispa-SET, a dispatch optimisation model. Results showed that the backup capacity was underestimated by less than 20\% to respect reserve capacity, mainly due the lack of reserve capacity for grid stability.  
+
+From 2025, the electricity mix has a strong renewable share that rises up to 60\% in 2050. The remaining 40\% are mainly gas (or ammonia) in \gls{CCGT} and cogeneration and imported electricity. From a demand perspective, the electrification first starts with \gls{DHN} heat pumps, then electric cars, then decentralised heat pumps and finally industrial heaters. The latter reflects the usage of cheap \gls{PV} production peaks. 
+
+\subsection{Costs: Investments and operation}
+
+In the following paragraphs, the results are analysed from an economic perspective to decipher the choices made by the model, as the overall cost of the transition is 1 004~b€\textsubscript{2015} split unequally among the sectors. 
+
+Figure \ref{fig:pestd_cumul_inv} illustrates the cumulative investments made throughout the transition, amounting to a total of 377.8 b€\textsubscript{2015}. Initially, the infrastructure, transport, and electricity sectors each account for approximately one-third of the investments. The investments in infrastructure are primarily driven by the electricity grid and the \acrfull{DHN}, representing a combined investment of 73 b€\textsubscript{2015}. The electricity sector's investment is led by power plants, totalling 31.5 b€. Notably, the investment costs in the mobility sector are primarily attributed to private cars, constituting 71\% of the total. A rough estimation confirms the significant investment in cars, with an average of 500,000 vehicles registered annually in Belgium over the last decade \cite{febiac2021datadigest} and assuming an average cost of 20 k€ per car, the funds allocated to private cars amount to 10 b€ per year. This trend in private cars explains why the private mobility sector accounts for half of the investments required to achieve the transition by 2050. This finding aligns with other studies, such as \citet{Devogelaer2013}, which estimates cumulative investment expenditures of approximately 600 b€\textsubscript{2005} for the transport sector between 2013 and 2050, which confirms our conservative approach in the estimation.
+
+
+As a comparison, the investments required to fully deploy the PV and wind potentials from 2020 to 2050 amount to 74.4 b€\textsubscript{2015}, with an additional 22.2 b€\textsubscript{2015} allocated to reinforce the grid. The electrification of the heating sectors necessitates investments of 29.2 b€\textsubscript{2015}, including 6.5 b€\textsubscript{2015} for the deployment of the \gls{DHN} infrastructure. Storage investments, primarily focused on \gls{DHN} seasonal storage, amount to 3.6 b€\textsubscript{2015}. Apart from the investment required to replace all private vehicles (accounting for 44\% of the overall investments), the remaining sectors represent a total of 212 b€\textsubscript{2015}. To mitigate the cost of the transition, My2050 suggests deploying a fleet of no more than one million vehicles and implementing a car sharing system, distinct from car-pooling, as an inevitable measure \cite{My2050}.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{Investment_transition.pdf}
+\caption{The cumulative investments over the transition is unequally spread between the sectors. The energy system in 2020 is imposed to the existing energy system and its expenses are split in three main categories: mobility (mainly vehicles), infrastructure (mainly grids) and electricity (mainly thermal power plants). The investments required during the transition represents 150\% the initial investment and mainly in the same three sectors. }
+\label{fig:pestd_cumul_inv}
+\end{figure}
+
+A part of the investment will be recovered at the end of the transition based on the remaining lifespan of the technology after 2050. Figure \ref{fig:pestd_inv_return} illustrates the salvage value by sectors, calculated according to Eq. (\ref{eq:salvage}). Out of the 114.4~b€\textsubscript{2015} of investments in the infrastructure (\ie mostly power grid and gas network), 55.9\% remain available after 2050, due to their long lifetime. On the contrary, private mobility has a lower salvage value due to a major drop within the first four years and an average lifetime below 10 years \cite{febiac2021datadigest}. 
+% Consequently, out the 240.5~b€\textsubscript{2015}, including the initial investment of 75.7~b€\textsubscript{2015}, only 13.9\% would remain available after 2050.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{Investment_return.pdf}
+\caption{By the end of the transition (\ie in 2050), the ratio between the salvage value and its cumulative investment, per sector, is unequal. Investments in infrastructures, public mobility, storage and other long-lifetime technologies experience an important salvage value, at the contrary, investments in private mobility will not be recovered as vehicles have a short lifetime. All together, these salvage values represent 160.1 b€\textsubscript{2015}, 25\% of the cumulative investment costs in 2050.}
+\label{fig:pestd_inv_return}
+\end{figure}
+
+In addition to investment decisions, the \acrfull{OPEX}, which accounts for resource utilisation and technology maintenance, are significant. Figure \ref{fig:pestd_cumul_op} shows the yearly system cost for each sector except the \gls{OPEX} related to resources that are grouped together. The latter dominates the \gls{OPEX}, with a significant share of non-renewable resources (\ie 63.6\% in 2020) until 2040, followed by a steep increase in the share of renewable resources (\ie 66.2\% in 2050). The substantial reliance on non-renewable resources reflects the prevalent use of fossil fuels in our current energy system. The high cost-share of non-renewable fuels underscores the economic challenges of simply substituting fossil fuels with renewables, particularly evident when emphasizing that electrofuels are 2-3 times more expensive. Maintenance expenses in the private mobility sector rank second in terms of expenditure. On the other hand, maintenance expenses in other sectors are relatively small compared to the aforementioned sectors.
+
+\begin{figure}[!htbp] %@GL: check that text is aligned with new figure.
+\centering
+\includegraphics[width=\textwidth]{Operation_transition.pdf}
+\includegraphics[width=\textwidth]{System_cost.pdf}
+\caption{The yearly system cost shows the shift from non-renewable to renewable resources (mainly electrofuels). Operation cost and maintenance represents almost 50\% of the expenses.}
+\label{fig:pestd_cumul_op}
+\end{figure}
+
+The annualised cost of the energy system in 2020 is estimated to 44.3~b€/y and increases by 5.5~b€/y to reach 49.8~b€/y by 2050. \textbf{My2050} estimates the annualised cost in 2050 between 63 and 82~b€/y \cite{My2050}, while the other studies just indicate the cost increase compared to 2015 (+11.7 to +21) \citep{Devogelaer2013,PATHS2050}. The differences come from the scope of the energy system, as an example \textbf{My2050} also accounts for the agriculture sector. These differences highlight the difficulty to compare different studies due to difference of scope and partial availability of used data. Overall, comparing with existing studies shows the consistency of the results provided by EnergyScope Pathway.
+
 \section{\ce{CO2}-budget versus linear decrease of emissions}
 \label{app:CO2_budget}
 

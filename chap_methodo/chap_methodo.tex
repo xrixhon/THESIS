@@ -24,6 +24,7 @@
 \begin{itemize}
 \item Apply Stefano's method on the pathway model with a similar approach as Guevara et al.
 \item Check that PCE was appropriate as a method for such a system (ECOS2020)
+\item Work on the $C_inv_return$
 \end{itemize}
 
 \section*{Other authors' main contribution statement}
@@ -32,135 +33,135 @@ On top of the main contributions of this thesis that are aforementioned, three m
 \section{Whole-energy system transition model optimisation: EnergyScope Pathway}
 \label{sec:meth:ES}
 
-On the contrary, this work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review, EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). Presenting here only the main constraints of the model and the main input data in Section \ref{chap:case_study}, the reader is invited to refer to the extended paper \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway} for more extensive information.
+On the contrary, this work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the model. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
 
 \begin{figure}[htbp!]
 \centering
 \includegraphics[width=\textwidth]{ES_Pathway.pdf}
-\caption{Illustration of the pathway methodology based on an existing energy system model. The methodology spans from 2020 to 2050, with one representative year every five years. The model \acrfull{ESTD} is applied in 7 representative years (light blue boxes). The formulation includes additional constraints (black boxes) that link the years together. The pathway's initialisation assumes that all capacities installed in 2020 were built during the pseudo-phase of 2015-2020 (grey box). The overall problem is defined as the pathway model. Graph adapted from \cite{limpens2024pathway}.}
-\label{fig:meth_path_methodology}
+\caption{Illustration of the pathway methodology based on an existing energy system model. The methodology spans from 2020 to 2050, with one representative year every five years. The model \acrfull{ESTD} is applied in 7 representative years (light blue boxes). The formulation includes additional constraints (black boxes) that link the years together. The pathway's initialisation assumes that all capacities installed in 2020 were built during the pseudo-phase of 2015-2020 (grey box). The overall problem is defined as the pathway model.}
+\label{fig:meth_path_methodology_core}
 \end{figure}
-%
-%We used the perfect foresight (PF) formulation (\Cref{fig:meth_path_methodology})---the entire transition is computed in one optimisation, assuming a complete but uncertain knowledge of the different parameters until 2050. Even though this lacks realism compared to the myopic approach \cite{babrowski2014reducing,fais2016impact,heuberger2018impact} where the pathway is optimised via a sequence of shorter time windows, the perfect foresight approach allows to optimise the transition with a \ce{CO2}-budget (Section \ref{subsec:cs:CO2-budget}) rather than along a prescribed \ce{CO2}-trajectory. However, the work of \citet{limpens2024pathway} has shown that PF provides similar results for the study case compared to the myopic approach with a prescribed linear decrease of the \ce{CO2}-emissions . All the variables and constraints of the snapshot model, EnergyScope TD \cite{limpens2019energyscope}, are kept as is with an extra-dimension to relate them to a specific representative year, $y$, of the pathway. For instance, the energy balance is guaranteed at every hour of each of these years. 
-%
-%The optimised objective of the pathway model, \ie the total transition cost $\textbf{C\textsubscript{tot,trans}}$, is computed as follows: 
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign} 
-%% Objective function + investment 
-%\label{eq:obj_func_v2}%1
-%% adding 25pt space, otherwise flalign with two "&" would flush to the extreme 
-%\hspace{0pt} \min \text{  } & \textbf{C\textsubscript{tot,trans}} = \textbf{C\textsubscript{tot,capex}} + \textbf{C\textsubscript{tot,opex}}&\\
-%\label{eq:CAPEX_v2}
-%& \textbf{C\textsubscript{tot,capex}} =
-%\sum_{\mathclap{p \in \text{\emph{PHASE}}\cup \{2015\_2020\}}} 
-%\textbf{C\textsubscript{inv,phase}}(p)
-%-
-%\sum_{\mathclap{j \in \emph{TECH}}} 
-%\textbf{C\textsubscript{inv,return}}(j)\\
-%  \label{eq:Copex_tot_v2}%5
-%& \textbf{C\textsubscript{tot,opex}} =  \textbf{C\textsubscript{opex}}(2020)
-%+ \emph{t\textsubscript{phase}}\cdot \tau\textsubscript{\emph{phase}}(p) \cdot \sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{P\_START}(p),y\textsubscript{stop}\in \emph{P\_STOP}(p)}} 
-% \Big(\textbf{C\textsubscript{opex}}(y\textsubscript{start}) + \textbf{C\textsubscript{opex}}(y\textsubscript{stop}) \Big)/2&\\
-%\label{eq:path_annu_factor}
-%& \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
-%%% GL_correction_v2 %% & \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
-%\end{flalign}
-%\endgroup
-%
-%\noindent
-%where $\emph{t\textsubscript{phase}}=5\,\text{years}$ and $\emph{diff\_2015\_year(p)}$ are respectively the duration of a phase between two representative years and the number of years between the middle of a phase and 2015 for a correct annualisation. $\textbf{C\textsubscript{inv,return}}$ accounts for the residual value, also called \textit{salvage value}, of the technologies installed during the transition and having not reached the end of their lifetime by 2050. This last variable is crucial to avoid penalising heavy (and potentially long-lifetime) investments at the end of the transition as these assets would still be operational beyond 2050. The interested reader will find more information about its implementation and the formulation choices related to it in the work of \citet{limpens2024pathway}. The other variables in Eq.\,(\ref{eq:CAPEX_v2}-\ref{eq:Copex_tot_v2}) are detailed here below:
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign} 
-%\label{eq:opex_yearly}
-%&\textbf{C\textsubscript{opex}} (y) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{C\textsubscript{maint}}(y,j) + \sum_{\mathclap{i \in \emph{RES}}} \textbf{C\textsubscript{op}}(y,i)&\forall y\in \emph{YEARS}\\
-%\label{eq:PhaseInv}%5
-%&\textbf{C\textsubscript{inv,phase}}(p) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{F\textsubscript{new}}(p,j)\cdot \tau\textsubscript{\emph{phase}}(p)\cdot \left(\emph{c\textsubscript{inv}}(\emph{y\textsubscript{start}},j) + \emph{c\textsubscript{inv}}(\emph{y\textsubscript{stop}},j)\right)/2&\notag\nonumber
-%\end{flalign}
-%\begin{flalign}
-%&&\forall p \in \emph{PHASE} | y\textsubscript{start}\in \emph{P\_START}(p),y\textsubscript{stop}\in \emph{P\_STOP}(p)
-%\end{flalign}
-%\endgroup
-%
-%\noindent
-%where $\textbf{F\textsubscript{new}}$ are the capacities newly installed. In Eq. (\ref{eq:opex_yearly}-\ref{eq:PhaseInv}), the costs related to each representative year are:
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign} 
-%% Objective function + investment 
-%% adding 25pt space, otherwise flalign with two "&" would flush to the extreme left
-%\hspace{0pt} 
-% \label{eq:c_inv}%3
-% &\textbf{C\textsubscript{inv}}(y,j) = c_{\text{\emph{inv}}}(y,j) \textbf{F}(y,j) & \forall y \in \text{\emph{YEARS}}, \forall j \in \text{\emph{TECH}}\\
-% \label{eq:c_maint}%4
-% &\textbf{C\textsubscript{maint}}(y,j) = c_{\text{\emph{maint}}}(y,j) \textbf{F}(y,j) & \forall y \in \text{\emph{YEARS}}, \forall j \in \text{\emph{TECH}}\\ 
-%  \label{eq:c_op}%5
-% &\textbf{C\textsubscript{op}}(y,i) = \sum_{\mathclap{t \in T }} c_{\text{\emph{op}}}(y,i) \textbf{F\textsubscript{t}}(y,i,t) t_{op} (t)  
-% & \forall y \in \text{\emph{YEARS}}, \forall i \in \text{\emph{RES}}
-% \end{flalign}
-% \endgroup
-%
-%\noindent where the variable $\textbf{F}$ represents the size of the installed capacities (for all technologies $j$) and the variable $\textbf{F\textsubscript{t}}$ is the hourly consumption of the resources; the parameters $c_{\text{\emph{inv}}}$ and $c_{\text{\emph{maint}}}$ are the CAPEX and the OPEX of the technologies, and the parameter $c_{\text{\emph{op}}}$ is the cost of purchasing resources. For the sake of simplicity, as done by \citet{limpens2024pathway}, the sum over the 8760 hours of the year is written as the sum over $t \in T $. 
-%
-%Then, as detailed in section \ref{subsec:cs:CO2-budget}, the \ce{CO2}-budget for the transition, $\textbf{GWP\textsubscript{tot,trans}}$, is computed and constrained as follows:
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign} 
-%\label{eq:gwp_tot_transition}
-%&\textbf{GWP\textsubscript{tot,trans}}= \textbf{GWP\textsubscript{tot}}(2020) + \emph{t\textsubscript{phase}}\sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{Y\_START}(p),y\textsubscript{stop}\in \emph{Y\_STOP}(p)}}\left(\textbf{GWP\textsubscript{tot}}(y\textsubscript{start}) +\textbf{GWP\textsubscript{tot}}(y\textsubscript{stop}) \right)/2 &
-%\\
-%\label{eq:limit_gwp_trans}
-%& \textbf{GWP\textsubscript{tot,trans}} \leq \emph{gwp\textsubscript{lim,trans}}&
-%\end{flalign}
-%\endgroup
-%
-%\noindent
-%where the computation of the yearly emissions are based on the \acrfull{GWP} of the resources:
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign}
-%\hspace{0pt}
-% \label{eq:GWP_tot}%8
-% & \textbf{GWP\textsubscript{tot}}(y)  =    \sum_{\mathclap{i \in \text{\emph{RES}}}} \textbf{GWP\textsubscript{op}}(y,i) 
-% & \forall y \in \text{\emph{YEARS}}\\
-%  \label{eq:GWP_op}%7
-% & \textbf{GWP\textsubscript{op}}(y,i) = \sum_{\mathclap{t \in T }} gwp_{\text{\emph{op}}}(y,i) \textbf{F\textsubscript{t}}(y,i,t)  t_{op} (t) & \forall y \in \text{\emph{YEARS}}, \forall i \in \text{\emph{RES}}
-%\end{flalign}
-%\endgroup
-%
-%\noindent
-%where $gwp_{\text{\emph{op}}}$ is the specific emissions (\ie in kt$_{\ce{CO2},\text{eq}}$/GWh) of each resource. Based on an approach developed by the Intergovernmental Panel on Climate Change (IPCC) \cite{stocker2014climate}, this work considers the indicator ``GWP100a - IPCC2013'' to compute the emissions related to the use of resources. This includes the emissions due to the extraction, the transportation and the combustion of the energy carrier. EnergyScope proposes to account for the embodied emissions of the technologies based on a \gls{LCA}. These stand for extraction of materials, refining, construction and end of life \cite{schnidrig2023integration}. However, this work is still in progress and the database is not yet complete. Consequently, it is not included in this work and not accounted for.
-%
-%Besides this constraint on the emissions, the main constraint to link years with each other is the one dictating the installed capacities at the end of each year:
-%
-%\begingroup
-%\belowdisplayskip=2pt
-%\abovedisplayskip=2pt
-%\begin{flalign} 
-%\label{eq:F_newBuilt}%5
-%&\textbf{F}(y\textsubscript{stop},j) = \textbf{F}(y\textsubscript{start},j)
-% + \textbf{F\textsubscript{new}}(p,j)
-% - \textbf{F\textsubscript{old}}(p,j)
-% - \sum_{\mathclap{p2 \in \text{\emph{PHASE}} \cup \{2015\_2020\}}} \textbf{F\textsubscript{decom}}(p,p2,j)& \notag \nonumber 
-% \end{flalign}
-%\begin{flalign} 
-% &&  \forall p \in \text{\emph{PHASE}}, \emph{y\textsubscript{stop}} \in \emph{Y\_STOP}(p), \emph{y\textsubscript{start}} \in \emph{Y\_START}(p), j \in \text{\emph{TECH}}
-% \end{flalign}
-%\endgroup
-%
-%\noindent
-%where the variables $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript{decom}}$ are the capacities respectively having reached the end of their lifetime and prematurely decommissioned. Moreover, to account for the society inertia and to prevent unrealistically fast modal share change, constraints limit this change for the sectors of the low-temperature, the passenger mobility and freight mobility demands. The parameters $\Delta_{\mathrm{change,LT\_heat}}$, $\Delta_{\mathrm{change,pass}}$ and $\Delta_{\mathrm{change,freight}}$ respectively limit their respective modal share change up to 33\%, 50\% and 50\% per phase of 5 years.
+
+We used the perfect foresight (PF) formulation (\Cref{fig:meth_path_methodology_core})---the entire transition is computed in one optimisation, assuming a complete but uncertain knowledge of the different parameters until 2050. Even though this lacks realism compared to the myopic approach \cite{babrowski2014reducing,fais2016impact,heuberger2018impact} where the pathway is optimised via a sequence of shorter time windows, the perfect foresight approach allows to optimise the transition with a \ce{CO2}-budget (Section \ref{subsec:cs:CO2-budget}) rather than along a prescribed \ce{CO2}-trajectory. However, the work of \citet{limpens2024pathway} has shown that PF provides similar results for the study case compared to the myopic approach with a prescribed linear decrease of the \ce{CO2}-emissions . All the variables and constraints of the snapshot model, EnergyScope TD \cite{limpens2019energyscope}, are kept as is with an extra-dimension to relate them to a specific representative year, $y$, of the pathway. For instance, the energy balance is guaranteed at every hour of each of these years. 
+
+The optimised objective of the pathway model, \ie the total transition cost $\textbf{C\textsubscript{tot,trans}}$, is computed as follows: 
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+% Objective function + investment 
+\label{eq:obj_func_v2}%1
+% adding 25pt space, otherwise flalign with two "&" would flush to the extreme 
+\hspace{0pt} \min \text{  } & \textbf{C\textsubscript{tot,trans}} = \textbf{C\textsubscript{tot,capex}} + \textbf{C\textsubscript{tot,opex}}&\\
+\label{eq:CAPEX_v2}
+& \textbf{C\textsubscript{tot,capex}} =
+\sum_{\mathclap{p \in \text{\emph{PHASE}}\cup \{2015\_2020\}}} 
+\textbf{C\textsubscript{inv,phase}}(p)
+-
+\sum_{\mathclap{j \in \emph{TECH}}} 
+\textbf{C\textsubscript{inv,return}}(j)\\
+  \label{eq:Copex_tot_v2}%5
+& \textbf{C\textsubscript{tot,opex}} =  \textbf{C\textsubscript{opex}}(2020)
++ \emph{t\textsubscript{phase}}\cdot \tau\textsubscript{\emph{phase}}(p) \cdot \sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{P\_START}(p),y\textsubscript{stop}\in \emph{P\_STOP}(p)}} 
+ \Big(\textbf{C\textsubscript{opex}}(y\textsubscript{start}) + \textbf{C\textsubscript{opex}}(y\textsubscript{stop}) \Big)/2&\\
+\label{eq:path_annu_factor}
+& \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
+%% GL_correction_v2 %% & \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
+\end{flalign}
+\endgroup
+
+\noindent
+where $\emph{t\textsubscript{phase}}=5\,\text{years}$ and $\emph{diff\_2015\_year(p)}$ are respectively the duration of a phase between two representative years and the number of years between the middle of a phase and 2015 for a correct annualisation. $\textbf{C\textsubscript{inv,return}}$ accounts for the residual value, also called \textit{salvage value}, of the technologies installed during the transition and having not reached the end of their lifetime by 2050. This last variable is crucial to avoid penalising heavy (and potentially long-lifetime) investments at the end of the transition as these assets would still be operational beyond 2050. The interested reader will find more information about its implementation and the formulation choices related to it in the work of \citet{limpens2024pathway}. The other variables in Eq.\,(\ref{eq:CAPEX_v2}-\ref{eq:Copex_tot_v2}) are detailed here below:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:opex_yearly}
+&\textbf{C\textsubscript{opex}} (y) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{C\textsubscript{maint}}(y,j) + \sum_{\mathclap{i \in \emph{RES}}} \textbf{C\textsubscript{op}}(y,i)&\forall y\in \emph{YEARS}\\
+\label{eq:PhaseInv}%5
+&\textbf{C\textsubscript{inv,phase}}(p) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{F\textsubscript{new}}(p,j)\cdot \tau\textsubscript{\emph{phase}}(p)\cdot \left(\emph{c\textsubscript{inv}}(\emph{y\textsubscript{start}},j) + \emph{c\textsubscript{inv}}(\emph{y\textsubscript{stop}},j)\right)/2&\notag\nonumber
+\end{flalign}
+\begin{flalign}
+&&\forall p \in \emph{PHASE} | y\textsubscript{start}\in \emph{P\_START}(p),y\textsubscript{stop}\in \emph{P\_STOP}(p)
+\end{flalign}
+\endgroup
+
+\noindent
+where $\textbf{F\textsubscript{new}}$ are the capacities newly installed. In Eq. (\ref{eq:opex_yearly}-\ref{eq:PhaseInv}), the costs related to each representative year are:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+% Objective function + investment 
+% adding 25pt space, otherwise flalign with two "&" would flush to the extreme left
+\hspace{0pt} 
+ \label{eq:c_inv}%3
+ &\textbf{C\textsubscript{inv}}(y,j) = c_{\text{\emph{inv}}}(y,j) \textbf{F}(y,j) & \forall y \in \text{\emph{YEARS}}, \forall j \in \text{\emph{TECH}}\\
+ \label{eq:c_maint}%4
+ &\textbf{C\textsubscript{maint}}(y,j) = c_{\text{\emph{maint}}}(y,j) \textbf{F}(y,j) & \forall y \in \text{\emph{YEARS}}, \forall j \in \text{\emph{TECH}}\\ 
+  \label{eq:c_op}%5
+ &\textbf{C\textsubscript{op}}(y,i) = \sum_{\mathclap{t \in T }} c_{\text{\emph{op}}}(y,i) \textbf{F\textsubscript{t}}(y,i,t) t_{op} (t)  
+ & \forall y \in \text{\emph{YEARS}}, \forall i \in \text{\emph{RES}}
+ \end{flalign}
+ \endgroup
+
+\noindent where the variable $\textbf{F}$ represents the size of the installed capacities (for all technologies $j$) and the variable $\textbf{F\textsubscript{t}}$ is the hourly consumption of the resources; the parameters $c_{\text{\emph{inv}}}$ and $c_{\text{\emph{maint}}}$ are the CAPEX and the OPEX of the technologies, and the parameter $c_{\text{\emph{op}}}$ is the cost of purchasing resources. For the sake of simplicity, as done by \citet{limpens2024pathway}, the sum over the 8760 hours of the year is written as the sum over $t \in T $. 
+
+Then, as detailed in section \ref{subsec:cs:CO2-budget}, the \ce{CO2}-budget for the transition, $\textbf{GWP\textsubscript{tot,trans}}$, is computed and constrained as follows:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:gwp_tot_transition}
+&\textbf{GWP\textsubscript{tot,trans}}= \textbf{GWP\textsubscript{tot}}(2020) + \emph{t\textsubscript{phase}}\sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{Y\_START}(p),y\textsubscript{stop}\in \emph{Y\_STOP}(p)}}\left(\textbf{GWP\textsubscript{tot}}(y\textsubscript{start}) +\textbf{GWP\textsubscript{tot}}(y\textsubscript{stop}) \right)/2 &
+\\
+\label{eq:limit_gwp_trans}
+& \textbf{GWP\textsubscript{tot,trans}} \leq \emph{gwp\textsubscript{lim,trans}}&
+\end{flalign}
+\endgroup
+
+\noindent
+where the computation of the yearly emissions are based on the \acrfull{GWP} of the resources:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign}
+\hspace{0pt}
+ \label{eq:GWP_tot}%8
+ & \textbf{GWP\textsubscript{tot}}(y)  =    \sum_{\mathclap{i \in \text{\emph{RES}}}} \textbf{GWP\textsubscript{op}}(y,i) 
+ & \forall y \in \text{\emph{YEARS}}\\
+  \label{eq:GWP_op}%7
+ & \textbf{GWP\textsubscript{op}}(y,i) = \sum_{\mathclap{t \in T }} gwp_{\text{\emph{op}}}(y,i) \textbf{F\textsubscript{t}}(y,i,t)  t_{op} (t) & \forall y \in \text{\emph{YEARS}}, \forall i \in \text{\emph{RES}}
+\end{flalign}
+\endgroup
+
+\noindent
+where $gwp_{\text{\emph{op}}}$ is the specific emissions (\ie in kt$_{\ce{CO2},\text{eq}}$/GWh) of each resource. Based on an approach developed by the Intergovernmental Panel on Climate Change (IPCC) \cite{stocker2014climate}, this work considers the indicator ``GWP100a - IPCC2013'' to compute the emissions related to the use of resources. This includes the emissions due to the extraction, the transportation and the combustion of the energy carrier. EnergyScope proposes to account for the embodied emissions of the technologies based on a \gls{LCA}. These stand for extraction of materials, refining, construction and end of life \cite{schnidrig2023integration}. However, this work is still in progress and the database is not yet complete. Consequently, it is not included in this work and not accounted for.
+
+Besides this constraint on the emissions, the main constraint to link years with each other is the one dictating the installed capacities at the end of each year:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:F_newBuilt}%5
+&\textbf{F}(y\textsubscript{stop},j) = \textbf{F}(y\textsubscript{start},j)
+ + \textbf{F\textsubscript{new}}(p,j)
+ - \textbf{F\textsubscript{old}}(p,j)
+ - \sum_{\mathclap{p2 \in \text{\emph{PHASE}} \cup \{2015\_2020\}}} \textbf{F\textsubscript{decom}}(p,p2,j)& \notag \nonumber 
+ \end{flalign}
+\begin{flalign} 
+ &&  \forall p \in \text{\emph{PHASE}}, \emph{y\textsubscript{stop}} \in \emph{Y\_STOP}(p), \emph{y\textsubscript{start}} \in \emph{Y\_START}(p), j \in \text{\emph{TECH}}
+ \end{flalign}
+\endgroup
+
+\noindent
+where the variables $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript{decom}}$ are the capacities respectively having reached the end of their lifetime and prematurely decommissioned. Moreover, to account for the society inertia and to prevent unrealistically fast modal share change, constraints limit this change for the sectors of the low-temperature, the passenger mobility and freight mobility demands. The parameters $\Delta_{\mathrm{change,LT\_heat}}$, $\Delta_{\mathrm{change,pass}}$ and $\Delta_{\mathrm{change,freight}}$ respectively limit their respective modal share change up to 33\%, 50\% and 50\% per phase of 5 years.
 
 
 \section{Uncertainty quantification}
