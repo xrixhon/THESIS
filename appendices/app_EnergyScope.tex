@@ -140,6 +140,7 @@ In the spirit of the EnergyScope project, the code is fully open-source (under t
 EnergyScope Pathway is the extension of EnergyScope TD \cite{limpens2019energyscope} that follows the snapshot approach \cite{Girones2015}, consisting in optimising the system in a target future year. The objective of this section is to present the fundamental variables and constraints of the latter based on which the former was developed. There have been formulation choices to be made but they are not discussed in the current manuscript. However, the interested reader is invited to refer to the Appendix B of \cite{limpens2024pathway} for further information in this regard.
 
 \subsection{The starting point: a scenario analysis model}
+\label{app:ESTD}
 
 \vspace{0.2cm}\textbf{Overview of the snapshot model}\vspace{-0.3cm}\\
 
@@ -170,45 +171,45 @@ This work uses the following nomenclature: SETs are in capital letters, \textbf{
 \abovedisplayskip=2pt
 \begin{flalign} 
 % Objective function + investment 
-\label{eq:obj_func}%1
+\label{eq:obj_func_app}%1
 % adding 25pt space, otherwise flalign with two "&" would flush to the extreme left
 \hspace{0pt} \min \text{  } & \textbf{C\textsubscript{tot}} = \sum_{\mathclap{j \in \text{\emph{TECH}}}} \Big(\textbf{$\tau$}(j) \textbf{C\textsubscript{inv}}(j) + \textbf{C\textsubscript{maint}} (j)\Big) + \sum_{\mathclap{i \in \text{\emph{RES}}}} \textbf{C\textsubscript{op}}(i)&\\
-\label{eq:tau}%2
+\label{eq:tau_app}%2
  \text{s.t. } & \textbf{$\tau$}(j) =  \frac{i_{\text{\emph{rate}}}(i_{\text{\emph{rate}}}+1)^{\emph{lifetime}(j)}}{(i_{\text{\emph{rate}}}+1)^{\emph{lifetime}(j)} - 1} & \forall j \in \text{\emph{TECH}}\\
- \label{eq:c_inv}%3
+ \label{eq:c_inv_app}%3
  & \textbf{C\textsubscript{inv}}(j) = c_{\text{\emph{inv}}}(j) \textbf{F}(j) & \forall j \in \text{\emph{TECH}}\\
- \label{eq:c_maint}%4
+ \label{eq:c_maint_app}%4
  & \textbf{C\textsubscript{maint}}(j) = c_{\text{\emph{maint}}}(j) \textbf{F}(j) & \forall j \in \text{\emph{TECH}}\\ 
-  \label{eq:c_op}%5
+  \label{eq:c_op_app}%5
  & \textbf{C\textsubscript{op}}(i) = \sum_{\mathclap{t \in T }} c_{\text{\emph{op}}}(i) \textbf{F\textsubscript{t}}(i,t) t_{op} (t)  
  & \forall i \in \text{\emph{RES}}
  \end{flalign}
  \endgroup
  
-The objective, Eq.~(\ref{eq:obj_func}), is the minimisation of the total annual cost of the energy system (\textbf{C\textsubscript{tot}}), defined as the sum of the annualised investment cost of the technologies (\textbf{$\tau$}$\cdot$\textbf{C\textsubscript{inv}}), the operating and maintenance costs of the technologies (\textbf{C\textsubscript{maint}}) and the operating cost of the resources (\textbf{C\textsubscript{op}}).
-The annualised factor $\tau$ is computed \emph{a priori} based on the interest rate (\emph{i\textsubscript{rate}}) and the technology lifetime, (\emph{lifetime}), Eq.~(\ref{eq:tau}).
-The total investment cost (\textbf{C\textsubscript{inv}}) of each technology results from the multiplication of its specific investment cost (\emph{c\textsubscript{inv}}) and its installed capacity (\textbf{F}), see Eq.~(\ref{eq:c_inv}).  The installed capacity is defined with respect to the main end-uses output type, such as electricity for \gls{PV} or heat for a boiler.
-The total operation and maintenance costs are calculated in the same way, Eq.~(\ref{eq:c_maint}). The total cost of the resources is calculated as the sum of the end-use over different periods multiplied by the period duration (\emph{t\textsubscript{op}}) and the specific cost of the resources (\emph{c\textsubscript{op}}), Eq.~(\ref{eq:c_op}). To simplify the reading, we write the sum over typical days as $t\in T$ such as in Eq.~(\ref{eq:c_op}) and following equations. The period $T$ represents the sequence of hours and typical days over a year (8760h)\footnote{The exception is storage level which is optimised over the 365 days of the year instead of typical days.}. The full formulation is detailed in \cite{limpens2019energyscope} or in the documentation \cite{readthedocs_estd_v2.2}.
+The objective, Eq.~(\ref{eq:obj_func_app}), is the minimisation of the total annual cost of the energy system (\textbf{C\textsubscript{tot}}), defined as the sum of the annualised investment cost of the technologies (\textbf{$\tau$}$\cdot$\textbf{C\textsubscript{inv}}), the operating and maintenance costs of the technologies (\textbf{C\textsubscript{maint}}) and the operating cost of the resources (\textbf{C\textsubscript{op}}).
+The annualised factor $\tau$ is computed \emph{a priori} based on the interest rate (\emph{i\textsubscript{rate}}) and the technology lifetime, (\emph{lifetime}), Eq.~(\ref{eq:tau_app}).
+The total investment cost (\textbf{C\textsubscript{inv}}) of each technology results from the multiplication of its specific investment cost (\emph{c\textsubscript{inv}}) and its installed capacity (\textbf{F}), see Eq.~(\ref{eq:c_inv_app}).  The installed capacity is defined with respect to the main end-uses output type, such as electricity for \gls{PV} or heat for a boiler.
+The total operation and maintenance costs are calculated in the same way, Eq.~(\ref{eq:c_maint_app}). The total cost of the resources is calculated as the sum of the end-use over different periods multiplied by the period duration (\emph{t\textsubscript{op}}) and the specific cost of the resources (\emph{c\textsubscript{op}}), Eq.~(\ref{eq:c_op_app}). To simplify the reading, we write the sum over typical days as $t\in T$ such as in Eq.~(\ref{eq:c_op_app}) and following equations. The period $T$ represents the sequence of hours and typical days over a year (8760h)\footnote{The exception is storage level which is optimised over the 365 days of the year instead of typical days.}. The full formulation is detailed in \cite{limpens2019energyscope} or in the documentation \cite{readthedocs_estd_v2.2}.
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign}
- \label{eq:GWP_tot}%8
+ \label{eq:GWP_tot_app}%8
  \phantom{\hspace{0pt} \min \text{  } }
  & \textbf{GWP\textsubscript{tot}}  =    \sum_{\mathclap{i \in \text{\emph{RES}}}} \textbf{GWP\textsubscript{op}} (i) 
  &\\
-  \label{eq:GWP_op}%7
+  \label{eq:GWP_op_app}%7
  & \textbf{GWP\textsubscript{op}}(i) = \sum_{\mathclap{t \in T }} gwp_{\text{\emph{op}}}(i) \textbf{F\textsubscript{t}}(i,t)  t_{op} (t) & \forall i \in \text{\emph{RES}}
 \end{flalign}
 \endgroup
 
  
-The global annual \gls{GHG} emissions are calculated using a \gls{LCA} approach, i.e. taking into account emissions of the resources `\emph{from cradle to use}'. It is based on the indicator `\emph{GWP100a-IPCC2013}´ developed by the \acrfull{IPCC} \cite{IPCC2014}. For climate change, the natural choice as indicator is the \acrlong{GWP}, expressed in ktCO$_2$-eq./year. In Eq.~(\ref{eq:GWP_tot}), the total yearly emissions  of the system (\textbf{GWP\textsubscript{tot}}) are defined as the emissions related to resources (\textbf{GWP\textsubscript{op}}). The total emissions of the resources are the emissions associated to fuels (from cradle to combustion) and imports of electricity (\emph{gwp\textsubscript{op}}) multiplied by the period duration  (\emph{t\textsubscript{op}}), Eq.~(\ref{eq:GWP_op}).
+The global annual \gls{GHG} emissions are calculated using a \gls{LCA} approach, i.e. taking into account emissions of the resources `\emph{from cradle to use}'. It is based on the indicator `\emph{GWP100a-IPCC2013}´ developed by the \acrfull{IPCC} \cite{IPCC2014}. For climate change, the natural choice as indicator is the \acrlong{GWP}, expressed in ktCO$_2$-eq./year. In Eq.~(\ref{eq:GWP_tot_app}), the total yearly emissions  of the system (\textbf{GWP\textsubscript{tot}}) are defined as the emissions related to resources (\textbf{GWP\textsubscript{op}}). The total emissions of the resources are the emissions associated to fuels (from cradle to combustion) and imports of electricity (\emph{gwp\textsubscript{op}}) multiplied by the period duration  (\emph{t\textsubscript{op}}), Eq.~(\ref{eq:GWP_op_app}).
 Thus, this version accounts only for operation without accounting for the \gls{GWP} emitted during the construction of the technologies. This makes the results comparable with metrics used in the reports by the European Commission and the \acrfull{IEA}.
 
 
-The above equations (Eqs. (\ref{eq:obj_func}) - (\ref{eq:GWP_op})) represent only a part of the formulation and illustrate the syntax that is used. Those representing the energy balance, network implementation, sectors representation, etc. are not presented in this work but are detailed in the latest version of the model, see \cite{limpens2021generating} and on the documentation \cite{readthedocs_estd_v2.2}. 
+The above equations (Eqs. (\ref{eq:obj_func_app}) - (\ref{eq:GWP_op_app})) represent only a part of the formulation and illustrate the syntax that is used. Those representing the energy balance, network implementation, sectors representation, etc. are not presented in this work but are detailed in the latest version of the model, see \cite{limpens2021generating} and on the documentation \cite{readthedocs_estd_v2.2}. 
 
 Finally, energy storage has two dimensions to be optimised: the stored energy quantity (also referred to as 'storage level') and the hourly power flow, encompassing both charging and discharging. EnergyScope TD optimises the hourly charge and discharge operations based on the hourly resolution of the typical days. In contrast, the optimisation of stored energy is conducted over the entire span of 8760 hours in a year. This formulation allows for the effective integration of a wide range of energy storage technologies, spanning short-term solutions like small thermal storage units and daily-use batteries, to longer-term options such as hydro-dam storage for seasonal storage, and even large-scale thermal storage for intra-week patterns. A previous study delved into the roles of various storage technologies, considering their sectoral applications and temporal aspects, within the context of the Swiss energy system \cite{Limpens_role_2019}.
 
@@ -249,7 +250,7 @@ Moreover, during the latter phase, additional capacity is decommissioned  premat
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:F_newBuilt}%5
+\label{eq:F_newBuilt_app}%5
 &\textbf{F}(y\textsubscript{stop},i) = \textbf{F}(y\textsubscript{start},i)
  + \textbf{F\textsubscript{new}}(p,i)
  - \textbf{F\textsubscript{old}}(p,i)
@@ -261,7 +262,7 @@ Moreover, during the latter phase, additional capacity is decommissioned  premat
 
 \endgroup
  
-Similarly to a mass balance, Eq.~(\ref{eq:F_newBuilt}) is the technology capacity balance. The constraint forces the installation or withdrawing of capacities between two representative years: 
+Similarly to a mass balance, Eq.~(\ref{eq:F_newBuilt_app}) is the technology capacity balance. The constraint forces the installation or withdrawing of capacities between two representative years: 
 at the end of the phase (\emph{y\textsubscript{stop}}), the available capacity is the one used in the next representative year (\textbf{F}(\emph{y\textsubscript{stop}})). This capacity is equal to the one available in the previous representative year (\textbf{F}(\emph{y\textsubscript{start}})) plus the new installed capacity (\textbf{F\textsubscript{new}}) minus the capacity that has reached its lifetime (\textbf{F\textsubscript{old}}) minus the early decommissioned capacity (\textbf{F\textsubscript{decom}}). One notices that the capacity available for each representative year depends on a year (\emph{y\textsubscript{start}} or \emph{y\textsubscript{stop}}), while the other capacity changes depend on a phase (\emph{p} or \emph{p}2). Moreover, the decommissioning term depends on another phase, which is the one when the technology decommissioned has been built. As an illustration, Figure \ref{fig:path_eg_igcc} gives an example where 0.5 GW of a capacity built in 2015\_2020 is decommissioned in 2030\_2035 (\textbf{F\textsubscript{decom}}(2030\_2035,2015\_2020,i)). 
 
  \begingroup
@@ -272,11 +273,11 @@ at the end of the phase (\emph{y\textsubscript{stop}}), the available capacity i
 \notag \nonumber
  \end{flalign}
 \begin{flalign} 
-  \label{eq:F_decomNonPhysic1}
+  \label{eq:F_decomNonPhysic1_app}
 & &  \forall i \in \emph{TECH}, p\in \emph{PHASE}, p2 \in \emph{PHASE} \cup \{2015\_2020\} | \emph{decom\textsubscript{allowed}}(p,p2) = 0 & 
  \end{flalign}
   \begin{flalign}
- \label{eq:Fold_def}%1
+ \label{eq:Fold_def_app}%1
 &\textbf{F\textsubscript{old}} (p,i) =  
 \hspace{3mm}\text{if} ( \emph{age} = `\emph{STILL\_IN\_USE}') \text{ then  } 0   &   &\notag\nonumber\\
 &\hspace{2cm}\text{else } \left(\textbf{F\textsubscript{new}}(age,i)  - \sum_{\vspace{5mm}\mathclap{p2 \in \text{\emph{PHASE}}}} \textbf{F\textsubscript{decom}} (p2,age,i)\right)    & \notag\nonumber\\
@@ -284,24 +285,24 @@ at the end of the phase (\emph{y\textsubscript{stop}}), the available capacity i
  \end{flalign}
 \endgroup
 
-In linear programming, a solution might be mathematically correct, while not making sense in practice. As an example, a technology could be decommissioned before being built ($ \emph{p} < \emph{p\textsubscript{built}}$). Eqs.~(\ref{eq:F_decomNonPhysic1}-\ref{eq:Fold_def})  allow preventing these non-sense while keeping the formulation linear. 
-Eq.~(\ref{eq:F_decomNonPhysic1}) forces the decommissioned capacity to zero when technology will be built after.
+In linear programming, a solution might be mathematically correct, while not making sense in practice. As an example, a technology could be decommissioned before being built ($ \emph{p} < \emph{p\textsubscript{built}}$). Eqs.~(\ref{eq:F_decomNonPhysic1_app}-\ref{eq:Fold_def_app})  allow preventing these non-sense while keeping the formulation linear. 
+Eq.~(\ref{eq:F_decomNonPhysic1_app}) forces the decommissioned capacity to zero when technology will be built after.
 To do so, a parameter (\emph{decom\textsubscript{allowed}}) is defined \emph{a priori} and is equal to 0 or 1 when decommissioning is not possible or possible, respectively. 
-Eq.~(\ref{eq:Fold_def}) defines the capacity reaching its lifetime limit at a certain phase, the concept is illustrated in Figure \ref{fig:path_eg_igcc}. For each phase, a set (\emph{AGE}) is calculated \emph{a priori}. It relates, for a given phase and technology, when the technology should have been built.  
-In the case the technology has already reached its lifetime limit, the set (\emph{AGE}) returns the phase when the technology has been built. The first part of Eq.~(\ref{eq:Fold_def}) indicates that the technology is still available, and thus no capacity needs to be removed. The second part of the equation represents the capacity that reached its expected lifetime minus a part of the capacity that would have been decommissioned. 
+Eq.~(\ref{eq:Fold_def_app}) defines the capacity reaching its lifetime limit at a certain phase, the concept is illustrated in Figure \ref{fig:path_eg_igcc}. For each phase, a set (\emph{AGE}) is calculated \emph{a priori}. It relates, for a given phase and technology, when the technology should have been built.  
+In the case the technology has already reached its lifetime limit, the set (\emph{AGE}) returns the phase when the technology has been built. The first part of Eq.~(\ref{eq:Fold_def_app}) indicates that the technology is still available, and thus no capacity needs to be removed. The second part of the equation represents the capacity that reached its expected lifetime minus a part of the capacity that would have been decommissioned. 
 As an example, Figure \ref{fig:path_eg_igcc} shows a 20 years lifetime technology with 1~GW of capacity installed before 2020. 
-Ones will highlight the use of a `if' in Eq. (\ref{eq:Fold_def}), this formulation is linear as the if is applied to a parameter and not a variable. 
+Ones will highlight the use of a `if' in Eq. (\ref{eq:Fold_def_app}), this formulation is linear as the if is applied to a parameter and not a variable. 
 
  \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
- \label{eq:Phase2020Design}
+ \label{eq:Phase2020Design_app}
 & \textbf{F\textsubscript{new}}(\emph{2015\_2020},i) = \textbf{F}(\emph{YEAR\_2020},i)& \forall i \in \emph{TECH}
  \end{flalign}
 \endgroup
 
-To initialise the problem in 2020 with the existing design, an additional phase `\emph{2015\_2020}' is created. Eq.~(\ref{eq:Phase2020Design}) requires that the capacity used in 2020 is installed in the previous phase. 
+To initialise the problem in 2020 with the existing design, an additional phase `\emph{2015\_2020}' is created. Eq.~(\ref{eq:Phase2020Design_app}) requires that the capacity used in 2020 is installed in the previous phase. 
 
 \vspace{0.2cm}\textbf{Society inertia}\vspace{-0.3cm}\\
 
@@ -311,25 +312,25 @@ To avoid unrealistically fast changes in the system, additional constraints are 
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:delta_tech_during_phase}
+\label{eq:delta_tech_during_phase_app}
 & \textbf{$\Delta$\textsubscript{change}}(p,i) \geq 
    \sum_{\mathclap{t \in T }} \left( \textbf{F\textsubscript{t}}(\emph{y\textsubscript{start}},i,t) \right) 
    -\sum_{\mathclap{t \in T }} \left( \textbf{F\textsubscript{t}}(\emph{y\textsubscript{stop}},i,t) \right)&\notag\nonumber\\
 &&\hspace{-8cm} \forall j \in \emph{TECH}, p \in \emph{PHASE}, \emph{y\textsubscript{start}} \in \emph{Y\_START}(p), \emph{y\textsubscript{stop}} \in \emph{Y\_STOP}(p)
  \end{flalign}
  \begin{flalign}
-\label{eq:limit_reno_LTheat}
+\label{eq:limit_reno_LTheat_app}
 &\sum_{\mathclap{\hspace{2cm}i\in TECH(HeatLowT)}} \textbf{$\Delta$\textsubscript{change}}(p,i) 
 \leq
  \emph{lim\textsubscript{LT,ren}} \cdot 
 \big( {eui}(\emph{y\textsubscript{start}},HotWater)  +  \emph{eui}(\emph{y\textsubscript{start}},SpaceHeat)  \big)\hspace{-1cm}&\notag\nonumber\\
 &\hspace{5.5cm} \forall p \in \emph{PHASE}, \emph{y\textsubscript{start}} \in \emph{Y\_START}(p) & \\
-\label{eq:limit_reno_passmob}
+\label{eq:limit_reno_passmob_app}
 &\sum_{\mathclap{\hspace{2cm}i\in TECH(MobPass)}} \textbf{$\Delta$\textsubscript{change}}(p,i) 
 \leq
  \emph{lim\textsubscript{MobPass}} \cdot \emph{eui}(\emph{y\textsubscript{start}},MobPass) )&\notag\nonumber\\
 &\hspace{5.5cm} \forall p \in \emph{PHASE}, \emph{y\textsubscript{start}} \in \emph{Y\_START}(p) & \\
-\label{eq:limit_reno_freight}
+\label{eq:limit_reno_freight_app}
 &\sum_{\mathclap{\hspace{2cm}i\in TECH(MobFreight)}} \textbf{$\Delta$\textsubscript{change}}(p,i) 
 \leq
  \emph{lim\textsubscript{MobFreight}} \cdot \emph{eui}(\emph{y\textsubscript{start}},MobFreight) &\notag\nonumber\\
@@ -341,11 +342,11 @@ To avoid unrealistically fast changes in the system, additional constraints are 
 %\hspace{3cm} euc \in EUT\_OF\_CAT(MobPass),i\in \emph{TECH\_OF\_EUT}(euc)
 %\hspace{3cm} euc \in EUT\_OF\_CAT(MobFreight),i\in \emph{TECH\_OF\_EUT}(euc)
 
-Eq.~(\ref{eq:delta_tech_during_phase}) calculates the upper limit of change (\textbf{$\Delta$\textsubscript{change}}) in terms of supplied demand instead of installed capacity. 
+Eq.~(\ref{eq:delta_tech_during_phase_app}) calculates the upper limit of change (\textbf{$\Delta$\textsubscript{change}}) in terms of supplied demand instead of installed capacity. 
 %% GL_correction_v2 %% Following line added:
 %  Ici on prend la différence entre ystart et ystop (et non pas le contraire), en effet, on est intéressé par la réticence des personnes à se séparer de leur ancienne technologie, plutot que la réticense à accepter une nouvelle techno. 
 %% GL_correction_v2 %% end
-Based on this quantification, the amount of change per phase is limited for low temperature heat (\emph{lim\textsubscript{LT,ren}}), Eq.~(\ref{eq:limit_reno_LTheat}), passenger mobility (\emph{lim\textsubscript{MobPass}}), Eq.~(\ref{eq:limit_reno_passmob}) and freight mobility (\emph{lim\textsubscript{MobFreight}}), Eq.~(\ref{eq:limit_reno_freight}). 
+Based on this quantification, the amount of change per phase is limited for low temperature heat (\emph{lim\textsubscript{LT,ren}}), Eq.~(\ref{eq:limit_reno_LTheat_app}), passenger mobility (\emph{lim\textsubscript{MobPass}}), Eq.~(\ref{eq:limit_reno_passmob_app}) and freight mobility (\emph{lim\textsubscript{MobFreight}}), Eq.~(\ref{eq:limit_reno_freight_app}). 
 For instance, if the maximum allowable variation in supplied low temperature heat is set at 25\%, it would restrict the technology-related changes in low temperature heat to 25\% within a given phase. Consequently, if a technology supplies more than 25\% of the low temperature heat, it would require multiple phases to replace it with a different technology.
 %As an example, setting the maximum change of supplied heat at low temperature to 25\% would limit the change in technology related to heat at low temperature to 25\% during a phase. 
 %In this case, if more than 25\% of the low temperature heat was supplied by a technology, it would take more than one phase to replace it by a different one.
@@ -361,21 +362,21 @@ Concerning the first one, all costs are expressed in €\textsubscript{2015} and
 \abovedisplayskip=2pt
 \begin{flalign} 
 % Objective function + investment 
-\label{eq:obj_func_v2}%1
+\label{eq:obj_func_v2_app}%1
 % adding 25pt space, otherwise flalign with two "&" would flush to the extreme 
 \hspace{0pt} \min \text{  } & \textbf{C\textsubscript{tot,trans}} = \textbf{C\textsubscript{tot,capex}} + \textbf{C\textsubscript{tot,opex}}&\\
-\label{eq:Capex_v2}
+\label{eq:Capex_v2_app}
 & \textbf{C\textsubscript{tot,capex}} =
 \sum_{\mathclap{p \in \text{\emph{PHASE}}\cup \{2015\_2020\}}} 
 \textbf{C\textsubscript{inv,phase}}(p)
 -
 \sum_{\mathclap{i \in \emph{TECH}}} 
 \textbf{C\textsubscript{inv,return}}(i)\\
-  \label{eq:Copex_tot_v2}%5
+  \label{eq:Copex_tot_v2_app}%5
 & \textbf{C\textsubscript{tot,opex}} =  \textbf{C\textsubscript{opex}}(2020)
 + \emph{t\textsubscript{phase}}\cdot \tau\textsubscript{\emph{phase}}(p) \cdot \sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{P\_START}(p),y\textsubscript{stop}\in \emph{P\_STOP}(p)}} 
  \Big(\textbf{C\textsubscript{opex}}(y\textsubscript{start}) + \textbf{C\textsubscript{opex}}(y\textsubscript{stop}) \Big)/2&\\
-\label{eq:path_annu_factor}
+\label{eq:path_annu_factor_app}
 & \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
 %% GL_correction_v2 %% & \tau\textsubscript{\emph{phase}}(p) = 1/(1+\emph{i\textsubscript{rate}})^{\emph{diff\_2015\_year(p)}} &
 \end{flalign}
@@ -383,26 +384,26 @@ Concerning the first one, all costs are expressed in €\textsubscript{2015} and
 
 The objective function to be minimised is the total transition cost of the energy system (\textbf{C\textsubscript{tot,trans}}), 
 %The objective is the minimisation of the total transition cost of the energy system (\textbf{C\textsubscript{tot,trans}}),
-defined as the sum of the total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) and the \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}), according to Eq.~(\ref{eq:obj_func_v2}). The total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) is the sum of the investment during each phase (\textbf{C\textsubscript{inv,phase}}), Eq.~(\ref{eq:Capex_v2}), to which the residual asset investment cost in 2050 is withdrawn (\textbf{C\textsubscript{inv,return}}). Thus, the investments account for the installation and dismantlement costs of the technologies. The total \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}) is the sum of the \gls{OPEX} in 2020 and the annualised sum of the \gls{OPEX} during each phase (\textbf{C\textsubscript{opex}}), Eq.~(\ref{eq:Copex_tot_v2}). During a phase, the system \gls{OPEX} is 
-the product of the annualised phase factor, defined in Eq.~(\ref{eq:path_annu_factor}), and the arithmetic average of \gls{OPEX} cost for the representative years before and after the phase. The annualised phase factor is defined based on an average interest rate during the transition.
-%assumed to be the annualised average of its first and last year. The annualised phase factor  ($\tau$\textsubscript{\emph{phase}}) is defined in Eq.~(\ref{eq:path_annu_factor}).
+defined as the sum of the total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) and the \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}), according to Eq.~(\ref{eq:obj_func_v2_app}). The total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) is the sum of the investment during each phase (\textbf{C\textsubscript{inv,phase}}), Eq.~(\ref{eq:Capex_v2_app}), to which the residual asset investment cost in 2050 is withdrawn (\textbf{C\textsubscript{inv,return}}). Thus, the investments account for the installation and dismantlement costs of the technologies. The total \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}) is the sum of the \gls{OPEX} in 2020 and the annualised sum of the \gls{OPEX} during each phase (\textbf{C\textsubscript{opex}}), Eq.~(\ref{eq:Copex_tot_v2_app}). During a phase, the system \gls{OPEX} is 
+the product of the annualised phase factor, defined in Eq.~(\ref{eq:path_annu_factor_app}), and the arithmetic average of \gls{OPEX} cost for the representative years before and after the phase. The annualised phase factor is defined based on an average interest rate during the transition.
+%assumed to be the annualised average of its first and last year. The annualised phase factor  ($\tau$\textsubscript{\emph{phase}}) is defined in Eq.~(\ref{eq:path_annu_factor_app}).
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:opex_yearly}
+\label{eq:opex_yearly_app}
 &\textbf{C\textsubscript{opex}} (y) = \sum_{\mathclap{i \in \emph{TECH}}} \textbf{C\textsubscript{maint}}(y,i) + \sum_{\mathclap{j \in \emph{RES}}} \textbf{C\textsubscript{op}}(y,j)&\forall y\in \emph{YEARS}
 \end{flalign}
 \endgroup
 
-For each year, the yearly \gls{OPEX} (\textbf{C\textsubscript{opex}}) is the sum of the operating and maintenance costs of technologies (\textbf{C\textsubscript{maint}}) and  the operating cost of the resources (\textbf{C\textsubscript{op}}), Eq.~(\ref{eq:opex_yearly}).
+For each year, the yearly \gls{OPEX} (\textbf{C\textsubscript{opex}}) is the sum of the operating and maintenance costs of technologies (\textbf{C\textsubscript{maint}}) and  the operating cost of the resources (\textbf{C\textsubscript{op}}), Eq.~(\ref{eq:opex_yearly_app}).
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:PhaseInv}%5
+\label{eq:PhaseInv_app}%5
 &\textbf{C\textsubscript{inv,phase}}(p) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{F\textsubscript{new}}(p,j)\cdot \tau\textsubscript{\emph{phase}}(p)\cdot \left(\emph{c\textsubscript{inv}}(\emph{y\textsubscript{start}},j) + \emph{c\textsubscript{inv}}(\emph{y\textsubscript{stop}},j)\right)/2&\notag\nonumber
 \end{flalign}
 \begin{flalign}
@@ -410,14 +411,14 @@ For each year, the yearly \gls{OPEX} (\textbf{C\textsubscript{opex}}) is the sum
 \end{flalign}
 \endgroup
 
-The investment during a phase (\textbf{C\textsubscript{inv,phase}}) results from the multiplication of the newly built technologies (\textbf{F\textsubscript{new}}) with their annualised arithmetic averaged specific cost, Eq.~(\ref{eq:PhaseInv}). The annualised phase factor  (defined by Eq.~(\ref{eq:path_annu_factor})) is used. The specific cost during the phase is defined as  the average between the investment cost for the first and last year of the period. 
+The investment during a phase (\textbf{C\textsubscript{inv,phase}}) results from the multiplication of the newly built technologies (\textbf{F\textsubscript{new}}) with their annualised arithmetic averaged specific cost, Eq.~(\ref{eq:PhaseInv_app}). The annualised phase factor  (defined by Eq.~(\ref{eq:path_annu_factor_app})) is used. The specific cost during the phase is defined as  the average between the investment cost for the first and last year of the period. 
 
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:salvage}%5
+\label{eq:salvage_app}%5
 &\textbf{C\textsubscript{inv,return}}(i) = \hspace{2.5cm}
 \sum_{\mathclap{p \in \emph{PHASE}\cup \{2015\_2020\}|y\textsubscript{start}\in \emph{Y\_START}(p),y\textsubscript{stop}\in \emph{Y\_STOP}(p)}} 
 \hspace{0.5cm}
@@ -440,18 +441,18 @@ As an example, if a PV panel has been built in 2045 and has a 20 years lifetime,
 Thus, the salvage value is a fraction of the investment cost of this technology when it has been built. 
 This fraction is the ratio between the number of remaining years and the lifetime of the technology. 
 In the previous example, the residual investment of the PV built is 75\%. 
-Eq. (\ref{eq:salvage}) computes, for each technology, the residual value that must be deducted from the total cost. The residual value reflects the fact that the technology can still be used after the horizon of the model and is not fully amortised. The residual value is not applied to technologies that are removed prematurely. This differ from other models, such as Plexos where a technology removed prematurely will benefit from its salvage value (see analysis of \cite{waucquez2023validation}).
+Eq. (\ref{eq:salvage_app}) computes, for each technology, the residual value that must be deducted from the total cost. The residual value reflects the fact that the technology can still be used after the horizon of the model and is not fully amortised. The residual value is not applied to technologies that are removed prematurely. This differ from other models, such as Plexos where a technology removed prematurely will benefit from its salvage value (see analysis of \cite{waucquez2023validation}).
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
-\label{eq:gwp_tot_transition}
+\label{eq:gwp_tot_transition_app}
 &\textbf{GWP\textsubscript{tot,trans}}= \textbf{GWP\textsubscript{tot}}(2020) + \emph{t\textsubscript{phase}}\sum_{\mathclap{p \in \emph{PHASE}|y\textsubscript{start}\in \emph{Y\_START}(p),y\textsubscript{stop}\in \emph{Y\_STOP}(p)}}/2 \left(\textbf{GWP\textsubscript{tot}}(y\textsubscript{start}) +\textbf{GWP\textsubscript{tot}}(y\textsubscript{stop}) \right)&
 \\
-\label{eq:limit_gwp_trans}
+\label{eq:limit_gwp_trans_app}
 & \textbf{GWP\textsubscript{tot,trans}} \leq \emph{gwp\textsubscript{lim,trans}}&
 \end{flalign}
 \endgroup
 
-The total \acrfull{GWP} emissions during the transition (\textbf{GWP\textsubscript{tot,trans}}) are equal to the sum of the total emissions per period (\textbf{GWP\textsubscript{tot}}), Eq.~(\ref{eq:gwp_tot_transition}). The emissions during a phase is estimated as the arithmetic average of the representative years before and after the phase. Eq.~(\ref{eq:limit_gwp_trans}) limits the total \gls{GWP} emissions during the transition by a maximum (\emph{gwp\textsubscript{lim,trans}}).
+The total \acrfull{GWP} emissions during the transition (\textbf{GWP\textsubscript{tot,trans}}) are equal to the sum of the total emissions per period (\textbf{GWP\textsubscript{tot}}), Eq.~(\ref{eq:gwp_tot_transition_app}). The emissions during a phase is estimated as the arithmetic average of the representative years before and after the phase. Eq.~(\ref{eq:limit_gwp_trans_app}) limits the total \gls{GWP} emissions during the transition by a maximum (\emph{gwp\textsubscript{lim,trans}}).

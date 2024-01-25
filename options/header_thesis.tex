@@ -33,6 +33,7 @@
 \usepackage[USenglish]{babel}
 \usepackage[T1]{fontenc} % Accents
 \usepackage{scrextend} % to use \footref: multiple reference to the same table footnote
+\usepackage{pbox} % to have new line inside table cells
 
 % -- Fonts ---------------------------------------------------------
 %\usepackage{lmodern}
@@ -141,7 +142,7 @@
 
 % -- Figures -------------------------------------------------------
 \usepackage{graphicx}
-\graphicspath{{frontend/img/}{chap_intro_ccl/img/}{chap_case_study/img/}{chap_ES_PCE/img/}{chap_electro_uq/img/}{chap_methodo/img/}{chap_myopic/img/}{chap_RL/img/}{appendices/img/}} % Figures folder different for each input
+\graphicspath{{frontend/img/}{chap_intro_ccl/img/}{chap_case_study/img/}{chap_ES_PCE/img/}{chap_electro_uq/img/}{chap_methodo/img/}{chap_myopic/img/}{chap_RL/img/}{chap_atom_mol/img/}{appendices/img/}} % Figures folder different for each input
 %\graphicspath{{img/}} %
 \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
 
@@ -268,7 +269,7 @@
 
 % -- Hyperref ------------------------------------------------------
 \PassOptionsToPackage{hyphens}{url} %this helps breaking URL when too long
-\usepackage[bookmarks]{hyperref}
+\usepackage[bookmarks,hidelinks]{hyperref}
 \usepackage{cleveref}
 \usepackage{bm} % To use \bm in order to get bold math symbols
 

@@ -19,12 +19,13 @@
 %
 %\medskip
 
-\section{Contributions}
+\section*{Contributions}
 \label{sec:meth:contributions}
 \begin{itemize}
+\item Develop the myopic approach
 \item Apply Stefano's method on the pathway model with a similar approach as Guevara et al.
 \item Check that PCE was appropriate as a method for such a system (ECOS2020)
-\item Work on the $C_inv_return$
+\item Update the $C_inv_return$ based on the initial investigation of \citet{goffauxpathway} and in line with \citet{poncelet2016myopic}.
 \end{itemize}
 
 \section*{Other authors' main contribution statement}
@@ -33,7 +34,10 @@ On top of the main contributions of this thesis that are aforementioned, three m
 \section{Whole-energy system transition model optimisation: EnergyScope Pathway}
 \label{sec:meth:ES}
 
-On the contrary, this work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the model. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
+This work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the former approach to further dig into more details about the latter. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
+
+\subsection{Perfect foresight: One global optimisation of the transition}
+\label{subsec:meth:PF}
 
 \begin{figure}[htbp!]
 \centering
@@ -42,13 +46,15 @@ On the contrary, this work optimises the entire transition pathway from a known 
 \label{fig:meth_path_methodology_core}
 \end{figure}
 
-We used the perfect foresight (PF) formulation (\Cref{fig:meth_path_methodology_core})---the entire transition is computed in one optimisation, assuming a complete but uncertain knowledge of the different parameters until 2050. Even though this lacks realism compared to the myopic approach \cite{babrowski2014reducing,fais2016impact,heuberger2018impact} where the pathway is optimised via a sequence of shorter time windows, the perfect foresight approach allows to optimise the transition with a \ce{CO2}-budget (Section \ref{subsec:cs:CO2-budget}) rather than along a prescribed \ce{CO2}-trajectory. However, the work of \citet{limpens2024pathway} has shown that PF provides similar results for the study case compared to the myopic approach with a prescribed linear decrease of the \ce{CO2}-emissions . All the variables and constraints of the snapshot model, EnergyScope TD \cite{limpens2019energyscope}, are kept as is with an extra-dimension to relate them to a specific representative year, $y$, of the pathway. For instance, the energy balance is guaranteed at every hour of each of these years. 
+The whole-energy system model developed in this work originates from the perfect foresight (PF) formulation (\Cref{fig:meth_path_methodology_core}) of EnergyScope---the entire transition is computed in one optimisation, assuming a complete but uncertain knowledge of the different parameters until 2050 \cite{limpens2024pathway}. All the variables and constraints of the snapshot model, EnergyScope TD \cite{limpens2019energyscope}, and summarized in Appendix \ref{app:ESTD}, are kept as is with an extra-dimension to relate them to a specific representative year, $y$, of the pathway. For instance, the energy balance is guaranteed at every hour of each of these years. 
 
 The optimised objective of the pathway model, \ie the total transition cost $\textbf{C\textsubscript{tot,trans}}$, is computed as follows: 
+
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
+
 \begin{flalign} 
 % Objective function + investment 
 \label{eq:obj_func_v2}%1
@@ -71,15 +77,38 @@ The optimised objective of the pathway model, \ie the total transition cost $\te
 \end{flalign}
 \endgroup
 
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:salvage}%5
+&\textbf{C\textsubscript{inv,return}}(i) = \hspace{2.5cm}
+\sum_{\mathclap{p \in \emph{PHASE}\cup \{2015\_2020\}|y\textsubscript{start}\in \emph{Y\_START}(p),y\textsubscript{stop}\in \emph{Y\_STOP}(p)}} 
+\hspace{0.5cm}
+ \tau_{phase}(p)\cdot \left(c_{inv}(y_{start},i)+c_{inv}(y_{stop},i)\right)/2 \cdot
+&\notag\nonumber
+\end{flalign}
+\begin{flalign}
+& 
+\hspace{1.7cm}
+\frac{remaining\_years(i,p)}{lifetime(y\textsubscript{start},i)} \left( \textbf{F\textsubscript{new}}(p,i) - 
+\sum_{\mathclap{p2 \in \emph{PHASE}}} 
+\textbf{F\textsubscript{decom}}(p2,p,i)\right)&
+\forall i \in \emph{TECH}
+\end{flalign}
+\endgroup
+
 \noindent
-where $\emph{t\textsubscript{phase}}=5\,\text{years}$ and $\emph{diff\_2015\_year(p)}$ are respectively the duration of a phase between two representative years and the number of years between the middle of a phase and 2015 for a correct annualisation. $\textbf{C\textsubscript{inv,return}}$ accounts for the residual value, also called \textit{salvage value}, of the technologies installed during the transition and having not reached the end of their lifetime by 2050. This last variable is crucial to avoid penalising heavy (and potentially long-lifetime) investments at the end of the transition as these assets would still be operational beyond 2050. The interested reader will find more information about its implementation and the formulation choices related to it in the work of \citet{limpens2024pathway}. The other variables in Eq.\,(\ref{eq:CAPEX_v2}-\ref{eq:Copex_tot_v2}) are detailed here below:
+where $\emph{t\textsubscript{phase}}=5\,\text{years}$ and $\emph{diff\_2015\_year(p)}$ are respectively the duration of a phase between two representative years and the number of years between the middle of a phase and 2015 for a correct annualisation. $\textbf{C\textsubscript{inv,return}}$ accounts for the residual value, also called \textit{salvage value}, of the technologies installed during the transition and having not reached the end of their lifetime by 2050. This last variable is crucial to avoid penalising heavy (and potentially long-lifetime) investments at the end of the transition as these assets would still be operational beyond 2050. The interested reader will find more information about the formulation choices related to it in the work of \citet{limpens2024pathway}. The other variables in Eq.\,(\ref{eq:CAPEX_v2}-\ref{eq:Copex_tot_v2}) are detailed here below:
+
 
 \begingroup
 \belowdisplayskip=2pt
 \abovedisplayskip=2pt
 \begin{flalign} 
+\hspace{0pt} 
 \label{eq:opex_yearly}
-&\textbf{C\textsubscript{opex}} (y) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{C\textsubscript{maint}}(y,j) + \sum_{\mathclap{i \in \emph{RES}}} \textbf{C\textsubscript{op}}(y,i)&\forall y\in \emph{YEARS}\\
+&\textbf{C\textsubscript{opex}} (y) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{C\textsubscript{maint}}(y,j) + \sum_{\mathclap{i \in \emph{RES}}} \textbf{C\textsubscript{op}}(y,i) \hspace{2.9cm} \forall y \in \text{\emph{YEARS}}\\
 \label{eq:PhaseInv}%5
 &\textbf{C\textsubscript{inv,phase}}(p) = \sum_{\mathclap{j \in \emph{TECH}}} \textbf{F\textsubscript{new}}(p,j)\cdot \tau\textsubscript{\emph{phase}}(p)\cdot \left(\emph{c\textsubscript{inv}}(\emph{y\textsubscript{start}},j) + \emph{c\textsubscript{inv}}(\emph{y\textsubscript{stop}},j)\right)/2&\notag\nonumber
 \end{flalign}
@@ -110,7 +139,7 @@ where $\textbf{F\textsubscript{new}}$ are the capacities newly installed. In Eq.
 
 \noindent where the variable $\textbf{F}$ represents the size of the installed capacities (for all technologies $j$) and the variable $\textbf{F\textsubscript{t}}$ is the hourly consumption of the resources; the parameters $c_{\text{\emph{inv}}}$ and $c_{\text{\emph{maint}}}$ are the CAPEX and the OPEX of the technologies, and the parameter $c_{\text{\emph{op}}}$ is the cost of purchasing resources. For the sake of simplicity, as done by \citet{limpens2024pathway}, the sum over the 8760 hours of the year is written as the sum over $t \in T $. 
 
-Then, as detailed in section \ref{subsec:cs:CO2-budget}, the \ce{CO2}-budget for the transition, $\textbf{GWP\textsubscript{tot,trans}}$, is computed and constrained as follows:
+Then, as detailed in section \ref{sec:cs:CO2-budget}, the \ce{CO2}-budget for the transition, $\textbf{GWP\textsubscript{tot,trans}}$, is computed and constrained as follows:
 
 \begingroup
 \belowdisplayskip=2pt
@@ -163,14 +192,142 @@ Besides this constraint on the emissions, the main constraint to link years with
 \noindent
 where the variables $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript{decom}}$ are the capacities respectively having reached the end of their lifetime and prematurely decommissioned. Moreover, to account for the society inertia and to prevent unrealistically fast modal share change, constraints limit this change for the sectors of the low-temperature, the passenger mobility and freight mobility demands. The parameters $\Delta_{\mathrm{change,LT\_heat}}$, $\Delta_{\mathrm{change,pass}}$ and $\Delta_{\mathrm{change,freight}}$ respectively limit their respective modal share change up to 33\%, 50\% and 50\% per phase of 5 years.
 
+\subsection{Myopic: Sequential optimisation of the transition with limited foresight}
+\label{subsec:meth:MY}
+
+One of the main methodological contributions of this work regarding the development of the whole-energy system model consists in giving it the possibility to optimise the transition pathway in a myopic approach.After introducing the general concept of it, this section details more the additions brought to the model in terms of implementation.
+
+\vspace{0.1cm}\textbf{General concept of the myopic optimisation}\vspace{-0.3cm}\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{MY_schematic.pdf}
+\caption{The myopic approach (in pink) uses several instances of the pathway model (illustrated in Figure \ref{fig:meth_path_methodology}). In this example, the pathway instance has a time horizon of 10 years ($N\textsubscript{year,opti}=10$) with a 5 year-overlap ($N\textsubscript{year,overlap}=5$). As a comparison the Perfect foresight (in blue) has a time horizon of 30 years.}
+\label{fig:my_schematic}
+\end{figure}
+
+Compared to the perfect foresight, the myopic approach (Figure \ref{fig:my_schematic}) has two main advantages: shorter computational time and more realistic representation of the short-sightedness of decision-makers. For this reason, several studies are based on this approach \citep{babrowski2014reducing,poncelet2016myopic,nerini2017myopic,heuberger2018impact}. \citet{babrowski2014reducing} analysed the benefit of the myopic approach to reduce the computational time. \citet{poncelet2016myopic} uses this approach to analyse the expansion planning of the power sector beyond 2050. \citet{nerini2017myopic} analysed the impact of the horizon windows and overlapping time.  Overall these studies decided to choose the myopic approach to analyse the speed of change compared to a perfect foresight approach.
+ % rajout du Réalisme 
+Moreover, the myopic approach allows a sequential optimisation process that opens the doors to decision-making/policy-learning methodologies, like assessing shock events. This approach is used by \citet{heuberger2018impact} who assessed the speed of integration of technologies due to these events. 
+In their analysis of the overcapacity in European power systems, \citet{moret2020overcapacity} emphasised that such a ``possibility of \textit{recourse}" is very appropriate to address uncertainty gradually unfolding over time. Consequently, the development of the myopic approach represents the foundations of the further implementation of the agent-based reinforcement learning framework (see Section \ref{sec:meth:RL}).\\
+
+As illustrated in Figure \ref{fig:my_schematic_2}, after optimising, in design and operation, one time window (\eg from 2020 to 2030), the intermediate system design (\ie the installed capacities) is set as initial conditions for the start of the next time window (\eg from 2025 to 2035) as well as the historical investment decisions (\ie $\textbf{F\textsubscript{new}}$, $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript{decom}}$). Consequently, the solution obtained at the end of the first time window (\eg 2030) as well as potential investment decisions between the start of the second time window and this end-year are discarded. In other words, they are not taken into account for the optimisation of the second time window. This process goes on until the stated end of the transition (\ie 2050, in this case).
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{MY_schematic_2.pdf}
+\caption{Sequential optimisation of the transition pathway in the myopic approach: (i) first time-window optimisation, (ii) set-up of the initial conditions of the second time-window, (iii) second time-window optimisation discarding intermediate results}
+\label{fig:my_schematic_2}
+\end{figure}
+
+\vspace{0.1cm}\textbf{Additional sets, parameters and variables}\vspace{-0.3cm}\\
+
+The major add-on from the original EnergyScope Pathway model \cite{limpens2021generating} to the myopic version developed in this thesis, is the possibility to carry out the optimisation on a limited time window, of which the duration is defined by $N\textsubscript{year,opti}$. Moreover, to ensure the ``possibility of \textit{recourse}", there is also the possibility of having an overlap between two consecutive time windows. The timespan of this overlap is defined by the parameter $N\textsubscript{year,overlap}$. The philosophy followed behind the development of the myopic approach was to add another layer on top of the perfect foresight model in order to make it more modular. For this reason, the already existing constraints are marginally adapted. This way, the newly developed model can easily be used to perform a perfect foresight optimisation by setting the time window to $N\textsubscript{year,opti}=$30 years (\ie between 2020 and 2050) and the overlap between the time windows to $N\textsubscript{year,overlap}=$0.  Consequently, as defining the actual time window on which the system is optimised as well as the history, \ie what has already been optimised earlier in the transition, are fundamental, four new sets are implemented: $\text{YEARS}\textsubscript{WND}$, $\text{YEARS}\textsubscript{UP TO}$, $\text{PHASE}\textsubscript{WND}$ and $\text{PHASE}\textsubscript{UP TO}$ (see Table \ref{tab:path_my_sets}).
+
+\begin{table}[htbp]
+\caption[New SETs for myopic pathway formulation.]{New SETs for myopic pathway formulation.} 
+\label{tab:path_my_sets}
+\begin{minipage}{\textwidth}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l c l}
+\toprule
+\textbf{Set}      & \textbf{Index}	 &	\textbf{Description}\\
+\midrule
+$\text{YEARS}\textsubscript{WND}$ 	&	$y\in$Y	& 	\pbox{20cm}{\vspace{1mm} Representative years of the \\ time window to optimize}\\
+$\text{YEARS}\textsubscript{UP TO}$ &	$y\in$Y	& 	\pbox{20cm}{\vspace{1mm} Representative years including the \\ years already optimised, \ie the history}\\
+$\text{PHASE}\textsubscript{WND}$ &  $\emph{p}\in$P & 	\pbox{20cm}{\vspace{1mm} Phases of the time window to optimize}\\
+$\text{PHASE}\textsubscript{UP TO}$ &  $\emph{p}\in$P & 	\pbox{20cm}{\vspace{1mm} Phases including the phases \\ already optimised, \ie the history}\\
+\bottomrule
+\end{tabular}}
+\end{minipage}
+\end{table}
+
+$\text{YEARS}\textsubscript{WND}$ and $\text{PHASE}\textsubscript{WND}$ substitute $\text{YEARS}$ and $text{PHASE}$ in the constraints defined in the pathway model in Section \ref{subsec:meth:PF}. These two sets aim at setting the optimization to a more limited time window. Progressing through the transition, $\text{YEARS}\textsubscript{UP TO}$ and $\text{PHASE}\textsubscript{UP TO}$ allow keeping track of the history of the investments (\eg technologies installation, decommissioning or retirement), the consumption of resources, the cumulative amount of emissions, etc.
+
+On top of these four specific sets, some artefacts were also necessary to avoid computational rounding errors. Indeed, optimizing the first year of a time window that has already been optimized in the previous time window could lead to rounding errors preventing from the optimization to converge. For this reason,  the set $\text{YEAR}\textsubscript{ONE}$ accounts for the first representative year of the time window to optimize that is excluded from $\text{YEARS}\textsubscript{WND}$ to avoid these errors. This remark stays valid for any time window except the first one of the transition where the year 2020 is optimized even though its technological strategy is set according to the actual system presented in Appendix \ref{app:bel_2020}. Finally, as the end of time windows changes for each of them, the parameter $remaining\_years$ has to be updated accordingly to keep a meaningful definition of $\textbf{C\textsubscript{inv,return}}$ in Eq. \ref{eq:salvage}.\\
+
+\vspace{0.1cm}\textbf{Myopic pathway implementation}\vspace{-0.3cm}\\
+
+Starting this work in 2017, AMPL Optimization Inc. has developed a Python \gls{API} called amplpy \cite{amplpy}. In a nutshell, this API allows the pre/post-processing of an ampl optimisation problem by accessing its features (\eg constraints,parameters, variables, objective function) from within Python. Using this\gls{API}, this updated version of the model interacts with the AMPL problem representing the optimization of the whole-energy system transition pathway as represented in Figure \ref{fig:MY_process_code}.
+
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=10cm]{MY_process_code.pdf}
+\caption{Schematic of the iterative optimization of the whole-energy system transition pathway.}
+\label{fig:MY_process_code}
+\end{figure}
 
 \section{Uncertainty quantification}
 \label{sec:meth:UQ}
+In their systematic review, \citet{yue2018review} highlighted that a wide majority of studies addressing the optimisation of energy systems (\ie 75\% out of the 134 reviewed studies) were not investigating the impact of uncertainties. However, disregarding these impacts can have drastic consequences on the system design. For instance, historical low \gls{NG} prices have led to overcapacity of \gls{CCGT} in Europe \cite{moret2020overcapacity}. This is why accounting for uncertainty in \gls{ESOMs} is crucial \cite{mavromatidis2018uncertainty}, especially when it comes to optimise several decades in an inherently uncertain future \cite{peace2008insights}.
+
+This section aims at briefly presenting the methods followed to first characterise these uncertainties, then to quantify their impact on different outputs of interest of the model (\eg amount of molecules imported from abroad, the installed capacity of \gls{SMR} or the total transition cost) and finally, the screening and selection of the parameters to analyse.
 
 \subsection{Uncertainty characterisation}
 \label{subsec:uncert_charac}
-%Presentation here of the uncertainty characterisation from S. Moret and adding some parameters specific to the pathway model (\eg $\Delta_{\text{change}}$ linked to change speed) or specific to the main case study (\eg possibility to have nuclear SMR from 2040)
+Characterising precisely the uncertainty---ideally with their respective probability density functions (PDFs)---of the thousands of parameters in the model is daunting if not impossible because of lack of data \cite{marnay2006addressing}. Therefore, we used a workaround developed by \citet{Moret2017} that defines relative ranges of variation for different groups of parameters. These ranges have been adapted for the Belgian energy system and the pathway formulation. Moreover, some ranges have been added to account for new parameters coming from the pathway formulation described in Section \ref{sec:meth:ES} like the society inertia. Like other works \cite{li2019renewables,coppitters2021robust}, the uncertain parameters are assumed to be independent and uniformly distributed between their respective lower and upper bounds.
 
+%\Cref{tab:UC_short} gives the uncertainty ranges of some key parameters. A particular attention is to pay to the potential installation of \gls{SMR}, at the bottom of \Cref{tab:UC_short}. As detailed in \Cref{sec:cs:technologies}, the commercial availability of such a technology is uncertain but would not be before 2040. Consequently, for \gls{SMR}, the parameter $f_{\mathrm{max,SMR}}$ influences the maximum capacity to install to translate somehow the readiness of this technology. As SMRs are foreseen, if installed, to be around the same locations (\ie Tihange and Doel) as the conventional nuclear power plants and using the same area in kW/ha, the same 6\,GW are assumed to be the maximum capacity for SMRs. If it is (i) smaller than 0.6, there is no possibility to install \gls{SMR} during the transition; (ii) between 0.6 and 0.8, these 6~GW can be installed only in 2050; (iii) between 0.8 and 0.9, these can be installed from 2045 onward and; (iv) higher than 0.9, the prescribed maximum capacity can be installed from 2040 onward. Based on the local sensitivity analysis carried out by \citet{PATHS2050}, the current work also considers a [-40\%; +44\%] range on the CAPEX of SMR, on top of the uncertainty about the availability. Finally, the the cost of purchasing renewable electrofuels presents a wide range, [-64.3\%; +179.8\%], like the other imported commodities.
+
+%The exhaustive list of the parameters accounted in this work is presented in Appendix \ref{app:UC_full}.
+
+%\begin{table}[htbp!]
+%\caption{Illustration of the uncertainty characterisation for different parameters for the year 2025. $^{(a)}$ Per \cite{Moret2017PhDThesis}, \og I: investment-type, II: operation-type (constant uncertainty over time), III: operation-type (uncertainty increasing over time)\fg. $^{(b)}$ The nominal value of each parameter is 0, meaning no variation compared to the nominal values of the impacted parameter in the model. $^{(c)}$ This range has been inferred from the local sensitivity analysis performed by \citet{PATHS2050}.}
+%\label{tab:UC_short}
+%\centering
+%\resizebox{\textwidth}{!}{
+%\begin{tabular}{l l l c c c}
+%\toprule
+%\multirow{2}{*}{\textbf{Category}} & \multirow{2}{*}{\textbf{Parameter}} & \multirow{2}{*}{\textbf{Meaning}} & \multirow{2}{*}{\textbf{Type}$^{(a)}$}  & \multicolumn{2}{c}{\textbf{Relative variation$^{(b)}$}}\\
+%    & & & &	 min 	&	 max \\ 	
+%\midrule		
+%\multirow{2}{*}{\textbf{Cost of purchasing}} & $c_{\mathrm{op,fossil}}$ & Purchase fossil fuels & II & -64.3\% & 179.8\% \\
+%& $c_{\mathrm{op,electrofuels}}$ & Purchase electrofuels & II & -64.3\% & 179.8\% \\
+%\midrule
+%\multirow{5}{*}{\textbf{Investment cost}} &$c_{\mathrm{inv,car}}$ & CAPEX car  & I & -21.6\% & 25.0\% \\
+%& $c_{\mathrm{inv,e\_prop}}$ & CAPEX electric motor & I & -39.6\% & 39.6\% \\
+%& $c_{\mathrm{inv,fc\_prop}}$ & CAPEX fuel cell engine & I & -39.6\% & 39.6\% \\
+%& $c_{\mathrm{inv,PV}}$ & CAPEX PV & I & -39.6\% & 39.6\% \\
+%& $c_{\mathrm{inv,nuclear\_SMR}}$ & CAPEX \gls{SMR}$^{(c)}$ & I & -40.0\% & 44.0\% \\
+%\midrule
+%\multirow{1}{*}{\textbf{Consumption}} &$\eta_{\mathrm{e\_prop}}$ & Consumption electric vehicles & I & -28.7\% & 28.7\% \\
+%\midrule
+%\multirow{2}{*}{\textbf{Potential installed capacity}} &$f_{\mathrm{max,PV}}$ & Max capacity PV & I & -24.1\% & 24.1\% \\
+%& $f_{\mathrm{max,windon}}$ & Max capacity onshore wind & I & -24.1\% & 24.1\% \\
+%\midrule
+%\multirow{2}{*}{\textbf{Hourly load factor}} & $c_{\mathrm{p,t,PV}}$ & Hourly load factor PV & II & -22.1\% & 22.1\% \\
+%& $c_{\mathrm{p,t,winds}}$ & Hourly load factor wind turbines & II & -22.1\% & 22.1\% \\
+%\midrule
+%\multirow{2}{*}{\textbf{Resource availability}} & $avail_{\mathrm{elec}}$ & Available electricity import & I & -32.1\% & 32.1\% \\
+%& $avail_{\mathrm{biomass}}$ & Available local biomass & I & -32.1\% & 32.1\% \\
+%\midrule
+%
+%\multirow{2}{*}{\textbf{End-use demand}} & $pass\_EUD$ & Passenger mobility EUD & III & -7.5\% & 7.5\% \\
+%& $industry\_EUD$ & Industry EUD & III & -20.5\% & 16.0\% \\
+%\midrule
+%
+%\multirow{4}{*}{\textbf{Miscellaneous}} &$i_{\mathrm{rate}}$  & Interest rate & I & -46.2\% & 46.2\% \\
+%& $\Delta_{\mathrm{change,freight}}$ & Modal share change freight mobility & - & -30\% & 30\% \\
+%& $\Delta_{\mathrm{change,pass}}$ & Modal share change passenger mobility & - & -30\% & 30\% \\
+%& $f_{\mathrm{max,SMR}}$ & Potential capacity \gls{SMR} & - & 0 & 1 \\
+%
+%\bottomrule							
+%
+%\end{tabular}}
+%\end{table}
+
+Following the methodology defined by \citet{Moret2017}, uncertainties of types I (investment-type) and II (operation-type, constant uncertainty over time) keep the same range for the whole transition. However, parameters with an uncertainty increasing over time, type III, (\ie end-use demands, in this case) will have a wider and wider range over the transition. In this work, a +50\% linear increase has been arbitrarily set between the width of the range of such parameters in 2025 and the same ranges in 2050. In \Cref{fig:ranges_transition}, this means that for type III uncertainties only, $R_{2050}^+$ is 50\% bigger than $R_{2025}^+$ and $R_{2050}^-$ is 50\% smaller than $R_{2025}^-$. For uncertainties of types I and II, the relative variation versus the nominal value remain the same over the transition. Inspired by \citet{guevara2022modeling}, the values of the uncertain parameters are set at a fixed relative position from the nominal values for each sampled transition---the values do not zigzag from 2025 to 2050 within the bounds (\Cref{fig:ranges_transition}).
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\textwidth]{ranges_transition.pdf}
+\caption{$\mu_{2020}$, $\mu_{2025}$, ...,  $\mu_{2050}$ are the nominal values equal to 0 as the uncertain parameters represent a relative increase/decrease of actual parameters of the model. $R^+$ and $R^-$ are respectively the upper and lower bounds of the range and $\xi_{2025}$, $\xi_{2030}$, ...,  $\xi_{2050}$ are the values taken by one parameter for a specific sample of the \gls{GSA} for each of the representative years of the transition, always starting from the nominal value in 2020, $\mu_{2020}$. The graph has been adapted from \cite{guevara2022modeling}.}
+\label{fig:ranges_transition}
+\end{figure}
+
+Finally, the model accounts for thousands of parameters. The computational burden to consider all of them separately would be completely overwhelming ($\sim 10^7$ model runs). Therefore, similarly to other works \cite{Moret2017,limpens2020impact}, the model parameters that would follow the same uncertainty have been grouped to one single uncertain parameter. For instance, the uncertainty on the cost of purchasing renewable electrofuels, $c_{\mathrm{op,electrofuels}}$, identically affects the cost of e-hydrogen, e-methane, e-ammonia and e-methanol. Indeed, besides their respective specificities, each of these fuels will be similarly affected by the variation of cost of electricity or the electrolyser, that drive the majority of their cost of purchasing \cite{h2coalition}. Similarly, the uncertainties impacting the industrial demand, $industry\_EUD$, alters equally the industrial high- and low-temperature and electricity demands as well as the non-energy demand.
 
 \subsection{Polynomial Chaos Expansion}
 \label{subsec:pce}
@@ -255,11 +412,49 @@ In \cite{limpens2020impact}, we have assessed the \gls{PCE} approach, comparing 
 
 \subsection{Preliminary screening and selection}
 \label{subsec:screening}
-%Similarly to what we did in the electrofuels+UQ paper (\url{https://www.mdpi.com/1996-1073/14/13/4027}), emphasise that we only consider a limited amount of uncertain parameters to keep a reasonable computation time while capturing the impact of (almost) all the uncertainties.
+
+After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a preliminary screening was necessary to identify the key parameters to account for in this \gls{GSA}. \citet{rixhon2021role} performed a similar sensitivity analysis on the 2050 Belgian whole-energy system under different \ce{CO2}-limits using the snapshot model, \ie EnergyScope TD \cite{limpens2019energyscope}. Screening the results of this work, we have discarded some parameters with negligible impact (\eg CAPEX of electrolysers or variation of the freight demand), selected a subset of parameters and added others that were intrinsic to the pathway formulation, \eg modal share changes, or related to the integration of \gls{SMR}, $f_{\mathrm{max,SMR}}$. The exhaustive list of these 34 parameters is presented in Appendix \ref{app:UC_full}.
 
 
-\section{Reinforcement learning}
+\section{Agent-based reinforcement learning for energy transition support}
 \label{sec:meth:RL}
+
+% See chatGPT
+% 1. Introduction to Reinforcement Learning
+% 2. Problem Formulation
+% 3. Markov Decision Process (MDP)
+% 4. RL Algorithms and Techniques
+% 5. Training Setup
+% 6. Evaluation Metrics
+% 7. Baseline and Comparisons
+% 8. Implementation Details
+% 9. Experimental/Testing Setup
+
+To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims first at presenting the general concepts of this approach as well as the policy optimisation algorithm. Then, the environment, actions, state and reward are detailed.
+
+\subsection{Reinforcement learning fundamentals and algorithm}
+\label{subsec:meth_RL_fund_algo}
+At the initial state, \ie the energy system in 2020, the agent gets an initial observation, $\bm{o}_0$. An observation represents a set of the characteristics of the environment accessible to the agent for it to take the next action. The state, though, is the exhaustive list of these characteristics. Even though an observation is a subset of the state, this work uses these two words interchangeably. Then, it takes an action, $\bm{a}_0$, impacting its environment, \ie the energy system limited transition over the first decision window (2020-2030). Through this interaction with its environment, the agent is given a reward, $r_1=r\left(\bm{a}_0 | \bm{o}_0 \right)$, and ends up in a new state, \ie the energy system in 2025, characterised by a new observation, $\bm{o}_1$, and so on (\Cref{fig:Schematics_RL}).
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{Schematics_RL.pdf}
+\caption{\acrfull{RL} framework made of the agent interacting with its environment, \ie the energy-system model on a limited decision window of 10 years.}
+\label{fig:Schematics_RL}
+\end{figure}
+
+A learning episode is a succession of such learning steps. In the context of the transition pathway between 2020 and 2050, an episode can come to an end for different reasons. First, if the actions taken by the agent make the optimisation unfeasible, the episode is prematurely stopped before reaching 2050. Similarly, cumulative emissions of the system over the predefined \ce{CO2}-budget (see Section \ref{sec:cs:CO2-budget}) lead to an anticipated end of the episode. Finally, the ``natural'' end is the prescribed end of the transition, \ie 2050. Consequently, the maximum value of steps for an episode is equal to $N_{ep,max}=5$. 
+
+The goal of a \gls{RL} approach is to optimise the mapping between inputs (\ie the observations) and output (\ie the actions), called the policy $\pi\left(\bm{a}_n | \bm{o}_n\right)$. To do so, an objective function, $\bm{J}(\pi)$, built on the cumulative rewards collected during each episode. Finally, a back-propagation process updates the weights and biases of the \gls{NN} during the learning of the agent. Among the wide variety of \gls{RL} algorithms applied in energy systems \cite{perera2021applications}, this work opted for \gls{SAC} \cite{haarnoja2018soft} to train and update the \gls{NN}. This algorithm is model-free and off-policy. The former characteristic is necessary as the agent is assumed to have no knowledge about the dynamics of the environment, \ie its transition or reward functions. The transition function is, given the current state of the environment and the action taken by the agent, a function that outputs a probability to end up to any of the next states. The reward function, on its turn, gives a reward given the current state and the taken action. In practice, in this model-free approach, the agent estimates the optimal policy directly from experience and without estimating the dynamics of the environment. However, model-free methods suffer from two major drawbacks: their sample inefficiency and their brittleness with respect to their hyper-parameters (\eg learning rates, exploration constants) \cite{haarnoja2018soft}. The former leads to a too expensive computational burden while the second requires meticulous settings to get good results. \gls{SAC} overcomes these two challenges as an off-policy (\ie efficiently re-using past episodes to update the target policy-network) actor-critic deep \gls{RL} algorithm based on the entropy-augmented objective function: 
+
+\begin{equation}
+    \label{eq:SAC_objective}
+    \bm{J}(\pi) = \underset{\pi}{\mathbb{E}}\left[\underset{n=0}{\overset{N_{ep}}{\sum}}\gamma^n r_n\left(\bm{o}_n,\bm{a}_n \right) - \zeta \log \left(\pi\left(\bm{a}_n | \bm{o}_n\right) \right) \right]
+\end{equation}
+
+\noindent
+where $\gamma$ is the discount factor and $\zeta$ the temperature parameter. The former determines how much importance we want to give to future rewards within an episode. The latter balances the trade-off between exploitation of proven actions via the return maximisation, \ie $\sum_{n=0}^{N_{ep}}\gamma^n r_n\left(\bm{o}_n,\bm{a}_n \right)$, and exploration through the entropy\footnote{Where entropy represents the amount of energy in a system not available to produce work in thermodynamics, this term stands for the randomness or stochasticity of the policy in the current context.} term, \ie $\log \left(\pi\left(\bm{a}_n | \bm{o}_n\right) \right)$. This way, \gls{SAC} ensures sample efficiency and low sensitivity to hyper-parameters while improving exploration \cite{haarnoja2017reinforcement} and robustness \cite{ziebart2010modeling}. These make \gls{SAC} a state-of-the-art algorithm and one of the most efficient model-free deep RL method nowadays. In this work, the authors used the open-source \gls{SAC} package developed by \textsc{Stable-Baselines3} \cite{raffin2021stable} where the policy \gls{NN} is a fully connected multilayer perceptron (MLP) built with \textsc{TensorFlow} \cite{abadi2016tensorflow}. For further information on \gls{RL} and the \gls{SAC} algorithm, the interested reader is invited to refer to the works of \citet{sutton2018reinforcement} and \citet{haarnoja2018soft}, respectively.
 
 \section{Principal Components Analysis}
 \label{sec:meth:PCA}
