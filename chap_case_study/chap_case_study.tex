@@ -41,13 +41,13 @@ End-use demands, exogenously imposed as inputs to the model, are characterised b
 \label{subsec:cs:NED}
 Where previously published works of \citet{rixhon2021comprehensive,rixhon2022integration} investigated more extensively the integration of the \gls{NED} in the case study of Belgium, this section summarises the rationale of doing so as well as the methodology used to quantify this demand.\\
 
-\vspace{0.2cm}\textbf{Definition and historical trend}\vspace{-0.3cm}\\
+\myparagraph{Definition and historical trend}\\
 
 The \gls{NED} can be split into four main categories of final molecules \cite{IEA2018_petrochemicals}: (i) \gls{HVC} (worldwide production of $\sim$365Mt/year); (ii) ammonia ($\sim$185Mt/year); (iii) methanol ($\sim$100Mt/year) and (iv) the other products. \Gls{HVC} gather the light olefins (e.g. ethylene, propylene) and aromatics (benzene, toluene, xylene – BTX), mainly for the production of plastics, synthetic fibers or rubber. Their production today relies mainly on petroleum products such as naphtha, ethane or liquified petroleum gas. Ammonia is  mainly used for the production of fertilizers ($\sim$80\% of global ammonia consumption). Its production is dominated by \gls{NG} via steam reforming to produce hydrogen, used as feedstock in the Haber-Bosch process. Methanol is mainly converted to formaldehyde (resin) but also used for the production of other chemicals (e.g. solvents and gasoline-blends). Currently, its synthesis, like ammonia, is mainly relying on natural gas via steam reforming. Finally, the other products gather all chemicals not mentioned in the other categories such as bitumen, lubricants and other heavy products from oil refineries \cite{daioglou2014energy}.\\
 
 The \gls{NED} currently represents around 20\% of the final energy consumption in Belgium \cite{FPSEconomy2021}. Over the recent history, there has been a relatively constant evolution of three main categories of the final consumption for non-energy use in Belgium, \cite{statbel_NED_2019}: (i) naphtha and \gls{LPG} (between 59\% and 67\% of the total final consumption, around 59.4\,TWh in 2019), (ii) \gls{NG} (between 9\% and 14\%, 11.8\,TWh in 2019), and (iii) others (\ie bitumen, coal tar and other oil products) (between 21\% and 28\%). Naphtha and \gls{LPG} are consumed in a naphtha cracker, which results in ethylene and propylene, what will be considered as \gls{HVC} in the rest of this work. Similarly, \gls{NG}, as non-energy carrier, is used in steam methane reformer to produce the required hydrogen to the synthesis process of ammonia. The small shares of bitumen and coal tar are respectively used for roadworks and to produce synthetic gas through gasification. Finally \og other oil products\fg take into account, indistinguishably, tar and sulphur as well as by-products of the refineries (\eg \gls{BTX}). About methanol, there is currently no production plant in Belgium even if the country plays a role in trading this commodity between its neighbouring countries and consumes part of what it imports.\\
 
-\vspace{0.2cm}\textbf{Methodology of quantification}\vspace{-0.3cm}\\
+\myparagraph{Methodology of quantification}\\
 
 The non-energy demand studied in this analysis focuses on the chemical industry (more than 90\% of the non-energy use in Belgium) and, similarly to other studies \cite{IEA2018_petrochemicals, daioglou2014energy}, is split between the three aforementioned main groups of products (\ie \gls{HVC}, ammonia and methanol). Before describing these three demands, this study excludes bitumen, coal tar and \og other oil products\fg. The first two represent marginal shares of the current non-energy use in such a way that they should not affect the big trends provided by this study. As described previously, the latest are mostly by-products from refineries that the system uses because they are available. However, in a perspective of defossilisation, since the future of fossil-based refineries is unclear, they have not be implemented in this study nor their by-products.\\
 
@@ -154,13 +154,13 @@ The exhaustive list of the parameters accounted in this work is presented in App
     & & & &	 min 	&	 max \\ 	
 \midrule		
 \multirow{2}{*}{\textbf{Cost of purchasing}} & $c_{\mathrm{op,fossil}}$ & Purchase fossil fuels & II & -64.3\% & 179.8\% \\
-& $\bm{c_{\mathrm{op,electrofuels}}}$ & \textbf{Purchase electrofuels} & \textbf{II} & \textbf{-64.3\%} & \textbf{179.8\%} \\
+& $c_{\mathrm{op,electrofuels}}$ & Purchase electrofuels & II & -64.3\% & 179.8\% \\
 \midrule
 \multirow{5}{*}{\textbf{Investment cost}} &$c_{\mathrm{inv,car}}$ & CAPEX car  & I & -21.6\% & 25.0\% \\
 & $c_{\mathrm{inv,e\_prop}}$ & CAPEX electric motor & I & -39.6\% & 39.6\% \\
 & $c_{\mathrm{inv,fc\_prop}}$ & CAPEX fuel cell engine & I & -39.6\% & 39.6\% \\
 & $c_{\mathrm{inv,PV}}$ & CAPEX PV & I & -39.6\% & 39.6\% \\
-& $\bm{c_{\mathrm{inv,nuclear\_SMR}}}$ & \textbf{CAPEX \gls{SMR}}$^{(c)}$ & \textbf{I} & \textbf{-40.0\%} & \textbf{44.0\%} \\
+& $c_{\mathrm{inv,nuclear\_SMR}}$ & CAPEX \gls{SMR}$^{(c)}$ & I & -40.0\% & 44.0\% \\
 \midrule
 \multirow{1}{*}{\textbf{Consumption}} &$\eta_{\mathrm{e\_prop}}$ & Consumption electric vehicles & I & -28.7\% & 28.7\% \\
 \midrule
@@ -181,7 +181,7 @@ The exhaustive list of the parameters accounted in this work is presented in App
 \multirow{4}{*}{\textbf{Miscellaneous}} &$i_{\mathrm{rate}}$  & Interest rate & I & -46.2\% & 46.2\% \\
 & $\Delta_{\mathrm{change,freight}}$ & Modal share change freight mobility & - & -30\% & 30\% \\
 & $\Delta_{\mathrm{change,pass}}$ & Modal share change passenger mobility & - & -30\% & 30\% \\
-& $\bm{f_{\mathrm{max,SMR}}}$ & \textbf{Potential capacity \gls{SMR}} & \textbf{-} & \textbf{0} & \textbf{1} \\
+& $f_{\mathrm{max,SMR}}$ & Potential capacity \gls{SMR} & - & 0 & 1 \\
 
 \bottomrule							
 

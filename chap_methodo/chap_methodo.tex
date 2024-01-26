@@ -195,9 +195,9 @@ where the variables $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript
 \subsection{Myopic: Sequential optimisation of the transition with limited foresight}
 \label{subsec:meth:MY}
 
-One of the main methodological contributions of this work regarding the development of the whole-energy system model consists in giving it the possibility to optimise the transition pathway in a myopic approach.After introducing the general concept of it, this section details more the additions brought to the model in terms of implementation.
+One of the main methodological contributions of this work regarding the development of the whole-energy system model consists in giving it the possibility to optimise the transition pathway in a myopic approach.After introducing the general concept of it, this section details more the additions brought to the model in terms of implementation.\\
 
-\vspace{0.1cm}\textbf{General concept of the myopic optimisation}\vspace{-0.3cm}\\
+\myparagraph{General concept of the myopic optimisation}\\
 
 \begin{figure}[htbp!]
 \centering
@@ -220,7 +220,7 @@ As illustrated in Figure \ref{fig:my_schematic_2}, after optimising, in design a
 \label{fig:my_schematic_2}
 \end{figure}
 
-\vspace{0.1cm}\textbf{Additional sets, parameters and variables}\vspace{-0.3cm}\\
+\myparagraph{Additional sets, parameters and variables}\\
 
 The major add-on from the original EnergyScope Pathway model \cite{limpens2021generating} to the myopic version developed in this thesis, is the possibility to carry out the optimisation on a limited time window, of which the duration is defined by $N\textsubscript{year,opti}$. Moreover, to ensure the ``possibility of \textit{recourse}", there is also the possibility of having an overlap between two consecutive time windows. The timespan of this overlap is defined by the parameter $N\textsubscript{year,overlap}$. The philosophy followed behind the development of the myopic approach was to add another layer on top of the perfect foresight model in order to make it more modular. For this reason, the already existing constraints are marginally adapted. This way, the newly developed model can easily be used to perform a perfect foresight optimisation by setting the time window to $N\textsubscript{year,opti}=$30 years (\ie between 2020 and 2050) and the overlap between the time windows to $N\textsubscript{year,overlap}=$0.  Consequently, as defining the actual time window on which the system is optimised as well as the history, \ie what has already been optimised earlier in the transition, are fundamental, four new sets are implemented: $\text{YEARS}\textsubscript{WND}$, $\text{YEARS}\textsubscript{UP TO}$, $\text{PHASE}\textsubscript{WND}$ and $\text{PHASE}\textsubscript{UP TO}$ (see Table \ref{tab:path_my_sets}).
 
@@ -247,7 +247,7 @@ $\text{YEARS}\textsubscript{WND}$ and $\text{PHASE}\textsubscript{WND}$ substitu
 
 On top of these four specific sets, some artefacts were also necessary to avoid computational rounding errors. Indeed, optimizing the first year of a time window that has already been optimized in the previous time window could lead to rounding errors preventing from the optimization to converge. For this reason,  the set $\text{YEAR}\textsubscript{ONE}$ accounts for the first representative year of the time window to optimize that is excluded from $\text{YEARS}\textsubscript{WND}$ to avoid these errors. This remark stays valid for any time window except the first one of the transition where the year 2020 is optimized even though its technological strategy is set according to the actual system presented in Appendix \ref{app:bel_2020}. Finally, as the end of time windows changes for each of them, the parameter $remaining\_years$ has to be updated accordingly to keep a meaningful definition of $\textbf{C\textsubscript{inv,return}}$ in Eq. \ref{eq:salvage}.\\
 
-\vspace{0.1cm}\textbf{Myopic pathway implementation}\vspace{-0.3cm}\\
+\myparagraph{Myopic pathway implementation}\\
 
 Starting this work in 2017, AMPL Optimization Inc. has developed a Python \gls{API} called amplpy \cite{amplpy}. In a nutshell, this API allows the pre/post-processing of an ampl optimisation problem by accessing its features (\eg constraints,parameters, variables, objective function) from within Python. Using this\gls{API}, this updated version of the model interacts with the AMPL problem representing the optimization of the whole-energy system transition pathway as represented in Figure \ref{fig:MY_process_code}.
 
@@ -334,7 +334,7 @@ Finally, the model accounts for thousands of parameters. The computational burde
 
 We used \gls{PCE}, an approach for surrogate-assisted \gls{UQ}, to propagate uncertainties in input parameters through the system model. This allowed us to assess statistical moments on the quantity of interest and determine Sobol' indices~\cite{coppitters2020robust}. To construct a PCE of the EnergyScope Pathway model, we employed the open-source Python framework RHEIA~\cite{coppitters2022rheia,readthedocs_rheia}. Where the first part of this section is dedicated to the mathematical definition of this approach, the second details its choice and summarises the comparison made with another approach (\ie Morris method) in a previous work \cite{limpens2020impact}.\\
 
-\vspace{0.1cm}\textbf{Definition}\vspace{-0.3cm}\\
+\myparagraph{Definition}\\
 
 The PCE model ($\hat{M}$) is a representation of the relationship between the input parameters and the output variable of interest (\ie results) in the EnergyScope Pathway model ($M$). This representation is constructed as a truncated series of multivariate orthonormal polynomials $\bm{\Psi}$, weighted by coefficients $u$:
 
@@ -342,7 +342,7 @@ The PCE model ($\hat{M}$) is a representation of the relationship between the in
 \hat{M} \left( \bm{\xi} \right) = \sum_{\bm{\alpha} \in \mathcal{A}^{d,p}} u_{\bm{\alpha}} \bm{\Psi}_{\bm{\alpha}} \left( \bm{\xi} \right) \approx M \left( \bm{\xi} \right), 
 \end{equation}
 
-where the vector $\bm{\xi} = (\xi_1,\xi_2, \dots \xi_d)$ comprises the independent random input parameters (\autoref{app:UC_full}), $d$ corresponds to the number of input distributions and $\bm{\alpha}$ is a multi-index, \ie a vector of non-negative indices of length $d$, where each index corresponds to the degree of each univariate polynomial that forms the basis of the multivariate polynomial $\bm{\Psi_{\bm{\alpha}}}$. As uniform distributions are considered, the Legendre polynomials are adopted, as they are the associated family of polynomials that are orthogonal with respect to standard uniform distributions~\cite{Sudret2014}.
+\noindent where the vector $\bm{\xi} = (\xi_1,\xi_2, \dots \xi_d)$ comprises the independent random input parameters (\autoref{app:UC_full}), $d$ corresponds to the number of input distributions and $\bm{\alpha}$ is a multi-index, \ie a vector of non-negative indices of length $d$, where each index corresponds to the degree of each univariate polynomial that forms the basis of the multivariate polynomial $\bm{\Psi_{\bm{\alpha}}}$. As uniform distributions are considered, the Legendre polynomials are adopted, as they are the associated family of polynomials that are orthogonal with respect to standard uniform distributions~\cite{Sudret2014}.
 
 A truncation scheme is implemented to restrict the number of multivariate polynomials in the series. This is done based on two factors: a specified limiting polynomial order ($p$) and the number of uncertain parameters ($d$) involved. The multivariate polynomial order $|\bm{\alpha}|$ is the summation of the orders for each univariate polynomial in the multivariate polynomials space. Thus, only the multi-indices corresponding to an order that is less than or equal to the specified limiting order are retained and stored in the truncated series denoted as $\mathcal{A}^{d,p}$:
 
@@ -377,7 +377,7 @@ S_i^{T} = \sum_{\bm{\alpha} \in A_i^T}^{} u_{\bm{\alpha}}^2/\sum_{i=1}^P u_i^2 ~
 
 Here, $A$ denotes the collection of all PCE coefficients, and $\alpha_i$ corresponds to the coefficient associated with the uncertain parameter $i$.\\
 
-\vspace{0.1cm}\textbf{Comparison with a proven method}\vspace{-0.3cm}\\
+\myparagraph{Comparison with a proven method}\\
 
 Besides being an in-house used method, an early step of this thesis consisted in assessing \gls{PCE} with similar approach used in the literature \cite{limpens2020impact}. \\
 
@@ -390,7 +390,8 @@ Then, given these random one-factor-at-a-time samples, Morris method defines, fo
 \begin{equation}
   EE_{i}=\frac{M(\xi_1,\xi_2,...,\xi_i+\Delta,...,\xi_d)-M(\vec{\xi})}{\Delta}
 \end{equation}
-where $M$ is the objective function, $\vec{\xi}\in\omega$, except $\xi_i\leq1-\Delta$ and $\Delta$ is a set multiple of $1/(p-1)\left(\xi_{i,max}-\xi_{i,min}\right)$. As in other studies \cite{Sin2009,Moret2017,Moret2017PhDThesis}, we consider $p$ as even and $\Delta=p/[2(p-1)]\left(\xi_{i,max}-\xi_{i,min}\right)$.\\
+
+\noindent where $M$ is the objective function, $\vec{\xi}\in\omega$, except $\xi_i\leq1-\Delta$ and $\Delta$ is a set multiple of $1/(p-1)\left(\xi_{i,max}-\xi_{i,min}\right)$. As in other studies \cite{Sin2009,Moret2017,Moret2017PhDThesis}, we consider $p$ as even and $\Delta=p/[2(p-1)]\left(\xi_{i,max}-\xi_{i,min}\right)$.\\
 
 Finally, in order to evaluate the importance of the $i$th parameter over an output, Morris method relies on $F_i$, the distribution of $r$ elementary effects. Computing the mean, $\mu_{i}=\mu(F_{i})$, and the standard deviation, $\sigma_{i}=\sigma(F_{i})$, of the $F_{i}$ distribution, allows ranking the parameters based on their influence on the concerned output. Usually, in Morris method, $p$ and $r$ respectively get values as follows : $p\in \{4,6,8\}$ and $r\in [15;100]$ depending on, $d$, the number of uncertain parameters. The higher this number is,  the higher shall be, simultaneously, $p$ and $r$. In the following comparative analysis, we set $p$ and $r$ to their maximum values, respectively $8$ and $100$ in order to get the most reliable parameters ranking.\\
 

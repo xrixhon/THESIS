@@ -142,7 +142,7 @@ EnergyScope Pathway is the extension of EnergyScope TD \cite{limpens2019energysc
 \subsection{The starting point: a scenario analysis model}
 \label{app:ESTD}
 
-\vspace{0.2cm}\textbf{Overview of the snapshot model}\vspace{-0.3cm}\\
+\myparagraph{Overview of the snapshot model}\\
 
 EnergyScope TD \cite{limpens2019energyscope} is a model that optimises both the investment and operating strategy of a '\emph{whole}'-energy system, encompassing electricity, heating, mobility, and non-energy sectors. According to \citet{contino2020whole}, a model qualifies as a 'whole-energy' system when it considers all energy sectors, including the non-energy demand such as the production of plastics and other materials using feedstocks that are also considered as energy carriers, with the same level of detail.
 
@@ -150,7 +150,7 @@ The model's hourly resolution over a year makes it well-suited for integrating i
 
 EnergyScope TD has been successfully applied to various national energy systems, including Switzerland \cite{Limpens_role_2019,limpens2019energyscope}, Belgium \cite{Limpens2020}, Italy \cite{borasio2022deep}, and other European countries \cite{dommisse2020modelling}. Furthermore, it has been extended to a multi-region energy system model \cite{thiran2023validation}, coupled with other energy models \cite{pavivcevic2022bidirectionnal}, or employed to focus on specific sectors such as the power networks of electricity, gas, and hydrogen \cite{schnidrig2023role}.
 
-\vspace{0.2cm}\textbf{Formulation of the snapshot model}\vspace{-0.3cm}\\
+\myparagraph{Formulation of the snapshot model}\\
 
 The conceptual structure of the model is illustrated in Figure \ref{fig:estd_overview}: given the end-use energy demand, the efficiency and cost of energy conversion technologies, the availability and cost of energy resources, the model identifies the optimal investment and hourly operation strategies to meet the demand and minimise the total annual cost or greenhouse gas emissions of the energy system. Typically, the two objectives are integrated by placing a limit on emissions while simultaneously striving to minimize costs. 
 
@@ -161,7 +161,8 @@ The conceptual structure of the model is illustrated in Figure \ref{fig:estd_ove
 \label{fig:estd_overview}
 \end{figure}
 
-\vspace{0.2cm}\textbf{Linear formulation}\vspace{-0.3cm}\\
+
+\myparagraph{Linear formulation}\\
 
 The following section illustrates, non-exhaustively, the original EnergyScope TD model. The objective function, cost and \gls{GHG} formulation will be detailed. The rest of the formulation is detailed and available in previous works \cite{limpens2021generating}. 
 This work uses the following nomenclature: SETs are in capital letters, \textbf{Variables} are in bold and with first letter capital, and \emph{parameters} are in italic. 
@@ -233,8 +234,7 @@ For each of these 7 representative years, the EnergyScope TD model is run  using
 As a consequence, a new dimension `\emph{year}' is added to all \textbf{Variables} and parameters, except the interest rate (\emph{i\textsubscript{rate}}) assumed constant during the transition. This new dimension is necessary to represent the changes of technology and resource characteristics over the representative years. 
 As an example, the investment cost (\emph{c}\textsubscript{\emph{inv}}) of a solar photovoltaic panels could drastically vary in the next decades (e.g. data used ranges between 1220 to 870  [€\textsubscript{2015}/kW] between 2020 and 2035). 
 
-
-\vspace{0.2cm}\textbf{Linking years}\vspace{-0.3cm}\\
+\myparagraph{Linking years}\\
 
 At this stage, all years are independent. In the following, we introduce new constraints to link representative years. The formulation allows to install new capacity (\textbf{F\textsubscript{new}}), remove a capacity that has reached  its lifespan (\textbf{F\textsubscript{old}}) or decommission a technology prematurely (\textbf{F\textsubscript{decom}}). These capacity changes occur during a phase, this implies that there is no capacity change during a representative year. Figure \ref{fig:path_eg_igcc} illustrates the concept.
 
@@ -304,7 +304,7 @@ Ones will highlight the use of a `if' in Eq. (\ref{eq:Fold_def_app}), this formu
 
 To initialise the problem in 2020 with the existing design, an additional phase `\emph{2015\_2020}' is created. Eq.~(\ref{eq:Phase2020Design_app}) requires that the capacity used in 2020 is installed in the previous phase. 
 
-\vspace{0.2cm}\textbf{Society inertia}\vspace{-0.3cm}\\
+\myparagraph{Society inertia}\\
 
 To avoid unrealistically fast changes in the system, additional constraints are needed during the phases for the mobility and low temperature heat sectors. Without the following constraints, the model would eliminate certain technologies in one phase, such as oil and gas decentralised boilers. Even if this result is mathematically and physically correct, (\ie fuels are expensive and investing in more efficient technology is economically and environmentally more profitable), this swap of technology cannot occur in one phase (\ie 5 years). Indeed, society inertia to change, available manpower, supply chains and manufacturers limit the change.
 
@@ -351,7 +351,8 @@ For instance, if the maximum allowable variation in supplied low temperature hea
 %As an example, setting the maximum change of supplied heat at low temperature to 25\% would limit the change in technology related to heat at low temperature to 25\% during a phase. 
 %In this case, if more than 25\% of the low temperature heat was supplied by a technology, it would take more than one phase to replace it by a different one.
 
-\vspace{0.2cm}\textbf{Cost and emissions of the transition}\vspace{-0.3cm}\\
+
+\myparagraph{Cost and emissions of the transition}\\
 
 To optimise the energy system, two key metrics must be adapted: the transition cost and the total \acrfull{GWP}. 
 Concerning the first one, all costs are expressed in €\textsubscript{2015} and an annualisation factor is used to distinguish investments over the transition. For the \gls{GWP}, the metric used is based on the contributions of the gases over 100 years. It is assumed that the impact of emitting at the beginning or the end of transition are equivalent and thus no annualisation is used. 
