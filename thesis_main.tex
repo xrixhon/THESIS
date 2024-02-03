@@ -27,18 +27,18 @@
 
 \frontmatter
 
-% -- Abstract ------------------------------------------------------
-\include{frontend/abstract}
-\clearemptydoublepage
-
-% -- Quote ---------------------------------------------------------
-\input{frontend/citation}
-\clearemptydoublepage
-
-% -- Remerciements -------------------------------------------------
-\chapter*{Remerciements}
-\input{frontend/merci}
-\clearemptydoublepage
+%% -- Abstract ------------------------------------------------------
+%\include{frontend/abstract}
+%\clearemptydoublepage
+%
+%% -- Quote ---------------------------------------------------------
+%\input{frontend/citation}
+%\clearemptydoublepage
+%
+%% -- Remerciements -------------------------------------------------
+%\chapter*{Remerciements}
+%\input{frontend/merci}
+%\clearemptydoublepage
 
 % -- Contents ------------------------------------------------------
 \thispagestyle{empty}
@@ -60,6 +60,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter
+
+% allow page breaks within align environment
+\allowdisplaybreaks
 
 %% -- Introduction --------------------------------------------------
 %\chapter*[Introduction]{Introduction}
@@ -102,12 +105,12 @@
 %\clearpage
 
 
-%% -- Chapter 4 - Reinforcement Learning -
-%\clearemptydoublepage
-%\chapter{Reinforcement Learning \ce{CO2}-policy robust optimisation}
-%\label{chap:chap_RL}
-%\input{chap_RL/chap_RL}
-%\clearpage
+% -- Chapter 4 - Reinforcement Learning -
+\clearemptydoublepage
+\chapter{Reinforcement Learning \ce{CO2}-policy robust optimisation}
+\label{chap:chap_RL}
+\input{chap_RL/chap_RL}
+\clearpage
 
 % -- Conclusion ----------------------------------------------------
 %\clearemptydoublepage

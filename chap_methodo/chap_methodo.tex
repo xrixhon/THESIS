@@ -19,22 +19,33 @@
 %
 %\medskip
 
+Assessing the robustness of a whole-energy system transition pathway calls a variety of methodological tools. First and foremost, such an extensive system needs to be represented, \ie modelled, to further be optimized. This model requires some characteristics to capture the peculiarities of this system (\eg intermittency of \gls{VRES}, sector coupling) while keeping an affordable computational time and an open-documentation.  Then, as looking into the future (\ie up to 2050 in this work) comes with its lot of uncertainties, these have to be assessed carefully in terms of characterisation and quantification. The former aims at defining the range over which parameters of the model vary. The latter allows assessing the impact that such uncertainties can have on the output of the model. Finally, meeting the environmental objectives while minimizing the cost of the system, accounting for this decision-making process, the uncertainties, and potential shocks/crisis, require therefore a framework to assess the relevance and the timing of the decisions throughout the transition. Finally, given the limited foresight in the uncertain future that has to deal with long-term objective, \ie limiting the cumulative \gls{GHG} emissions to a certain budget by 2050, this work encompasses the optimisation of the policy,\ie set of actions to take along the transition with a specific methodology to assess its robustness. 
+
+Detailing the different tools needed to answer the research questions, this chapter starts with the presentation of the whole-energy system optimization model, EnergyScope Pathway and its myopic formulation. Then, the focus is put on the uncertainties, their characterisation as well as quantification. Finally, an agent-based \acrfull{RL} approach is detailed to address the sequential decision-making process in the uncertain transition with limited vision in the future. The robustness of these policies is assessed via the use of the \gls{PCA}.
+
 \section*{Contributions}
 \label{sec:meth:contributions}
-\begin{itemize}
-\item Develop the myopic approach
-\item Apply Stefano's method on the pathway model with a similar approach as Guevara et al.
-\item Check that PCE was appropriate as a method for such a system (ECOS2020)
-\item Update the $C_inv_return$ based on the initial investigation of \citet{goffauxpathway} and in line with \citet{poncelet2016myopic}.
-\end{itemize}
+The main methodological contribution of this work is the implementation of the \gls{RL} approach to simulate and optimize the behaviour of an artificial agent interacting with its environment, \ie the transition of the energy system. Given the uncertainties and potential shocks of the future, this approach allows the agent to play the transition in a sequential, \ie myopic, way and optimize the choice and the timing of its actions. This optimization is done through multiple tries-and-errors where the agent repeats the transition with a new set of uncertainties. 
+
+Then, to support this step-by-step transition with limited foresight in the future, we have extended the EnergyScope Pathway model \cite{limpens2021generating}. Originally developed to optimize the transition in one global optimisation up to 2050, \ie perfect foresight, part of this thesis consisted in making this model able to optimize the same transition but with sequential more limited time windows, \ie myopic approach.
+
+The third principal methodological added-value is the use of \acrfull{PCA} to assess the robustness of a policy. Given the uncertainties and the timespan of the transition, this approach allows highlighting the main \og directions'' of variation of the system design (\ie the installed capacities). After this step of identification, strategies and policies can be projected on these directions to see how robust they are to the overall transition uncertainties.
+
+Finally, more minor methodological developments are part of this thesis. Following an approach similar to \citet{guevara2022modeling}, we have extended the ranges of uncertainty developed by \citet{Moret2017} to the pathway optimisation. After assessing the relevance of using \acrfull{PCE} on the optimisation of a whole-energy system \cite{limpens2020impact}, we have applied this uncertainty quantification method on the snapshot model subject to different emission-constraints \citet{rixhon2021role} as well as the pathway model. Eventually, starting from the initial investigation of \citet{goffauxpathway}, this work has converged to the most relevant formulation of the salvage value, \ie \textbf{C\textsubscript{inv,return}} in Eq. \ref{eq:salvage}, for the model EnergyScope.
 
 \section*{Other authors' main contribution statement}
-On top of the main contributions of this thesis that are aforementioned, three main authors are to be mentioned for having brought a significant part of the methodological work. Based on Stefano Moret's monthly whole-energy system model (\ie EnergyScope) \cite{moret2016strategic}, Gauthier Limpens has developed the hourly version of the snapshot model (\ie EnergyScope TD) \cite{limpens2019energyscope}, as well as the perfect foresight pathway model \cite{limpens2024pathway}, to which I personally contributed too. Diederik Coppitters has developed the RHEIA framework allowing to quantify the impact of uncertainties and carry out robust optimisation of energy systems \cite{coppittersthesis}. The current work used this framework for the first of these functionalities. Finally, Stefano Moret extensively assessed the uncertainty characterisation on the Swiss energy system \cite{Moret2017}. This thesis follows the same methodology, updating the uncertainty ranges for the pathway model.
+Novelty does not stand in the reinvention of the wheel.  This thesis, instead, finds its fundamentals in great tools previously developed by other authors. As developers of the building blocks of the main contributions of this thesis, three main authors are to be mentioned for having brought a significant part of the methodological work. Based on Stefano Moret's monthly whole-energy system model (\ie EnergyScope) \cite{moret2016strategic}, Gauthier Limpens has developed the hourly version of the snapshot model (\ie EnergyScope TD) \cite{limpens2019energyscope}, as well as the perfect foresight pathway model \cite{limpens2024pathway}, to which I personally contributed too. Diederik Coppitters has developed the RHEIA framework allowing to quantify the impact of uncertainties and carry out robust optimisation of energy systems \cite{coppittersthesis}. The current work used this framework for the first of these functionalities. Finally, Stefano Moret extensively assessed the uncertainty characterisation on the Swiss energy system \cite{Moret2017}. This thesis follows the same methodology, updating the uncertainty ranges for the pathway model.
 
 \section{Whole-energy system transition model optimisation: EnergyScope Pathway}
 \label{sec:meth:ES}
 
-This work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the former approach to further dig into more details about the latter. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
+This work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is an open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the former approach to further dig into more details about the latter. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
+
+\subsection{Typical days to break the curse of dimensionality}
+\label{subsec:meth:TD}
+\textbf{Add here some details about TDs}
+
+
 
 \subsection{Perfect foresight: One global optimisation of the transition}
 \label{subsec:meth:PF}
@@ -206,6 +217,7 @@ One of the main methodological contributions of this work regarding the developm
 \label{fig:my_schematic}
 \end{figure}
 
+\noindent
 Compared to the perfect foresight, the myopic approach (Figure \ref{fig:my_schematic}) has two main advantages: shorter computational time and more realistic representation of the short-sightedness of decision-makers. For this reason, several studies are based on this approach \citep{babrowski2014reducing,poncelet2016myopic,nerini2017myopic,heuberger2018impact}. \citet{babrowski2014reducing} analysed the benefit of the myopic approach to reduce the computational time. \citet{poncelet2016myopic} uses this approach to analyse the expansion planning of the power sector beyond 2050. \citet{nerini2017myopic} analysed the impact of the horizon windows and overlapping time.  Overall these studies decided to choose the myopic approach to analyse the speed of change compared to a perfect foresight approach.
  % rajout du Réalisme 
 Moreover, the myopic approach allows a sequential optimisation process that opens the doors to decision-making/policy-learning methodologies, like assessing shock events. This approach is used by \citet{heuberger2018impact} who assessed the speed of integration of technologies due to these events. 
@@ -222,6 +234,7 @@ As illustrated in Figure \ref{fig:my_schematic_2}, after optimising, in design a
 
 \myparagraph{Additional sets, parameters and variables}\\
 
+\noindent
 The major add-on from the original EnergyScope Pathway model \cite{limpens2021generating} to the myopic version developed in this thesis, is the possibility to carry out the optimisation on a limited time window, of which the duration is defined by $N\textsubscript{year,opti}$. Moreover, to ensure the ``possibility of \textit{recourse}", there is also the possibility of having an overlap between two consecutive time windows. The timespan of this overlap is defined by the parameter $N\textsubscript{year,overlap}$. The philosophy followed behind the development of the myopic approach was to add another layer on top of the perfect foresight model in order to make it more modular. For this reason, the already existing constraints are marginally adapted. This way, the newly developed model can easily be used to perform a perfect foresight optimisation by setting the time window to $N\textsubscript{year,opti}=$30 years (\ie between 2020 and 2050) and the overlap between the time windows to $N\textsubscript{year,overlap}=$0.  Consequently, as defining the actual time window on which the system is optimised as well as the history, \ie what has already been optimised earlier in the transition, are fundamental, four new sets are implemented: $\text{YEARS}\textsubscript{WND}$, $\text{YEARS}\textsubscript{UP TO}$, $\text{PHASE}\textsubscript{WND}$ and $\text{PHASE}\textsubscript{UP TO}$ (see Table \ref{tab:path_my_sets}).
 
 \begin{table}[htbp]
@@ -249,6 +262,7 @@ On top of these four specific sets, some artefacts were also necessary to avoid 
 
 \myparagraph{Myopic pathway implementation}\\
 
+\noindent
 Starting this work in 2017, AMPL Optimization Inc. has developed a Python \gls{API} called amplpy \cite{amplpy}. In a nutshell, this API allows the pre/post-processing of an ampl optimisation problem by accessing its features (\eg constraints,parameters, variables, objective function) from within Python. Using this\gls{API}, this updated version of the model interacts with the AMPL problem representing the optimization of the whole-energy system transition pathway as represented in Figure \ref{fig:MY_process_code}.
 
 
@@ -258,6 +272,13 @@ Starting this work in 2017, AMPL Optimization Inc. has developed a Python \gls{A
 \caption{Schematic of the iterative optimization of the whole-energy system transition pathway.}
 \label{fig:MY_process_code}
 \end{figure}
+
+\myparagraph{Impact of myopic formulation on the system}\\
+
+\noindent
+As expected, the computational time is reduced drastically (\ie by 55\%) while the design remains similar.  Given the continuous change of the input parameters over the considered time frame, the perfect foresight and myopic approaches results are very similar, like in \cite{krey2006vergleich}: less than 1\% cost difference over the transition, similar system designs by 2050 and slight shifts in time in terms of adoption of technologies. 
+
+The main difference lies in the transition itself and especially in the earlier deployment of PVs and offshore wind turbines. These induce the reinforcement of the grid that is a capital-intensive and long-lifetime asset. This is mostly due to the chosen formulation of the salvage value, Eq. \ref{eq:salvage}. Since the objective function is now the transition cost over a more limited time window (\ie 10 years rather than 30 years), a bigger salvage value, deduced from the total investments, leads to a temporary better optimum at early stages of the transition. A more detailed comparison between the myopic and perfect foresight approaches is available in Appendix \ref{app:my_vs_pf}.
 
 \section{Uncertainty quantification}
 \label{sec:meth:UQ}
@@ -336,6 +357,7 @@ We used \gls{PCE}, an approach for surrogate-assisted \gls{UQ}, to propagate unc
 
 \myparagraph{Definition}\\
 
+\noindent
 The PCE model ($\hat{M}$) is a representation of the relationship between the input parameters and the output variable of interest (\ie results) in the EnergyScope Pathway model ($M$). This representation is constructed as a truncated series of multivariate orthonormal polynomials $\bm{\Psi}$, weighted by coefficients $u$:
 
 \begin{equation}
@@ -379,6 +401,7 @@ Here, $A$ denotes the collection of all PCE coefficients, and $\alpha_i$ corresp
 
 \myparagraph{Comparison with a proven method}\\
 
+\noindent
 Besides being an in-house used method, an early step of this thesis consisted in assessing \gls{PCE} with similar approach used in the literature \cite{limpens2020impact}. \\
 
 After characterising the uncertainty ranges, \citet{Moret2017} quantified the impact of these uncertainties on the snapshot model of EnergyScope,  \ie ranking them, using the Morris method \cite{morris_factorial_1991}.  This method, as a statistical analysis, relies on individually randomized one-factor-at-a-time designs. Given the $d$ model parameters $\vec{\xi}=(\xi_1,\xi_2,...,\xi_d)$, the first step of the method consists in generating independent random samples of $\vec{\xi}$ in a standardised and discretised $p$-level \textit{region of experimentation}, $\omega$. In this \textit{region of experimentation}, each $\xi_i$, varying in the interval $[\xi_{i,min},~\xi_{i,max}]$, can take a random discrete value as follows :
@@ -431,7 +454,7 @@ After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a prel
 % 8. Implementation Details
 % 9. Experimental/Testing Setup
 
-To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims first at presenting the general concepts of this approach as well as the policy optimisation algorithm. Then, the environment, actions, state and reward are detailed.
+The transition towards carbon-neutrality of a whole-energy system (i.e. including all streams of energy carriers and demands) is uncertain. Therefore, instead of establishing single-shot definitive plans towards 2050 (and beyond), i.e. perfect foresight, policy makers rather go through multiple rolling-horizon short-term decisions, i.e. myopic approach. Yet, these decisions can have long-term impacts, 20 to 50 years. Meeting the environmental objectives while minimizing the cost of the system, accounting for this decision-making process, the uncertainties, and potential shocks/crisis, require therefore a framework to assess the relevance and the timing of the decisions throughout the transition. To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims first at presenting the general concepts of this approach as well as the policy optimisation algorithm. Then, the environment, actions, state and reward are detailed.
 
 \subsection{Reinforcement learning fundamentals and algorithm}
 \label{subsec:meth_RL_fund_algo}
@@ -460,6 +483,7 @@ where $\gamma$ is the discount factor and $\zeta$ the temperature parameter. The
 \section{Principal Components Analysis}
 \label{sec:meth:PCA}
 
+Born in 1901 with Pearson
 
 
 
