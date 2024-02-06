@@ -41,12 +41,6 @@ Novelty does not stand in the reinvention of the wheel.  This thesis, instead, f
 
 This work optimises the entire transition pathway from a known system in 2020 up to 2050 thanks to EnergyScope Pathway \cite{limpens2024pathway}. According to pathway models review (see Appendix \ref{app:ESPathway_choice}), EnergyScope Pathway can be categorised as an investment and operation optimisation model that assesses the whole-energy system, has a hourly time-resolution and is an open-source documented model. Moreover, it maintains a low computational cost (\ie around 15 minutes for a 30-year pathway with a hourly discretisation). From the perfect to the myopic foresight of the transition optimisation, this section presents only the main constraints of the former approach to further dig into more details about the latter. The reader is invited to refer to Appendix \ref{app:ESPathway_full_formulation} for more details about the formulation of the model and its extension from a snapshot approach, EnergyScope TD. More extensive information about the formulation choices, for instance, can be found in \cite{limpens2024pathway} and the documentation \cite{readthedocs_pathway}.
 
-\subsection{Typical days to break the curse of dimensionality}
-\label{subsec:meth:TD}
-\textbf{Add here some details about TDs}
-
-
-
 \subsection{Perfect foresight: One global optimisation of the transition}
 \label{subsec:meth:PF}
 
@@ -221,7 +215,7 @@ One of the main methodological contributions of this work regarding the developm
 Compared to the perfect foresight, the myopic approach (Figure \ref{fig:my_schematic}) has two main advantages: shorter computational time and more realistic representation of the short-sightedness of decision-makers. For this reason, several studies are based on this approach \citep{babrowski2014reducing,poncelet2016myopic,nerini2017myopic,heuberger2018impact}. \citet{babrowski2014reducing} analysed the benefit of the myopic approach to reduce the computational time. \citet{poncelet2016myopic} uses this approach to analyse the expansion planning of the power sector beyond 2050. \citet{nerini2017myopic} analysed the impact of the horizon windows and overlapping time.  Overall these studies decided to choose the myopic approach to analyse the speed of change compared to a perfect foresight approach.
  % rajout du Réalisme 
 Moreover, the myopic approach allows a sequential optimisation process that opens the doors to decision-making/policy-learning methodologies, like assessing shock events. This approach is used by \citet{heuberger2018impact} who assessed the speed of integration of technologies due to these events. 
-In their analysis of the overcapacity in European power systems, \citet{moret2020overcapacity} emphasised that such a ``possibility of \textit{recourse}" is very appropriate to address uncertainty gradually unfolding over time. Consequently, the development of the myopic approach represents the foundations of the further implementation of the agent-based reinforcement learning framework (see Section \ref{sec:meth:RL}).\\
+In their analysis of the overcapacity in European power systems, \citet{moret2020overcapacity} emphasised that such a ``possibility of \textit{recourse}" is very appropriate to address uncertainty gradually unfolding over time. Consequently, the development of the myopic approach represents the foundations of the further implementation of the agent-based reinforcement learning framework (see Section \ref{sec:meth:RL}).
 
 As illustrated in Figure \ref{fig:my_schematic_2}, after optimising, in design and operation, one time window (\eg from 2020 to 2030), the intermediate system design (\ie the installed capacities) is set as initial conditions for the start of the next time window (\eg from 2025 to 2035) as well as the historical investment decisions (\ie $\textbf{F\textsubscript{new}}$, $\textbf{F\textsubscript{old}}$ and $\textbf{F\textsubscript{decom}}$). Consequently, the solution obtained at the end of the first time window (\eg 2030) as well as potential investment decisions between the start of the second time window and this end-year are discarded. In other words, they are not taken into account for the optimisation of the second time window. This process goes on until the stated end of the transition (\ie 2050, in this case).
 
@@ -402,7 +396,7 @@ Here, $A$ denotes the collection of all PCE coefficients, and $\alpha_i$ corresp
 \myparagraph{Comparison with a proven method}\\
 
 \noindent
-Besides being an in-house used method, an early step of this thesis consisted in assessing \gls{PCE} with similar approach used in the literature \cite{limpens2020impact}. \\
+Besides being an in-house used method, an early step of this thesis consisted in assessing \gls{PCE} with similar approach used in the literature \cite{limpens2020impact}. 
 
 After characterising the uncertainty ranges, \citet{Moret2017} quantified the impact of these uncertainties on the snapshot model of EnergyScope,  \ie ranking them, using the Morris method \cite{morris_factorial_1991}.  This method, as a statistical analysis, relies on individually randomized one-factor-at-a-time designs. Given the $d$ model parameters $\vec{\xi}=(\xi_1,\xi_2,...,\xi_d)$, the first step of the method consists in generating independent random samples of $\vec{\xi}$ in a standardised and discretised $p$-level \textit{region of experimentation}, $\omega$. In this \textit{region of experimentation}, each $\xi_i$, varying in the interval $[\xi_{i,min},~\xi_{i,max}]$, can take a random discrete value as follows :
 \begin{equation}
@@ -429,7 +423,7 @@ Therefore, in the following results, we rather use
 \label{eq:mu*}
 \end{equation}
 
-to rank parameters among each other. In (\ref{eq:mu*}), $SF_{i}$ is the distribution formed by the $r$ standardized elementary effects, as done in \citet{Moret2017PhDThesis}.\\ 
+to rank parameters among each other. In (\ref{eq:mu*}), $SF_{i}$ is the distribution formed by the $r$ standardized elementary effects, as done in \citet{Moret2017PhDThesis}.
 
 In \cite{limpens2020impact}, we have assessed the \gls{PCE} approach, comparing the Top-14 most impacting parameters obtained from this approach with the one provided by the improved Morris method based on $\mu^*_{i}$. Even if the output of each method does not have the same physical meaning, both methods can rank the parameters by their impact on the total annual  cost  of  the  energy  system. Both rankings were very similar which validates the use of \gls{PCE} in the rest of this work.
 
