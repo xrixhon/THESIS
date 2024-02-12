@@ -1,10 +1,6 @@
 %!TEX root = ../thesis_main.tex
 %!TEX encoding = UTF-8 Unicode
 
-\section{Reinforcement learning fundamentals}
-\label{sec:RL_fundamentals}
-As RL is framework that is not really applied to the optimisation of the whole-energy system transition, I find it necessary to introduce the general concepts of reinforcement learning and say that, even if it is usually used in other fields, there is a point to use it here.
-
 \section{Definition of the actions, states and rewards}
 \label{sec:act_states_rew}
 After pointing out that the environment is basically the EnergyScope myopic model at the different steps of the transition, define the actions, the states as well as the shape of the reward.
@@ -13,23 +9,20 @@ After pointing out that the environment is basically the EnergyScope myopic mode
 \subsection{States}
 \subsection{Reward}
 
-\section{Uncertainties in the learning}
-Remind here that uncertainties considered in the learning of the agent are those presented in Chapter \ref{chap:chap1_ES_PCE} and already applied and screened in the work/results presented in Chapter \ref{chap:chap2_electro_uq}. Present as well how we affect the value of the parameters based on the value of the sample.
+\section{Results - As in Smart Energy Systems Conference}
 
-\section{Results}
+%\subsection{Training}
+%Here present results RL-oriented (actions, states, reward)
+%
+%Then, present results energy system-oriented (installed capacities, costs, generation)
 
-\subsection{Training}
-Here present results RL-oriented (actions, states, reward)
-
-Then, present results energy system-oriented (installed capacities, costs, generation)
-
-\subsection{Testing}
-See how the different policies saved successively during the training behave when facing to new samples. This way, we can pick an optimal policy (the one giving the maximum average (or another metric) reward). 
-
-We then compare the results of RL with the perfect foresight-TD deterministic and the perfect foresight-monthly with uncertainties (by setting the actions of the agent as variables in these two optimisations). The comparison would go over different aspects:
-\begin{itemize}
-\item Over-cost
-\item Over-change, a bit like what Paolo defined as design error/change (in terms in consumed resources, installed capacities,...)
-\end{itemize}
+%\subsection{Testing}
+%See how the different policies saved successively during the training behave when facing to new samples. This way, we can pick an optimal policy (the one giving the maximum average (or another metric) reward). 
+%
+%We then compare the results of RL with the perfect foresight-TD deterministic and the perfect foresight-monthly with uncertainties (by setting the actions of the agent as variables in these two optimisations). The comparison would go over different aspects:
+%\begin{itemize}
+%\item Over-cost
+%\item Over-change, a bit like what Paolo defined as design error/change (in terms in consumed resources, installed capacities,...)
+%\end{itemize}
 
 

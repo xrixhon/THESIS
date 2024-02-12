@@ -438,10 +438,10 @@ After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a prel
 \label{sec:meth:RL}
 
 % See chatGPT
-% 1. Introduction to Reinforcement Learning
-% 2. Problem Formulation
+% 1. Introduction to Reinforcement Learning --> Methodo
+% 2. Problem Formulation --> Methodo
 % 3. Markov Decision Process (MDP)
-% 4. RL Algorithms and Techniques
+% 4. RL Algorithms and Techniques --> Methodo
 % 5. Training Setup
 % 6. Evaluation Metrics
 % 7. Baseline and Comparisons
@@ -450,15 +450,20 @@ After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a prel
 
 The transition towards carbon-neutrality of a whole-energy system (i.e. including all streams of energy carriers and demands) is uncertain. Therefore, instead of establishing single-shot definitive plans towards 2050 (and beyond), i.e. perfect foresight, policy makers rather go through multiple rolling-horizon short-term decisions, i.e. myopic approach. Yet, these decisions can have long-term impacts, 20 to 50 years. Meeting the environmental objectives while minimizing the cost of the system, accounting for this decision-making process, the uncertainties, and potential shocks/crisis, require therefore a framework to assess the relevance and the timing of the decisions throughout the transition. To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims first at presenting the general concepts of this approach as well as the policy optimisation algorithm. Then, the environment, actions, state and reward are detailed.
 
-\subsection{Reinforcement learning fundamentals and algorithm}
-\label{subsec:meth_RL_fund_algo}
-At the initial state, \ie the energy system in 2020, the agent gets an initial observation, $\bm{o}_0$. An observation represents a set of the characteristics of the environment accessible to the agent for it to take the next action. The state, though, is the exhaustive list of these characteristics. Even though an observation is a subset of the state, this work uses these two words interchangeably. Then, it takes an action, $\bm{a}_0$, impacting its environment, \ie the energy system limited transition over the first decision window (2020-2030). Through this interaction with its environment, the agent is given a reward, $r_1=r\left(\bm{a}_0 | \bm{o}_0 \right)$, and ends up in a new state, \ie the energy system in 2025, characterised by a new observation, $\bm{o}_1$, and so on (\Cref{fig:Schematics_RL}).
+\subsection{Reinforcement learning fundamentals and application to energy systems}
+\label{subsec:meth_RL_fundamentals}
+
+
+
+\subsection{Problem formulation and algorithm}
+\label{subsec:meth_RL_algo}
+At the initial state, \ie the energy system in 2020, the agent gets an initial observation, $\bm{o}_0$. An observation represents a set of the characteristics of the environment accessible to the agent for it to take the next action. The state, though, is the exhaustive list of these characteristics. Even though an observation is a subset of the state, this work uses these two words interchangeably. Then, it takes an action, $\bm{a}_0$, impacting its environment, \ie the energy system limited transition over the first decision window (2020-2030). Through this interaction with its environment, the agent is given a reward, $r_1=r\left(\bm{a}_0 | \bm{o}_0 \right)$, and ends up in a new state, \ie the energy system in 2025, characterised by a new observation, $\bm{o}_1$, and so on (see Figure \ref{fig:Schematics_RL}).
 
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{Schematics_RL.pdf}
-\caption{\acrfull{RL} framework made of the agent interacting with its environment, \ie the energy-system model on a limited decision window of 10 years.}
+\caption{\Acrfull{RL} framework made of the agent interacting with its environment, \ie the energy-system model on a limited decision window of 10 years.}
 \label{fig:Schematics_RL}
 \end{figure}
 
@@ -474,14 +479,132 @@ The goal of a \gls{RL} approach is to optimise the mapping between inputs (\ie t
 \noindent
 where $\gamma$ is the discount factor and $\zeta$ the temperature parameter. The former determines how much importance we want to give to future rewards within an episode. The latter balances the trade-off between exploitation of proven actions via the return maximisation, \ie $\sum_{n=0}^{N_{ep}}\gamma^n r_n\left(\bm{o}_n,\bm{a}_n \right)$, and exploration through the entropy\footnote{Where entropy represents the amount of energy in a system not available to produce work in thermodynamics, this term stands for the randomness or stochasticity of the policy in the current context.} term, \ie $\log \left(\pi\left(\bm{a}_n | \bm{o}_n\right) \right)$. This way, \gls{SAC} ensures sample efficiency and low sensitivity to hyper-parameters while improving exploration \cite{haarnoja2017reinforcement} and robustness \cite{ziebart2010modeling}. These make \gls{SAC} a state-of-the-art algorithm and one of the most efficient model-free deep RL method nowadays. In this work, the authors used the open-source \gls{SAC} package developed by \textsc{Stable-Baselines3} \cite{raffin2021stable} where the policy \gls{NN} is a fully connected multilayer perceptron (MLP) built with \textsc{TensorFlow} \cite{abadi2016tensorflow}. For further information on \gls{RL} and the \gls{SAC} algorithm, the interested reader is invited to refer to the works of \citet{sutton2018reinforcement} and \citet{haarnoja2018soft}, respectively.
 
-\section{Principal Components Analysis}
+\section{Robustness assessment via PCA}
 \label{sec:meth:PCA}
+When optimizing a transition pathway of a whole-energy system, including its uncertainties, capturing the most variable changes of design (\ie installed capacities of each technology) can become overwhelming due to the curse of dimensionality. For the case study detailed in Chapter \ref{chap:case_study}, this consists of \ie 7 representative years of the transition (\ie from 2020 to 2050), 113 possible technologies subject to uncertain parameters. To tackle this challenge, we have developed a methodology based on the \acrfull{PCA}. This methodology provides two main outputs. First and foremost, using the model runs necessary to quantify the impact of the uncertain parameters on the total cost of the transition (see Section \ref{sec:meth:UQ}), it gives a metric on which to assess the robustness of energy transition policies resulting from different approaches. This metric gives more insight that, for instance, the variation of the total transition cost that encompasses too many aspects (\ie design and operation strategies, variation along the transition) in one single value. Second, these ``directions of variation'' can highlight key modal shifts or highly varying design strategies over the transition. After introducing the general concept of \gls{PCA}, this section aims at detailing the methodology proposed to give these ``directions of variation'' and to assess the robustness of policies.
 
-Born in 1901 with Pearson
+\subsection{Principal Component Analysis: General concept}
+\label{subsec:meth:PCA:PCA}
+Born in the early 20th century \cite{pearson1901on,hotelling1933analysis}, the \acrfull{PCA} finds its fundamentals from the \gls{SVD}. The latter is a generalization, to an arbitrary (\ie not especially square) matrix, of the spectral theorem stating that a normal matrix can be diagonalized by an orthonormal basis of eigenvectors.  The core concept of principal component analysis (PCA) involves simplifying a dataset with numerous interconnected variables by reducing its dimensionality. The aim is to preserve as much variability within the data as feasible. This is accomplished by transforming the data, $\mathbf{x}$, into a new set of variables called principal components (PCs), $\mathbf{z}$. These components are uncorrelated and arranged in such a way that the first ones retain the majority of the variability found in all of the original variables. On the other hand, the final principal components (PCs) pinpoint directions where there is minimal variation, indicating nearly constant linear relationships among the original variables \cite{jolliffe2002principal}. 
+
+Easier to represent in two dimensions, let us consider a vector $\mathbf{x}$ composed of the variables $x_1$ and $x_2$, $p=2$, and 25 realisations of them (See Figure \ref{fig:PCA_intro} (left)). The first \gls{PC}, $z_1$, is a linear function, $\mathbf{\alpha_1^{T}x}$,  of the different variables of $x$ with maximum variance:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign}
+\hspace{0pt}
+  \label{eq:PCA_z1}%7
+ z_1=\mathbf{\alpha_1^{T}x}=\alpha_{11}x_1+\alpha_{12}x_2+...+\alpha_{1p}x_p=\sum_{j=1}^{p} \alpha_{1j}x_j
+\end{flalign}
+\endgroup
+
+\noindent
+where $^T$ means the transpose vector. Then, $z_2=\mathbf{\alpha_2^{T}x}$, is another linear function of $\mathbf{x}$,uncorrelated with $z_1$ and maximizing the variance. These transformations lead to the construction of the PCs (see Figure \ref{fig:PCA_intro} (right)). In more general cases, one can write $z_k=\mathbf{\alpha_k^{T}x}$ as the $k^{\text{th}}$ PC. There can be up to $p$ PCs even though, usually, most of the variance of the original data can be captured by $m$ PCs where $m\ll p$.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{PCA_intro_original.pdf}
+\hspace{1.5cm}
+\includegraphics[width=0.4\textwidth]{PCA_intro_PCA.pdf}
+\caption{Original observations of the dataset (left) and their projection with respect to their PCs (right). The variation of the realisations is more significant in the direction of $x_2$ than $x_1$. Once projected with respect to their PCs, the variation is even more significant in the direction of $z_1$ than in either of the original variables, as it captures most of their variance. Graph adapted from \cite{jolliffe2002principal}.}
+\label{fig:PCA_intro}
+\end{figure}
+
+The PCs are computed based on the covariance matrix of $\mathbf{x}$, $\mathbf{\Sigma}$. The diagonal of this matrix gives the variance of the $i^{\text{th}}$ variable whereas the other elements give the covariance between the $i^{\text{th}}$ and the $j^{\text{th}}$ variables where $i\neq j$. Out of this matrix, $\mathbf{\alpha_k}$ is the eigenvector of $\mathbf{\Sigma}$ corresponding to its $k^{\text{th}}$ highest eigenvalue $\lambda_k$. Finally, as the $\mathbf{\alpha_k}$ for all $k=1,2,\cdots, p$ are normalized,  \ie $\mathbf{\alpha_k}^{T}\mathbf{\alpha_k}=1$, $\mathrm{var}\left(z_k\right)=\lambda_k$, where $\mathrm{var}\left(z_k\right)$ is the variance of $z_k$. In other words, $\alpha_{ki}$, \ie the components of$ \mathbf{\alpha_k}$, give the weight of the $i^{\text{th}}$ original variable, $x_i$, in the $k^{\text{th}}$ PC, \ie $z_k$, where $\lambda_k$ gives the variance of the original data captured by $z_k$. In other words, a high absolute value of $\alpha_{ki}$ means that $x_i$ has a significant impact in the direction given by the $k^{\text{th}}$ PC \cite{zdybal2022advancing}. The interested reader is invited to refer to the work of \citet{jolliffe2002principal} for further mathematical demonstrations, information and examples.
+
+\subsection{Principal components of the transition}
+\label{subsec:meth:PCA:transition}
+As introduced, the objective is to define the main technological drivers of the variation through the transition to 2050 subject to uncertainties. To do so, before calculating the PCs of the transition, three preliminary steps are necessary: (i) data selection, (ii) data scaling and, (iii)outliers management. After this preprocessing, PCs can be computed for each of the year of the transition then aggregated to give a bigger picture over the whole transition.\\
+
+\myparagraph{Data selection}\\
+
+\noindent
+Prior to any data processing, the choice of the original dataset is fundamental. In the will to characterize the variations of design within the transition under uncertainties, we have focused on the installed capacities, $\textbf{F}(y,j)$ for all $y \in \text{\emph{YEARS}}$ and $j \in \text{\emph{TECH}}$ (see Eq. \ref{eq:F_newBuilt}). Even though these represent only a part of the result of the optimization, along with the operation, focusing on the installed capacities give a direct information regarding the required capital investment (see Eq. \ref{eq:c_inv}) and, more indirectly, the resources to use.  In other words, it captures the technological landscape of the transition.  Having defined the type of variable to consider, we need to assemble a relevant dataset. This is given by the runs to quantify the impact of the uncertain parameters on the total cost of transition required by the method described in Section \ref{sec:meth:UQ}. Overall, the original dataset is $\textbf{x}(y,j,s)$ where, on top of $y$ and $j$ previously defined, $s \in [1,2,...,S]$ states for the sample number of the uncertainty quantification method. For the investigated case detailed in Chapter \ref{chap:atom_mol}, this represents $S=240$ samples resulting from the perfect foresight optimization of the transition pathway under uncertainties. Finally, among the seven representative years of the transition, we do not consider 2020 as it is the initialisation year for which the design of the system is fixed, to be representative of the actual design that was in place (see Appendix \ref{app:bel_2020}). In other words, we focus here only on the years 2025, 2030, 2035, 2040, 2045 and 2050. This gives the whole dataset considered in this \gls{PCA} (see Figure \ref{fig:PCA_data}).\\
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{PCA_data.pdf}
+\caption{Original raw data considered in the \acrfull{PCA} of the variation of the design strategy through the transition, $\textbf{x}(y,j,s)$.}
+\label{fig:PCA_data}
+\end{figure}
+
+\myparagraph{Data scaling}\\
+
+\noindent
+Preprocessing the dataset before employing a method to reduce dimensionality, like \gls{PCA}, can greatly affect the structure of the simplified representation and the characteristics of the features extracted from the dataset \cite{parente2013principal,peerenboom2015dimension}. Scaling the original raw data via normalization, \ie reducing data to $[0, 1]$ interval has a double purposes: to assess variables (i) representing different sorts of features, with different units (\eg installed capacity of electricity and mobility technologies) and, (ii) ranging over the different orders of magnitude (\eg installed capacity of private and public mobility) (see Appendix \ref{app:bel_2020}).  Consequently, the first part of this data preprocessing consists in scaling the installed capacities versus their respective sector and representative year (see Eq. \ref{eq:PCA_scaling_0}). The sectors, as defined in EnergyScope, are the electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{NED}, storage and infrastructures. For instance, the installed capacity of \gls{PV} panels in the year $y$ of the sample $s$ is scaled by the maximum installed capacity in the electricity sector in the year $y$ among all the samples.
+
+\begin{equation}
+ \label{eq:PCA_scaling_0}
+\textbf{x}^{*}(y,j,s)=\frac{\textbf{x}(y,j,s)}{\mathrm{max}_{sec,y}\left(\textbf{x}(y,j,s)\right)}
+ \quad \forall y \in \text{\emph{YEARS}}, sec \in \text{\emph{SECTORS}}
+\end{equation}
+
+Then, to give ``directions/metrics'' representative to the size of each sector within the energy system, we added another weight based on the relative share of commodity produced by each sector (see Figure \ref{fig:Share_EUD_sectors}). 
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Share_EUD_sectors.pdf}
+\caption{Multiplying factor for each of the end-use sectors. Over the transition, sectors like electricity or methanol become more important due to sector coupling, \eg e-mobility or \gls{MTO}.}
+\label{fig:Share_EUD_sectors}
+\end{figure}
+
+To do so, we have arbitrarily considered these shares from the REF case, where the pathway is optimized according to the perfect foresight approach and considering all the uncertain parameters to their nominal value (see Chapter \ref{chap:atom_mol}).  The end-use-demands as well as the commodity produced for the sector coupling are based on the results of this deterministic REF case.  For instance, the share of the electricity sector accounts for its \gls{EUD} and the electricity produced to supply other sectors (\eg heat, mobility). Finally, to compare apples with apples, we converted the \gls{EUD} in the mobility sectors, \ie passenger and freight, into the \gls{FEC} they require in the REF case. This gives the second weighing factor to scale data, on top of the one of Eq. \ref{eq:PCA_scaling_0} (see Eq. \ref{eq:PCA_scaling_1}).
+
+\begin{equation}
+ \label{eq:PCA_scaling_1}
+\textbf{x}^{**}(y,j,s)=\textbf{x}^{*}(y,j,s)\cdot \text{share}_{\text{EUD}}(y,sec)
+ \quad \forall y \in \text{\emph{YEARS}}, sec \in \text{\emph{SECTORS}}
+\end{equation}
+
+One would notice that this second scaling factor omits the infrastructure and storage technologies. In the process to define ``metrics'' to assess the robustness of a policy for the case of Belgium, this has a negligible impact. Indeed, the variation of the installed capacity of these technologies are either limited compared to end-use-type (EUT) technologies, \ie limiting their influence in the definition of PCs, or directly linked to these EUT technologies (\eg \gls{DHN} installed capacity is directly proportional to technologies producing \gls{LT} heat in \gls{DHN} or the additional capacity of grid is caused by additional capacities of \gls{VRES}). \\
+
+\myparagraph{Outliers management}\\
+
+\begin{wrapfigure}{r}{3cm}
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=2.8cm]{Schematic_boxplot.pdf}
+\caption{}
+\label{fig:Schematic_boxplot_methodo}
+\end{wrapfigure}
+
+\noindent
+Handling outliers is one of the biggest challenges in data science \cite{aguinis2013best}. These are defined as data points differing significantly from the rest of the data set. Being extreme values, outliers influence the overall dataset variance and, consequently, rotate the PCs directions towards them \cite{stanimirova2007dealing}. In the context of \gls{PCA}, outliers could be defined as ``model fit outliers'' as their presence influences the fit of the model. There are several techniques to detect/define and handle the outliers \cite{aguinis2013best}. In this work, detection is performed via the box plot technique, as outliers are identified as those points lying beyond the plot’s whiskers, or fences. These whiskers are themselves constructed as being 1.5 times the \gls{IQR} (Q3 - Q1) higher or lower than the third (Q3) or first quartile (Q1), respectively (see Figure \ref{fig:Schematic_boxplot_methodo}). Therefore, the installed capacity of a technology in the year $y$ of the sample $s$ is defined as an outlier if it falls out of this range compared to the rest of the dataset for this specific technology and year across all the samples. Then, one option to handle these outliers would be to remove the whole data point for which one technology presents an outlying installed capacity. However, it would lead to reducing the entire dataset (\ie several thousands of points) to too few data points (\ie several tens) limiting the applicability of the \gls{PCA} approach. Consequently, we have decided to keep these points but carry out a modification of them \cite{aguinis2013best}. In practice,  the value of ``high outliers'' or ``low outliers'' is set to the upper or lower fence, respectively.\\
+
+\myparagraph{Principal components of each representative year}\\
+
+\noindent
+Now that data are selected and preprocessed, principal components are first computed for each representative year separately, using the Python package \textsc{PCA} from \textsc{sklearn.decomposition}. As explained in Section \ref{subsec:meth:PCA:PCA}, the number of PCs per year to retain can go up to the number of considered variables (\ie 73\footnote{73 technologies out of the 113 in total as we do not consider the 15 infrastructure technologies nor the 25 storage technologies.} in our case study) which is intractable. Moreover, the first PCs keep track of most of the variance of the system whereas the last ones present a smaller interest. Choosing the appropriate threshold involves a trade-off. Retaining too few principal components may result in loss of important information, while retaining too many may lead to over-fitting or computational inefficiency. The good practice followed in this work is to compute, for each of the representative years of the transition (except 2020),  the PCs that capture 90\% of the total variance of this year \cite{jolliffe2002principal}. At the end of this step, we have a list of $m$ PCs, \ie $\text{PC}_{y,i}$ where $y$ stands for the year between 2025 and 2050 and 
+
+\begin{equation}
+\label{eq:PC_year}
+\sum_{i=0}^m\text{var}\left(\text{PC}_{y,i}\right)\geq 90\% \sum_{i=0}^p\text{var}\left(\text{PC}_{y,i}\right) \quad \forall y \in \text{\emph{YEARS}}
+\end{equation}
+
+\noindent
+where $m$ is presumably different for each representative year and $p$ is the total number of variables, hence the maximum number of PCs. For the entire transition, it gives a total of $M$ $\text{PC}_{y,i}$.\\
+
+\myparagraph{Principal components of the transition}\\
+
+\noindent
+The final step consists in defining metrics on the whole transition based on the $\text{PC}_{y,i}$ computed for each representative year, separately. To do so, all the $\text{PC}_{y,i}$ from every year are sorted together in a descending order based on their respective variance. Then, starting with the one with the highest absolute variance, all the other $\text{PC}_{y,i}$ similar to it are clustered together. The similarity between two PCs is defined according to the cosine similarity approach. Indeed, as detailed in Section \ref{subsec:meth:PCA:PCA}, a PC represents a vector for which the components are related to each variable of interest. Therefore, in this work, PCs are considered similar if their cosine similarity, $S_C (A,B)$, is greater or equal to 90\%:
+
+\begin{equation}
+\label{eq:cos_similarity}
+S_C (A,B):= \cos(\theta) = {\mathbf{A} \cdot \mathbf{B} \over \|\mathbf{A}\| \|\mathbf{B}\|} = \frac{ \sum\limits_{i=1}^{n}{A_i  B_i} }{ \sqrt{\sum\limits_{i=1}^{n}{A_i^2}} \cdot \sqrt{\sum\limits_{i=1}^{n}{B_i^2}} } \geq 90\%
+\end{equation}
+
+\noindent
+where $A$ and $B$ represent two different PCs.  The components of these similar PCs are then averaged to form the first PC of the transition, $\text{PC}_{\text{transition},1}$. Then, the process repeats with the $\text{PC}_{y,i}$ with the highest absolute variance but that has not been integrated in the construction of $\text{PC}_{\text{transition},1}$, to form $\text{PC}_{\text{transition},2}$. This goes on until the sum of the absolute variance of the $N$ $\text{PC}_{y,i}$ used to construct these $\text{PC}_{\text{transition}}$ is greater or equal to 90\% of the sum of the absolute variance of all the $M$ $\text{PC}_{y,i}$ generated at the previous step:
+
+\begin{equation}
+\label{eq:PC_transition}
+\sum_{i=0}^N\text{var}\left(\text{PC}_{y,i}\right)\geq 90\% \sum_{i=0}^M\text{var}\left(\text{PC}_{y,i}\right)
+\end{equation}
 
 
+\myparagraph{Robustness assessment of roadmaps}\\
 
-
-
-
-
+\noindent
+Similarly to the work of \citet{moret2020overcapacity}, roadmaps are defined by setting minimal installed capacities based on the results of different transition pathway optimizations (see Chapter \ref{chap:chap_RobPol}). The $\text{PC}_{\text{transition}}$ are the ``direction/metrics'' on which are projected the results from the myopic pathway optimization subject to minimal installed capacities set by these roadmaps.  In conclusion, a roadmap would be defined as more robust than another one if the projection of its myopic runs on the different $\text{PC}_{\text{transition}}$ span on a more narrow range.
