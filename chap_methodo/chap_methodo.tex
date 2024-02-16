@@ -438,13 +438,13 @@ After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a prel
 \label{sec:meth:RL}
 
 % See chatGPT
-% 1. Introduction to Reinforcement Learning --> Methodo
-% 2. Problem Formulation --> Methodo
-% 3. Markov Decision Process (MDP)
-% 4. RL Algorithms and Techniques --> Methodo
+% 1. Introduction to Reinforcement Learning --> Methodo --> DONE
+% 2. Problem Formulation --> Methodo --> DONE
+% 3. Markov Decision Process (MDP) --> Methodo --> DONE
+% 4. RL Algorithms and Techniques --> Methodo --> DONE
 % 5. Training Setup
 % 6. Evaluation Metrics
-% 7. Baseline and Comparisons
+% 7. Baseline and Comparisons --> Results
 % 8. Implementation Details
 % 9. Experimental/Testing Setup
 
@@ -453,7 +453,17 @@ The transition towards carbon-neutrality of a whole-energy system (i.e. includin
 \subsection{Reinforcement learning fundamentals and application to energy systems}
 \label{subsec:meth_RL_fundamentals}
 
+\begin{wrapfigure}{r}{3cm}
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=2.8cm]{RL_Fundamentals.pdf}
+\caption{}
+\label{fig:RL_Fundamentals}
+\end{wrapfigure}
 
+\Gls{RL} is a subfield of machine learning focused on training an agent to make sequential decisions by interacting with an environment to achieve specific goals. Unlike supervised learning, where data is labeled, and unsupervised learning, where patterns are inferred from unlabeled data, reinforcement learning deals with learning from interaction, typically through trial and error. This way, \gls{RL} is considered as active learning \cite{cao2020reinforcement}. Starting from an initial state, the agent takes an action that impacts its environment. The latter feeds back the agent with a reward and the new state (see Figure \ref{fig:RL_Fundamentals}). This goes on until reaching the end of the episode. When the episode is done, the agent starts again from an initial state, takes an action and so on. The agent learns to optimize its policy by maximizing a notion of cumulative reward over time. This policy refers to the strategy or mapping from states to actions that the agent employs to make decisions. Essentially, it defines the behavior of the agent in the environment. The ultimate goal of the agent is often to find an optimal policy, which maximizes the expected cumulative reward over time.  All these concepts and interactions between the agent and its environment are formalized as a \gls{MDP} \cite{sutton2018reinforcement}, represented by the tuple $<s,a,T,r,\pi,\gamma>$. $s\in S$ is the state defined in a certain state space, $S$, that represents the observable parts of the environment that the agent uses to make decisions.  $a\in A$ is the action among the action space, $A$, and $T$ is the probability of transitioning from one state $s$ to another state $s'$ given a specific action, $a$: $T(s,a,s'): \text{Pr}\left(s'|s,a\right)$.$r$ is the reward received by the action when taking the action $a$ from a state $s$, $R(s,a)$. Finally, $\pi$ is the policy as already described and $\gamma$ is the discount factor that controls the importance of future rewards versus immediate rewards. During the learning/optimization process, the agent acts according to the exploitation-exploration trade-off. In the former case, the action $a$ is directly given the mapping provided by the current policy $\pi$,  depending on the state $s$. In the latter, the action is randomly picked within the action space. For further information, the interested reader is invited to refer to work of \citet{sutton2018reinforcement} or the course given by \citet{davidsilver_RL_online} available online.
+
+Due to the increasing complexity of the systems and the integration of uncertainties, the last decades have seen the emergence of publications where \gls{RL} is applied to energy systems \cite{perera2021applications}. In their respective reviews, \citet{cao2020reinforcement} and \citet{perera2021applications} highlighted groups of problems addressed with \gls{RL} in the research field of energy systems: building energy management system (BEMS), optimization of dispatch and operational control closely linked with the energy market and the optimal power flow problem in the grid, micro-grid management, electro-mobility or even demand-side management or optimal control of energy system devices like maximum power point tracking (MPPT) of wind turbines and \gls{PV} panels.  The major novelty of this thesis in the use of \gls{RL} stands then in its application to a new kind of energy system problem: the optimization of the transition pathway of a whole-energy system. In this sense, the objective is to optimize and provide a policy to support this transition subject to uncertainties.
 
 \subsection{Problem formulation and algorithm}
 \label{subsec:meth_RL_algo}
@@ -467,7 +477,7 @@ At the initial state, \ie the energy system in 2020, the agent gets an initial o
 \label{fig:Schematics_RL}
 \end{figure}
 
-A learning episode is a succession of such learning steps. In the context of the transition pathway between 2020 and 2050, an episode can come to an end for different reasons. First, if the actions taken by the agent make the optimisation unfeasible, the episode is prematurely stopped before reaching 2050. Similarly, cumulative emissions of the system over the predefined \ce{CO2}-budget (see Section \ref{sec:cs:CO2-budget}) lead to an anticipated end of the episode. Finally, the ``natural'' end is the prescribed end of the transition, \ie 2050. Consequently, the maximum value of steps for an episode is equal to $N_{ep,max}=5$. 
+A learning episode is a succession of such learning steps. In the context of the transition pathway between 2020 and 2050, an episode can come to an end for different reasons. First, if the actions taken by the agent make the optimisation infeasible, the episode is prematurely stopped before reaching 2050. Similarly, cumulative emissions of the system over the predefined \ce{CO2}-budget (see Section \ref{sec:cs:CO2-budget}) lead to an anticipated end of the episode. Finally, the ``natural'' end is the prescribed end of the transition, \ie 2050. Consequently, the maximum value of steps for an episode is equal to $N_{ep,max}=5$. 
 
 The goal of a \gls{RL} approach is to optimise the mapping between inputs (\ie the observations) and output (\ie the actions), called the policy $\pi\left(\bm{a}_n | \bm{o}_n\right)$. To do so, an objective function, $\bm{J}(\pi)$, built on the cumulative rewards collected during each episode. Finally, a back-propagation process updates the weights and biases of the \gls{NN} during the learning of the agent. Among the wide variety of \gls{RL} algorithms applied in energy systems \cite{perera2021applications}, this work opted for \gls{SAC} \cite{haarnoja2018soft} to train and update the \gls{NN}. This algorithm is model-free and off-policy. The former characteristic is necessary as the agent is assumed to have no knowledge about the dynamics of the environment, \ie its transition or reward functions. The transition function is, given the current state of the environment and the action taken by the agent, a function that outputs a probability to end up to any of the next states. The reward function, on its turn, gives a reward given the current state and the taken action. In practice, in this model-free approach, the agent estimates the optimal policy directly from experience and without estimating the dynamics of the environment. However, model-free methods suffer from two major drawbacks: their sample inefficiency and their brittleness with respect to their hyper-parameters (\eg learning rates, exploration constants) \cite{haarnoja2018soft}. The former leads to a too expensive computational burden while the second requires meticulous settings to get good results. \gls{SAC} overcomes these two challenges as an off-policy (\ie efficiently re-using past episodes to update the target policy-network) actor-critic deep \gls{RL} algorithm based on the entropy-augmented objective function: 
 
@@ -540,12 +550,12 @@ Preprocessing the dataset before employing a method to reduce dimensionality, li
  \quad \forall y \in \text{\emph{YEARS}}, sec \in \text{\emph{SECTORS}}
 \end{equation}
 
-Then, to give ``directions/metrics'' representative to the size of each sector within the energy system, we added another weight based on the relative share of commodity produced by each sector (see Figure \ref{fig:Share_EUD_sectors}). 
+Then, to give ``directions/metrics'' representative to the size of each sector within the energy system, we added another weight based on the relative share of commodity produced by each sector. For the case study of Belgium detailed in Chapter \ref{chap:case_study}, this gives a higher weight for electricity and low-temperature heat sectors (see Figure \ref{fig:Share_EUD_sectors}). 
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Share_EUD_sectors.pdf}
-\caption{Multiplying factor for each of the end-use sectors. Over the transition, sectors like electricity or methanol become more important due to sector coupling, \eg e-mobility or \gls{MTO}.}
+\caption{Multiplying factor for each of the end-use sectors in the case of Belgian energy transition. These shares are based on results of the reference scenario (REF) where nominal values are considered for the uncertain parameters and the transition is optimized through the perfect foresight approach. Over the transition, sectors like electricity or methanol become more important due to sector coupling, \eg e-mobility or \gls{MTO}.}
 \label{fig:Share_EUD_sectors}
 \end{figure}
 
