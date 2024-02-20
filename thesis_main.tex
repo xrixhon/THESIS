@@ -64,32 +64,38 @@
 % allow page breaks within align environment
 \allowdisplaybreaks
 
-%%% -- Introduction --------------------------------------------------
-%\chapter*[Introduction]{Introduction}
-%\addcontentsline{toc}{chapter}{Introduction}
-%\input{chap_intro_ccl/intro}
-%\clearpage
 
-%%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
-%\chapter{Methodology: Through a variety of complementary tools}
-%\label{chap:chap_methodo}
-%\input{chap_methodo/chap_methodo}
-%\clearpage
-%
-%
+\renewcommand{\thefigure}{\arabic{figure}}
+
+%% -- Introduction --------------------------------------------------
+\chapter*[Introduction]{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\input{chap_intro_ccl/intro}
+\clearpage
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
+\chapter{Methodology: Through a variety of complementary tools}
+\label{chap:chap_methodo}
+\input{chap_methodo/chap_methodo}
+\clearpage
+
+
 %%% -- Chapter 2 - UQ on a snapshot model, assessment of electrofuels ---------------------------------
 %%\chapter{Electrofuels and uncertainties in a target future year}
 %%\label{chap:chap_electro_uq}
 %%\input{chap_electro_uq/chap_electro_uq}
 %%\clearpage
 %%
-%%% -- Chapter 2 - Case study -----------------------------
+
+%%%% -- Chapter 2 - Case study -----------------------------
 %\clearemptydoublepage
 %\chapter{Case study: the Belgian energy system} 
 %\label{chap:case_study}
 %\input{chap_case_study/chap_case_study}
 %\clearpage
 %%
+
 %%%% -- Chapter 3 - Atom vs. molecule -----------------------------
 %\clearemptydoublepage
 %\chapter{The atom-molecules dilemma: deterministic and uncertainty analyses} 
@@ -144,10 +150,10 @@
 
 \begin{appendices}
 
-% -- Appendix 0 - Taxonomy-------------------------------------
-\chapter{Taxonomy of the fuels in a whole-energy system}
-\label{app:Taxonomy}
-\input{appendices/app_taxonomy}
+%% -- Appendix 0 - Taxonomy-------------------------------------
+%\chapter{Taxonomy of the fuels in a whole-energy system}
+%\label{app:Taxonomy}
+%\input{appendices/app_taxonomy}
 
 %% -- Appendix 1 - EnergyScope-------------------------------------
 %\chapter{EnergyScope Pathway: Its choice and its formulation}
