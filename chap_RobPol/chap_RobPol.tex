@@ -1,4 +1,32 @@
 %!TEX root = ../thesis_main.tex
 %!TEX encoding = UTF-8 Unicode
 
-The purpose of this chapter is to display results regarding PCA as presented orally to you in December 2023
+Assessing the robustness of a policy driving the transition pathway a whole-energy system is complex, especially due to the curse of dimensionality. This curse comes from the number of variables of the system (\eg the installed capacity of technologies), the multiple-year approach specific to the pathway optimisation (\ie versus the snapshot approach) or the number of uncertain parameters. On top of this, the sector coupling interconnecting the installed capacities and the used resources among the different (non-)energy sectors
+
+
+Present here the different definition of robustness and, among them, : 
+Policymakers can choose a
+strategy among various options: (1) plan for the worst-case scenario
+(i.e. resistance), (2) regardless of the conditions in the future, select a
+policy mix that allow the system to recover rapidly (i.e. resilience), (3)
+seek a strategy that will be able to perform reasonably well in almost all
+plausible futures (i.e. static robustness), and (4) in case of a change in
+conditions, be prepared to change the policy mix (i.e. adaptive ro-bustness) \cite{walker2012deep}.
+
+
+
+According to \citet{castrejon2020making}, ``a policy mix is considered robust, if the system of interest performs satisfactorily under a broad range of plausible futures.''\cite{walker2012deep}. In their work, they mostly focus on the electricity sector, variety of stakeholders and related interests using STET (Socio-Technical Energy Transition) models to capture more properly societal and behavioral aspects in relation with policy implementation, enriching purely techno-economy models (like EnergyScope) that usually assume rational choice within an overall cost minimization.
+
+``Robust policy mixes aim to answer, ‘knowing the fact that the future is uncertain, what available policy instruments are likely to perform well in multiple plausible futures?’ [12]. '' \cite{castrejon2020making}.
+
+
+\citet{herman2014beyond} defined robustness as ``… the fraction of sampled states of the world in which a solution satisfies all performance requirements''
+
+
+\section*{Contributions}
+\label{sec:RobPol:contributions}
+The main contributions of this chapter is the application of the methodology proposed in Section \ref{sec:meth:PCA} to the case study of the Belgian energy transition. First, we develop the different steps that lead to the principal components of the transition. We analyse these big trends of variation and highlight the fact that these variations stand for the entire pathway, a group of consecutive representative years or rather on a tipping-year. Then, and most importantly, we assess the robustness of different technological roadmaps by projecting their resulting myopic pathway against these directions of variation. The application of \gls{PCA} to provide a new metric for robustness applied to the case of Belgium is the added-value of this chapter.
+
+\section{Definition of the principal components of the transition}
+\label{sec:RobPol:PC_transition}
+As detailed in Section \ref{subsec:meth:PCA:transition}, we have decided to define the directions of variation, \ie the robustness metrics, based on the installed capacities through the transition in the different end-use sectors, \ie electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{HVC}, ammonia and methanol. These capacities represent the technological roadmaps to supply these \gls{EUD} while respecting the \ce{CO2}-budget. To extract these 

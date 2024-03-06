@@ -72,14 +72,14 @@
 %\input{chap_intro_ccl/intro}
 %\clearpage
 %\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-%
+%%
 %%%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
 %\chapter{Methodology: Through a variety of complementary tools}
 %\label{chap:chap_methodo}
 %\input{chap_methodo/chap_methodo}
 %\clearpage
 %
-%
+%%
 %%%% -- Chapter 2 - Case study -----------------------------
 %\clearemptydoublepage
 %\chapter{Case study: the Belgian energy system} 
@@ -98,12 +98,12 @@
 
 
 %% -- Chapter 4 - Reinforcement Learning -
-%\clearemptydoublepage
-%\chapter{Reinforcement Learning \ce{CO2}-policy investigation}
-%\label{chap:chap_RL}
-%\input{chap_RL/chap_RL}
-%\clearpage
-%
+\clearemptydoublepage
+\chapter{Reinforcement Learning \ce{CO2}-policy investigation}
+\label{chap:chap_RL}
+\input{chap_RL/chap_RL}
+\clearpage
+
 %% -- Chapter 5 - Policy robustness -
 %\clearemptydoublepage
 %\chapter{Assessment of the pathway policies robustness}
@@ -111,8 +111,8 @@
 %\input{chap_RobPol/chap_RobPol}
 %\clearpage
 
-
-% -- Conclusion ----------------------------------------------------
+%
+%% -- Conclusion ----------------------------------------------------
 %\clearemptydoublepage
 %\chapter*[Conclusions]{Conclusions} 
 %\addcontentsline{toc}{chapter}{Conclusions}
@@ -130,7 +130,9 @@
 %\backmatter
 
 %\addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{/Users/xrixhon/Development/GitKraken/THESIS/bib_thesis.bib}
+{\small\bibliography{/Users/xrixhon/Development/GitKraken/THESIS/bib_thesis.bib}}
+
+
 
 %\clearemptydoublepage
 
@@ -141,19 +143,19 @@
 %%                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{appendices}
-
-%% -- Appendix 0 - Taxonomy-------------------------------------
-%\chapter{Taxonomy of the fuels in a whole-energy system}
-%\label{app:Taxonomy}
-%\input{appendices/app_taxonomy}
-
-%% -- Appendix 1 - EnergyScope-------------------------------------
-\chapter{EnergyScope Pathway: Its choice and its formulation}
-\label{app:EnergyScope}
-\input{appendices/app_EnergyScope}
-
-% % -- Appendix 2 - Case study -------------------------------------
+%\begin{appendices}
+%
+%%% -- Appendix 0 - Taxonomy-------------------------------------
+%%\chapter{Taxonomy of the fuels in a whole-energy system}
+%%\label{app:Taxonomy}
+%%\input{appendices/app_taxonomy}
+%
+%%% -- Appendix 1 - EnergyScope-------------------------------------
+%\chapter{EnergyScope Pathway: Its choice and its formulation}
+%\label{app:EnergyScope}
+%\input{appendices/app_EnergyScope}
+%
+%% % -- Appendix 2 - Case study -------------------------------------
 %\chapter{Case study: the Belgian energy system}
 %\label{app:case_study}
 %\input{appendices/app_case_study}
@@ -162,10 +164,10 @@
 %\chapter{Pathway optimisation under uncertainties}
 %\label{app:results_UQ}
 %\input{appendices/app_results_UQ}
-
-
-
-\end{appendices}
+%
+%
+%
+%\end{appendices}
 
 
 \end{document}

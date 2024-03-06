@@ -1,10 +1,9 @@
-%\begin{flushright}
-%%%\emph{``For the things we have to learn before we can do them, we learn by doing them.''}\\%Each wrong scenario you have analysed, is a wrong decision you won't made.''}\\
-%%%Aristote
-%\emph{All models are wrong, but some are useful.}\\
-%George P. Box
-%\end{flushright}
-
+\vspace{-0.2cm}
+\begin{flushright}
+\emph{``Technique aussi brûlante que les derniers bilans du GIEC.''}\\
+ Primero (ft. Romeo), in \textit{Deux deux}, 2022
+\end{flushright}
+\vspace{0.4cm}
 %\medskip
 %
 %\begin{mybox}{Chapter overview}
@@ -448,7 +447,7 @@ After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a prel
 % 8. Implementation Details
 % 9. Experimental/Testing Setup
 
-The transition towards carbon-neutrality of a whole-energy system (i.e. including all streams of energy carriers and demands) is uncertain. Therefore, instead of establishing single-shot definitive plans towards 2050 (and beyond), i.e. perfect foresight, policy makers rather go through multiple rolling-horizon short-term decisions, i.e. myopic approach. Yet, these decisions can have long-term impacts, 20 to 50 years. Meeting the environmental objectives while minimizing the cost of the system, accounting for this decision-making process, the uncertainties, and potential shocks/crisis, require therefore a framework to assess the relevance and the timing of the decisions throughout the transition. To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims first at presenting the general concepts of this approach as well as the policy optimisation algorithm. Then, the environment, actions, state and reward are detailed.
+The transition towards carbon-neutrality of a whole-energy system (i.e. including all streams of energy carriers and demands) is uncertain. Therefore, instead of establishing single-shot definitive plans towards 2050 (and beyond), i.e. perfect foresight, policy makers rather go through multiple rolling-horizon short-term decisions, i.e. myopic approach. Yet, these decisions can have long-term impacts, 20 to 50 years. Meeting the environmental objectives while minimizing the cost of the system, accounting for this decision-making process, the uncertainties, and potential shocks/crisis, require therefore a framework to assess the relevance and the timing of the decisions throughout the transition. To navigate through the transition and investigate the efficiency of different policies, this work implements the reinforcement learning approach. This section aims at presenting the general concepts of this approach. Then, its application to the myopic optimisation of a whole-energy system is introduced as well as the policy optimisation algorithm. 
 
 \subsection{Reinforcement learning fundamentals and application to energy systems}
 \label{subsec:meth_RL_fundamentals}
@@ -461,7 +460,7 @@ The transition towards carbon-neutrality of a whole-energy system (i.e. includin
 \label{fig:RL_Fundamentals}
 \end{wrapfigure}
 
-\Gls{RL} is a subfield of machine learning focused on training an agent to make sequential decisions by interacting with an environment to achieve specific goals. Unlike supervised learning, where data is labeled, and unsupervised learning, where patterns are inferred from unlabeled data, reinforcement learning deals with learning from interaction, typically through trial and error. This way, \gls{RL} is considered as active learning \cite{cao2020reinforcement}. Starting from an initial state, the agent takes an action that impacts its environment. The latter feeds back the agent with a reward and the new state (see Figure \ref{fig:RL_Fundamentals}). This goes on until reaching the end of the episode. When the episode is done, the agent starts again from an initial state, takes an action and so on. The agent learns to optimize its policy by maximizing a notion of cumulative reward over time. This policy refers to the strategy or mapping from states to actions that the agent employs to make decisions. Essentially, it defines the behavior of the agent in the environment. The ultimate goal of the agent is often to find an optimal policy, which maximizes the expected cumulative reward over time.  All these concepts and interactions between the agent and its environment are formalized as a \gls{MDP} \cite{sutton2018reinforcement}, represented by the tuple $<s,a,T,r,\pi,\gamma>$. $s\in S$ is the state defined in a certain state space, $S$, that represents the observable parts of the environment that the agent uses to make decisions.  $a\in A$ is the action among the action space, $A$, and $T$ is the probability of transitioning from one state $s$ to another state $s'$ given a specific action, $a$: $T(s,a,s'): \text{Pr}\left(s'|s,a\right)$.$r$ is the reward received by the action when taking the action $a$ from a state $s$, $R(s,a)$. Finally, $\pi$ is the policy as already described and $\gamma$ is the discount factor that controls the importance of future rewards versus immediate rewards. During the learning/optimization process, the agent acts according to the exploitation-exploration trade-off. In the former case, the action $a$ is directly given the mapping provided by the current policy $\pi$,  depending on the state $s$. In the latter, the action is randomly picked within the action space. For further information, the interested reader is invited to refer to work of \citet{sutton2018reinforcement} or the course given by \citet{davidsilver_RL_online} available online.
+\Gls{RL} is a subfield of machine learning focused on training an agent to make sequential decisions by interacting with an environment to achieve specific goals. Unlike supervised learning, where data is labeled, and unsupervised learning, where patterns are inferred from unlabeled data, reinforcement learning deals with learning from interaction, typically through trial and error. This way, \gls{RL} is considered as active learning \cite{cao2020reinforcement}. Starting from an initial state, the agent takes an action that impacts its environment. The latter feeds back the agent with a reward and the new state (see Figure \ref{fig:RL_Fundamentals}). This goes on until reaching the end of the episode. When the episode is done, the agent starts again from an initial state, takes an action and so on. The agent learns to optimize its policy by maximizing a notion of cumulative reward over time. This policy refers to the strategy or mapping from states to actions that the agent employs to make decisions. Essentially, it defines the behavior of the agent in the environment. The ultimate goal of the agent is often to find an optimal policy, which maximizes the expected cumulative reward over time.  All these concepts and interactions between the agent and its environment are formalized as a \gls{MDP} \cite{sutton2018reinforcement}, represented by the tuple $<s,a,T,r,\pi,\gamma>$. $s\in S$ is the state defined in a certain state space, $S$, that represents the observable parts of the environment that the agent uses to make decisions.  $a\in A$ is the action among the action space, $A$, and $T$ is the probability of transitioning from one state $s$ to another state $s'$ given a specific action, $a$: $T(s,a,s'): \text{Pr}\left(s'|s,a\right)$.$r$ is the reward received by the agent when taking the action $a$ from a state $s$, $R(s,a)$. Finally, $\pi$ is the policy as already described and $\gamma$ is the discount factor that controls the importance of future rewards versus immediate rewards. During the learning/optimization process, the agent acts according to the exploitation-exploration trade-off. In the former case, the action $a$ is directly given the mapping provided by the current policy $\pi$,  depending on the state $s$. In the latter, the action is randomly picked within the action space. For further information, the interested reader is invited to refer to work of \citet{sutton2018reinforcement} or the course given by \citet{davidsilver_RL_online} available online.
 
 Due to the increasing complexity of the systems and the integration of uncertainties, the last decades have seen the emergence of publications where \gls{RL} is applied to energy systems \cite{perera2021applications}. In their respective reviews, \citet{cao2020reinforcement} and \citet{perera2021applications} highlighted groups of problems addressed with \gls{RL} in the research field of energy systems: building energy management system (BEMS), optimization of dispatch and operational control closely linked with the energy market and the optimal power flow problem in the grid, micro-grid management, electro-mobility or even demand-side management or optimal control of energy system devices like maximum power point tracking (MPPT) of wind turbines and \gls{PV} panels.  The major novelty of this thesis in the use of \gls{RL} stands then in its application to a new kind of energy system problem: the optimization of the transition pathway of a whole-energy system. In this sense, the objective is to optimize and provide a policy to support this transition subject to uncertainties.
 
@@ -472,7 +471,7 @@ At the initial state, \ie the energy system in 2020, the agent gets an initial o
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{Schematics_RL.pdf}
+\includegraphics[width=0.8\textwidth]{Schematics_RL.pdf}
 \caption{\Acrfull{RL} framework made of the agent interacting with its environment, \ie the energy-system model on a limited decision window of 10 years.}
 \label{fig:Schematics_RL}
 \end{figure}
@@ -488,6 +487,9 @@ The goal of a \gls{RL} approach is to optimise the mapping between inputs (\ie t
 
 \noindent
 where $\gamma$ is the discount factor and $\zeta$ the temperature parameter. The former determines how much importance we want to give to future rewards within an episode. The latter balances the trade-off between exploitation of proven actions via the return maximisation, \ie $\sum_{n=0}^{N_{ep}}\gamma^n r_n\left(\bm{o}_n,\bm{a}_n \right)$, and exploration through the entropy\footnote{Where entropy represents the amount of energy in a system not available to produce work in thermodynamics, this term stands for the randomness or stochasticity of the policy in the current context.} term, \ie $\log \left(\pi\left(\bm{a}_n | \bm{o}_n\right) \right)$. This way, \gls{SAC} ensures sample efficiency and low sensitivity to hyper-parameters while improving exploration \cite{haarnoja2017reinforcement} and robustness \cite{ziebart2010modeling}. These make \gls{SAC} a state-of-the-art algorithm and one of the most efficient model-free deep RL method nowadays. In this work, the authors used the open-source \gls{SAC} package developed by \textsc{Stable-Baselines3} \cite{raffin2021stable} where the policy \gls{NN} is a fully connected multilayer perceptron (MLP) built with \textsc{TensorFlow} \cite{abadi2016tensorflow}. For further information on \gls{RL} and the \gls{SAC} algorithm, the interested reader is invited to refer to the works of \citet{sutton2018reinforcement} and \citet{haarnoja2018soft}, respectively.
+
+
+\textbf{Talk here about potential improvement of the approach like the Multi-Fidelity Reinforcement Learning by \citet{cutler2014reinforcement}, rather than just unidirectional transfer from low to high-fidelity}
 
 \section{Robustness assessment via PCA}
 \label{sec:meth:PCA}
@@ -555,7 +557,7 @@ Then, to give ``directions/metrics'' representative to the size of each sector w
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Share_EUD_sectors.pdf}
-\caption{Multiplying factor for each of the end-use sectors in the case of Belgian energy transition. These shares are based on results of the reference scenario (REF) where nominal values are considered for the uncertain parameters and the transition is optimized through the perfect foresight approach. Over the transition, sectors like electricity or methanol become more important due to sector coupling, \eg e-mobility or \gls{MTO}.}
+\caption{Multiplying factor for each of the end-use sectors in the case of Belgian energy transition. These shares are based on results of the reference scenario (REF) where nominal values are considered for the uncertain parameters and the transition is optimized through the perfect foresight approach. Over the transition, sectors like electricity (\ie from 22\% in 2025 to 33\% in 2050) or ammonia (\ie from 2\% to 8\%) become more important due to sector coupling, \eg e-mobility or ammonia-\gls{CCGT}.}
 \label{fig:Share_EUD_sectors}
 \end{figure}
 
@@ -617,4 +619,16 @@ where $A$ and $B$ represent two different PCs.  The components of these similar 
 \myparagraph{Robustness assessment of roadmaps}\\
 
 \noindent
-Similarly to the work of \citet{moret2020overcapacity}, roadmaps are defined by setting minimal installed capacities based on the results of different transition pathway optimizations (see Chapter \ref{chap:chap_RobPol}). The $\text{PC}_{\text{transition}}$ are the ``direction/metrics'' on which are projected the results from the myopic pathway optimization subject to minimal installed capacities set by these roadmaps.  In conclusion, a roadmap would be defined as more robust than another one if the projection of its myopic runs on the different $\text{PC}_{\text{transition}}$ span on a more narrow range.
+Similarly to the work of \citet{moret2020overcapacity}, roadmaps are defined by setting minimal installed capacities based on the results of different transition pathway optimizations (see Chapter \ref{chap:chap_RobPol}). The $\text{PC}_{\text{transition}}$ are the ``direction/metrics'' on which are projected the results from the myopic pathway optimization subject to minimal installed capacities set by these roadmaps.  In conclusion, a roadmap would be defined as more robust than another one if the projection of its myopic runs on the different $\text{PC}_{\text{transition}}$ span on a more narrow range. The bounds of this ``range of projection'' are computed as the mean, $\mu$, of the projected data $\pm$ a 95\% confidence level, CL, on the margin of error, MOE:
+$$
+\text{range of projection} = [\mu-\mathrm{MOE}; \mu + \mathrm{MOE}] 
+$$
+
+\noindent
+where the margin of error, MOE,  is computed thanks to standard error of the mean, SEM, and assuming a Student's, distribution, t,  of the $N$ projected data:
+$$
+\text{MOE} = \mathrm{SEM}\cdot \mathrm{PPF}_{\mathrm{t}}\left((1+\mathrm{CL})/2,N-1\right)
+$$
+
+\noindent
+where $\mathrm{PPF}_{\mathrm{t}}$ is the percent point function (\ie inverse of cumulative distribution function) of the Student's distribution.

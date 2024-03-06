@@ -1,14 +1,65 @@
-%!TEX root = ../thesis_main.tex
-%!TEX encoding = UTF-8 Unicode
+\vspace{-0.2cm}
+\begin{flushright}
+\emph{``For the things we have to learn before we can do them, we learn by doing them.''}\\
+Aristotle, in \textit{The Nicomachean Ethics}, IV$^\text{th}$ century BC
+\end{flushright}
+\vspace{0.4cm}
+
+Uncertainties about the future along with a large variety of \gls{IAMs} yield to an even larger variety of \gls{GHG} emissions reduction pathways \cite{nicolas2021robust}. For instance, several studies \cite{IPCC_CO2_budget,steffen2018trajectories} advocate for actions to take in the near future, especially to keep on track with the 1.5°C (if not, 2°C) increase of global temperature by the end of the century. On the contrary, using their top-down model DICE, \citet{nordhaus2014question} state that immediate and drastic actions are not compulsory to meet the ambition of climate change mitigation.  This is even more valid when models assess a myopic transition pathway subject, with limited foresight through the future with progressively unveiled uncertainties. 
+
+To address this issue, several approaches have been used. Among them,  multi-stage stochastic programming is often put forward as a promising method. Stochastic programming formulates the problem as a mathematical program with probabilistic constraints or objective functions. These models explicitly consider the uncertainty by incorporating probability distributions for the uncertain parameters. The goal is to find an optimal decision that minimizes/maximizes the expected value of the objective function while satisfying the probabilistic constraints, modelled as a scenario tree.  At each stage of the problem, here the transition pathway of a whole-energy system, the model has the possibility of recourse, \ie to adapt the decisions made at earlier stages, in the response to unveiled uncertainties \cite{grossmann2016recent}. Using MARKAL model \cite{fishbone1981markal}, \citet{kanudia1998robust} assessed a multi-stage stochastic optimisation of the 5-year steps transition of Quebec between 1995 and 2035 accounting for high/low mitigation action plan and high/low growth scenarios. The authors found that hedging strategies, adapting with the future uncertainties, were outperforming the perfect foresight and deterministic optimisation of the different scenarios. However, stochastic programming is usually applied to limited number of uncertainties, \ie up to 10,and relies on probability distribution that are often difficult to define properly. Increasing the number of these uncertainties in stochastic programming usually leads to a computational burden that limits the use of such a method in \gls{IAMs} \cite{nicolas2021robust}. Based on the approach of \citet{bertsimas2004price}, and similarly to \citet{Moret2017PhDThesis}, \citet{nicolas2021robust} rather opted for the robust optimisation of the global pathway up to 2200 given different temperature deviation targets, \ie 2 or 3°C by 2200 via the use of uncertainty budget, $\Gamma$, in the TIAM-World model \cite{loulou2005documentation}. Considering 9 climate parameters and their respective lower and upper bounds, the idea behind the uncertainty budget stems from the improbability of all parameters simultaneously reaching one of their two extreme values. 
+
+In the exploration of the myopic transition pathway under uncertainties, we decided to investigate the \gls{RL} approach to benefit from its policy optimisation mechanism. Indeed, policymaking for transitioning a whole-energy system can be viewed as an iterative process of learning from policy implementation efforts, involving ongoing analysis of energy policy challenges and experimenting with various solutions \cite{howlett1995studying}. \gls{RL} exhibits two main advantages: its effectiveness to handle uncertainties and the model-free approach where an accurate representation of the real world is not needed to optimize the policy \cite{perera2021applications}.Besides the environment, \ie the myopic transition pathway of the whole-energy system via EnergyScope Pathway (see Chapter \ref{chap:chap_methodo}), the first part of this chapter presents the three key features of interaction between the agent, optimizing its policy, and the environment: actions, states and reward.  Then, the results of this policy optimisation point out strategies to follow, \ie \textit{sweet spots}, in the transitions under uncertainties as well as \textit{no-go zones} where the chances of succeeding the transition, \ie respecting the \ce{CO2}-budget, are very limited. Finally, these results are compared with references, \ie the perfect foresight and the myopic optimisation of the transition under the same uncertainties but without the trained \gls{RL}-agent that can support this transition thanks to its learned policy.
+
+\section*{Contributions}
+\label{sec:meth:contributions}
+Applying the \gls{RL} approach to the optimization of the myopic transition pathway of a whole-energy system presents several novelties. First of all, as introduced in Section \ref{subsec:meth_RL_fundamentals}, when applied to energy systems, \gls{RL} is more dedicated either to smaller scale systems (\eg \gls{BEMS}, vehicles and energy devices) or to sector-specific, often the power sector, problems (\eg dispatch problems, energy markets and grid) \cite{perera2021applications}. In our case, the sector-coupling, the long-term goal at the end of a multiple-steps transition and the number of uncertain parameters make this application new for \gls{RL}.
+
+Then, applying to this optimisation environment, \ie EnergyScope myopic Pathway,  rather than a simulation environment, allows building a hierarchical multi-objective optimisation framework. In this agent, while the objective of the environment remains the minimisation of the total ``transition'' cost (on the concerned limited time window), the agent optimises its strategy to respect the \ce{CO2}-budget. 
+
+Finally, comparing the \gls{RL}-based results with more conventional approaches, \ie perfect foresight, if not myopic, optimisation without learning process, highlights the added-value brought by the optimised policy.
 
 
 \section{Definition of the actions, states and rewards}
-\label{sec:act_states_rew}
-After pointing out that the environment is basically the EnergyScope myopic model at the different steps of the transition, define the actions, the states as well as the shape of the reward.
+\label{sec:RL:act_states_rew}
+As already introduced in Section \ref{subsec:meth_RL_algo}, the environment with which the \gls{RL}-agent interacts is the optimisation of the transition pathway whole-energy system on a specific time window, \eg 2020-2030 then 2025-2035 and so on, until 2040-2050 (see Figure \ref{fig:Schematics_RL}). In a nutshell, starting from the initial state of the environment (\ie the whole-energy system in 2020), the agent takes a set of actions that influence the environment. Then, the window 2020-2030 is optimised via EnergyScope. Some of the outputs of this optimisation feed the agent with either the new state of the system or the reward, \ie telling the agent how good the actions were at the state he took it. Based on these two pieces of information, \ie the new state and the reward, the agent takes another set of actions and the window 2025-2035 is optimised. This goes on until eventually reaching 2050.  The main purpose of this section is to define the shape of the reward as well as the sets of actions and states.\\
 
-\subsection{Actions}
-\subsection{States}
-\subsection{Reward}
+\myparagraph{Reward}\\
+
+Properly defined the reward fed by the environment to the agent is crucial in \gls{RL} for several reasons.If the reward is not properly defined, the agent may optimize its policy for an unintended objective, leading to undesired or subotpimal behavior, \ie the so-called misalignment of the learning objective \cite{christiano2017deep}. Even worse, it can lead to reward hacking (or reward tampering) where the agent exploits loopholes in the reward function to achieve higher rewards without actually performing the desired task \cite{amodei2016concrete}. On the contrary, a proper definition of the reward function increases the sample efficiency, \ie requiring less episode to converge to the optimal policy.  It also makes the policy more stable and able to withstand variations and uncertainties in the environment \cite{henderson2018deep}.
+
+\myparagraph{Actions}\\
+
+Defining the levers of action, the core of the policy, to support the transition of a country-size whole-energy system is challenging, especially when accounting for political and socio-technical aspects \cite{castrejon2020making}. In our work, focusing only on the techno-economic aspect, we assume that the actions taken by the agent are directly implemented and impacting the environment, without ``misfire''. In other words, considering only the techno-economic lens, there is no moderation nor contest towards the agent's actions, as the objective is to assess how far and when within the transition to push the different levers of action. Given the overall objective of the agent to succeed the transition, \ie respecting the \ce{CO2}-budget by 2050, we have defined the actions in this sense. The first action, $\mathrm{act}_{\mathrm{gwp}} \in [0,1]$, aims at limiting the emissions at the representative year ending the concerned time window, $\textbf{GWP\textsubscript{tot}}(y_{\text{end of the window}})$, between the level of emissions in 2020, \ie $\textbf{GWP\textsubscript{tot}}(2020)=123\,\text{Mt}_{\ce{CO2},\text{eq}}$, and carbon-neutrality:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:RL:act_gwp}
+&\textbf{GWP\textsubscript{tot}}(y_{\text{end of the window}})\leq \mathrm{act}_{\mathrm{gwp}} \cdot \textbf{GWP\textsubscript{tot}}(2020) &
+\end{flalign}
+\endgroup
+
+Out the total \gls{GHG} emissions in Belgium in 2020,oil (\ie so-called \gls{LFO} in the model), on the one hand and, on the other hand, fossil gas, account for roughly 40\% and 31\%, respectively. Then, even though its use in 2020 is much more limited compared to the two formers, \ie 28\,TWh of solid fossil fuels (\ie so-called COAL in the model) versus 159 and 142\,TWh for oil and fossil gas, respectively, coal is a cheap, about 0.017€/GWh, and highly-emitting resource, 0.40\,kt$_{\ce{CO2},\text{eq}}$/GWh. For these reasons, three additional actions to support the strict limitation of overall emissions of the first action: limiting the consumption of these three fossil resources up to the level of consumption in 2020, $\textbf{Cons\textsubscript{fossil gas}}(2020)$, $\textbf{Cons\textsubscript{LFO}}(2020)$ and $\textbf{Cons\textsubscript{coal}}(2020)$,  over the entire concerned time window, except the first one as this year is the initial condition of the time window and cannot be optimised any more:
+
+\begingroup
+\belowdisplayskip=2pt
+\abovedisplayskip=2pt
+\begin{flalign} 
+\label{eq:RL:act_NG}
+&\textbf{Cons\textsubscript{fossil gas}}(y)\leq \mathrm{act}\textsubscript{fossil gas} \cdot \textbf{Cons\textsubscript{fossil gas}}(2020) & \forall y \in \text{time window}\\
+\label{eq:RL:act_LFO}
+&\textbf{Cons\textsubscript{LFO}}(y)\leq \mathrm{act}\textsubscript{LFO} \cdot \textbf{Cons\textsubscript{LFO}}(2020) & \forall y \in \text{time window}\\
+\label{eq:RL:act_COAL}
+&\textbf{Cons\textsubscript{coal}}(y)\leq \mathrm{act}\textsubscript{coal} \cdot \textbf{Cons\textsubscript{coal}}(2020) & \forall y \in \text{time window}
+\end{flalign}
+\endgroup
+
+\noindent
+where $\mathrm{act}\textsubscript{fossil gas}$, $\mathrm{act}\textsubscript{LFO}$ and $\mathrm{act}\textsubscript{coal}$ can take values between 0 and 1. These complete the action space of the agent, $A\in \mathbb{R}^4_{[0,1]}$.\\
+
+\myparagraph{States}\\
 
 \section{Results - As in Smart Energy Systems Conference}
 
@@ -26,4 +77,7 @@ After pointing out that the environment is basically the EnergyScope myopic mode
 %\item Over-change, a bit like what Paolo defined as design error/change (in terms in consumed resources, installed capacities,...)
 %\end{itemize}
 
+
+\textbf{Confirm here with what is said in \cite{luderer2018residual}: 
+Importantly, our results also show that near-term policy stringency is an important driver of cumulative Res-FFI-CO2 in climate change mitigation scenarios. If strengthening of NDCs fails, Res-FFI-CO2 will be even higher, not only because of additional near-term emissions, but also due to a decrease of economic mitigation potentials in the longer term caused by further carbon lock-in. Delaying the strengthening of mitigation action will increase the world’s dependence on CDR for holding warming to well below 2°C, and is likely to push the 1.5°C target out of reach for this century.}
 
