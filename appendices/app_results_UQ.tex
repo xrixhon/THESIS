@@ -1,109 +1,112 @@
 \section{Total transition cost}
 \label{app:UQ_transition_cost}
 
-\Cref{tab:UQ_full} gives the ranking and total Sobol index over the total transition cost of each of the 34 parameters listed in \Cref{tab:UC_full}. The first column shows these indicators for the \gls{GSA} applied on the monthly pathway model that has some limitations \cite{limpens2023pathway} but has the main advantage to run much faster. The second column gives the same indicators but for an uncertainty quantification carried out on the hourly pathway model and only using the most impacting parameters. Given the similar rankings of the parameters between these two, this comparison shows that the monthly model can be a computationally efficient proxy to quantify the uncertainties of the actual hourly model and point out the key parameters on optimisation-driving objective, the total transition cost. 
+\Cref{tab:UQ_full} gives the ranking and total Sobol index over the total transition cost of each of the 34 parameters listed in \Cref{tab:UC_full}. The first column shows these indicators for the \gls{GSA} applied on the hourly pathway model. For information, the second column gives the same indicators but for an uncertainty quantification carried out on the monthly pathway model that has some limitations \cite{limpens2024pathway} but has the main advantage to run much faster. Given the similar rankings of the parameters between these two, this comparison shows that the monthly model can be a computationally efficient proxy to quantify the uncertainties of the actual hourly model and point out the key parameters on optimisation-driving objective, the total transition cost. 
 
-Besides the top-4 parameters, rankings are slightly different. However, this does not jeopardize the comparative analysis given the similar Sobol' indices. Given their wide range of uncertainty [-64.3\%; 179.8\%] and their significant role to meet the \ce{CO2}-budget, the cost of purchasing electrofuels is the first, by far, impacting parameter. Next, comes, naturally, the industrial \gls{EUD}, representing, at the nominal value, 60\% of the total demands by 2050. The top-3 is completed by the variation of the interest rate, directly impacting the annualisation and the salvage values of the assets. Finally, since the current Belgian whole-energy system deeply relies on fossil resources, and would still do in the near future, the cost of purchasing fossil fuels is part of the impacting parameters. On the contrary, due to the very low annualised, cost, long lifetime leading to a significant salvage value  and a low-emitting fuel, the parameters related to \gls{SMR} barely impact the total transition cost.
+Besides the top-4 parameters, rankings are slightly different. The main difference in terms of ranking relates to the import of electricity from abroad, \ie its cost of purchasing and its availability. Indeed, as observed by \citet{limpens2024pathway}, the monthly model does not require this import given the easier integration of monthly-averaged local \gls{VRES}. However, this does not jeopardize the comparative analysis given the similar Sobol' indices. Given their wide range of uncertainty [-64.3\%; 179.8\%] and their significant role to meet the \ce{CO2}-budget, the cost of purchasing electrofuels is the first, by far, impacting parameter. Next, comes, naturally, the industrial \gls{EUD}, representing, at the nominal value, 60\% of the total demands by 2050. The top-3 is completed by the variation of the interest rate, directly impacting the annualisation and the salvage values of the assets. Finally, since the current Belgian whole-energy system deeply relies on fossil resources, and would still do in the near future, the cost of purchasing fossil fuels is part of the impacting parameters. On the contrary, due to the very low annualised, cost, long lifetime leading to a significant salvage value and a low-emitting fuel, the parameters related to \gls{SMR} barely impact the total transition cost.
+
 
 \begin{table}[htbp!]
 \caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the monthly and hourly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties over the hourly model.}
 \label{tab:UQ_full}
 \centering
-\begin{tabular}{l c c| c c}
+\begin{tabular}{l c c|c c}
 \toprule
 \multirow{2}{*}{\textbf{Parameter}}  & \multicolumn{4}{c}{\textbf{Ranking (Sobol' index)}}\\
- & \multicolumn{2}{c|}{Monthly model} 	& \multicolumn{2}{c}{Hourly model} \\ 	
+& \multicolumn{2}{c|}{Hourly model} & \multicolumn{2}{c}{Monthly model}\\ 	
 \midrule
-\textbf{Purchase electrofuels} & 1 & (47.4\%) & 1 & (44.4\%) \\
-Industry EUD & 2 & (23.5\%) & 2 & (26.4\%)  \\
-Interest rate & 3 & (11.0\%) &  3 & (13.2\%)  \\
-Purchase fossil fuels  & 4 & (6.9\%) & 4 & (6.9\%)   \\
+\textbf{Purchase electrofuels} & 1 & (46.8\%) & 1 & (47.4\%) \\
+Industry EUD & 2 & (23.2\%) & 2 & (23.5\%) \\
+Interest rate & 3 & (12.0\%) & 3 & (11.0\%) \\
+Purchase fossil fuels & 4 & (5.7\%) & 4 & (6.9\%) \\
 \midrule
-Variable OPEX of technologies & 5 & (2.9\%) & 6 & (3.0\%) \\
-Purchase biofuels & 6 & (2.6\%) & 5 & (3.0\%) \\
-Hourly load factor PV & 7 & (1.9\%) & 9 & (1.3\%) \\
-CAPEX electric motor & 8 & (1.9\%) & 7 & (2.5\%) \\
-Hourly load factor wind turbines & 9 & (1.3\%) & 8 & (1.4\%) \\
-Max capacity PV & 10 & (1.1\%) & 14 & (0.5\%) \\
-\textbf{Potential capacity \gls{SMR}} & 11 & (0.9\%) & 11 & (1.0\%) \\
-Available local biomass & 12 & (0.8\%) & 12 & (0.7\%) \\
-CAPEX car & 13 & (0.7\%) & 10 & (1.2\%) \\
-Passenger mobility EUD & 14 & (0.7\%) & 13 & (0.7\%) \\
-\midrule
-Modal share change LT-heat & 15 & (0.5\%) & \multicolumn{2}{c}{-} \\
-Households EUD & 16 & (0.5\%) & \multicolumn{2}{c}{-} \\
-Services EUD & 17 & (0.4\%) & \multicolumn{2}{c}{-} \\
-Max capacity onshore wind & 18 & (0.3\%) & \multicolumn{2}{c}{-} \\
-Max share of public transport & 19 & (0.3\%) & \multicolumn{2}{c}{-} \\
-CAPEX PV & 20 & (0.2\%) & \multicolumn{2}{c}{-} \\
-Max capacity offshore wind & 21 & (0.2\%) & \multicolumn{2}{c}{-} \\
-Efficiency electric motor & 22 & (0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX fuel cell engine & 23 & (0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX ICE & 24 & (0.1\%) & \multicolumn{2}{c}{-} \\
-Efficiency fuel cell engine & 25 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-Modal share change freight mobility & 26 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-Modal share change passenger mobility & 27 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX efficiency measures & 28 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX bus & 29 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX grid reinforcement & 30 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-CAPEX power grid & 31 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-\textbf{CAPEX \gls{SMR}} & 32 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-Available electricity import & 33 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
-Purchase electricity & 34 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+Variable OPEX of technologies & 5 & (3.1\%) & 5 & (2.9\%)\\
+Purchase biofuels & 6 & (2.6\%) & 6 & (2.6\%) \\
+CAPEX electric motor & 7 & (2.1\%) & 8 & (1.9\%) \\
+Purchase electricity & 8 & (1.5\%) & 34 & ($<$0.1\%) \\
+Hourly load factor wind turbines & 9 & (1.1\%) & 9 & (1.3\%)\\
+Hourly load factor PV & 10 & (1.1\%) & 7 & (1.9\%) \\
+\textbf{Potential capacity \gls{SMR}} & 11 & (0.9\%) & 11 & (0.9\%)\\
+CAPEX car & 12 & (0.8\%) & 13 & (0.7\%) \\
+Available local biomass & 13 & (0.7\%) & 12 & (0.8\%) \\
+Passenger mobility EUD & 14 & (0.7\%) & 14 & (0.7\%) \\
+Modal share change LT-heat & 15 & (0.5\%) & 15 & (0.5\%)\\
+Max capacity PV & 16 & (0.5\%) & 10 & (1.1\%)\\
+Households EUD & 17 & (0.5\%) & 16 & (0.5\%) \\
+Services EUD & 18 & (0.5\%) &  17 & (0.4\%) \\
+Max share of public transport & 19 & (0.3\%) & 19 & (0.3\%) \\
+Max capacity onshore wind & 20 & (0.3\%) & 18 & (0.3\%) \\
+CAPEX PV & 21 & (0.2\%) & 20 & (0.2\%) \\
+Efficiency electric motor & 22 & (0.2\%) & 22 & (0.1\%)\\
+Max capacity offshore wind & 23 & (0.2\%) & 21 & (0.2\%) \\
+Available electricity import & 24 & (0.1\%) & 33 & ($<$0.1\%) \\
+CAPEX ICE & 25 & (0.1\%) & 24 & (0.1\%)\\
+CAPEX fuel cell engine & 26 & (0.1\%) & 23 & (0.1\%) \\
+Efficiency fuel cell engine & 27 & (0.1\%) & 25 & ($<$0.1\%) \\
+Modal share change freight mobility & 28 & (0.1\%) & 26 & ($<$0.1\%) \\
+Modal share change passenger mobility & 29 & ($<$0.1\%) & 27 & ($<$0.1\%) \\
+CAPEX grid reinforcement & 30 & ($<$0.1\%) & 30 & ($<$0.1\%) \\
+CAPEX efficiency measures & 31 & ($<$0.1\%) & 28 & ($<$0.1\%) \\
+CAPEX bus & 32 &($<$0.1\%)  & 29 & ($<$0.1\%) \\
+\textbf{CAPEX \gls{SMR}} & 33 & ($<$0.1\%)  & 32 & ($<$0.1\%) \\
+CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
 \bottomrule							
 
 \end{tabular}
 \end{table}
 
-% \begin{table}[htbp!]
-% \caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the monthly and hourly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties over the hourly model.}
-% \label{tab:UQ_full}
-% \centering
-% \begin{tabular}{l c c| c c}
-% \toprule
-% \multirow{2}{*}{\textbf{Parameter}}  & \multicolumn{4}{c}{\textbf{Ranking (Sobol' index)}}\\
-%  & \multicolumn{2}{c|}{Hourly model} 	& \multicolumn{2}{c}{Model model} \\ 	
-% \midrule
-% Purchase electrofuels & 1 & (44.4\%) & 1 & (47.4\%) \\
-% Industry EUD & 2 & (26.4\%) & 2 & (23.5\%)  \\
-% Interest rate & 3 & (13.2\%) &  3 & (11.0\%)  \\
-% Purchase fossil fuels & 4 & (6.9\%)  & 4 & (6.9\%)  \\
-% \midrule
-% Purchase biofuels & 5 & (3.0\%) & 6 & (2.6\%)  \\
-% Variable OPEX of technologies & 6 & (3.0\%) & 5 & (2.9\%) \\
-% CAPEX electric motor & 7 & (2.5\%) & 8 & (1.9\%)  \\
-% Hourly load factor wind turbines & 8 & (1.4\%) & 9 & (1.3\%) \\ 
-% Hourly load factor PV & 9 & (1.3\%) & 7 & (1.9\%)  \\
-% CAPEX car & 10 & (1.2\%) & 13 & (0.7\%) \\
-% \textbf{Potential capacity \gls{SMR}} & 11 & (1.0\%) & 11 & (0.9\%)  \\
-% Available local biomass & 12 & (0.7\%)  & 12 & (0.8\%) \\
-% Passenger mobility EUD & 13 & (0.7\%) & 14 & (0.7\%) \\
-% Max capacity PV & 14 & (0.5\%) & 10 & (1.1\%)  \\
-% \midrule
-% Modal share change LT-heat & \multicolumn{2}{c}{-} & 15 & (0.5\%)  \\
-% Households EUD & \multicolumn{2}{c}{-} & 16 & (0.5\%) \\
-% Services EUD & \multicolumn{2}{c}{-} & 17 & (0.4\%) \\
-% Max capacity onshore wind & \multicolumn{2}{c}{-} & 18 & (0.3\%) \\
-% Max share of public transport & \multicolumn{2}{c}{-} & 19 & (0.3\%) \\
-% CAPEX PV & \multicolumn{2}{c}{-} & 20 & (0.2\%) \\
-% Max capacity offshore wind & \multicolumn{2}{c}{-} & 21 & (0.2\%)\\
-% Efficiency electric motor & \multicolumn{2}{c}{-}  & 22 & (0.1\%) \\
-% CAPEX fuel cell engine & \multicolumn{2}{c}{-}  & 23 & (0.1\%) \\
-% CAPEX ICE & \multicolumn{2}{c}{-} & 24 & (0.1\%)\\
-% Efficiency fuel cell engine & \multicolumn{2}{c}{-}  & 25 & ($<$0.1\%) \\
-% Modal share change freight mobility & \multicolumn{2}{c}{-}  & 26 & ($<$0.1\%) \\
-% Modal share change passenger mobility & \multicolumn{2}{c}{-}  & 27 & ($<$0.1\%)\\
-% CAPEX efficiency measures & \multicolumn{2}{c}{-}  & 28 & ($<$0.1\%)\\
-% CAPEX bus & \multicolumn{2}{c}{-}  & 29 & ($<$0.1\%)\\
-% CAPEX grid reinforcement & \multicolumn{2}{c}{-} & 30 & ($<$0.1\%) \\
-% CAPEX power grid & \multicolumn{2}{c}{-} & 31 & ($<$0.1\%)\\
-% \textbf{CAPEX \gls{SMR}} & \multicolumn{2}{c}{-} & 32 & ($<$0.1\%) \\
-% Available electricity import & \multicolumn{2}{c}{-}  & 33 & ($<$0.1\%) \\
-% Purchase electricity  & \multicolumn{2}{c}{-} & 34 & ($<$0.1\%)\\
-% \bottomrule							
 
-% \end{tabular}
-% \end{table}
+
+
+
+%\begin{table}[htbp!]
+%\caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the monthly and hourly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties over the hourly model.}
+%\label{tab:UQ_full}
+%\centering
+%\begin{tabular}{l c c|c c| c c}
+%\toprule
+%\multirow{2}{*}{\textbf{Parameter}}  & \multicolumn{6}{c}{\textbf{Ranking (Sobol' index)}}\\
+%& \multicolumn{2}{c}{Hourly model} & \multicolumn{2}{c|}{Monthly model} 	& \multicolumn{2}{c}{Hourly model} \\ 	
+%\midrule
+%\textbf{Purchase electrofuels} & 1 & (46.8\%) & 1 & (47.4\%) & 1 & (44.4\%) \\
+%Industry EUD & 2 & (23.2\%) & 2 & (23.5\%) & 2 & (26.4\%)  \\
+%Interest rate & 3 & (12.0\%) & 3 & (11.0\%) &  3 & (13.2\%)  \\
+%Purchase fossil fuels & 4 & (5.7\%) & 4 & (6.9\%) & 4 & (6.9\%)   \\
+%\midrule
+%Variable OPEX of technologies & 5 & (3.1\%) & 5 & (2.9\%) & 6 & (3.0\%) \\
+%Purchase biofuels & 6 & (2.6\%) & 6 & (2.6\%) & 5 & (3.0\%) \\
+%CAPEX electric motor & 7 & (2.1\%) & 8 & (1.9\%) & 7 & (2.5\%) \\
+%Purchase electricity & 8 & (1.5\%) & 34 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%Hourly load factor wind turbines & 9 & (1.1\%) & 9 & (1.3\%) & 8 & (1.4\%) \\
+%Hourly load factor PV & 10 & (1.1\%) & 7 & (1.9\%) & 9 & (1.3\%) \\
+%\textbf{Potential capacity \gls{SMR}} & 11 & (0.9\%) & 11 & (0.9\%) & 11 & (1.0\%) \\
+%CAPEX car & 12 & (0.8\%) & 13 & (0.7\%) & 10 & (1.2\%) \\
+%Available local biomass & 13 & (0.7\%) & 12 & (0.8\%) & 12 & (0.7\%) \\
+%Passenger mobility EUD & 14 & (0.7\%) & 14 & (0.7\%) & 13 & (0.7\%) \\
+%Modal share change LT-heat & 15 & (0.5\%) & 15 & (0.5\%) & \multicolumn{2}{c}{-} \\
+%Max capacity PV & 16 & (0.5\%) & 10 & (1.1\%) & 14 & (0.5\%) \\
+%Households EUD & 17 & (0.5\%) & 16 & (0.5\%) & \multicolumn{2}{c}{-} \\
+%Services EUD & 18 & (0.5\%) &  17 & (0.4\%) & \multicolumn{2}{c}{-} \\
+%Max share of public transport & 19 & (0.3\%) & 19 & (0.3\%) & \multicolumn{2}{c}{-} \\
+%Max capacity onshore wind & 20 & (0.3\%) & 18 & (0.3\%) & \multicolumn{2}{c}{-} \\
+%CAPEX PV & 21 & (0.2\%) & 20 & (0.2\%) & \multicolumn{2}{c}{-} \\
+%Efficiency electric motor & 22 & (0.2\%) & 22 & (0.1\%) & \multicolumn{2}{c}{-} \\
+%Max capacity offshore wind & 23 & (0.2\%) & 21 & (0.2\%) & \multicolumn{2}{c}{-} \\
+%Available electricity import & 24 & (0.1\%) & 33 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX ICE & 25 & (0.1\%) & 24 & (0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX fuel cell engine & 26 & (0.1\%) & 23 & (0.1\%) & \multicolumn{2}{c}{-} \\
+%Efficiency fuel cell engine & 27 & (0.1\%) & 25 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%Modal share change freight mobility & 28 & (0.1\%) & 26 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%Modal share change passenger mobility & 29 & ($<$0.1\%) & 27 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX grid reinforcement & 30 & ($<$0.1\%) & 30 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX efficiency measures & 31 & ($<$0.1\%) & 28 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX bus & 32 &($<$0.1\%)  & 29 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%\textbf{CAPEX \gls{SMR}} & 33 & ($<$0.1\%)  & 32 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
+%CAPEX power grid & 34 & ($<$0.1\%) & 31 &  & \multicolumn{2}{c}{-} \\
+%\bottomrule							
+%
+%\end{tabular}
+%\end{table}
 
 \newpage
 \section{Imported renewable electrofuels}
@@ -122,7 +125,7 @@ Purchase electricity & 34 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
  & SMR & - & -  & 10 & 29\\
  \cmidrule{2 - 6}
  & Q1 & - & - & 9 & 2\\
- & Median & - & - & 10 & 46\\
+ & Median & - & - & 10 & 47\\
  & Q3 & - & - & 11 & 55\\
 \toprule
 \multirow{5}{*}{2030}
@@ -130,40 +133,40 @@ Purchase electricity & 34 & ($<$0.1\%) & \multicolumn{2}{c}{-} \\
  & SMR & - & 1 & 10 & 52\\
  \cmidrule{2 - 6}
  & Q1 & - & - & 9 & 43\\
- & Median & - & - & 10 & 51\\
+ & Median & - & - & 10 & 50\\
  & Q3 & - & 1 & 12 & 57\\
 \toprule
 \multirow{5}{*}{2035}
  & REF & - & 17 & 10 & 53\\
  & SMR & - & 17 & 10 & 53\\
  \cmidrule{2 - 6}
- & Q1 & - & - & 9 & 44\\
- & Median & - & 4 & 11 & 52\\
- & Q3 & - & 16 & 32 & 58\\
+ & Q1 & - & - & 9 & 42\\
+ & Median & - & 5 & 11 & 51\\
+ & Q3 & - & 16 & 33 & 58\\
 \toprule
 \multirow{5}{*}{2040}
  & REF & - & 16 & 23 & 54\\
  & SMR & - & 16 & 10 & 54\\
  \cmidrule{2 - 6}
- & Q1 & - & - & 12 & 43\\
- & Median & - & 12 & 36 & 53\\
- & Q3 & 10 & 16 & 68 & 60\\
+ & Q1 & - & - & 10 & 41\\
+ & Median & - & 12 & 26 & 51\\
+ & Q3 & 8 & 16 & 68 & 60\\
 \toprule
 \multirow{5}{*}{2045}
  & REF & 40 & 16 & 42 & 54\\
  & SMR & - & 16 & 11 & 54\\
  \cmidrule{2 - 6}
- & Q1 & - & - & 24 & 43\\
- & Median & - & 13 & 49 & 52\\
- & Q3 & 44 & 17 & 77 & 60\\
+ & Q1 & - & - & 12 & 42\\
+ & Median & - & 12 & 37 & 52\\
+ & Q3 & 35 & 17 & 71 & 60\\
 \toprule
 \multirow{5}{*}{2050}
  & REF & 39 & 16 & 44 & 55\\
  & SMR & 7 & 16 & 11 & 55\\
  \cmidrule{2 - 6}
- & Q1 & - & - & 20 & 44\\
- & Median & 19 & 14 & 44 & 53\\
- & Q3 & 51 & 17 & 72 & 61\\
+ & Q1 & - & - & 11 & 43\\
+ & Median & 1 & 13 & 31 & 53\\
+ & Q3 & 36 & 17 & 66 & 61\\
 \bottomrule							
 \end{tabular}
 \end{minipage}
