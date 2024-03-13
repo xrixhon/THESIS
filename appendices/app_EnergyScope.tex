@@ -466,7 +466,6 @@ Concerning the first one, all costs are expressed in €\textsubscript{2015} and
 \endgroup
 
 As an extension of Eq. \ref{eq:obj_func_app}, the objective function to be minimised is the total transition cost of the energy system (\textbf{C\textsubscript{tot,trans}}), 
-%The objective is the minimisation of the total transition cost of the energy system (\textbf{C\textsubscript{tot,trans}}),
 defined as the sum of the total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) and the \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}), according to Eq.~(\ref{eq:obj_func_v2_app}). The total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) is the sum of the investment during each phase (\textbf{C\textsubscript{inv,phase}}), Eq.~(\ref{eq:Capex_v2_app}), to which the residual asset value in 2050 is withdrawn (\textbf{C\textsubscript{inv,return}}). Thus, the investments account for the installation and dismantlement costs of the technologies. The total \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}) is the sum of the \gls{OPEX} in 2020 and the annualised sum of the \gls{OPEX} during each phase (\textbf{C\textsubscript{opex}}), Eq.~(\ref{eq:Copex_tot_v2_app}). During a phase, the system \gls{OPEX} is 
 the product of the annualised phase factor, defined in Eq.~(\ref{eq:path_annu_factor_app}), and the arithmetic average of \gls{OPEX} cost for the representative years before and after the phase. The annualised phase factor is defined based on an average interest rate during the transition.
 %assumed to be the annualised average of its first and last year. The annualised phase factor  ($\tau$\textsubscript{\emph{phase}}) is defined in Eq.~(\ref{eq:path_annu_factor_app}).
@@ -511,7 +510,7 @@ The investment during a phase (\textbf{C\textsubscript{inv,phase}}) results from
 \begin{flalign}
 & 
 \hspace{1.7cm}
-\frac{remaining\_years(i,p)}{lifetime(y\textsubscript{start},i)} \left( \textbf{F\textsubscript{new}}(p,i) - 
+\frac{remaining\_years(i,p)}{\emph{lifetime}(y\textsubscript{start},i)} \left( \textbf{F\textsubscript{new}}(p,i) - 
 \sum_{\mathclap{p2 \in \emph{PHASE}}} 
 \textbf{F\textsubscript{decom}}(p2,p,i)\right)&
 \forall i \in \emph{TECH}
