@@ -1,27 +1,15 @@
 %!TEX root = ../thesis_main.tex
 %!TEX encoding = UTF-8 Unicode
+\vspace{-0.2cm}
+\begin{flushright}
+\emph{``The more data we have, the more likely we are to drown in it.''}\\
+Nassim Nicholas Taleb, in \textit{Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets}, 2008
+\end{flushright}
+\vspace{0.4cm}
 
-Assessing the robustness of a policy driving the transition pathway a whole-energy system is complex, especially due to the curse of dimensionality. This curse comes from the number of variables of the system (\eg the installed capacity of technologies), the multiple-year approach specific to the pathway optimisation (\ie versus the snapshot approach) or the number of uncertain parameters. On top of this, the sector coupling interconnecting the installed capacities and the used resources among the different (non-)energy sectors
+Assessing the robustness of a roadmap driving the transition pathway of a whole-energy system is complex, especially due to the curse of dimensionality. This curse comes from the number of variables of the system (\eg the installed capacity of technologies), the multiple-year approach specific to the pathway optimisation (\ie versus the snapshot approach) or the number of uncertain parameters. On top of this, the sector coupling interconnecting the installed capacities and the used resources among the different (non-)energy sectors can make harder the understanding of big trends of such a system. To navigate through this load of uncertain and interconnected data, it is necessary to assess the robustness of pathway roadmaps.
 
-
-Present here the different definition of robustness and, among them, : 
-Policymakers can choose a
-strategy among various options: (1) plan for the worst-case scenario
-(i.e. resistance), (2) regardless of the conditions in the future, select a
-policy mix that allow the system to recover rapidly (i.e. resilience), (3)
-seek a strategy that will be able to perform reasonably well in almost all
-plausible futures (i.e. static robustness), and (4) in case of a change in
-conditions, be prepared to change the policy mix (i.e. adaptive ro-bustness) \cite{walker2012deep}.
-
-
-
-According to \citet{castrejon2020making}, ``a policy mix is considered robust, if the system of interest performs satisfactorily under a broad range of plausible futures.''\cite{walker2012deep}. In their work, they mostly focus on the electricity sector, variety of stakeholders and related interests using STET (Socio-Technical Energy Transition) models to capture more properly societal and behavioral aspects in relation with policy implementation, enriching purely techno-economy models (like EnergyScope) that usually assume rational choice within an overall cost minimization.
-
-``Robust policy mixes aim to answer, ‘knowing the fact that the future is uncertain, what available policy instruments are likely to perform well in multiple plausible futures?’ [12]. '' \cite{castrejon2020making}.
-
-
-\citet{herman2014beyond} defined robustness as ``… the fraction of sampled states of the world in which a solution satisfies all performance requirements''
-
+To deal with such uncertainties, decision-makers have several options: (i) resistance; (ii) resilience; (iii) static robustness; and (iv) adaptive robustness \cite{walker2012deep}. Where resistance consists in planning for the worst-case scenario, resilience aims at a fast recovery whatever the conditions in the future. Finally, in static robustness, one seeks for a roadmap that would perform ``satisfactorily'' in a wide range of plausible futures, whereas, a roadmap would be dynamically robust if it is prepared to adapt in case of a change in conditions. Where the adaptability of the policy was addressed in Chapter \ref{chap:chap_RL}, the objective of this chapter is to apply the method described in Section \ref{sec:meth:PCA} to deal with the static robustness of pathway roadmaps.  \citet{castrejon2020making} assessed policy mix folllowing the same philosophy of ``satisfactory level of performance'' as \cite{walker2012deep}. In their work, they mostly focused on the electricity sector, accounting for a variety of stakeholders and related interests using STET (Socio-Technical Energy Transition) models to capture more properly societal and behavioral aspects in relation with policy implementation, enriching purely techno-economy model, like EnergyScope, that usually assume rational choice within an overall cost minimization.  However, in the case of the transition pathway of a whole-eenrgy system, the challenges stand here in the definition of the ``performance metric'' as well as the ``satisfactory level of performance''. Between the sole total transition cost and the entire set of installed technologies that give too few and too much information, respectively, the performance metric here is defined through the \gls{PCA} approach. Then, when comes the ``satisfactory level of performance'', we propose a relative level of performance through a comparative analysis of different roadmaps. In other terms, one roadmap will not be robust or not in itself but rather more or less robust than another one. 
 
 \section*{Contributions}
 \label{sec:RobPol:contributions}
@@ -29,4 +17,8 @@ The main contributions of this chapter is the application of the methodology pro
 
 \section{Definition of the principal components of the transition}
 \label{sec:RobPol:PC_transition}
-As detailed in Section \ref{subsec:meth:PCA:transition}, we have decided to define the directions of variation, \ie the robustness metrics, based on the installed capacities through the transition in the different end-use sectors, \ie electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{HVC}, ammonia and methanol. These capacities represent the technological roadmaps to supply these \gls{EUD} while respecting the \ce{CO2}-budget. To extract these 
+As detailed in Section \ref{subsec:meth:PCA:transition}, we have decided to define the directions of variation, \ie the robustness metrics, based on the installed capacities through the transition in the different end-use sectors, \ie electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{HVC}, ammonia and methanol. These capacities represent the technological roadmaps to supply these \gls{EUD} while respecting the \ce{CO2}-budget.  As introduced in Section \ref{subsec:meth:PCA:transition}, the data considered in this method come from the \gls{GSA} carried out on the perfect foresight optimisation of the Belgian transition pathway (see Chapter \ref{chap:atom_mol}). This gave 1260 different transitions resulting, for each of them, from the pathway optimisation subject to a sample of uncertain parameters (see Section \ref{subsec:uncert_charac}). Appendix \ref{app:UQ_tech_cap} gives the exhaustive distributions of the installed capacities among the different end-use sectors from the \gls{GSA}.
+
+\subsection{Principal components of each representative year}
+\label{subsec:RobPol:PC_year}
+After the pre-preprocessing of the raw data (\ie data scaling and outliers management, see Section \ref{subsec:meth:PCA:transition}), the \gls{PCs} of each representative year of the transition, except 2020 as the initialisation year, can be computed. 

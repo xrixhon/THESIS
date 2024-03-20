@@ -83,7 +83,9 @@ Consequently, after another process of trial and error, we have converged to a f
 \section{Learning process and convergence}
 \label{sec:RL:learning}
 
-Before testing the optimal policy $\pi^*\left(\bm{a}_n | \bm{o}_n\right)$, the first step consists in assessing the training of the \gls{NN}. For this, numerous episodes are played through the myopic optimization of the transition pathway of Belgium. At the beginning of each episode, the agent starts with the actual Belgian energy system of 2020 (see Appendix \ref{app:bel_2020}). Moreover, a sample of values is drawn for the uncertain parameters, affects the model for the 2020-2030 time window. This sample will remain valid for the following time windows. In other words, there is only one sample draw per episode (see Figure \ref{fig:ranges_transition}).  Then, the agent takes a set of actions, affecting the environment that feeds back the agent with a new state and a reward. This goes on until the end of the episode. Similarly to the \gls{UQ} analysis (see Section \ref{sec:meth:UQ}), the new sample of uncertain parameters for the new episode is drawn following the quasi-random Sobol' sampling technique \cite{bratley2003implementing}.
+Before testing the optimal policy $\pi^*\left(\bm{a}_n | \bm{o}_n\right)$, the first step consists in assessing the training of the \gls{NN}. For this, numerous episodes are played through the myopic optimization of the transition pathway of Belgium. At the beginning of each episode, the agent starts with the actual Belgian energy system of 2020 (see Appendix \ref{app:bel_2020}). Moreover, a sample of values, drawn for the uncertain parameters, affects the model for the 2020-2030 time window. This sample will remain valid for the following time windows. In other words, there is only one sample draw per episode (see Figure \ref{fig:ranges_transition}).  Then, the agent takes a set of actions, affecting the environment that feeds back the agent with a new state and a reward. This goes on until the end of the episode. For the new episode, similarly to the \gls{UQ} analysis (see Section \ref{sec:meth:UQ}), the new sample of uncertain parameters for the new episode is drawn following the quasi-random Sobol' sampling technique \cite{bratley2003implementing}.
+
+
 
 \begin{itemize}
 \item Convergence of reward or success rate
@@ -103,7 +105,9 @@ Before testing the optimal policy $\pi^*\left(\bm{a}_n | \bm{o}_n\right)$, the f
 \section{Testing and comparison with references}
 \label{sec:RL:testing}
 
+How does it react to potential shocks (e.g. no fuels from 2040) compared to classic myopic?
 
+\citet{herman2014beyond} defined robustness as ``… the fraction of sampled states of the world in which a solution satisfies all performance requirements''
 
 %\subsection{Training}
 %Here present results RL-oriented (actions, states, reward)
