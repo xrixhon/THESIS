@@ -544,7 +544,27 @@ Born in the early 20th century \cite{pearson1901on,hotelling1933analysis}, the \
 
 The PCs are computed based on the covariance matrix of $\mathbf{x}$, $\mathbf{\Sigma}$ where the diagonal of this matrix gives the variance of the $i^{\text{th}}$ variable and the other elements give the covariance between the $i^{\text{th}}$ and the $j^{\text{th}}$ variables where $i\neq j$. Out of this matrix, $\mathbf{\alpha_k}$ is the eigenvector of $\mathbf{\Sigma}$ corresponding to its $k^{\text{th}}$ highest eigenvalue $\lambda_k$. One crucial aspect of these eigenvectors is their normalization, \ie $\mathbf{\alpha_k}^{T}\mathbf{\alpha_k}=1$ \cite{jolliffe2002principal}. This normalization has several objectives. Among them, this ensures orthogonality of the PCs ensuring that they represent independent directions in the original feature space. Then, normalizing the eigenvectors ensures that the magnitude of each eigenvector represents the importance or variance explained by its corresponding principal component. This makes it easier to interpret the relative importance of each principal component in explaining the variability of the data. Finally, this ensures a fair comparison between the original features. Without normalization, variables with larger scales would dominate the principal components, potentially skewing the results and leading to misinterpretation of the principal components. In other words, given this normalization, $\mathrm{var}\left(z_k\right)=\lambda_k$, where $\mathrm{var}\left(z_k\right)$ is the variance of $z_k$. Moreover, this means that $\alpha_{ki}$, \ie the component of $ \mathbf{\alpha_k}$ related to the $i^{\text{th}}$ original variable, $x_i$,  gives its weight in the $k^{\text{th}}$ PC, \ie $z_k$. This PC captures $\lambda_k$ variance of the original data. In other words, a high absolute value of $\alpha_{ki}$ means that $x_i$ has a significant impact in the direction given by the $k^{\text{th}}$ PC \cite{zdybal2022advancing}. 
 
-Easier to represent in two dimensions, let us consider a vector $\mathbf{x}$ composed of the variables $x_1$ and $x_2$, $p=2$, and 25 realisations of them (See Figure \ref{fig:PCA_intro} (left)). These realisations of the original variables allow building the covariance matrix. Then, the first \gls{PC}, $z_1$, is a linear function, $\mathbf{\alpha_1^{T}x}$,  of the different variables of $\mathbf{x}$ with maximum variance:
+Easier to represent in two dimensions, let us consider a vector $\mathbf{x}$ composed of the variables $x_1$ and $x_2$, $p=2$, and 25 realisations of them (See Figure \ref{fig:PCA_intro_original}). 
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{PCA_intro_original.pdf}
+\caption{Original observations of a two-dimension dataset, $x_1$ and $x_2$.}
+\label{fig:PCA_intro_original}
+\end{figure}
+
+From these observations, the main objective of \gls{PCA} is to find the linear combination, \ie projection, of the original variables that maximize their spread, \ie variance (see \ref{fig:PCA_intro_proj}).  Another way to understand this is to look at the other side of the same coin. Indeed, \gls{PCA} also looks for properties that allow reconstructing the original features as accurately as possible. In practice, it aims at minimizing the total reconstruction error that is the average squared distance between the original observations and their respective projection. 
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{PCA_intro_proj_1.pdf}
+\hspace{1.5cm}
+\includegraphics[width=0.4\textwidth]{PCA_intro_proj_2.pdf}
+\caption{Two different projections (red dots) of the original observations (grey dots). Projection on the left captures a bigger variance than the projection on the right. At the same time, the average squared distance between the original observations and their respective projection is smaller for the projection on the left. Consequently, the left projection is closer to be the first PC than to the right projection.}
+\label{fig:PCA_intro_proj}
+\end{figure}
+
+More mathematically, the first \gls{PC}, $z_1$, is then a linear function, $\mathbf{\alpha_1^{T}x}$,  of the different variables of $\mathbf{x}$ with maximum variance:
 
 \begingroup
 \belowdisplayskip=2pt
@@ -557,15 +577,13 @@ Easier to represent in two dimensions, let us consider a vector $\mathbf{x}$ com
 \endgroup
 
 \noindent
-where $\mathbf{^T}$ means the transpose vector. Then, $z_2=\mathbf{\alpha_2^{T}x}$, is another linear function of $\mathbf{x}$,uncorrelated with $z_1$ and maximizing the variance. These linear transformations can be seen as projection of the original data on the principal direction, \ie PCs (see Figure \ref{fig:PCA_intro} (right)). In more general cases, one can write $z_k=\mathbf{\alpha_k^{T}x}$ as the $k^{\text{th}}$ PC. There can be up to $p$ PCs even though, usually, most of the variance of the original data can be captured by $m$ PCs where $m\ll p$. The interested reader is invited to refer to the work of \citet{jolliffe2002principal} for further mathematical demonstrations, information and examples.
+where $\mathbf{^T}$ means the transpose vector. Then, $z_2=\mathbf{\alpha_2^{T}x}$, is another linear function of $\mathbf{x}$,uncorrelated with $z_1$ and maximizing the variance. These linear transformations can be seen as projection of the original data on the principal direction, \ie PCs (see Figure \ref{fig:PCA_intro_PCA}). In more general cases, one can write $z_k=\mathbf{\alpha_k^{T}x}$ as the $k^{\text{th}}$ PC. There can be up to $p$ PCs even though, usually, most of the variance of the original data can be captured by $m$ PCs where $m\ll p$. The interested reader is invited to refer to the work of \citet{jolliffe2002principal} for further mathematical demonstrations, information and examples.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.4\textwidth]{PCA_intro_original.pdf}
-\hspace{1.5cm}
 \includegraphics[width=0.4\textwidth]{PCA_intro_PCA.pdf}
-\caption{Original observations of the dataset (left) and their projection with respect to their PCs (right). The variation of the realisations is more significant in the direction of $x_2$ than $x_1$. Once projected with respect to their PCs, the variation is even more significant in the direction of $z_1$ than in either of the original variables, as it captures most of their variance. Graph adapted from \cite{jolliffe2002principal}.}
-\label{fig:PCA_intro}
+\caption{Projection of the original observations with respect to their PCs. The variation of the realisations was more significant in the direction of $x_2$ than $x_1$. Once projected with respect to their PCs, the variation is even more significant in the direction of $z_1$ than in either of the original variables, as it captures most of their variance. }
+\label{fig:PCA_intro_PCA}
 \end{figure}
 
 \subsection{Principal components of the transition}
@@ -575,7 +593,7 @@ As introduced, the objective is to define the main technological drivers of the 
 \myparagraph{Data selection}\\
 
 \noindent
-To characterize the variations of design within the transition under uncertainties, we have focused on the installed capacities, $\textbf{F}(y,j)$ for all $y \in \text{\emph{YEARS}}$ and $j \in \text{\emph{TECH}}$ (see Eq. \ref{eq:F_newBuilt}). Even though these represent only the design part of the result of the optimization, along with the operation, focusing on the installed capacities give a direct information regarding the required capital investment (see Eq. \ref{eq:c_inv}) and, more indirectly, the resources to use.  In other words, it captures the technological landscape of the transition.  Having defined the type of variable to consider, we need to assemble a relevant dataset. This is given by the runs to quantify the impact of the uncertain parameters on the total cost of transition required by the method described in Section \ref{sec:meth:UQ}. Overall, the original dataset is $\textbf{x}(y,j,s)$ where, on top of $y$ and $j$ previously defined, $s \in [1,2,...,S]$ stands for the sample number of the uncertainty quantification method. For the investigated case detailed in Chapter \ref{chap:atom_mol}, this represents $S=240$ samples resulting from the perfect foresight optimization of the transition pathway under uncertainties. Finally, among the seven representative years of the transition, we do not consider 2020 as it is the initialisation year for which the design of the system is fixed, to be representative of the actual design that was in place (see Appendix \ref{app:bel_2020}). In other words, we focus here only on the years 2025, 2030, 2035, 2040, 2045 and 2050. This gives the whole dataset considered in this \gls{PCA} (see Figure \ref{fig:PCA_data}).\\
+To characterize the variations of design within the transition under uncertainties, we have focused on the installed capacities, $\textbf{F}(y,j)$ for all $y \in \text{\emph{YEARS}}$ and $j \in \text{\emph{TECH}}$ (see Eq. \ref{eq:F_newBuilt}). Even though these represent only the design part of the result of the optimization, along with the operation, focusing on the installed capacities give a direct information regarding the required capital investment (see Eq. \ref{eq:c_inv}) and, more indirectly, the resources to use.  In other words, it captures the technological landscape of the transition.  Having defined the type of variable to consider, we need to assemble a relevant dataset. This is given by the runs to quantify the impact of the uncertain parameters on the total cost of transition required by the method described in Section \ref{sec:meth:UQ}. Overall, the original dataset is $\textbf{x}(y,j,s)$ where, on top of $y$ and $j$ previously defined, $s \in [1,2,...,S]$ stands for the sample number of the uncertainty quantification method. For the investigated case detailed in Chapter \ref{chap:atom_mol}, this represents $S=1260$ samples resulting from the perfect foresight optimization of the transition pathway under uncertainties. Finally, among the seven representative years of the transition, we do not consider 2020 as it is the initialisation year for which the design of the system is fixed, to be representative of the actual design that was in place (see Appendix \ref{app:bel_2020}). In other words, we focus here only on the years 2025, 2030, 2035, 2040, 2045 and 2050. This gives the whole dataset considered in this \gls{PCA} (see Figure \ref{fig:PCA_data}). Appendix \ref{app:UQ_tech_cap} gives the distribution of the installed capacities among the different end-use sectors from the \gls{GSA}.\\
 
 \begin{figure}[!htbp]
 \centering
@@ -643,21 +661,29 @@ where $m$ is presumably different for each representative year and $p$ is the to
 \myparagraph{Principal components of the transition}\\
 
 \noindent
-The final step consists in defining metrics on the whole transition based on the $\text{PC}_{y,i}$ computed for each representative year, separately. To do so, all the $\text{PC}_{y,i}$ from every year are sorted together in a descending order based on their respective variance. Then, starting with the one with the highest absolute variance, all the other $\text{PC}_{y,i}$ similar to it are clustered together. The similarity between two PCs is defined according to the cosine similarity approach, especially appropriate in high-dimensional positive spaces \cite{xia2015learning}. Indeed, as detailed in Section \ref{subsec:meth:PCA:PCA}, a PC represents a vector for which the components are related to each variable of interest. Therefore, in this work, PCs are considered similar if their cosine similarity, $S_C (A,B)$, is greater or equal to 90\%:
+The final step consists in defining metrics on the whole transition based on the $\text{PC}_{y,i}$ computed for each representative year, separately. To do so, all the $\text{PC}_{y,i}$ from every year are sorted together in a descending order based on their respective variance. Then, starting with the one with the highest absolute variance, all the other $\text{PC}_{y,i}$ similar to it are clustered together. The similarity between two PCs is defined according to the cosine similarity approach, especially appropriate in high-dimensional positive spaces \cite{xia2015learning}. Indeed, as detailed in Section \ref{subsec:meth:PCA:PCA}, a PC represents a vector for which the components are related to each variable of interest. Therefore, in this work, PCs are considered similar if their cosine similarity, $S_C (A,B)$, is either greater or equal to 90\% or lower or equal to -90\% (see Eq. \ref{eq:cos_similarity}). It is important to consider to second specific case as \gls{PCA} gives the magnitude of variation within the original feature space via the components of the eigenvectors, regardless of the direction of these vectors. For instance, in a two-dimension original space, if the first PC has $(\sqrt{2}/2;\sqrt{2}/2)$ as eigenvector, this could also be $(-\sqrt{2}/2;-\sqrt{2}/2)$. The second vector being the opposite of the first, they are considered as equivalent in the regard of \gls{PCA}.
 
 \begin{equation}
 \label{eq:cos_similarity}
-S_C (A,B):= \cos(\theta) = {\mathbf{A} \cdot \mathbf{B} \over \|\mathbf{A}\| \|\mathbf{B}\|} = \frac{ \sum\limits_{i=1}^{n}{A_i  B_i} }{ \sqrt{\sum\limits_{i=1}^{n}{A_i^2}} \cdot \sqrt{\sum\limits_{i=1}^{n}{B_i^2}} } \geq 90\%,
+S_C (A,B):= \cos(\theta) = {\mathbf{A} \cdot \mathbf{B} \over \|\mathbf{A}\| \|\mathbf{B}\|} = \frac{ \sum\limits_{i=1}^{n}{A_i  B_i} }{ \sqrt{\sum\limits_{i=1}^{n}{A_i^2}} \cdot \sqrt{\sum\limits_{i=1}^{n}{B_i^2}} } \geq 90\%\text{ or } \leq -90\%,
 \end{equation}
 
 \noindent
-where $A$ and $B$ represent two different PCs.  The components of these similar PCs are then averaged to form the first PC of the transition, $\text{PC}_{\text{transition},1}$. Then, the process repeats with the $\text{PC}_{y,i}$ with the highest absolute variance but that has not been integrated in the construction of $\text{PC}_{\text{transition},1}$, to form $\text{PC}_{\text{transition},2}$. This goes on until the sum of the absolute variance of the $N$ $\text{PC}_{y,i}$ used to construct these $\text{PC}_{\text{transition}}$ is greater or equal to 90\% of the sum of the absolute variance of all the $M$ $\text{PC}_{y,i}$ generated at the previous step:
+where $A$ and $B$ represent two different PCs.  The components of these similar PCs are then averaged to form the first PC of the transition, $\text{PC}_{\text{transition},1}$. Then, the process repeats with the $\text{PC}_{y,i}$ with the highest absolute variance but that has not been integrated in the construction of $\text{PC}_{\text{transition},1}$, to form $\text{PC}_{\text{transition},2}$. This goes on until the sum of the absolute variance of the $N$ $\text{PC}_{y,i}$ used to construct these $\text{PC}_{\text{transition}}$ is greater or equal to $\alpha$\% of the sum of the absolute variance of all the $M$ $\text{PC}_{y,i}$, \ie the ``total transition variance'', generated at the previous step:
 
 \begin{equation}
 \label{eq:PC_transition}
-\sum_{i=0}^N\text{var}\left(\text{PC}_{y,i}\right)\geq 90\% \sum_{i=0}^M\text{var}\left(\text{PC}_{y,i}\right)
+\sum_{i=0}^N\text{var}\left(\text{PC}_{y,i}\right)\geq \alpha\% \sum_{i=0}^M\text{var}\left(\text{PC}_{y,i}\right)
 \end{equation}
 
+In our case, we have decided to set the value of $\alpha$ to 80\% as, beyond this value, the marginal gain of captured variance becomes too ``costly'' with regard to the number of $\text{PC}_{y}$, \ie the level of details, to account for (see Figure \ref{fig:PC_y_share_tot_var}). For instance, capturing up to 90\% of the the total transition variance would mean almost doubling the number of $\text{PC}_{y}$ to consider and, consequently, the number of directions of variation to assess.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{PC_y_share_tot_var.pdf}
+\caption{Cumulative share of the sum of the transition variance versus the number of $\text{PC}_{y}$. Passing a certain threshold, here 80\%, the number of $\text{PC}_{y}$ to consider increase significantly compared to the share of transition variance that they capture.}
+\label{fig:PC_y_share_tot_var}
+\end{figure}
 
 \myparagraph{Robustness assessment of roadmaps}\\
 

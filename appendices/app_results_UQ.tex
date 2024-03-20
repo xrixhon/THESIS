@@ -9,7 +9,9 @@ Besides the top-4 parameters, rankings are slightly different. The main differen
 \begin{table}[htbp!]
 \caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the monthly and hourly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties over the hourly model.}
 \label{tab:UQ_full}
+\begin{minipage}{\textwidth}
 \centering
+\resizebox{0.8\textwidth}{!}{
 \begin{tabular}{l c c|c c}
 \toprule
 \multirow{2}{*}{\textbf{Parameter}}  & \multicolumn{4}{c}{\textbf{Ranking (Sobol' index)}}\\
@@ -52,7 +54,8 @@ CAPEX bus & 32 &($<$0.1\%)  & 29 & ($<$0.1\%) \\
 CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
 \bottomrule							
 
-\end{tabular}
+\end{tabular}}
+\end{minipage}
 \end{table}
 
 
@@ -114,8 +117,9 @@ CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
 \begin{table}[htbp!]
 \caption{Comparison of the quantities of imported renewable electrofuels, in TWh, between the REF case, the SMR case and the statistical features from the \gls{GSA} (\ie Q1, median and Q3). 2020 is not in the table as, per assumption, no renewable electrofuel is imported for this year. For the sake of clarity, zeroes are replaced by ``-''.}
 \label{tab:uq_ref_smr_med}
-\begin{minipage}{\linewidth}
+\begin{minipage}{\textwidth}
 \centering
+\resizebox{0.8\textwidth}{!}{
 \begin{tabular}{l l | c c c c}
 \toprule
 \textbf{Year} & \textbf{Case} & \textbf{e-methane} & \textbf{e-hydrogen} & \textbf{e-ammonia} & \textbf{e-methanol}\\	
@@ -168,7 +172,7 @@ CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
  & Median & 1 & 13 & 31 & 53\\
  & Q3 & 36 & 17 & 66 & 61\\
 \bottomrule							
-\end{tabular}
+\end{tabular}}
 \end{minipage}
 \end{table}
 
@@ -194,4 +198,22 @@ Similarly to ammonia, on top of local production in rare cases, e-methanol is th
 \includegraphics[width=0.49\textwidth]{UQ_Methanol_Cons.pdf}
 \caption{Distribution of the different streams of supply (left) and consumption (right) of gas, hydrogen, ammonia and methanol from the \acrfull{GSA}.}
 \label{fig:results_uq_prod_cons}
+\end{figure}
+
+\newpage
+\section{Installed capacities}
+\label{app:UQ_tech_cap}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.49\textwidth]{ELECTRICITY_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{HT_HEAT_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{LT_HEAT_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{AMMONIA_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{METHANOL_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{HVC_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{PASS_MOB_Tech.pdf}
+\includegraphics[width=0.49\textwidth]{FREIGHT_MOB_Tech.pdf}
+\caption{Distribution of the installed capacities among the different end-use sectors from the \acrfull{GSA}.}
+\label{fig:results_uq_tech_cap}
 \end{figure}
