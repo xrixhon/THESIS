@@ -69,7 +69,7 @@ Even though the following observations could be made by analysing the distributi
 \label{subsec:RobPol:PC_transition}
 Based on the \gls{PCs} of each representative year, $\text{PC}_{y}$, the \gls{PCs} of the transition, \ie the metrics to assess the robustness of roadmaps, can be computed. Before aggregating and averaging similar $\text{PC}_{y}$, it is necessary to rank them to ensure capturing most of the transition variance in the subsequent $\text{PC}_{\text{transition}}$.
 
-Based on the design variance captured by each $\text{PC}_{y}$ in their respective representative year, we can rank them (see Table \ref{tab:ranking_PCs}). Summing all of these variances over the different years results in a ``pseudo'' total variance of the transition. To construct the \gls{PCs} of the transition, $\text{PC}_{\text{transition}}$, we keep the $\text{PC}_{y}$ that captures at least 80\% of this total variance of the transition (see Section \ref{subsec:meth:PCA:transition}).  This results in keeping 11 $\text{PC}_{y}$: the first PC of each representative year, the second of 2025, 2030, 2035 and 2040 and the third PC of 2025.
+Based on the design variance captured by each $\text{PC}_{y}$ in their respective representative year, we can rank them (see Table \ref{tab:ranking_PCs}). Summing all of these variances over the different years results in a ``pseudo'' total variance of the transition. To construct the \gls{PCs} of the transition, $\text{PC}_{\text{transition}}$, we keep the $\text{PC}_{y}$ that captures at least 80\% of this total variance of the transition (see Section \ref{subsec:meth:PCA:transition}).  This results in keeping 14 $\text{PC}_{y}$: the first and second \gls{PCs} of each representative year and the third PC of 2025 and 2035. Even though the 80\%-threshold is reached with the first 11 \gls{PCs},  $\text{PC}_{2045,2}$, $\text{PC}_{2050,2}$ and $\text{PC}_{2035,3}$ are accounted for as they are similar to $\text{PC}_{2040,2}$. Consequently, aiming at capturing at least 80\% of the total transition variance, 
 
 \begin{table}[htbp!]
 \caption{Ranking of \gls{PCs} per design variance captured in their respective representative year and cumulative share of the captured total variance of the transition}
@@ -91,7 +91,9 @@ Based on the design variance captured by each $\text{PC}_{y}$ in their respectiv
 9 & 2025 & $\text{PC}_2$ & 19.1 & 74.8 \\
 10 & 2025 & $\text{PC}_3$ & 15.0 & 78.2 \\
 11 & 2040 & $\text{PC}_2$ & 8.7 & \textbf{80.2} \\
-\midrule
+12 & 2045 & $\text{PC}_2$ & 7.9 & 82.0 \\
+13 & 2050 & $\text{PC}_2$ & 7.7 & 83.7 \\
+14 & 2035 & $\text{PC}_3$ & 7.3 & 85.4 \\
 $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
 34 & 2050 & $\text{PC}_7$ & 1.6 & 100 \\
 \bottomrule							
@@ -99,4 +101,73 @@ $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
 \end{tabular}
 \end{table}
 
-Given the similarity between $\text{PC}_y$, some $\text{PC}_{\text{transition}}$ result from the aggregation and averaging of the components of several $\text{PC}_y$.
+Given the similarity between $\text{PC}_y$ (see Figure \ref{fig:Top5_PC_year}), some $\text{PC}_{\text{transition}}$ result from the aggregation and averaging of the components of several $\text{PC}_y$ (see Table \ref{tab:PC_transition_aggregation}). This aggregation step has a double objective: limiting the dimension of the robustness metrics and avoiding ineffective redundancy in terms of $\text{PC}_{\text{transition}}$ where several of them would otherwise point towards similar directions of variation.
+
+\begin{table}[htbp!]
+\caption{Aggregation of $\text{PC}_y$ to construct the $\text{PC}_{\text{transition}}$ and share of the captured total variance of the transition by each $\text{PC}_{\text{transition}}$.}
+\label{tab:PC_transition_aggregation}
+\centering
+\begin{tabular}{c c c}
+\toprule
+ \multirow{2}{*}{$\mathbf{\textbf{PC}_{\textbf{transition}}}$} & \multirow{2}{*}{$\mathbf{\textbf{PC}_{\textbf{y}}}$} & \textbf{Share of total} \\	
+ &  & \textbf{variance} [\%] \\	
+ \midrule
+\multirow{6}{*}{$\text{PC}_{\text{transition,1}}$} & $\text{PC}_{\text{2025,1}}$ & \multirow{6}{*}{57.0}\\
+& $\text{PC}_{\text{2030,1}}$ & \\
+& $\text{PC}_{\text{2035,1}}$ & \\
+& $\text{PC}_{\text{2040,1}}$ & \\
+& $\text{PC}_{\text{2045,1}}$ & \\
+& $\text{PC}_{\text{2050,1}}$ & \\
+ \midrule
+\multirow{2}{*}{$\text{PC}_{\text{transition,2}}$} & $\text{PC}_{\text{2030,2}}$ & \multirow{2}{*}{13.4}\\
+& $\text{PC}_{\text{2035,2}}$ & \\
+\midrule
+\multirow{4}{*}{$\text{PC}_{\text{transition,3}}$} & $\text{PC}_{\text{2040,2}}$ & \multirow{4}{*}{7.2}\\
+& $\text{PC}_{\text{2045,2}}$ & \\
+& $\text{PC}_{\text{2050,2}}$ & \\
+& $\text{PC}_{\text{2035,3}}$ & \\
+ \midrule
+$\text{PC}_{\text{transition,3}}$ & $\text{PC}_{\text{2025,2}}$ & 4.3\\
+ \midrule
+$\text{PC}_{\text{transition,4}}$ & $\text{PC}_{\text{2025,3}}$ & 3.4\\
+\bottomrule							
+
+\end{tabular}
+\end{table}
+
+Averaging the components of similar $\text{PC}_y$ allows constructing the $\text{PC}_{\text{transition}}$ (see Figure \ref{fig:Top5_PC_transition}). These directions of variation form the robustness matrix on which it is possible to project the results of transition roadmaps tested under uncertainties and myopic pathway optimisation.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Top5_PCtransition.pdf}
+\caption{Contribution of the top-5 technologies to the different $\text{PC}_{\text{transition}}$. }
+\label{fig:Top5_PC_transition}
+\end{figure}
+
+\section{Robustness assessment of pathway roadmaps}
+\label{sec:RobPol:Rob_Assessment}
+Now that the performance metric is defined, we can assess the robustness of different roadmaps. These roadmaps are defined as the technological mix given by the deterministic optimisation of the perfect foresight pathway under certain conditions. The two first roadmaps are the \textbf{REF} and \textbf{SMR} cases (see Chapter \ref{chap:atom_mol}). All the uncertain parameters are considered at their nominal value in these two cases. The only difference consists in allowing \gls{SMR} from 2040 onward in the \textbf{SMR} case. On top of these two cases, we add a so-called ``robust'' case, \textbf{ROB}, in the same sense as in the works of \citet{bertsimas2004price} or \citet{Moret2017PhDThesis} accounting for a ``protection parameter''. Then, we assess the robustness of these three roadmaps via a similar ``two-step rolling horizon approach'' as in the work of \citet{moret2020overcapacity}: (i) setting the initial investment strategies provided by the roadmaps and, (ii) assessing the potential additional investments needed through myopic pathway optimisation under uncertainties.
+
+\subsection{The robust roadmap}
+\label{subsec:RobPol:Rob_roadmap}
+Rather than considering all the uncertain parameters at their worst values as in the work of \citet{soyster1973convex}, we follow here the robust approach of \citet{bertsimas2004price} and \citet{Moret2017PhDThesis}. In their works, the authors consider a factor $\Gamma_{\text{obj}}\in [0,d]$ that represents a ``protection parameter'' of the objective function where $d$ is the total number of uncertain parameters (see Section \ref{subsec:pce}). If $\Gamma_{\text{obj}}= 0$, where all the uncertain parameters are at their nominal value, we obtain the deterministic solution of the \textbf{REF} case. If $\Gamma_{\text{obj}}= d$, this means considering the ``fully robust'' solution where all the uncertain parameters are their worst value, as in \citet{soyster1973convex}.  Between these two extreme cases, the uncertain parameters to account for at their worst values follow the ranking given by the \gls{GSA} (see Chapter \ref{chap:atom_mol}). In practice, $\Gamma_{\text{obj}}= 1$ means considering the cost of purchasing electrofuels at its worst value. $\Gamma_{\text{obj}}= 2$ adds the industry \gls{EUD} at its worst value in the lot, and so on. In the present analysis, we consider the ``robust'' roadmap by setting $\Gamma_{\text{obj}}= 6$. Consequently, costs of purchasing electrofuels, fossil fuels and biofuels as well as the industry \gls{EUD}, the interest rate and the variable OPEX of technologies are considered at their worst values, \ie the upper bound of their respective range. In practice, this means that, in the ROB case, imported energy carriers, except electricity, are 179.8\% more expensive, the industrial demand is, by 2050, 23.9\% higher\footnote{As detailed in Chapter \ref{chap:case_study}, the industrial demand encompasses the whole \gls{NED} and \gls{LT} heat demand, as well as the industrial share of electricity and \gls{LT} heat demands.}, the interest rate is 46.2\% (\ie 2.2\% versus 1.5\% in the REF case) and the variable OPEX of technologies, $c_{\text{\emph{maint}}}$, is 35.7\% higher.  The following paragraphs investigate the differences in the different sectors between the ROB and the REF cases, similarly to the comparison carried out with the SMR case in Chapter \ref{chap:atom_mol}.\\
+
+\myparagraph{Power sector}\\
+
+Given the more expensive imported energy carriers, the model opts for an earlier electrification of the system and more efficiency. Consequently, the power sector is one of the most impacted ones (see Figure \ref{fig:rob_pol_ROB_elec}). At the earlier stages of the transition,  the model opts for the full deployment of local \gls{VRES} as soon as possible and importing more electricity (\ie +8.7~TWh, +52\%) from abroad in 2025.  This earlier and bigger integration of \gls{VRES} is supported by the higher electrification of \gls{HT} and, to a smaller extent the \gls{LT}, heating sector as well as in the mobility sectors. It is mostly the industrial electric heaters that absorb the abundant and intermittent electricity produced by \gls{PV} panels and wind turbines. In the mobility sectors, \gls{BEV} substitutes gasoline cars from 2025 onward and electric trucks make the transition from diesel to \gls{FC} trucks.  On the supply side, besides the local \gls{VRES} and the direct import of electricity from abroad, \gls{CHP} units, mostly industrial, are favoured given their higher efficiency at the expense of ammonia-\gls{CCGT}. In the ROB case, by 2050, these \gls{CHP} units produce 43.3~TWh, \ie 23\% of the total electricity production, versus 21.9~TWh in the REF case.
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.8\textwidth]{Elec_Tech_Cap_ROB.pdf}
+\includegraphics[width=0.8\textwidth]{Elec_Layer_ROB.pdf}
+\caption{Installed capacities and layer balance of the power sector in the ROB case. Compared to the REF case, local \gls{VRES} are deployed as soon as possible supported by an earlier electrification of the heat and transport sectors. \gls{CHP} units also represents a higher share of the electricity supply given their higher efficiency at the expense of other flexible production units like ammonia-\gls{CCGT}.}
+\label{fig:rob_pol_ROB_elec}
+\end{figure}
+
+
+
+
+
+\myparagraph{Non-energy sector}\\
+
+Technologically speaking, by 2050, the ROB case accounts for an additional 1.2~GW of \gls{MTO} to supply the extra 10.3~TWh of \gls{HVC}. Besides this, the extra 2.5~TWh and 0.4~TWh of e-ammonia and e-methanol are supplied by supplied by the import of their respective energy carrier.

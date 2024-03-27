@@ -7,7 +7,7 @@ Besides the top-4 parameters, rankings are slightly different. The main differen
 
 
 \begin{table}[htbp!]
-\caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the monthly and hourly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties over the hourly model.}
+\caption{Total Sobol' indices of the uncertain parameters over the total transition cost in the hourly and monthly pathway models. The similar rankings (and indices) show the validity of using the faster (even though less accurate) monthly model to assess uncertainties.}
 \label{tab:UQ_full}
 \begin{minipage}{\textwidth}
 \centering
@@ -176,44 +176,75 @@ CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
 \end{minipage}
 \end{table}
 
-\Cref{fig:results_uq_prod_cons} gives the distribution of the different routes of supply and consumption of gas like methane, hydrogen, ammonia and methanol, resulting from the 1260 samples of the \gls{GSA}.
+Figures \ref{fig:results_uq_prod_cons_Gas}, \ref{fig:results_uq_prod_cons_H2}, \ref{fig:results_uq_prod_cons_Ammonia} and \ref{fig:results_uq_prod_cons_Methanol} give the distribution of the different routes of supply and consumption methane, hydrogen, ammonia and methanol, resulting from the 1260 samples of the \gls{GSA}.
 
-Given its lower cost of purchasing than its renewable equivalent (\Cref{fig:cs_resources_cost}) and lower \gls{GWP} than other fossil fuels (\ie $\mathit{gwp}_{\mathrm{op,NG}}=0.27$\,kt$_{\ce{CO2},\text{eq}}$/GWh versus $\mathit{gwp}_{\mathrm{op,LFO}}=0.31$\,kt$_{\ce{CO2},\text{eq}}$/GWh or $\mathit{gwp}_{\mathrm{op,coal}}=0.40$\,kt$_{\ce{CO2},\text{eq}}$/GWh), fossil \gls{NG} remains the main source of gas in the system until 2040. Besides bio-hydrolisis as the main consumer of wet biomass to consistently produce gas, e-methane eventually substitutes fossil natural gas by 2045-2050 in order to respect the \ce{CO2}-budget for the transition. Its versatility makes gas used by a wide variety of technologies in the different sectors. Initially, in 2020, decentralised gas boilers, \gls{CCGT} and industrial gas boilers represent the biggest consumers of gas with 39\%, 21\% and 16\% of the total consumption, respectively. Progressively, in line with the rest of the system shifting towards more efficiency in the mid-term, industrial \gls{CHP} represent the lion's share, next to other usages in the transport or \gls{LT}-heating sectors.
+Given its lower cost of purchasing than its renewable equivalent (\Cref{fig:cs_resources_cost}) and lower \gls{GWP} than other fossil fuels (\ie $\mathit{gwp}_{\mathrm{op,NG}}=0.27$\,kt$_{\ce{CO2},\text{eq}}$/GWh versus $\mathit{gwp}_{\mathrm{op,LFO}}=0.31$\,kt$_{\ce{CO2},\text{eq}}$/GWh or $\mathit{gwp}_{\mathrm{op,coal}}=0.40$\,kt$_{\ce{CO2},\text{eq}}$/GWh), fossil \gls{NG} remains the main source of gas in the system until 2040. Besides bio-hydrolysis as the main consumer of wet biomass to consistently produce gas, e-methane eventually substitutes fossil natural gas by 2045-2050 in order to respect the \ce{CO2}-budget for the transition. As a versatile energy carrier, gas is used by a wide variety of technologies in the different sectors. Initially, in 2020, decentralised gas boilers, \gls{CCGT} and industrial gas boilers represent the biggest consumers of gas with 39\%, 21\% and 16\% of the total consumption, respectively. Progressively, in line with the rest of the system shifting towards more efficiency in the mid-term, industrial \gls{CHP} represent the lion's share, next to other usages in the transport or \gls{LT}-heating sectors.
 
-On the contrary, import of fossil-based hydrogen, largely produced from steam-methane-reforming \cite{spf_economie_h2}, is rarely part of the solution due to the emissions related to the consumption of natural gas. E-hydrogen is the consistent source of hydrogen in the system, next to local production (\ie steam-methane-reforming, electrolysis or ammonia-cracking) in some rare cases where low industrial \gls{EUD} coincides with more abundant electricity from \gls{SMR} or \gls{PV}. In terms of consumption, \gls{FC}-trucks are the more consistent player. \gls{FC}-cars are also at stake but in specific cases where their CAPEX and the CAPEX of electric vehicles are in the bottom and the top of their respective uncertainty range.
+On the contrary, import of fossil-based hydrogen, largely produced from steam-methane-reforming \cite{spf_economie_h2}, is rarely part of the solution due to the emissions related to the consumption of natural gas. E-hydrogen is the consistent source of hydrogen in the system, next to local production (\ie steam-methane-reforming, electrolysis or ammonia-cracking) in some rare cases where low industrial \gls{EUD} coincides with more abundant electricity from \gls{SMR} or \gls{PV}. In terms of consumption, \gls{FC}-trucks are the more consistent player. \gls{FC}-cars are also at stake but in specific cases where their CAPEX and the CAPEX of electric vehicles are in the bottom and the top of their respective uncertainty ranges.
 
-Becoming cheaper than its fossil equivalent at early stages of the transition (\ie from 2030 onward), e-ammonia is the exclusive stream of ammonia in the system, except rare cases. Then, on top of its consistent \gls{NED}, the largest consumption of ammonia is \gls{CCGT} as flexible power generation units, to substitute their e-methane equivalents that have a higher \gls{LCOE} (\Cref{fig:LCOE}).
+Becoming cheaper than its fossil equivalent at early stages of the transition (\ie from 2030 onward), e-ammonia is the exclusive stream of ammonia in the system, except rare cases. Then, on top of its consistent \gls{NED}, the largest consumption of ammonia is \gls{CCGT} as flexible power generation units, to substitute their e-methane equivalents that have a higher \gls{LCOE} (see \Cref{fig:LCOE}).
 
 Similarly to ammonia, on top of local production in rare cases, e-methanol is the key source for methanol. Besides its own \gls{NED}, methanol is mostly consumed to produce \gls{HVC} via the \gls{MTO} process instead of naphtha-cracking, in order to respect to \ce{CO2}-budget for the transition.
 
 \begin{figure}[htbp!]
 \centering
-\includegraphics[width=0.49\textwidth]{UQ_Gas_Prod.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_Gas_Cons.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_H2_Prod.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_H2_Cons.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_Ammonia_Prod.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_Ammonia_Cons.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_Methanol_Prod.pdf}
-\includegraphics[width=0.49\textwidth]{UQ_Methanol_Cons.pdf}
-\caption{Distribution of the different streams of supply (left) and consumption (right) of gas, hydrogen, ammonia and methanol from the \acrfull{GSA}.}
-\label{fig:results_uq_prod_cons}
+\includegraphics[width=\textwidth]{UQ_Gas_Prod.pdf}
+\includegraphics[width=\textwidth]{UQ_Gas_Cons.pdf}
+\caption{Distribution of the different streams of supply (top) and consumption (bottom) of methane from the \acrfull{GSA}.}
+\label{fig:results_uq_prod_cons_Gas}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{UQ_H2_Prod.pdf}
+\includegraphics[width=\textwidth]{UQ_H2_Cons.pdf}
+\caption{Distribution of the different streams of supply (top) and consumption (bottom) of hydrogen from the \acrfull{GSA}.}
+\label{fig:results_uq_prod_cons_H2}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{UQ_Ammonia_Prod.pdf}
+\includegraphics[width=\textwidth]{UQ_Ammonia_Cons.pdf}
+\caption{Distribution of the different streams of supply (top) and consumption (bottom) of ammonia from the \acrfull{GSA}.}
+\label{fig:results_uq_prod_cons_Ammonia}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{UQ_Methanol_Prod.pdf}
+\includegraphics[width=\textwidth]{UQ_Methanol_Cons.pdf}
+\caption{Distribution of the different streams of supply (top) and consumption (bottom) of methanol from the \acrfull{GSA}.}
+\label{fig:results_uq_prod_cons_Methanol}
 \end{figure}
 
 \newpage
 \section{Installed capacities}
 \label{app:UQ_tech_cap}
 
+
 \begin{figure}[htbp!]
 \centering
-\includegraphics[width=0.49\textwidth]{ELECTRICITY_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{HT_HEAT_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{LT_HEAT_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{AMMONIA_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{METHANOL_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{HVC_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{PASS_MOB_Tech.pdf}
-\includegraphics[width=0.49\textwidth]{FREIGHT_MOB_Tech.pdf}
-\caption{Distribution of the installed capacities among the different end-use sectors from the \acrfull{GSA}.}
+\includegraphics[width=\textwidth]{ELECTRICITY_Tech.pdf}
+\includegraphics[width=\textwidth]{HT_HEAT_Tech.pdf}
+\includegraphics[width=\textwidth]{LT_HEAT_Tech.pdf}
+\caption{Distribution of the installed capacities among the end-use sectors of electricity, \gls{HT} and \gls{LT} heat from the \acrfull{GSA}.}
+\label{fig:results_uq_tech_cap}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{AMMONIA_Tech.pdf}
+\includegraphics[width=\textwidth]{METHANOL_Tech.pdf}
+\includegraphics[width=\textwidth]{HVC_Tech.pdf}
+\caption{Distribution of the installed capacities among the end-use sectors of ammonia, methanol and \gls{HVC} from the \acrfull{GSA}.}
+\label{fig:results_uq_tech_cap}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{PASS_MOB_Tech.pdf}
+\includegraphics[width=\textwidth]{FREIGHT_MOB_Tech.pdf}
+\caption{Distribution of the installed capacities among the end-use sectors of passenger and freight mobility from the \acrfull{GSA}.}
 \label{fig:results_uq_tech_cap}
 \end{figure}
