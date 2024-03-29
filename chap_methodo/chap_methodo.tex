@@ -688,7 +688,16 @@ In our case, we have decided to set the value of $\alpha$ to 80\% as, beyond thi
 \myparagraph{Robustness assessment of roadmaps}\\
 
 \noindent
-Similarly to the work of \citet{moret2020overcapacity}, roadmaps are defined by setting minimal installed capacities based on the results of different transition pathway optimizations (see Chapter \ref{chap:chap_RobPol}). The $\text{PC}_{\text{transition}}$ are the ``direction/metrics'' on which are projected the results from the myopic pathway optimization subject to minimal installed capacities set by these roadmaps.  In conclusion, a roadmap would be defined as more robust than another one if the projection of its myopic runs on the different $\text{PC}_{\text{transition}}$ spans on a more narrow range (see Figure \ref{fig:Projection_PC_transition}). The bounds of this ``range of projection'' are computed as the mean, $\mu$, of the projected data $\pm$ a 95\% confidence level, CL, on the margin of error, MOE:
+Similarly to the work of \citet{moret2020overcapacity}, roadmaps are defined by setting minimal installed capacities based on the results of different transition pathway optimizations. The $\text{PC}_{\text{transition}}$ are the ``direction/metrics'' on which are projected the results from the myopic pathway optimization subject to minimal installed capacities set by these roadmaps (see Figure \ref{fig:Methodo_Robustness}).  
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Methodo_Robustness.pdf}
+\caption{Overview of the three-step methodology to assess the robustness of roadmaps. Schematic adapted from \cite{moret2020overcapacity}.}
+\label{fig:Methodo_Robustness}
+\end{figure}
+
+In conclusion, a roadmap would be defined as more robust than another one if the projection of its myopic runs on the different $\text{PC}_{\text{transition}}$ spans on a more narrow range (see Figure \ref{fig:Projection_PC_transition}). The bounds of this ``range of projection'' are computed as the mean, $\mu$, of the projected data $\pm$ a 95\% confidence level, CL, on the margin of error, MOE:
 $$
 \text{range of projection} = [\mu-\mathrm{MOE}; \mu + \mathrm{MOE}],
 $$
