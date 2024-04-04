@@ -292,7 +292,62 @@ Finally, even though the way to get there differs between the perfect foresight 
 
 In essence, when comparing perfect foresight and myopic approaches, distinctions arise in minor aspects, while the fundamental conclusions of Table \ref{tab:PF_MY} were verified. These variances have been elucidated in the preceding enumerated points and can primarily be attributed to the changes in the case study, rather than reflecting limitations inherent to the model or the comparative analysis itself.
 
+\section{Monthly versus hourly pathway optimisation}
+\label{app:mo_vs_td}
 
+This section compares the perfect foresight optimisation based on a monthly time resolution with the reference case (hourly time resolution). The main advantage of the monthly approach is its computational time, \ie a reduction of 99.8\% compared to the hourly resolution (see Table \ref{tab:TD_MO}). This tractability represents a significant advantage when several thousands of runs are necessary, \eg for uncertainty quantification as it has been performed in \cite{rixhon2021role}.
+
+
+\begin{table}[htbp]
+\caption{Comparison between the two different time-resolutions: Hourly (PF) and Monthly (MO). Differences with the reference case (PF) below 1\% are not shown ($\simeq$) and ones above 10\% are in bold.}
+\label{tab:TD_MO}
+\begin{minipage}{\textwidth}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l l r r c}
+\toprule
+& & {\thead{\textbf{PF}}} & {\thead{\textbf{MO}}} & Units \\
+\midrule
+Computational time\footnote{\label{foot:comp_time_mo}These computational times were reached on a 2.4GHz 4-core machine.} & & 830 & \textbf{2} & s \\
+\midrule
+\multirow{4}{*}{Costs in 2050}
+& Total transition\footnote{\label{foot:transition_cost_mo}As detailed in \autoref{eq:obj_func_v2}, the transition cost is the sum of the cumulative opex and capex, salvage value being deduced.} & 1004 & -2\% & b€\textsubscript{2015}\\
+& Cumulative opex & 528 & -3\%  & b€\textsubscript{2015}\\
+& Cumulative capex & 636 & -2\% & b€\textsubscript{2015}\\
+& Salvage value & 160 & -5\% & b€\textsubscript{2015}\\
+\midrule
+\multirow{5}{*}{Primary energy mix in 2050} & Total & 368.0 & +2\% & TWh/y\\
+ & e-hydrogen & 15.6 & +2\% & TWh/y\\
+ & e-methane & 41.0 & \textbf{+51\%} & TWh/y\\
+ & e-methanol & 54.8 & $\simeq$ & TWh/y\\
+ & e-ammonia & 40.7 & \textbf{+55\%} & TWh/y\\
+
+ \midrule
+ \multirow{3}{*}{Electrification in 2050\footnote{\label{foot:share_elec_mo}The electrification of the other sectors (\ie centralised heat (100\%-heat pump), private (100\%-\gls{BEV}), public mobility (80\%-train and tramway), freight mobility (25\%-train) and non-energy demand (0\%)) are identical between the three approaches and are, therefore, not presented in the table.}} & System\footnote{\label{foot:system_elec_mo}The electrification of the system is computed as the difference between the total production of electricity and the end-use demand of electricity.} & 63.3 & \textbf{-27\%} & TWh$_{\text{e}}$\\ 
+ & Industrial heat\footnote{\label{foot:heat_elec_mo}The electrification of the industrial and decentralised heating sectors are expressed in terms of thermal energy (TWh$_{\text{th}}$) provided by electrified processes, respectively industrial resistors and decentralised electric heat pumps.} & 12.3 & \textbf{-98\%} & TWh$_{\text{th}}$\\
+ & Decentralised heat\footref{foot:heat_elec_mo} & 73.9 & \textbf{-13\%} & TWh$_{\text{th}}$\\
+  \midrule
+\multirow{3}{*}{Year of full VRES-deployment} & PV & 2045 & \textbf{2040} & -\\
+ & Wind-offshore & 2030 & \textbf{2025} & -\\
+ & Wind-onshore & 2025 & 2025 & -\\
+\bottomrule
+\end{tabular}
+}
+\end{minipage}
+\end{table}
+
+However, averaging time series of end-use demands and renewable productions brings some discrepancies. First and foremost, \gls{VRES} loose their intrinsic power intermittency \cite{haydt2011relevance}. This has a series of consequences. Overall, this overestimates the uptake and emergence of solar and wind power generation and, consequently, overestimate their share in the primary electricity mix, especially at intermediate stages of the transition \cite{haydt2011relevance,Poncelet2016} (see Figure \ref{fig:MO_Share_VRES_elec_mix}). In line with these studies, the more there is \gls{VRES} in the primary electricity mix, the higher is the error\footnote{Like \citet{Poncelet2016}, this error is defined as:$\sum_{i} \frac{|\text{supply share}_i^{MO}-\text{supply share}_i^{PF}|}{2}$, where index i runs over all technologies and import of electricity and the supply shares are expressed as a percentage.} with lower time resolution. In 2025 and 2050, where the share of \gls{VRES} in the electricity primary mix is 46\% and 66\%, respectively, this error goes from 10\% to 18\%.
+
+ \begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{MO_Share_VRES_elec_mix.pdf}
+\caption{Share of \gls{VRES} (\ie solar and wind) in the electricity primary mix for the monthly and hourly time resolutions.}
+\label{fig:MO_Share_VRES_elec_mix}
+\end{figure}
+
+When considering the system overall, this averaged time-variability requires a more limited sector-coupling in the monthly model to absorb the intermittency of renewables. Industrial and decentralised heat demands are less electrified (see \autoref{tab:TD_MO}). This leads to 30\% electrification of the overall system versus 36\% for the hourly approach. This smaller production of electricity is done to the detriment of direct import of electricity, completely removed from the primary mix, as assumed to keep on having a higher global warming potential than conventional assets (\eg \gls{CCGT} running on gas and, later on, renewable gas and ammonia). Then, the generation mix in heating sectors or non-energy demands is less diversified, leading the sharper and later switch of resources and technologies. For instance, lignocellulosic biomass is ``cannibalized" by industrial boilers to the detriment of biomass-to-methanol or \gls{HVC}. Besides this, in general, we observe an overestimation of conventional technologies (\eg running on gas or oil) generation, either by installing more capacities or having a higher load factor for similar capacities. In line with \citet{Poncelet2016}, this leads to an overall underestimation of the operational (and investment) costs (see \autoref{tab:TD_MO}).
+
+Finally, in the mobility sectors, there is no difference between low and high time resolutions. This is due to the fact that these demands are assumed to stay the same over the different hours of the year (\ie freight mobility) or have a favorite technology to supply them (\eg \gls{BEV} for private mobility).
 
 %\section{Uncertainty characterisation for the 5-year steps transition} 
 %\label{app:UC_full}
