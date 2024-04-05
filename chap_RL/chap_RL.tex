@@ -67,7 +67,7 @@ Through its maximisation of the expected return (see Section \ref{subsec:meth_RL
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{Reward.pdf}
-\caption{Reward, $R$, function scheme. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost.}
+\caption{Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost.}
 \label{fig:Reward}
 \end{figure} 
 
@@ -83,9 +83,21 @@ Consequently, after another process of trial and error, we have converged to a f
 \section{Learning process and convergence}
 \label{sec:RL:learning}
 
-Before testing the optimal policy $\pi^*\left(\bm{a}_n | \bm{o}_n\right)$, the first step consists in assessing the training of the \gls{NN}. For this, numerous episodes are played through the myopic optimization of the transition pathway of Belgium. At the beginning of each episode, the agent starts with the actual Belgian energy system of 2020 (see Appendix \ref{app:bel_2020}). Then, a sample of values, drawn for the uncertain parameters, affects the model for the 2020-2030 time window. This sample will remain valid for the following time windows. In other words, there is only one sample draw per episode (see Figure \ref{fig:ranges_transition}).  Then, the agent takes a set of actions, affecting the environment that feeds back the agent with a new state and a reward. This goes on until the end of the episode. For the new episode, similarly to the \gls{UQ} analysis (see Section \ref{sec:meth:UQ}), the new sample of uncertain parameters for the new episode is drawn following the quasi-random Sobol' sampling technique \cite{bratley2003implementing}.
+Before testing the optimal policy $\pi^*\left(\bm{a}_n | \bm{o}_n\right)$, the first step consists in assessing the learning of the \gls{NN}, also called ``training''. For this, numerous episodes are played through the myopic optimisation of the transition pathway of Belgium. At the beginning of each episode, the agent starts with the actual Belgian energy system of 2020 (see Appendix \ref{app:bel_2020}). Then, a sample of values, drawn for the uncertain parameters, affects the model for the 2020-2030 time window. This sample will remain valid for the following time windows. In other words, there is only one sample draw per episode (see Figure \ref{fig:ranges_transition}).  Then, the agent takes a set of actions, affecting the environment that feeds back the agent with a new state and a reward. This goes on until the end of the episode. For the new episode, similarly to the \gls{UQ} analysis (see Section \ref{sec:meth:UQ}), the new sample of uncertain parameters for the new episode is drawn following the quasi-random Sobol' sampling technique \cite{bratley2003implementing}.
 
-To reduce the computational burden and maximise the exploration of the transition pathways, the learning phase, also called ``training'', of the agent has been done on the monthly model. Even though averaging time series of end-use demands and renewable productions brings some discrepancies (\ie faster emergence of local \gls{VRES} and smaller electrification of the system), the main advantage of the monthly approach is its computational time, \ie couple of seconds versus about 15 min for the hourly model (see Appendix \ref{app:mo_vs_td}). 
+To reduce the computational burden and maximise the exploration of the transition pathways, the learning phase of the agent has been done on the monthly model. Even though averaging time series of end-use demands and renewable productions brings some discrepancies (\ie faster emergence of local \gls{VRES} and smaller electrification of the system), the main advantage of the monthly approach is its computational time, \ie couple of seconds versus about 15 min for the hourly model (see Appendix \ref{app:mo_vs_td}). 
+
+The learning phase has been split by batch of 500 steps. For the first 100 steps of each batch, the \gls{RL}-model collects transitions before learning starts. This makes sure replay buffer is full enough for useful updates. At the end of each batch, the up-to-date policy, \ie the \gls{NN}, is saved. This way, we can assess the progress in the learning process and its convergence (see Figure \ref{fig:reward_success}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.49\textwidth]{Mean_reward.pdf}
+\includegraphics[width=0.49\textwidth]{Success_rate.pdf}
+\caption{Mean reward and success rate of the different learning batches. The stabilisation of the reward curve shows a convergence of the learning process for the agent's point of view. The success rate also confirms this progression and convergence.}
+\label{fig:reward_success}
+\end{figure} 
+
+
 
 \begin{itemize}
 \item Convergence of reward or success rate
@@ -98,7 +110,7 @@ To reduce the computational burden and maximise the exploration of the transitio
 \centering
 \includegraphics[width=0.7\textwidth]{Binding_constr.pdf}
 \caption{Binding versus non-binding constraints. In \gls{LP} where the feasibility domain is non-empty and bounded, the constraints defined a convex feasibility domain in the space of variables (here, x$_1$ and x$_2$). The optimal solution usually locates on a vertex of this domain, \ie the intersection of several constraints (here, constraints 2 and 3) limiting the solution. These constraints are considered as binding, \ie having a limiting impact on the optimal solution.}
-\label{fig:Reward}
+\label{fig:Binding_constr}
 \end{figure} 
 
 
