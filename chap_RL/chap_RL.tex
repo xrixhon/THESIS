@@ -99,20 +99,31 @@ The learning phase has been split into batches of 500 steps. For the first 100 s
 \label{fig:reward_success}
 \end{figure}
 
+During the learning process, the algorithm explores numerous transition pathways (2439 successful transitions out of 10,565 attempts). Each pathway provides valuable insight into the best course of actions --- the primary goal of reinforcement learning. As a side benefit, the collection of all explored pathways also identifies the intermediate milestones to reach and the range of actions that must be avoided or must be taken. Yet, the exploration during this learning process is not exhaustive. The trends provided below are therefore not proven. The randomness of the process and the number of explored transition pathways still give us high confidence.
+
 Over the entire learning process, 23\% of the episodes have been successful versus 73\% of failures, the rest being infeasible problems where the actions taken by the agent are too constraining for the model (see Section \ref{sec:RL:act_states_rew}). Besides these infeasible cases, there is a range in the reward where failures and successes overlap (see Figure \ref{fig:reward_status}). This area corresponds to either transitions that exceed the \ce{CO2}-budget in 2050 but are cheaper than the total transition cost of reference (see Section \ref{sec:RL:act_states_rew}) or successful transitions that are more expensive. Besides this overlap, we observe that successes account for the majority of the cases where the reward is positive. This is another indication that the shape of the reward is appropriate in this exploration of transition pathways.
 
-Considering the end of the time-window where the \ce{CO2}-budget is exceeded, the right hand side of Figure \ref{fig:reward_status} shows that 2040 is the ``tipping year''. Beyond this point, the chances to succeed the transition are 47\%. In other words, mid-term actions are necessary to hope succeeding the transition.
+Considering the end of the time-window where the \ce{CO2}-budget is exceeded, the right hand side of Figure \ref{fig:reward_status} shows that 2040 is the ``tipping year'' for the agent. Beyond this point, through this learning process, the chances to succeed the transition are 47\%. In other words, mid-term actions are necessary to hope succeeding the transition.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.49\textwidth]{Reward_status.pdf}
 \includegraphics[width=0.49\textwidth]{Reward_status_2.pdf}
-\caption{Reward distribution between successes and failures. Right hand side details at the end of which time-window the failure occurred. The ``tipping year'' is 2040 as failing the transition by 2040 represents 58\% of all the failures. Beyond this point, succeeding the transition represents 47\% of the cases.}
+\caption{Reward distribution between successes and failures. Right hand side details at the end of which time-window the failure occurred. The ``tipping year'' is 2040 as failing the transition by 2040 represents 58\% of all the failures. Beyond this point, through this learning process, succeeding the transition represents 47\% of the cases.}
 \label{fig:reward_status}
 \end{figure}
 
 \myparagraph{States: Renewables and efficiency}\\
 
+In line with \citet{rixhon2021terminology},uranium is considered as a non-renewable resource. 
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{RE_in_mix.pdf}
+\caption{BLABLABLA}
+\label{fig:RE_in_mix}
+\end{figure}
 
 
 

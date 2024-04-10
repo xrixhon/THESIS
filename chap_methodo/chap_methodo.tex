@@ -243,7 +243,7 @@ One of the main methodological contributions of this work regarding the developm
 \end{figure}
 
 \noindent
-Compared to the perfect foresight, the myopic approach (Figure \ref{fig:my_schematic}) has two main advantages: shorter computational time and more realistic representation of the short-sightedness of decision-makers. For this reason, several studies are based on this approach \citep{babrowski2014reducing,poncelet2016myopic,nerini2017myopic,heuberger2018impact}. \citet{babrowski2014reducing} analysed the benefit of the myopic approach to reduce the computational time. \citet{poncelet2016myopic} uses this approach to analyse the expansion planning of the power sector beyond 2050 to assess the realism of the decision making process brought up by the myopic implementation. \citet{nerini2017myopic} analysed the impact of the horizon windows and overlapping time.  Overall these studies decided to choose the myopic approach to analyse the speed of change compared to a perfect foresight approach.
+Compared to the perfect foresight, the myopic approach (Figure \ref{fig:my_schematic}) has three main advantages: shorter computational time, more realistic representation of the short-sightedness of decision-makers and the ability to capture shocks and unexpected events \cite{mccollum2020energy}. For this reason, several studies are based on this approach \citep{babrowski2014reducing,poncelet2016myopic,nerini2017myopic,heuberger2018impact}. \citet{babrowski2014reducing} analysed the benefit of the myopic approach to reduce the computational time. \citet{poncelet2016myopic} uses this approach to analyse the expansion planning of the power sector beyond 2050 to assess the realism of the decision making process brought up by the myopic implementation. \citet{nerini2017myopic} analysed the impact of the horizon windows and overlapping time.  Overall these studies decided to choose the myopic approach to analyse the speed of change compared to a perfect foresight approach.
  % rajout du Réalisme 
 Moreover, the myopic approach allows a sequential optimisation process that opens the doors to decision-making/policy-learning methodologies, like assessing shock events. This approach is used by \citet{heuberger2018impact} who assessed the speed of integration of technologies due to these events. 
 In their analysis of the overcapacity in European power systems, \citet{moret2020overcapacity} emphasised that such a ``possibility of \textit{recourse}" is very appropriate to address uncertainty gradually unfolding over time. Consequently, the development of the myopic approach with an overlap between two successive time windows has been implemented. This sequential optimisation framework also represents the foundations of the further implementation of the agent-based reinforcement learning framework (see Section \ref{sec:meth:RL}).
@@ -424,6 +424,37 @@ S_i^{T} = \sum_{\bm{\alpha} \in A_i^T}^{} u_{\bm{\alpha}}^2/\sum_{i=1}^P u_i^2 ~
 
 Here, $A$ denotes the collection of all PCE coefficients, and $\alpha_i$ corresponds to the coefficient associated with the uncertain parameter $i$.\\
 
+\myparagraph{Qualitative ranking based on Sobol' indices}\\
+
+When a \gls{LOO} error of 1\% cannot be achieved, Sobol' indices can still provide a qualitative ranking to identify the most impacting parameters on the output of interest (see Table \ref{tab:methodo:Sobol_ranking_order_1_2}). A first-order \gls{PCE} to assess the uncertainties on the total transition cost has a \gls{LOO} error of 16\%. However, it has the main advantage to require significantly fewer runs than more accurate second-order \gls{PCE} (70 versus 1260) while computing similar Sobol' indices for the most impacting parameters, and consequently giving similar ranking.
+
+\begin{table}[htbp!]
+\caption{Total Sobol' indices of the uncertain parameters over the total transition cost via \gls{PCE} of orders 2 and 1. The similar rankings (and indices) show the validity of using the faster (even though less accurate) lower order \gls{PCE} to rank the most impacting uncertain parameters.}
+\label{tab:methodo:Sobol_ranking_order_1_2}
+\begin{minipage}{\textwidth}
+\centering
+\resizebox{0.8\textwidth}{!}{
+\begin{tabular}{l c c|c c}
+\toprule
+\multirow{3}{*}{\textbf{Parameter}}  & \multicolumn{4}{c}{\textbf{Ranking (Sobol' index)}}\\
+& \multicolumn{2}{c|}{PCE order 2} & \multicolumn{2}{c}{PCE order 1}\\
+& \multicolumn{2}{c|}{LOO error 1\%} & \multicolumn{2}{c}{LOO error 16\%}\\
+\midrule
+Purchase electrofuels & 1 & (46.8\%) & 1 & (43.5\%) \\
+Industry EUD & 2 & (23.2\%) & 2 & (18.3\%) \\
+Interest rate & 3 & (12.0\%) & 3 & (12.1\%) \\
+Purchase fossil fuels & 4 & (5.7\%) & 5 & (3.5\%) \\
+Variable OPEX of technologies & 5 & (3.1\%) & 6 & (2.4\%)\\
+Purchase biofuels & 6 & (2.6\%) & 4 & (4.1\%) \\
+\bottomrule							
+\end{tabular}}
+\end{minipage}
+\end{table}
+
+
+
+
+
 \myparagraph{Comparison with a proven method}\\
 
 \noindent
@@ -462,7 +493,7 @@ In \cite{limpens2020impact}, we have assessed the \gls{PCE} approach, comparing 
 \subsection{Preliminary screening and selection}
 \label{subsec:screening}
 
-After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a preliminary screening was necessary to identify the key parameters to account for in this \gls{GSA}. \citet{rixhon2021role} performed a similar sensitivity analysis on the 2050 Belgian whole-energy system under different \ce{CO2}-limits using the snapshot model, \ie EnergyScope TD \cite{limpens2019energyscope}. Screening the results of this work, we have discarded some parameters with negligible impact\footnote{Per \citet{Turati2017}, parameters are considered as ``negligible'' if their Sobol' index is below the threshold $=1/d$, $d$ being the total number of uncertain parameters} (\eg CAPEX of electrolysers or variation of the freight demand), selected a subset of parameters and added others that were intrinsic to the pathway formulation, \eg modal share changes, or related to the integration of \gls{SMR}, $f_{\mathrm{max,SMR}}$. The exhaustive list of these 34 parameters is presented in Appendix \ref{app:UC_full}.
+After the initial phase of grouping (Section \ref{subsec:uncert_charac}), a preliminary screening was necessary to identify the key parameters to account for in this \gls{GSA}. \citet{rixhon2021role} performed a similar sensitivity analysis on the 2050 Belgian whole-energy system under different \ce{CO2}-limits using the snapshot model, EnergyScope TD \cite{limpens2019energyscope}. Screening the results of this work, we have discarded some parameters with negligible impact such as CAPEX of electrolysers or variation of the freight demand. Parameters are considered as ``negligible'' if their Sobol' index is below the threshold $=1/d$, $d$ being the total number of uncertain parameters \cite{Turati2017}. On top of this selection, we have added others that were intrinsic to the pathway formulation, \eg modal share changes, or related to the integration of \gls{SMR}, $f_{\mathrm{max,SMR}}$. The exhaustive list of these 34 parameters is presented in Appendix \ref{app:UC_full}.
 
 
 \section{Agent-based reinforcement learning for energy transition support}
