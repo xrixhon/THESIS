@@ -66,7 +66,7 @@ Through its maximisation of the expected return (see Section \ref{subsec:meth_RL
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{Reward.pdf}
+\includegraphics[width=0.65\textwidth]{Reward.pdf}
 \caption{Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost.}
 \label{fig:Reward}
 \end{figure} 
@@ -121,9 +121,11 @@ In line with \citet{rixhon2021terminology},uranium is considered as a non-renewa
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{RE_in_mix.pdf}
-\caption{BLABLABLA}
+\caption{Exploration of the state space over the learning process with a focus on the share of renewable energy carriers in the primary energy mix. Integration of local \gls{VRES} at early stages then massive import of electrofuels later are needed to secure successful transitions. Below a near-term threshold (about 60\%), the chances of success are limited, \ie no-go zones.}
 \label{fig:RE_in_mix}
 \end{figure}
+
+\myparagraph{Actions}\\
 
 
 
@@ -136,11 +138,25 @@ In line with \citet{rixhon2021terminology},uranium is considered as a non-renewa
 
 \begin{figure}[!htbp]
 \centering
+\includegraphics[width=0.8\textwidth]{Actions_learning.pdf}
+\caption{Over the whole learning process, actions taken by the agent. Besides the wide exploration of the action space, it does not seem to be any clear set of actions to take to support successful transitions.}
+\label{fig:Actions_learning}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
 \includegraphics[width=0.7\textwidth]{Binding_constr.pdf}
 \caption{Binding versus non-binding constraints. In \gls{LP} where the feasibility domain is non-empty and bounded, the constraints defined a convex feasibility domain in the space of variables (here, x$_1$ and x$_2$). The optimal solution usually locates on a vertex of this domain, \ie the intersection of several constraints (here, constraints 2 and 3) limiting the solution. These constraints are considered as binding, \ie having a limiting impact on the optimal solution.}
 \label{fig:Binding_constr}
 \end{figure} 
 
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Binding_learning.pdf}
+\caption{Out of the successful transitions, binding and not binding actions taken by the agent. Depending on the action and its timing, it is actually constraining the optimisation through EnergyScope Pathway or not. Sweet spots can be identified when considering the limits of \gls{GWP} and fossil gas consumption. Limiting coal consumption is always constraining, unlike \gls{LFO} that is ``naturally'' substituted by EnergyScope Pathway in the near-term.}
+\label{fig:Binding_learning}
+\end{figure}
 
 \section{Testing and comparison with references}
 \label{sec:RL:testing}
