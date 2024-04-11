@@ -127,14 +127,7 @@ In line with \citet{rixhon2021terminology},uranium is considered as a non-renewa
 
 \myparagraph{Actions}\\
 
-
-
-
-\begin{itemize}
-\item Actions to take, which ones are binding
-\item Show the state space: share of \gls{VRES} and efficiency
-\item Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
-\end{itemize}
+After investigating the intermediate milestones to meet the \ce{CO2}-budget by 2050, this section details the actions the agent has taken during the learning process (see Figure \ref{fig:Actions_learning}). Rows represent the beginning of the time window at which the set of actions is taken. Similarly to the state space, we observe a wide exploration of the action space. The more the agent was able to progress through transition, without exceeding the \ce{CO2}-budget, the bigger is the share of successes compared to failures. Besides this observation, no specific range of values for the different actions at the different timing seems to lead to more successes. In other words, there is no clear set of actions that would support more effectively the transition.
 
 \begin{figure}[!htbp]
 \centering
@@ -143,6 +136,7 @@ In line with \citet{rixhon2021terminology},uranium is considered as a non-renewa
 \label{fig:Actions_learning}
 \end{figure}
 
+To identify the actions that have an actual impact on the environment, we looked if they were binding or not. In a \gls{LP} problem, constraints represent straight lines in the domain of variables. When this problem is bounded and feasible, these lines are the edges of a convex polygon, the domain of feasibility (see Figure \ref{fig:Binding_constr}). The optimal solution, $\textbf{x}^*$, is the combination of variables leading to the optimal value of the objective function. Besides being within the domain of feasibility, it is proven that this optimal solution, when unique \footnote{There are cases where the objective function has the same optimal value along an entire edge. In this case, there is an infinity of solutions and the problem is indeterminate.}, locates on a vertex of the domain \cite{bertsimas1997introduction}. Among This vertex is t
 
 \begin{figure}[!htbp]
 \centering
@@ -157,6 +151,11 @@ In line with \citet{rixhon2021terminology},uranium is considered as a non-renewa
 \caption{Out of the successful transitions, binding and not binding actions taken by the agent. Depending on the action and its timing, it is actually constraining the optimisation through EnergyScope Pathway or not. Sweet spots can be identified when considering the limits of \gls{GWP} and fossil gas consumption. Limiting coal consumption is always constraining, unlike \gls{LFO} that is ``naturally'' substituted by EnergyScope Pathway in the near-term.}
 \label{fig:Binding_learning}
 \end{figure}
+
+\begin{itemize}
+\item Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
+\end{itemize}
+
 
 \section{Testing and comparison with references}
 \label{sec:RL:testing}
