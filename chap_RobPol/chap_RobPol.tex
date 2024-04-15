@@ -127,7 +127,7 @@ Given the similarity between $\text{PC}_y$ (see Figure \ref{fig:Top5_PC_year}), 
 & $\text{PC}_{\text{2050,2}}$ & \\
 & $\text{PC}_{\text{2035,3}}$ & \\
  \midrule
-$\text{PC}_{\text{transition,3}}$ & $\text{PC}_{\text{2025,2}}$ & 4.3\\
+$\text{PC}_{\text{transition,4}}$ & $\text{PC}_{\text{2025,2}}$ & 4.3\\
  \midrule
 $\text{PC}_{\text{transition,4}}$ & $\text{PC}_{\text{2025,3}}$ & 3.4\\
 \bottomrule							
@@ -148,7 +148,7 @@ Averaging the components of similar $\text{PC}_y$ allows constructing the $\text
 \label{sec:RobPol:Rob_Assessment}
 Now that the performance metric is defined, we can assess the robustness of different roadmaps. These roadmaps are defined as the technological mix given by the deterministic optimisation of the perfect foresight pathway under certain conditions. The two first roadmaps are the \textbf{REF} and \textbf{SMR} cases (see Chapter \ref{chap:atom_mol}). All the uncertain parameters are considered at their nominal value in these two cases. The only difference consists in allowing \gls{SMR} from 2040 onward in the \textbf{SMR} case. On top of these two cases, we add a so-called ``robust'' case, \textbf{ROB}, in the same sense as in the works of \citet{bertsimas2004price} or \citet{Moret2017PhDThesis} accounting for a ``protection parameter''. Then, we assess the robustness of these three roadmaps via a similar ``three-step rolling horizon approach'' as in the work of \citet{moret2020overcapacity}: (i) setting the initial investment strategies provided by the roadmaps and, (ii) assessing the variation of investments needed through myopic pathway optimisation under uncertainties and, (iii) projecting the strategies from the myopic optimisations on the robustness metrics defined via \gls{PCA}.
 
-\subsection{The robust roadmap}
+\subsection{A robust roadmap?}
 \label{subsec:RobPol:Rob_roadmap}
 Rather than considering all the uncertain parameters at their worst values as in the work of \citet{soyster1973convex}, we follow here the robust approach of \citet{bertsimas2004price} and \citet{Moret2017PhDThesis}. In their works, the authors consider a factor $\Gamma_{\text{obj}}\in [0,d]$ that represents a ``protection parameter'' of the objective function where $d$ is the total number of uncertain parameters (see Section \ref{subsec:pce}). If $\Gamma_{\text{obj}}= 0$, where all the uncertain parameters are at their nominal value, we obtain the deterministic solution of the \textbf{REF} case. If $\Gamma_{\text{obj}}= d$, this means considering the ``fully robust'' solution where all the uncertain parameters are their worst value, as in \citet{soyster1973convex}.  Between these two extreme cases, the uncertain parameters to account for at their worst values follow the ranking given by the \gls{GSA} (see Chapter \ref{chap:atom_mol}). In practice, $\Gamma_{\text{obj}}= 1$ means considering the cost of purchasing electrofuels at its worst value. $\Gamma_{\text{obj}}= 2$ adds the industry \gls{EUD} at its worst value in the lot, and so on. In the present analysis, we consider the ``robust'' roadmap by setting $\Gamma_{\text{obj}}= 6$. Consequently, costs of purchasing electrofuels, fossil fuels and biofuels as well as the industry \gls{EUD}, the interest rate and the variable OPEX of technologies are considered at their worst values, \ie the upper bound of their respective range. In practice, this means that, in the ROB case, imported energy carriers, except electricity, are 179.8\% more expensive, the industrial demand is, by 2050, 23.9\% higher\footnote{As detailed in Chapter \ref{chap:case_study}, the industrial demand encompasses the whole \gls{NED} and \gls{LT} heat demand, as well as the industrial share of electricity and \gls{LT} heat demands.}, the interest rate is 46.2\% (\ie 2.2\% versus 1.5\% in the REF case) and the variable OPEX of technologies, $c_{\text{\emph{maint}}}$, is 35.7\% higher.  The following paragraphs investigate the differences in the different sectors between the ROB and the REF cases, similarly to the comparison carried out with the SMR case in Chapter \ref{chap:atom_mol}.\\
 
@@ -170,17 +170,45 @@ By 2050, the additional 23.9\% of industrial \gls{EUD} directly impacts the tech
 
 \myparagraph{Mobility sectors}\\
 
-In the transport of freight, the ROB roadmap transition from diesel to \gls{FC} trucks with the use of electric trucks from 2025 to 2035. Similarly to the industrial electric heaters, it is a way to integrate to early installation of solar \gls{PV} and absorb part of its intermittent electricity. Freight transport via trains and boats are not different from the REF roadmap. About the passenger mobility, compared to the REF case, the shift from \gls{ICE} cars to \gls{BEV} occurs earlier in the transition, in line with the increased production of intermittent electricity from \gls{VRES}. \\
+In the transport of freight, the ROB roadmap transitions from diesel to \gls{FC} trucks with the temporal use of electric trucks from 2025 to 2035. Similarly to the industrial electric heaters, it is a way to integrate the early installation of solar \gls{PV} and absorb part of its intermittent electricity. Freight transport via trains and boats are not different from the REF roadmap. About the passenger mobility, compared to the REF case, the shift from \gls{ICE} cars to \gls{BEV} occurs earlier in the transition, in line with the increased production of intermittent electricity from \gls{VRES}. \\
 
 \myparagraph{Non-energy}\\
 
-Technologically speaking, by 2050, the ROB case accounts for an additional 1.2~GW of \gls{MTO} to supply the extra 10.3~TWh of \gls{HVC}. Besides this, the extra 2.5~TWh and 0.4~TWh of e-ammonia and e-methanol are supplied by supplied by the import of their respective energy carrier.\\
+Technologically speaking, by 2050, the ROB case accounts for an additional 1.2~GW of \gls{MTO} to supply the extra 10.3~TWh of \gls{HVC}. Besides this, the extra 2.5~TWh and 0.4~TWh of e-ammonia and e-methanol are supplied by the import of their respective energy carrier.\\
 
 In conclusion, the two main assumptions impacting the ROB roadmap strategy compared to the REF one were the higher cost of purchasing imported energy carriers (except electricity) and higher industrial \gls{EUD}.More expensive imported energy carriers lead to, on the one hand, an earlier full deployment of local \gls{VRES} (\ie \gls{PV}, wind onshore and offshore) supported by a higher electrification of the heating and transport sectors.  On the other hand, it increases the share of the total OPEX due to the consumption of resources (\ie excluding the OPEX of the technologies) in the total transition cost: \ie 56\% versus 38\% in the REF case. This, combined with the increase of industrial \gls{EUD}, encourages a more efficient use of the resources, \ie \gls{CHP} and \gls{HP}. The increased interest rate and variable OPEX of technologies have a more negligible impact on the roadmap strategy as they identically affect the entire set of technologies.
 
 \subsection{Projection on robustness metric}
 \label{subsec:RobPol:Projection}
-After defining the robustness metric and describing the roadmaps to assess (\ie REF, SMR and ROB), the final step consists in testing these roadmaps under uncertainties in a myopic pathway optimisation. This aims at assessing the adaptation of the roadmaps as uncertainty gradually unfolds over time \cite{moret2020overcapacity}, which brings more realism than perfect foresight \cite{poncelet2016myopic}. The three roadmaps are tested 500 times fixing the installed capacities $f_{\mathrm{max}}\geq\textbf{F}\geq\textbf{F}^*$ for all the end-use technologies, and taking values of the 34 uncertain parameters (see Section \ref{sec:cs:uncertainty}) following the sampling technique detailed in Section \ref{subsec:pce}, \ie Sobol' sequence. However, uncertain parameters limit the potential installed capacity, $f_{\mathrm{max}}$, of \gls{PV} panels, onshore and offshore wind turbines and \gls{SMR}. For these, in case the installed capacity prescribed by the roadmap is higher than the maximum potential affected by the value of the uncertain parameter, the actual installed capacity is set to this new limit. In reality, this would be similar to revise to a smaller extent the expected roadmap due to external events (\eg smaller public acceptance \cite{zoellner2008public,sam2014small}, lower \gls{TRL} or longer installation time than expected)
+After defining the robustness metric and describing the roadmaps to assess (\ie REF, SMR and ROB), the final step consists in testing these roadmaps under uncertainties in a myopic pathway optimisation. This aims at assessing the adaptation of the roadmaps as uncertainty gradually unfolds over time \cite{moret2020overcapacity}, which brings more realism than perfect foresight \cite{poncelet2016myopic}. The three roadmaps are tested 500 times fixing the installed capacities $f_{\mathrm{max}}\geq\textbf{F}\geq\textbf{F}^*$ for all the end-use technologies, and taking values of the 34 uncertain parameters (see Section \ref{sec:cs:uncertainty}) following the Sobol' sequence. However, uncertain parameters limit the potential installed capacity, $f_{\mathrm{max}}$, of \gls{PV} panels, onshore and offshore wind turbines and \gls{SMR}. For these, in case the installed capacity prescribed by the roadmap is higher than the maximum potential affected by the value of the uncertain parameter, the actual installed capacity is set to this new limit. In reality, this would be similar to revise to a smaller extent the expected roadmap due to external events (\eg smaller public acceptance \cite{zoellner2008public,sam2014small}, lower \gls{TRL} or longer installation time than expected).
+
+No tested roadmap is more robust than the others on all the \gls{PCs} of transition (Table \ref{tab:projection}).  Overall, the roadmaps follow the same trend over the different PCs of transition: they span over the most narrow range for PC 3 and over the widest range for PC 2. In practice, it means that roadmaps resulting from perfect foresight optimisation, when tested through a myopic process, would be more robust towards the variations driven by the freight transport sector (\ie \gls{FC} and diesel trucks and diesel boat) and less robust towards the variation driven by the decentralised heating sector (\ie decentralised \gls{HP} and wood and gas boilers) and \gls{PV}.
+
+\begin{table}[htbp!]
+\caption{95\% confidence range of projected data from roadmaps tested in myopic optimisation [$\cdot 10^{-3}$]. Values in brackets give the relative difference with the REF roadmap. There is no ``best overall'' roadmap.}
+\label{tab:projection}
+\centering
+\begin{tabular}{c| c| c c}
+\toprule
+\multirow{2}{*}{\textbf{PC}} & \multicolumn{3}{c}{\textbf{95\% confidence range}}\\
+& REF & SMR & ROB \\
+\midrule
+1 & 4.2 & 4.2 (=) & 3.7 (\textbf{-12\%}) \\
+2 & 5.7 & 5.6 (-2\%) & 6.1 (\textbf{+8\%})\\
+3 & 2.2 & 2.3 (+3\%) & 1.9 (\textbf{-17\%}) \\
+4 & 4.5 & 4.4 (-2\%) & 4.5 (+1\%) \\
+5 & 2.7 & 3.1 (\textbf{+15\%}) & 2.6 (\textbf{-4\%})\\
+
+\bottomrule							
+
+\end{tabular}
+\end{table}
+
+The SMR roadmap spans over similar ranges as the REF case. The most significant difference concerns PC 5. This PC is driven by the variations in the \gls{HVC} sector. As detailed in Chapter \ref{chap:atom_mol}, one of the impacts of the installation of \gls{SMR} from 2040 onward is the delayed substitution of naphtha-crackers by \gls{MTO}. Consequently, in the near-term, the SMR roadmap presents more variation in terms of installed capacity of \gls{MTO}.
+
+The ROB roadmap is more robust than the REF case on PCs 1, 3 and 5, by 12\%, 17\% and 4\% respectively. About PC 1, it is driven by the variation of installed capacities of \gls{PV}. In the ROB case, the earlier full deployment of solar \gls{PV} makes this roadmap more robust towards these variations. Concerning PC 3, this higher robustness is explained by variations in the installed capacities of diesel trucks, biomass-to-methanol and ammonia-\gls{CCGT} that are 32\%, 30\% and 15\% smaller than in the REF case, respectively.  Finally, as the ROB roadmap accounts for additional capacities to supply the potential additional demand of \gls{HVC}, it is more robust towards the variations in this sector. 
+
+On the contrary, the ROB roadmap is less when considering PC 2, driven by the variations in the \gls{LT} and \gls{HT} heat sectors. The biggest impact comes from the variations of industrial resistors. In the ROB case, even though they are more installed at earlier stages of the transition to support the integration of \gls{PV}, a part of them are either prematurely decommissioned or not renewed. This makes this roadmap more sensitive to additional industrial heaters needed in the myopic optimisation at the latest stages of the transition.
 
 
 \section{Discussion}
