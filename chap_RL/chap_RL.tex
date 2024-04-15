@@ -111,20 +111,49 @@ Considering the end of the time-window where the \ce{CO2}-budget is exceeded, th
 \centering
 \includegraphics[width=0.49\textwidth]{Reward_status.pdf}
 \includegraphics[width=0.49\textwidth]{Reward_status_2.pdf}
-\caption{Reward distribution between successes and failures. Right hand side details at the end of which time-window the failure occurred. The ``tipping year'' is 2040 as failing the transition by 2040 represents 57\% of all the failures. Beyond this point, through this learning process, succeeding the transition represents 38\% of the cases.}
+\caption{Reward distribution between successes and failures. Right hand side details at the end of which time-window the failure occurred. The ``tipping year'' is 2040 as failing the transition by 2040 represents 57\% of all the failures. Beyond this point, through this learning process, succeeding the transition represents 38\% of the episodes.}
 \label{fig:reward_status}
 \end{figure}
 
-\myparagraph{States: Renewables and efficiency}\\
+\myparagraph{States}\\
 
-In line with \citet{rixhon2021terminology},uranium is considered as a non-renewable resource. 
-
+The first two dimensions of the state space are the cumulative emissions and costs. They drive the value of the reward and, consequently, the optimisation of the agent's policy. Per definition, the threshold of 1.2\,Gt\ce{CO2} splits the episodes reaching 2050 into successes and failures (see Figure \ref{fig:Cum_gwp_cost}). In the successful transitions, the median cumulative emissions, $\text{P}_{50}$,are about 0.9\,Gt\ce{CO2}. This is due to the combination of efforts made at earlier stages of the transition and the potential to install \gls{SMR} later on. Considering the failures, half of these episodes ended up with cumulative emissions lower or equal to 1.4\,Gt\ce{CO2}, 12\% higher than the \ce{CO2}-budget. As illustrated in Figure \ref{fig:reward_status}, 2040 is identified as the tipping year. Where 98\% of the failures were below the \ce{CO2}-budget in 2035, only 37\% passed this threshold in 2040. This reminds the importance of near-term actions to hope for a successful transition.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{RE_in_mix.pdf}
-\caption{Exploration of the state space over the learning process with a focus on the share of renewable energy carriers in the primary energy mix. Integration of local \gls{VRES} at early stages then massive import of electrofuels later are needed to secure successful transitions. Below a near-term threshold (about 60\%), the chances of success are limited, \ie no-go zones.}
-\label{fig:RE_in_mix}
+\includegraphics[width=0.8\textwidth]{Cum_gwp_cost.pdf}
+\caption{Exploration of the state space over the learning process: cumulative emissions and costs. Successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. }
+\label{fig:Cum_gwp_cost}
+\end{figure}
+
+Given the shape of the reward (see Figure \ref{fig:Reward}), the agent optimises its policy by aiming at lowering the total transition cost as soon as it meets the \ce{CO2}-budget. The skewness of the cumulative emissions and costs in 2050 are indications of this shape of reward (see Table \ref{tab:skewness_gwp_cost}). When succeeding the transitions, the cumulative emissions and costs have a negative and positive skewness, respectively. On the contrary, when it failed the transition, the agent aimed at reducing the emissions (skewness of 0.61) before minimising the total transition cost (skewness of 0.24). 
+
+\begin{table}[htbp!]
+\caption{Skewness of cumulative emissions and costs in 2050. Cumulative emissions are skewed to the left and to the right for the successes and failures, respectively. The skewness of the cumulative costs for successful transitions are compared to failures.On top of being the results of the optimisation through EnergyScope, these are influenced by the agent's policy that aims only at lowering the total transition cost as soon as it meets the \ce{CO2}-budget.}
+\label{tab:skewness_gwp_cost}
+\centering
+\begin{tabular}{l c c}
+\toprule
+\textbf{Status of episode}  & \textbf{Skewness of cumulative} & \textbf{Skewness of cumulative} \\
+\textbf{in 2050}  & \textbf{emissions} & \textbf{costs} \\	
+\midrule
+Success & -0.52 & 0.50 \\
+Failure & 0.61 & 0.24 \\
+
+\bottomrule							
+
+\end{tabular}
+\end{table}
+
+The share of renewable energy carriers in the primary mix allows identifying intermediate milestones along successful transitions (see Figure \ref{fig:RE_in_mix_Efficiency}). From the initial state of 10\% in 2020, a boost of integration of renewables in the near-term is needed to hope for a successful transition. For the successful occurrences to exceed failures, this share increases to 54\% in 2025. Along the transitions, this increase goes with the import of electrofuels and the full deployment of local \gls{VRES}. In 2050, the success-failure threshold has been observed at 82\%. In the REF case of Chapter \ref{chap:atom_mol}, the share of renewables reached 86\% by 2050. However, by 2050, Figure \ref{fig:RE_in_mix_Efficiency} shows another threshold at lower share of renewables in the mix. This area corresponds to the possibility to install \gls{SMR}. As uranium is considered as a non-renewable resource \cite{rixhon2021terminology}, installing \gls{SMR} allows lowering the threshold to 60\% as in the SMR case of Chapter \ref{chap:atom_mol}. Besides these milestones to respect the \ce{CO2}-budget of the transition, one can also look at the other side of the thresholds. Below the near-term threshold of 60\%, this the ``no-go zone'' where succeeding the transition becomes unlikely, except if betting on the future installation of \gls{SMR}.
+
+The efficiency, as defined in Section \ref{sec:RL:act_states_rew}, gives less valuable information to direct towards successful transition. Through the transition, besides the share of success increasing over the failures, these two scenarios indistinguishably spread over the whole range. Similarly than the emissions, we observe a bump at lower efficiencies by 2050 due to the installation of \gls{SMR}.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{RE_in_mix_Efficiency.pdf}
+\caption{Exploration of the state space over the learning process: share of renewable energy carriers in the primary energy mix and efficiency. Integration of local \gls{VRES} at early stages then massive import of electrofuels later are needed to secure successful transitions. Below a near-term threshold (about 60\%), the chances of success are limited, \ie no-go zones. Efficiency is a less valuable information for the agent to succeed transitions as failures and successes indistinguishably spread over the whole range.}
+\label{fig:RE_in_mix_Efficiency}
 \end{figure}
 
 \myparagraph{Actions}\\
@@ -134,7 +163,7 @@ After investigating the intermediate milestones to meet the \ce{CO2}-budget by 2
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Actions_learning.pdf}
-\caption{Over the whole learning process, actions taken by the agent. Besides the wide exploration of the action space, it does not seem to be any clear set of actions to take to support successful transitions.}
+\caption{Besides the wide exploration of the action space, successes and failures indistinguishably spread over the whole ranges of actions. In other words, it does not seem to be any clear set of actions to support successful transitions.}
 \label{fig:Actions_learning}
 \end{figure}
 
@@ -156,7 +185,7 @@ On the contrary, limiting coal is always binding. Before all, this is due becaus
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Binding_learning.pdf}
-\caption{Out of the successful transitions, binding and not binding actions taken by the agent. Depending on the action and its timing, it is actually constraining the optimisation through EnergyScope Pathway or not. Sweet spots can be identified when considering the limits of \gls{GWP} and fossil gas consumption. Limiting coal consumption is always constraining, unlike \gls{LFO} that is ``naturally'' substituted by EnergyScope Pathway in the near-term.}
+\caption{Depending on the action and its timing, it is actually constraining the optimisation through EnergyScope Pathway or not. Sweet spots can be identified when considering the limits of \gls{GWP} and fossil gas consumption. Limiting coal consumption is always constraining, unlike \gls{LFO} that is ``naturally'' substituted by EnergyScope Pathway in the near-term.}
 \label{fig:Binding_learning}
 \end{figure}
 
