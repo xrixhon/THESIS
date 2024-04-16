@@ -216,8 +216,8 @@ How does it react to potential shocks (e.g. no fuels from 2040) compared to clas
 \textbf{Confirm here with what is said in \cite{luderer2018residual}: 
 Importantly, our results also show that near-term policy stringency is an important driver of cumulative Res-FFI-CO2 in climate change mitigation scenarios. If strengthening of NDCs fails, Res-FFI-CO2 will be even higher, not only because of additional near-term emissions, but also due to a decrease of economic mitigation potentials in the longer term caused by further carbon lock-in. Delaying the strengthening of mitigation action will increase the world’s dependence on CDR for holding warming to well below 2°C, and is likely to push the 1.5°C target out of reach for this century.}
 
-\section{Discussion}
-\label{sec:RL:discussion}
+\section{Conclusions}
+\label{sec:RL:conclusions}
 
 Potentially interesting to implement reward shaping to accelerate learning or guide the agent towards achieving the desired behaviour more efficiently. In our case, the agent receives a sparse reward signal, indicating success or failure at the end of an episode. However, this sparse reward signal may not provide enough information for the agent to learn effectively, leading to slow convergence or difficulty in learning the optimal policy. Reward shaping addresses this issue by providing additional, intermediate rewards during the learning process based on various heuristics, domain knowledge, or problem-specific insights. These intermediate rewards can help guide the agent towards desirable states or actions, making the learning process more efficient and effective. However, reward shaping should be applied with caution, as poorly designed reward functions can lead to unintended consequences such as suboptimal policies, reward hacking, or overfitting to the shaped rewards rather than learning the underlying task (see Section \ref{sec:RL:act_states_rew}).
 
