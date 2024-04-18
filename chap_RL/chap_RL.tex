@@ -103,7 +103,7 @@ The learning phase has been split into batches of 500 steps. For the first 100 s
 
 During the learning process, the algorithm explores numerous transition pathways: 2037 successful transitions out of 10,751 attempts. Each pathway provides valuable insight into the best course of actions --- the primary goal of reinforcement learning. As a side benefit, the collection of all explored pathways also identifies the intermediate milestones to reach and the range of actions that must be avoided or must be taken. Yet, the exploration during this learning process is not exhaustive. The trends provided below are therefore not proven. The randomness of the process and the number of explored transition pathways still give us high confidence.
 
-There is a range in the reward where failures and successes overlap (see Figure \ref{fig:reward_status}). This area corresponds to either transitions that exceed the \ce{CO2}-budget in 2050 but are cheaper than the total transition cost of reference (see Section \ref{sec:RL:act_states_rew}) or successful transitions that are more expensive. Besides this overlap, we observe that successes account for the majority of the cases where the reward is positive. This is another indication that the shape of the reward is appropriate in this exploration of transition pathways.
+There is a range in the reward where failures and successes overlap (see Figure \ref{fig:reward_status}). This area corresponds to either transitions that exceed the \ce{CO2}-budget in 2050 but are cheaper than the total transition cost of reference (see Section \ref{sec:RL:act_states_rew}) or successful transitions that are more expensive. Besides this overlap, we observe that successes account for the majority of the cases where the reward is positive. This is another indication that the shape of the reward is appropriate in this exploration of successful transition pathways.
 
 Considering the end of the time-window where the \ce{CO2}-budget is exceeded, the right hand side of Figure \ref{fig:reward_status} shows that 2040 is the ``tipping year'' for the agent. Beyond this point, through this learning process, the chances to succeed the transition were 38\%. In other words, mid-term actions are necessary to hope succeeding the transition.
 
@@ -129,7 +129,7 @@ The first two dimensions of the state space are the cumulative emissions and cos
 Given the shape of the reward (see Figure \ref{fig:Reward}), the agent optimises its policy by aiming at lowering the total transition cost as soon as it meets the \ce{CO2}-budget. The skewness of the cumulative emissions and costs in 2050 are indications of this shape of reward (see Table \ref{tab:skewness_gwp_cost}). When succeeding the transitions, the cumulative emissions and costs have a negative and positive skewness, respectively. On the contrary, when it failed the transition, the agent aimed at reducing the emissions (skewness of 0.61) before minimising the total transition cost (skewness of 0.24). 
 
 \begin{table}[htbp!]
-\caption{Skewness of cumulative emissions and costs in 2050. Cumulative emissions are skewed to the left and to the right for the successes and failures, respectively. The skewness of the cumulative costs for successful transitions are compared to failures.On top of being the results of the optimisation through EnergyScope, these are influenced by the agent's policy that aims only at lowering the total transition cost as soon as it meets the \ce{CO2}-budget.}
+\caption{Skewness of cumulative emissions and costs in 2050. Cumulative emissions are skewed to the left and to the right for the successes and failures, respectively. The skewness of the cumulative costs for successful transitions is higher compared to failures.On top of being the results of the optimisation through EnergyScope, these are influenced by the agent's policy that aims only at lowering the total transition cost as soon as it meets the \ce{CO2}-budget.}
 \label{tab:skewness_gwp_cost}
 \centering
 \begin{tabular}{l c c}
@@ -189,18 +189,16 @@ On the contrary, limiting coal is always binding. Before all, this is due becaus
 \label{fig:Binding_learning}
 \end{figure}
 
-\begin{itemize}
-\item Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
-\end{itemize}
-
-
-\section{Testing and comparison with references}
+\section{Comparison with references and testing}
 \label{sec:RL:testing}
 
 How does it react to potential shocks (e.g. no fuels from 2040) compared to classic myopic?
 
 \citet{herman2014beyond} defined robustness as ``… the fraction of sampled states of the world in which a solution satisfies all performance requirements''
 
+\begin{itemize}
+\item Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
+\end{itemize}
 %\subsection{Training}
 %Here present results RL-oriented (actions, states, reward)
 %
