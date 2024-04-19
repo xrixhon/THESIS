@@ -9,6 +9,7 @@ Insist here on the methodological added value of the thesis
 \addcontentsline{toc}{section}{Limitations}
 \begin{itemize}
 \item Due to the formulation of the salvage value, some technologies remain in place whereas they are not used anymore (see Appendix B.3, e.g. coal boilers and naphtha-cracker). It's better for the system to keep unused assets to recover part of their salvage value than prematurely decommissioning them.
+\item Progressive scale-up of \gls{VRES} instead of full potential possible from 2025.
 \end{itemize}
 
 \section*{Application outcomes}
@@ -24,10 +25,15 @@ What to do then for policymakers, how to use the tool
 List the future works to build upon the thesis
 
 \begin{itemize}
+\item Electrofuels is the unicorn solution. What about carbon removal
 \item \textbf{Word about sufficiency} oui mais c'est sans doute celle qui est le plus enviable car la moins risqué à tenter d'atteindre, les solutions mirages technologiques, si on y croit trop on met tout la dessus et si ca foire, on est encore plus dans la merde pcq la direction est mauvaise, la solution sobriété, meme si jamais atteint les efforts pr l'atteindre ne seront pas contre productif
 \item \textbf{Word about availability of electrfuels} Voir mémoire Ced et Simon
 \item Extract a roadmap representative of a multiple-run UQ or RL process.
 \item In this work, we only consider emissions related to the use of energy carriers and not the construction --> LCA
+\item Multi-objective optimisation
+\item Potentially interesting to implement reward shaping to accelerate learning or guide the agent towards achieving the desired behaviour more efficiently. In our case, the agent receives a sparse reward signal, indicating success or failure at the end of an episode. However, this sparse reward signal may not provide enough information for the agent to learn effectively, leading to slow convergence or difficulty in learning the optimal policy. Reward shaping addresses this issue by providing additional, intermediate rewards during the learning process based on various heuristics, domain knowledge, or problem-specific insights. These intermediate rewards can help guide the agent towards desirable states or actions, making the learning process more efficient and effective. However, reward shaping should be applied with caution, as poorly designed reward functions can lead to unintended consequences such as suboptimal policies, reward hacking, or overfitting to the shaped rewards rather than learning the underlying task (see Section \ref{sec:RL:act_states_rew}).
+
+\item Talk here about potential improvement of the approach like the Multi-Fidelity Reinforcement Learning by \citet{cutler2014reinforcement}, rather than just unidirectional transfer from low to high-fidelity. Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
 \end{itemize}
 
 

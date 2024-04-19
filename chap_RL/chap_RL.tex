@@ -15,7 +15,7 @@ In the exploration of the myopic transition pathway under uncertainties, we deci
 \label{sec:meth:contributions}
 Applying the \gls{RL} approach to the optimization of the myopic transition pathway of a whole-energy system presents several novelties. First of all, as introduced in Section \ref{subsec:meth_RL_fundamentals}, when applied to energy systems, \gls{RL} is more dedicated either to smaller scale systems (\eg \gls{BEMS}, vehicles and energy devices) or to sector-specific, often the power sector, problems (\eg dispatch problems, energy markets and grid) \cite{perera2021applications}. In our case, the sector-coupling, the long-term goal at the end of a multiple-steps transition and the number of uncertain parameters make this application new for \gls{RL}.
 
-Usually, applications of \gls{RL} focus more on the result of the learning process, the optimised policy, for optimising the control of system \cite{perera2021applications}. On top of it, this thesis investigate the learning episodes themselves to explore the field of possibilities to succeed the transition.
+Usually, applications of \gls{RL} focus more on the result of the learning process, the optimised policy, for optimising the control of system \cite{perera2021applications}. This thesis rather investigates the learning episodes themselves to explore the field of possibilities to succeed the transition.
 
 Then, applying to this optimisation environment, \ie EnergyScope myopic Pathway,  rather than a simulation environment, allows building a hierarchical multi-objective optimisation framework. In this agent, while the objective of the environment remains the minimisation of the total ``transition'' cost (on the concerned limited time window), the agent optimises its strategy to respect the \ce{CO2}-budget. 
 
@@ -41,7 +41,8 @@ Defining the levers of action, the core of the policy, to support the transition
 \end{flalign}
 \endgroup
 
-Out the total \gls{GHG} emissions in Belgium in 2020,oil (\ie so-called \gls{LFO} in the model), on the one hand and, on the other hand, fossil gas, account for roughly 40\% and 31\%, respectively. Then, even though its use in 2020 is much more limited compared to the two formers, \ie 28\,TWh of solid fossil fuels (\ie so-called COAL in the model) versus 159 and 142\,TWh for oil and fossil gas, respectively, coal is a cheap, 17€/MWh, and highly-emitting resource, 0.40\,kt$_{\ce{CO2},\text{eq}}$/GWh. For these reasons, three additional actions support the strict limitation of overall emissions of the first action: limiting the consumption of these three fossil resources up to the level of consumption in 2020, $\textbf{Cons\textsubscript{fossil gas}}(2020)$, $\textbf{Cons\textsubscript{LFO}}(2020)$ and $\textbf{Cons\textsubscript{coal}}(2020)$,  over the entire concerned time window, except the first one as this year is the initial condition of the time window and cannot be optimised any more:
+
+Out of the total \gls{GHG} emissions in Belgium in 2020,oil (\ie so-called \gls{LFO} in the model), on the one hand and, on the other hand, fossil gas, account for roughly 40\% and 31\%, respectively. Then, even though its use in 2020 is much more limited compared to the two formers, \ie 28\,TWh of solid fossil fuels (\ie so-called COAL in the model) versus 159 and 142\,TWh for oil and fossil gas, respectively, coal is a cheap, 17€/MWh, and highly-emitting resource, 0.40\,kt$_{\ce{CO2},\text{eq}}$/GWh. For these reasons, three additional actions support the strict limitation of overall emissions of the first action: limiting the consumption of these three fossil resources up to the level of consumption in 2020, $\textbf{Cons\textsubscript{fossil gas}}(2020)$, $\textbf{Cons\textsubscript{LFO}}(2020)$ and $\textbf{Cons\textsubscript{coal}}(2020)$,  over the entire concerned time window, except the first one as this year is the initial condition of the time window and cannot be optimised any more:
 
 \begingroup
 \belowdisplayskip=2pt
@@ -139,13 +140,31 @@ Given the shape of the reward (see Figure \ref{fig:Reward}), the agent optimises
 \midrule
 Success & -0.52 & 0.50 \\
 Failure & 0.61 & 0.24 \\
-
 \bottomrule							
 
 \end{tabular}
 \end{table}
 
-The share of renewable energy carriers in the primary mix allows identifying intermediate milestones along successful transitions (see Figure \ref{fig:RE_in_mix_Efficiency}). From the initial state of 10\% in 2020, a boost of integration of renewables in the near-term is needed to hope for a successful transition. For the successful occurrences to exceed failures, this share increases to 54\% in 2025. Along the transitions, this increase goes with the import of electrofuels and the full deployment of local \gls{VRES}. In 2050, the success-failure threshold has been observed at 82\%. In the REF case of Chapter \ref{chap:atom_mol}, the share of renewables reached 86\% by 2050. However, by 2050, Figure \ref{fig:RE_in_mix_Efficiency} shows another threshold at lower share of renewables in the mix. This area corresponds to the possibility to install \gls{SMR}. As uranium is considered as a non-renewable resource \cite{rixhon2021terminology}, installing \gls{SMR} allows lowering the threshold to 60\% as in the SMR case of Chapter \ref{chap:atom_mol}. Besides these milestones to respect the \ce{CO2}-budget of the transition, one can also look at the other side of the thresholds. Below the near-term threshold of 60\%, this the ``no-go zone'' where succeeding the transition becomes unlikely, except if betting on the future installation of \gls{SMR}.
+Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is more increased than the one of electrofuels (see Table \ref{tab:param_RL}).  Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and interest rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
+
+\begin{table}[htbp!]
+\caption{Uncertain parameters impacting the most the total transition cost, their Sobol' index and, for the successful transitions, their mean of their values between 0 and 100\%, $\mu$, and their skewness, $\gamma$. On top of being supported by the agent's actions, successful transitions occur when the cost of purchasing fossil fuels is more increased than the one of electrofuels.}
+\label{tab:param_RL}
+\centering
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Parameter}  & \textbf{$\mu$} & \textbf{$\gamma$}  \\	
+\midrule
+Purchase electrofuels & 50.4\% & 0.004  \\
+Industry EUD & 49.8\% & 0.026 \\
+Interest rate & 48.4\% & 0.089\\
+Purchase fossil fuels  & 55.0\% & -0.068\\
+\bottomrule							
+
+\end{tabular}
+\end{table}
+
+Besides the cumulative emissions and costs, the agent also observes the share of renewable energy carriers in the primary mix and the efficiency of the system The share of renewable energy carriers in the primary mix allows identifying intermediate milestones along successful transitions (see Figure \ref{fig:RE_in_mix_Efficiency}). From the initial state of 10\% in 2020, a boost of integration of renewables in the near-term is needed to hope for a successful transition. For the successful occurrences to exceed failures, this share increases to 54\% in 2025. Along the transitions, this increase goes with the import of electrofuels and the full deployment of local \gls{VRES}. In 2050, the success-failure threshold has been observed at 82\%. In the REF case of Chapter \ref{chap:atom_mol}, the share of renewables reached 86\% by 2050. However, by 2050, Figure \ref{fig:RE_in_mix_Efficiency} shows another threshold at lower share of renewables in the mix. This area corresponds to the possibility to install \gls{SMR}. As uranium is considered as a non-renewable resource \cite{rixhon2021terminology}, installing \gls{SMR} allows lowering the threshold to 60\% as in the SMR case of Chapter \ref{chap:atom_mol}. Besides these milestones to respect the \ce{CO2}-budget of the transition, one can also look at the other side of the thresholds. Below the near-term threshold of 60\%, this the ``no-go zone'' where succeeding the transition becomes unlikely, except if betting on the future installation of \gls{SMR}.
 
 The efficiency, as defined in Section \ref{sec:RL:act_states_rew}, gives less valuable information to direct towards successful transition. Through the transition, besides the share of success increasing over the failures, these two scenarios indistinguishably spread over the whole range. Similarly than the emissions, we observe a bump at lower efficiencies by 2050 due to the installation of \gls{SMR}.
 
@@ -167,7 +186,7 @@ After investigating the intermediate milestones to meet the \ce{CO2}-budget by 2
 \label{fig:Actions_learning}
 \end{figure}
 
-To identify the actions that have an actual impact on the environment, we can check if they were binding or not. In a \gls{LP} problem, constraints represent hyperplanes in the domain of variables. In a two-dimension space, these are straight lines (see Figure \ref{fig:Binding_constr}). When the problem is bounded and feasible, these lines are the edges of a convex polygon, the domain of feasibility. The optimal solution, $\textbf{x}^*$, is the combination of variables leading to the optimal value of the objective function. Besides being within the domain of feasibility, it is proven that this optimal solution, when unique \footnote{There are cases where the objective function has the same optimal value along an entire edge. In this case, there is an infinity of solutions and the problem is indeterminate.}, locates on a vertex of the domain \cite{bertsimas1997introduction}. The constraints intersecting at this vertex are considered as binding, actually limiting the objective function to be more optimal. In other words, binding constraints, when tightened, aggravate the objective value function. If these are inequality constraints, as represented in Figure \ref{fig:Binding_constr}, it means that their left and right sides of the equation are equal.
+To identify the actions that have an actual impact on the environment, we can check if they were binding or not. In a \gls{LP} problem, constraints represent hyperplanes in the domain of variables. In a two-dimension space, these are straight lines (see Figure \ref{fig:Binding_constr}). When the problem is bounded and feasible, these lines are the edges of a convex polygon, the domain of feasibility. The optimal solution, $\textbf{x}^*$, is the combination of variables leading to the optimal value of the objective function. Besides being within the domain of feasibility, it is proven that this optimal solution, when unique\footnote{There are cases where the objective function has the same optimal value along an entire edge. In this case, there is an infinity of solutions and the problem is indeterminate.}, locates on a vertex of the domain \cite{bertsimas1997introduction}. The constraints intersecting at this vertex are considered as binding, actually limiting the objective function to be more optimal. In other words, binding constraints, when tightened, aggravate the objective value function. If these are inequality constraints, as represented in Figure \ref{fig:Binding_constr}, it means that their left and right sides of the equation are equal.
 
 \begin{figure}[!htbp]
 \centering
@@ -189,34 +208,58 @@ On the contrary, limiting coal is always binding. Before all, this is due becaus
 \label{fig:Binding_learning}
 \end{figure}
 
-\section{Comparison with references and testing}
+\section{Comparison with references}
 \label{sec:RL:testing}
+After investigating the exploration of transition pathways on the monthly model, this section compares these results with two references: the \gls{RL}-agent trained on the hourly model and the perfect foresight under uncertainties from the \gls{UQ} analysis presented in Chapter \ref{chap:atom_mol}. The first reference has been built by applying the same rules (see Section \ref{sec:RL:act_states_rew}) but on the hourly model over a more limited number of batches, 43 versus 80, leading to 928 versus 2037 successful transitions for the results presented in Section \ref{sec:RL:learning}. First, the purpose is to assess the capacity of the monthly model to be a good proxy of the hourly myopic transitions and, then,  compare the explored pathways with the perfect foresight under uncertainties.
 
-How does it react to potential shocks (e.g. no fuels from 2040) compared to classic myopic?
+Considering the actions taken by the agent and their binding effect on the environment,  we see similar trends as in the monthly model (see Figure \ref{fig:Binding_learning_TD}). Limiting the consumption of coal is always binding where \gls{LFO} is ``naturally'' removed from the mix by the cost-minimisation. Where limiting the consumption of fossil gas has a major impact at the early stages, limiting the system emissions up to carbon-neutrality becomes more crucial at the end of the transition.
 
-\citet{herman2014beyond} defined robustness as ``… the fraction of sampled states of the world in which a solution satisfies all performance requirements''
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Binding_learning_TD.pdf}
+\caption{When the agent learns on the hourly model, the actions are binding in the similar timing and similar ranges as when learning on the monthly model. }
+\label{fig:Binding_learning_TD}
+\end{figure}
 
-\begin{itemize}
-\item Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
-\end{itemize}
-%\subsection{Training}
-%Here present results RL-oriented (actions, states, reward)
-%
-%Then, present results energy system-oriented (installed capacities, costs, generation)
+\gls{RL}-based myopic optimisation provides \ce{CO2}-emissions pathways different from the perfect foresight approach to respect the same \ce{CO2}-budget (see Figure \ref{fig:Gwp_pathway}). However, driven first by this \ce{CO2}-budget, the agent often reaches much lower cumulative emissions when succeeding the transition (see Figure \ref{fig:Cum_gwp_cost}). This comes from the agent's actions that limit the emissions and/or the consumption of fossil resources at the early stages. Thanks to the bigger reduction of emissions at these early stages, the \gls{RL}-based optimisation can benefit from a ``\ce{CO2}-buffer'' at the end of the transition. This buffer is compensated by the end of the transition where the 50\% of the myopic transitions reach 2050 with 9 or more Mt\ce{CO2} compared to 4 for the perfect foresight approach. These remaining emissions by 2050 come from the consumption in industrial boilers of waste and coal that account for 3.5\% and 2.4\% on average by 2050. The difference in the early drop of emissions between the monthly and hourly models comes from the easier integration of local \gls{VRES} as the hourly intermittency is averaged over a month (see Appendix \ref{app:mo_vs_td}). Besides this sharper decrease of emissions early in the transition, the monthly myopic pathways fit with the trend provided by \gls{RL} optimisation on the hourly model. Finally, the long-term vision of the perfect foresight approach results in smoother reduction of the emissions to end up with less emissions by 2050.
 
-%\subsection{Testing}
-%See how the different policies saved successively during the training behave when facing to new samples. This way, we can pick an optimal policy (the one giving the maximum average (or another metric) reward). 
-%
-%We then compare the results of RL with the perfect foresight-TD deterministic and the perfect foresight-monthly with uncertainties (by setting the actions of the agent as variables in these two optimisations). The comparison would go over different aspects:
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Gwp_pathway.pdf}
+\caption{Comparison of \ce{CO2}-emissions pathways from the perfect foresight optimisation under uncertainties ($\text{REF}_{\text{TD-PF}}$), the \gls{RL}-based myopic optimisation on the monthly ($\text{RL}_{\text{MO-MY}}$) and hourly ($\text{RL}_{\text{TD-MY}}$) models.}
+\label{fig:Gwp_pathway}
+\end{figure}
 
+The transition pathways of the annual system cost also show the advantage of the \gls{RL}-based exploration (see Figure \ref{fig:System_cost_pathway}). Via its actions and its cost-based reward, the agent can reach systems that are cheaper than any other solution obtained by the perfect foresight approach. Even more than for the emissions, the monthly model is a good proxy to assess the annual system cost of the pathway on the hourly model. The perfect foresight approach gives a wider variability in its cost since this method always found a solution even in worst conditions such as high cost of purchasing resources and high \gls{EUD}. 
 
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{System_cost_pathway.pdf}
+\caption{Comparison of annual system costs pathways from the perfect foresight optimisation under uncertainties ($\text{REF}_{\text{TD-PF}}$), the \gls{RL}-based myopic optimisation on the monthly ($\text{RL}_{\text{MO-MY}}$) and hourly ($\text{RL}_{\text{TD-MY}}$) models.}
+\label{fig:System_cost_pathway}
+\end{figure}
 
-\textbf{Confirm here with what is said in \cite{luderer2018residual}: 
-Importantly, our results also show that near-term policy stringency is an important driver of cumulative Res-FFI-CO2 in climate change mitigation scenarios. If strengthening of NDCs fails, Res-FFI-CO2 will be even higher, not only because of additional near-term emissions, but also due to a decrease of economic mitigation potentials in the longer term caused by further carbon lock-in. Delaying the strengthening of mitigation action will increase the world’s dependence on CDR for holding warming to well below 2°C, and is likely to push the 1.5°C target out of reach for this century.}
+The analysis of the cumulative costs shows that the \gls{OPEX} is the main difference between myopic and perfect foresight transitions (see Figure \ref{fig:Opex_Capex_Salvage_comp}). Successful myopic transitions have a lower \gls{OPEX} thanks to the agent's actions and importing more electrofuels, especially e-ammonia that is more imported in the myopic optimisation to supply \gls{CCGT} in case \gls{SMR} is not available.
+
+We observe also similar distributions between the monthly and hourly myopic results that confirm the good approximation provided by the monthly approach.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.325\textwidth]{Opex_2050_comp.pdf}
+\includegraphics[width=0.325\textwidth]{Capex_2050_comp.pdf}
+\includegraphics[width=0.325\textwidth]{Salvage_2050_comp.pdf}
+\caption{Comparison of cumulative OPEX (top-left), CAPEX (top-right) and salvage value (bottom) in 2050 from the perfect foresight optimisation under uncertainties ($\text{REF}_{\text{TD-PF}}$), the \gls{RL}-based myopic optimisation on the monthly ($\text{RL}_{\text{MO-MY}}$) and hourly ($\text{RL}_{\text{TD-MY}}$) models.}
+\label{fig:Opex_Capex_Salvage_comp}
+\end{figure}
 
 \section{Conclusions}
 \label{sec:RL:conclusions}
+In the literature, two options are investigated to explore transition pathways of a whole-energy system. On the one hand, in perfect foresight optimisation, a full knowledge of the parameters is assumed over the entire time horizon. On the other hand, myopic optimisation considers a sequence of more limited time windows leading to the end of the time horizon, to add more realism \cite{poncelet2016myopic}. To meet objective of climate change mitigation, this case requires a prescribed \ce{CO2}-trajectory \cite{fais2016impact}. However, since the effect of \ce{CO2}-emissions in climate change is cumulative, the total amount of these emissions matters more than the trajectory itself. Consequently, we have applied the \acrfull{RL} approach on the environment of the Belgian myopic pathway optimisation under uncertainties.
 
-Potentially interesting to implement reward shaping to accelerate learning or guide the agent towards achieving the desired behaviour more efficiently. In our case, the agent receives a sparse reward signal, indicating success or failure at the end of an episode. However, this sparse reward signal may not provide enough information for the agent to learn effectively, leading to slow convergence or difficulty in learning the optimal policy. Reward shaping addresses this issue by providing additional, intermediate rewards during the learning process based on various heuristics, domain knowledge, or problem-specific insights. These intermediate rewards can help guide the agent towards desirable states or actions, making the learning process more efficient and effective. However, reward shaping should be applied with caution, as poorly designed reward functions can lead to unintended consequences such as suboptimal policies, reward hacking, or overfitting to the shaped rewards rather than learning the underlying task (see Section \ref{sec:RL:act_states_rew}).
+In \gls{RL} framework, the agent had four actions to support the 2020-2050 transition: (i) limiting the \ce{CO2}-emissions at the end of each successive time window and limiting the consumption of (ii) fossil gas, (iii) \acrfull{LFO} and (iv) coal. The reward fed back by the environment to the agent focused first on meeting the \ce{CO2}-budget, 1.2\,Gt\ce{CO2} equivalent to 10 years at the current level of emissions. A secondary focus is also put on aiming at minimum transition cost. To know its progress through the transition, the agent had the information of the cumulative emissions and costs as well the share of renewable energy carriers in the primary energy mix and the system overall efficiency.
 
-\textbf{Talk here about potential improvement of the approach like the Multi-Fidelity Reinforcement Learning by \citet{cutler2014reinforcement}, rather than just unidirectional transfer from low to high-fidelity}
+This \gls{RL}-based exploration pointed out that short-term actions were needed to hope succeeding such a transition, as also demonstrated by \citet{luderer2018residual}. Where \gls{LFO} becomes less cost-competitive in the near-future, limiting the use of coal should be done at any cost. Then, fossil gas should be replaced by e-methane in the mid-term while limiting the overall emissions becomes more effective by the end of the transition. The analysis of the share of renewables in the primary energy mix highlighted intermediate milestones to have higher chances to succeed the transition. Below 54\% of renewables in the mix in the near-future, these chances become much more limited, \ie the no-go zone. 
+
+Finally, we have compared the results coming from this \gls{RL}-based myopic optimisation with monthly time-resolution with the hourly perfect foresight approach. These myopic optimisations provided pathways respecting the \ce{CO2}-budget that were more drastic in cutting emissions in the short-term than the perfect. Supported by the agent's actions, we could reach cheaper energy system than what the perfect foresight could give. With the advantage of the smaller computational burden, the monthly model myopic model was also found to be a good proxy with its equivalent based on hourly time-resolution.
+
+In conclusion, via the application of the \gls{RL} approach, we have widely explored the different myopic transition pathways and identified sweet-spots (and no-go zones) to succeed a transition with an ambitious \ce{CO2}-budget target. It also highlighted the actions to take to effectively support a whole-energy system transition.
