@@ -145,7 +145,7 @@ Failure & 0.61 & 0.24 \\
 \end{tabular}
 \end{table}
 
-Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is more increased than the one of electrofuels (see Table \ref{tab:param_RL}).  Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and interest rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
+Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is more increased than the one of electrofuels (see Table \ref{tab:param_RL}). In other words, to have higher chances to succeed a myopic transition, the key factor is to reduce the uncertainty on the cost of purchasing electrofuels. Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and interest rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
 
 \begin{table}[htbp!]
 \caption{Uncertain parameters impacting the most the total transition cost, their Sobol' index and, for the successful transitions, their mean of their values between 0 and 100\%, $\mu$, and their skewness, $\gamma$. On top of being supported by the agent's actions, successful transitions occur when the cost of purchasing fossil fuels is more increased than the one of electrofuels.}
@@ -212,7 +212,7 @@ On the contrary, limiting coal is always binding. Before all, this is due becaus
 \label{sec:RL:testing}
 After investigating the exploration of transition pathways on the monthly model, this section compares these results with two references: the \gls{RL}-agent trained on the hourly model and the perfect foresight under uncertainties from the \gls{UQ} analysis presented in Chapter \ref{chap:atom_mol}. The first reference has been built by applying the same rules (see Section \ref{sec:RL:act_states_rew}) but on the hourly model over a more limited number of batches, 43 versus 80, leading to 928 versus 2037 successful transitions for the results presented in Section \ref{sec:RL:learning}. First, the purpose is to assess the capacity of the monthly model to be a good proxy of the hourly myopic transitions and, then,  compare the explored pathways with the perfect foresight under uncertainties.
 
-Considering the actions taken by the agent and their binding effect on the environment,  we see similar trends as in the monthly model (see Figure \ref{fig:Binding_learning_TD}). Limiting the consumption of coal is always binding where \gls{LFO} is ``naturally'' removed from the mix by the cost-minimisation. Where limiting the consumption of fossil gas has a major impact at the early stages, limiting the system emissions up to carbon-neutrality becomes more crucial at the end of the transition.
+Considering the actions taken by the agent and their binding effect on the environment with a hourly resolution,  we see similar trends as in the monthly model (see Figure \ref{fig:Binding_learning_TD}). Limiting the consumption of coal is always binding where \gls{LFO} is ``naturally'' removed from the mix by the cost-minimisation. Where limiting the consumption of fossil gas has a major impact at the early stages, limiting the system emissions up to carbon-neutrality becomes more crucial at the end of the transition.
 
 \begin{figure}[!htbp]
 \centering
@@ -239,9 +239,7 @@ The transition pathways of the annual system cost also show the advantage of the
 \label{fig:System_cost_pathway}
 \end{figure}
 
-The analysis of the cumulative costs shows that the \gls{OPEX} is the main difference between myopic and perfect foresight transitions (see Figure \ref{fig:Opex_Capex_Salvage_comp}). Successful myopic transitions have a lower \gls{OPEX} thanks to the agent's actions and importing more electrofuels, especially e-ammonia that is more imported in the myopic optimisation to supply \gls{CCGT} in case \gls{SMR} is not available.
-
-We observe also similar distributions between the monthly and hourly myopic results that confirm the good approximation provided by the monthly approach.
+The analysis of the cumulative costs shows that the \gls{OPEX} is the main difference between myopic and perfect foresight transitions (see Figure \ref{fig:Opex_Capex_Salvage_comp}). Supported by the agent's actions, successful myopic transitions have a lower \gls{OPEX} than the perfect foresight ones.
 
 \begin{figure}[!htbp]
 \centering
@@ -252,6 +250,16 @@ We observe also similar distributions between the monthly and hourly myopic resu
 \label{fig:Opex_Capex_Salvage_comp}
 \end{figure}
 
+The cost of purchasing the energy carriers represents about 70\% of the total cumulative \gls{OPEX}. The assessment of the primary energy mix by the 2050 highlights where the differences of OPEX between the perfect foresight and the myopic pathways come from the import of electrofuels, and especially of e-ammonia (see Figure \ref{fig:Mix_2050_comp}).  In the majority of the cases, e-ammonia is twice more imported in the myopic transitions. This is even more the case for the myopic transitions carried out on the hourly model. Being cheaper than e-methane (see Chapter \ref{chap:case_study}), e-ammonia brings flexibility in the production of electricity via \gls{CCGT} (see Chapter \ref{chap:atom_mol}). Besides the slightly favourable economical conditions (see Table \ref{tab:param_RL}), the myopic optimisations opt to invest massively into importing renewable molecules because of the limited knowledge in the future, and, among others, the availability of \gls{SMR}. This explains why 50\% of the successful transitions reached cumulative emissions below 900\,Mt\ce{CO2} (see Figure \ref{fig:Cum_gwp_cost}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Mix_2050_comp.pdf}
+\caption{Comparison of the primary energy mix in 2050 from the perfect foresight optimisation under uncertainties ($\text{REF}_{\text{TD-PF}}$), the \gls{RL}-based myopic optimisation on the monthly ($\text{RL}_{\text{MO-MY}}$) and hourly ($\text{RL}_{\text{TD-MY}}$) models. The biggest difference is about e-ammonia to supply \gls{CCGT}}
+\label{fig:Mix_2050_comp}
+\end{figure}
+
+
 \section{Conclusions}
 \label{sec:RL:conclusions}
 In the literature, two options are investigated to explore transition pathways of a whole-energy system. On the one hand, in perfect foresight optimisation, a full knowledge of the parameters is assumed over the entire time horizon. On the other hand, myopic optimisation considers a sequence of more limited time windows leading to the end of the time horizon, to add more realism \cite{poncelet2016myopic}. To meet objective of climate change mitigation, this case requires a prescribed \ce{CO2}-trajectory \cite{fais2016impact}. However, since the effect of \ce{CO2}-emissions in climate change is cumulative, the total amount of these emissions matters more than the trajectory itself. Consequently, we have applied the \acrfull{RL} approach on the environment of the Belgian myopic pathway optimisation under uncertainties.
@@ -260,6 +268,8 @@ In \gls{RL} framework, the agent had four actions to support the 2020-2050 trans
 
 This \gls{RL}-based exploration pointed out that short-term actions were needed to hope succeeding such a transition, as also demonstrated by \citet{luderer2018residual}. Where \gls{LFO} becomes less cost-competitive in the near-future, limiting the use of coal should be done at any cost. Then, fossil gas should be replaced by e-methane in the mid-term while limiting the overall emissions becomes more effective by the end of the transition. The analysis of the share of renewables in the primary energy mix highlighted intermediate milestones to have higher chances to succeed the transition. Below 54\% of renewables in the mix in the near-future, these chances become much more limited, \ie the no-go zone. 
 
-Finally, we have compared the results coming from this \gls{RL}-based myopic optimisation with monthly time-resolution with the hourly perfect foresight approach. These myopic optimisations provided pathways respecting the \ce{CO2}-budget that were more drastic in cutting emissions in the short-term than the perfect. Supported by the agent's actions, we could reach cheaper energy system than what the perfect foresight could give. With the advantage of the smaller computational burden, the monthly model myopic model was also found to be a good proxy with its equivalent based on hourly time-resolution.
+With the advantage of the smaller computational burden, the monthly model myopic model was found to be a good proxy with its equivalent based on hourly time-resolution.
+
+Finally, we have compared the results coming from this \gls{RL}-based myopic optimisation with monthly time-resolution with the hourly perfect foresight approach. These myopic optimisations provided pathways respecting the \ce{CO2}-budget that were more drastic in cutting emissions in the short-term than the perfect. Supported by the agent's actions, we could reach cheaper energy system than what the perfect foresight could give. This comparative analysis also pointed out that investing more into renewable electrofuels was the option when knowledge about the future is limited. To do so, it requires reducing the uncertainties of their cost of purchasing. 
 
 In conclusion, via the application of the \gls{RL} approach, we have widely explored the different myopic transition pathways and identified sweet-spots (and no-go zones) to succeed a transition with an ambitious \ce{CO2}-budget target. It also highlighted the actions to take to effectively support a whole-energy system transition.
