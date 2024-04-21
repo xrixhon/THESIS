@@ -1,35 +1,41 @@
 %!TEX root = ../thesis_main.tex
 %!TEX encoding = UTF-8 Unicode
 
-The general objective of this thesis has been to investigate the impact of uncertainties on the optimisation of the transition pathway of a whole-energy system that accounts for multiple energy carriers and multiple sectors, \ie electricity, high and low temperature heat, passenger and freight transport and non-energy demand. 
+
+% WHAT WE DID (HOW?)
+The general objective of this thesis has been to investigate the impact of uncertainties and foresight on the transition pathway of a whole-energy system (\ie multi-energy carriers and multi-sectors) subject to \ce{CO2}-budget without a prescribed trajectory to reduce the emissions.  We have pursued this objective on the case study of Belgium with a focus on the role of renewable electrofuels (\ie e-ammonia, e-methane, e-methanol and e-hydrogen) could play in this densely-populated and highly industrialised country with limited local renewable potentials. To have 66\% chance of limiting warming to 1.5°C \cite{IPCC_CO2_budget} and using the ``grandfathering'' sharing principle of the global budget \cite{knight2013grandfathering}, the \ce{CO2}-budget of the 2020-2050 transition of Belgium has been set to 1.2\,Gt$_{\ce{CO2},\text{eq}}$ which represents 10 years of the current level of emissions.
+
+To optimise such a system, we have developed EnergyScope Pathway that minimise the total transition cost of the system from 2020 to 2050 and implemented the myopic approach. This approach considers a sequence of 10-year time windows with an overlap of 5 years between them rather than one global optimisation over the 30 years of the transition. This allows assessing the realism of the decision making process where knowledge about the future is progressively unfold rather than assumed complete from the beginning of the transition, the perfect foresight (PF) approach. 
+
+The future of a national whole-energy system is subject to a plethora of uncertainties such as the cost of purchasing resources, the \acrfull{CAPEX} of technologies or the level of demands. In this thesis, we have used the uncertainty characterisation approach developed by \citet{moret2016strategic} to provide the range of values for the uncertain parameters. To propagate and quantify the impact of these uncertainties on the outputs of the model, we have used the \acrfull{PCE} method implemented in the Coppitters' RHEIA framework \cite{coppittersthesis}.
+
+To explore the myopic pathways respecting a \ce{CO2}-budget equivalent to 10 years of current emissions, without \ce{CO2}-trajectory, we have used the \acrfull{RL} approach. In this framework, an agent took actions at the beginning of each time window to limit the emissions of the system, the \textit{environment}, and the consumption of fossil fuels. Starting from the initial state of the energy system in 2020, the agent takes every five years a set of actions until reaching 2050. Although, these actions are taken every five years, they impact the system, for the next ten years --- their time window. Repeating the whole transition with different sequences of actions-states allow the agent to come up with an effective policy towards sustainability, considering the variation of the parameters of its environment.
+
+Finally, we have assessed the robustness of technological roadmaps tested in myopic transitions. To do so, we used the approach of \acrfull{PCA} to identify the technologies that are more sensitive to uncertainties and are more likely to impact the overall variance of the transition design. Projecting the results of myopic transitions on these principal components of the transition pointed out which roadmap was more robust and less likely to require additional investments along the transition.\\
+
+% THE RESULTS WE GOT (WHAT?)
+Given the ambitious \ce{CO2}-budget, the presumably high levels of demands and the limited potential of local renewables, electrofuels found to be the third pillar of the Belgian transition after opting for more efficient technologies and fully deploying local solar and wind energies.  The uncertainty on the cost of purchasing these energy carriers drives by far (46.8\%) the variation of the total transition cost, before the industrial end-use demands (23.2\%), the interest rate (12.0\%) and the cost of purchasing fossil fuels (5.7\%). E-methanol is the key-molecule to import in the mid-term to defossilise the non-energy demand and substitute naphtha-crackers to produce on average 43\,TWh \acrfull{HVC}. The uncertainty on this demand is the most impacting parameter (80\%) on the variation of importing e-methanol. In the longer-term, importing e-ammonia becomes crucial to supply its own non-energy demand ($\sim$ 10\,TWh) and, before all, \acrfull{CCGT} to provide flexibility in the production of electricity. For this reason, after the variation of its cost of purchasing (50\%), the quantity of imported e-ammonia varies depending on the installation of nuclear \acrfull{SMR} (20\%) that substitutes \gls{CCGT}. To a smaller extent, e-methane and e-hydrogen help defossilising the industrial sectors and the heavy-duty road transport, respectively. E-methane imports is mostly impacted by industrial demands (45\%). The CAPEX of fuel cell vehicles (25\%) and its cost of purchasing (20\%) are the key parameters on the variation of the e-hydrogen import.
+
+Through the \gls{RL}-based exploration of myopic transitions, we pointed out that near-term actions were mandatory to hope succeeding this ambitious transition.  Beyond 2030, if the right actions have not been taken, the cumulative emissions are likely to overshoot the \ce{CO2}-budget. Besides limiting the use of coal at any cost, limiting the consumption of fossil gas was needed at the early stages. Once the fuel switch, from fossil fuels to their renewable equivalents, has been operated, limiting the overall emissions is the most effective action to stick to the direction towards sustainability. The system overall efficiency provides less informative insight than the share of renewable energy carriers in the primary energy mix. The latter shows intermediate milestones to reach, 62\%-share by 2030, to have higher chance to succeed the transition by 2050. Below this threshold, these chances are much more limited, \ie no-go zones. Finally, due to limited foresight into the future and its uncertainties, successful myopic transitions rely more on importing renewable electrofuels than PF approach. This is even more the case for e-ammonia that is in general twice more imported by 2050 in myopic than PF transitions.
+
+Finally, in the case of Belgium, the integration of solar \gls{PV} supported by the electrification of the industrial and decentralised heating sectors drive 57\% of the variance of the technological mix through the transition. This affects the entire transition. On the contrary, other key contributions to this variance are more focused on tipping years. For instance, the low-temperature heating sectors shift from oil and gas decentralised boilers to electric \acrfull{HP} and \acrfull{DHN} from 2025 to 2035. In the non-energy sector, the shift between naphtha-crackers and \acrfull{MTO} takes place in 2025. Then, testing roadmaps resulting from perfect foresight optimisations in myopic conditions show that relying on \gls{SMR} by 2040 onward was not providing more or less robustness in terms of additional capacities to install.However, despite representing additional 2.6\% cumulative CAPEX over the transition, investing as soon as possible in local \gls{PV}, the electrification of heating sectors and more efficient technologies such as \acrfull{CHP} provide significantly better level of robustness (between 33\% and 49\%).
 
 
-
-
-I took here the same sections as in Gauthier's thesis
-\section*{Thesis contributions}
-\addcontentsline{toc}{section}{Thesis contributions}
-Insist here on the methodological added value of the thesis
-
-\section*{Limitations}
-\addcontentsline{toc}{section}{Limitations}
+% WHAT TO DO WITH THAT (SO WHAT?)
+\textbf{Results outcome}
 \begin{itemize}
-\item Due to the formulation of the salvage value, some technologies remain in place whereas they are not used anymore (see Appendix B.3, e.g. coal boilers and naphtha-cracker). It's better for the system to keep unused assets to recover part of their salvage value than prematurely decommissioning them.
-\item Progressive scale-up of \gls{VRES} instead of full potential possible from 2025.
+\item Developing local \gls{VRES} needs to be done at any cost
+\item Future nuclear, in the form of \gls{SMR} for instance, would come in competition with electrofuels. Betting on \gls{SMR} in the longer-term would post-pone the effort to reduce the \gls{GHG} emissions and would require important (and fast) changes in the case this technology would eventually not be available. A more robust strategy, especially with the limited foresight we have in the future is to invest in electrofuels to hope succeeding this ambitious transition. 
 \end{itemize}
 
-\section*{Application outcomes}
-\addcontentsline{toc}{section}{Application outcomes}
-What this new methodology has brought over when applied to the case of Belgium
+\textbf{Methodology outcome}
+\begin{itemize}
+\item Results could be applied to other countries with a high demand and low renewable potentials (e.g. Netherlands and Germany)
+\item Assess the robustness of other technological roadmaps
+\item Application to other whole-energy system
+\end{itemize}
 
-\section*{Recommendations and guidance}
-\addcontentsline{toc}{section}{Recommendations and guidance}
-What to do then for policymakers, how to use the tool
-
-\section*{Perspectives}
-\addcontentsline{toc}{section}{Perspectives}
-List the future works to build upon the thesis
-
+% FUTURE PERSPECTIVES (WHAT'S NEXT?)
 \begin{itemize}
 \item Electrofuels is the unicorn solution. What about carbon removal
 \item \textbf{Word about sufficiency} oui mais c'est sans doute celle qui est le plus enviable car la moins risqué à tenter d'atteindre, les solutions mirages technologiques, si on y croit trop on met tout la dessus et si ca foire, on est encore plus dans la merde pcq la direction est mauvaise, la solution sobriété, meme si jamais atteint les efforts pr l'atteindre ne seront pas contre productif
@@ -40,7 +46,6 @@ List the future works to build upon the thesis
 \item Potentially interesting to implement reward shaping to accelerate learning or guide the agent towards achieving the desired behaviour more efficiently. In our case, the agent receives a sparse reward signal, indicating success or failure at the end of an episode. However, this sparse reward signal may not provide enough information for the agent to learn effectively, leading to slow convergence or difficulty in learning the optimal policy. Reward shaping addresses this issue by providing additional, intermediate rewards during the learning process based on various heuristics, domain knowledge, or problem-specific insights. These intermediate rewards can help guide the agent towards desirable states or actions, making the learning process more efficient and effective. However, reward shaping should be applied with caution, as poorly designed reward functions can lead to unintended consequences such as suboptimal policies, reward hacking, or overfitting to the shaped rewards rather than learning the underlying task (see Section \ref{sec:RL:act_states_rew}).
 
 \item Talk here about potential improvement of the approach like the Multi-Fidelity Reinforcement Learning by \citet{cutler2014reinforcement}, rather than just unidirectional transfer from low to high-fidelity. Assess the severity of learning on Monthly model, versus Hourly model. Compare the policies: one versus the other versus one followed by the other
+
+\item Progressive scale-up of \gls{VRES} instead of full potential possible from 2025.
 \end{itemize}
-
-
-Quand je parle de ce que j'ai fait avec RL : Starting from the initial state of the energy system in 2020, the agent takes every five years a set of actions until reaching 2050. Although, these actions are taken every five years, they impact the system, for the next ten years --- their time window. The intermediate solutions obtained in the middle of the time window are used as a new starting point for the agent that makes a new series of decisions for the next ten years, etc. Repeating the whole transition with different sequences of actions-states allow the agent to come up with an optimised policy towards sustainability, considering the variation of the parameters of its environment.
