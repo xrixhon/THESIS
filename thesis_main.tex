@@ -67,50 +67,50 @@
 
 
 %%% -- Introduction --------------------------------------------------
-%\renewcommand{\thefigure}{\arabic{figure}} 
-%\chapter*[Introduction]{Introduction}
-%\addcontentsline{toc}{chapter}{Introduction}
-%\thispagestyle{empty}
-%\input{chap_intro_ccl/intro}
-%\clearpage
-%\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-%
-%%%%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
-%\chapter{Methodology: Through a variety of complementary tools}
-%\label{chap:chap_methodo}
-%%\thispagestyle{empty}
-%\input{chap_methodo/chap_methodo}
-%\clearpage
-%
-%%%
-%%% -- Chapter 2 - Case study -----------------------------
-%\clearemptydoublepage
-%\chapter{Case study: the Belgian energy system} 
-%\label{chap:case_study}
-%\thispagestyle{empty}
-%\input{chap_case_study/chap_case_study}
-%\clearpage
-%
-%%%
-%
-%%%% -- Chapter 3 - Atom vs. molecule -----------------------------
-%\clearemptydoublepage
-%\chapter{The atom-molecules dilemma: deterministic and uncertainty analyses} 
-%\label{chap:atom_mol}
-%\thispagestyle{empty}
-%\input{chap_atom_mol/chap_atom_mol}
-%\clearpage
+\renewcommand{\thefigure}{\arabic{figure}} 
+\chapter*[Introduction]{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\thispagestyle{empty}
+\input{chap_intro_ccl/intro}
+\clearpage
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
-%
-%%% -- Chapter 4 - Reinforcement Learning -
-%\clearemptydoublepage
-%\chapter{Reinforcement Learning \ce{CO2}-policy investigation}
-%\label{chap:chap_RL}
+%%%% -- Chapter 1 - Presentation of EnergyScope TD & Pathway + PCE + RL + PCA ---------------------------------
+\chapter{Methodology: Through a variety of complementary tools}
+\label{chap:chap_methodo}
 %\thispagestyle{empty}
-%\input{chap_RL/chap_RL}
-%\clearpage
+\input{chap_methodo/chap_methodo}
+\clearpage
 
-%%%%%%% -- Chapter 5 - Policy robustness -
+%%
+%% -- Chapter 2 - Case study -----------------------------
+\clearemptydoublepage
+\chapter{Case study: the Belgian energy system} 
+\label{chap:case_study}
+\thispagestyle{empty}
+\input{chap_case_study/chap_case_study}
+\clearpage
+
+%%
+
+%%% -- Chapter 3 - Atom vs. molecule -----------------------------
+\clearemptydoublepage
+\chapter{The atom-molecules dilemma: deterministic and uncertainty analyses} 
+\label{chap:atom_mol}
+\thispagestyle{empty}
+\input{chap_atom_mol/chap_atom_mol}
+\clearpage
+
+
+%% -- Chapter 4 - Reinforcement Learning -
+\clearemptydoublepage
+\chapter{Reinforcement Learning \ce{CO2}-policy investigation}
+\label{chap:chap_RL}
+\thispagestyle{empty}
+\input{chap_RL/chap_RL}
+\clearpage
+
+%%%%%%%% -- Chapter 5 - Policy robustness -
 \clearemptydoublepage
 \chapter{Robustness assessment of pathway roadmaps}
 \label{chap:chap_RobPol}
@@ -118,15 +118,15 @@
 \input{chap_RobPol/chap_RobPol}
 \clearpage
 %%
-%%%%%
-%%%% -- Conclusion ----------------------------------------------------
-%\clearemptydoublepage
-%\newcommand\ccltitle{Conclusions and perspectives}
-%\chapter*[\ccltitle]{\ccltitle}
-%\addcontentsline{toc}{chapter}{\ccltitle}
-%\thispagestyle{empty}
-%\input{chap_intro_ccl/conclusion}
-%\clearpage
+%%%%
+%%% -- Conclusion ----------------------------------------------------
+\clearemptydoublepage
+\newcommand\ccltitle{Conclusions and perspectives}
+\chapter*[\ccltitle]{\ccltitle}
+\addcontentsline{toc}{chapter}{\ccltitle}
+\thispagestyle{empty}
+\input{chap_intro_ccl/conclusion}
+\clearpage
 
 
 
@@ -153,36 +153,42 @@
 %%                        APPENDICES                              %%
 %%                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{appendices}
 %
-%\begin{appendices}
-%
-%%% -- Appendix 0 - Taxonomy-------------------------------------
-%\chapter{Taxonomy of the fuels in a whole-energy system}
-%\label{app:Taxonomy}
-%\thispagestyle{empty}
-%\input{appendices/app_taxonomy}
-%
-%%% -- Appendix 1 - EnergyScope-------------------------------------
-%\chapter{EnergyScope Pathway: Its choice and its formulation}
-%\label{app:EnergyScope}
-%\thispagestyle{empty}
-%\input{appendices/app_EnergyScope}
-%
-%%% % -- Appendix 2 - Case study -------------------------------------
-%\chapter{Case study: the Belgian energy system}
-%\label{app:case_study}
-%\thispagestyle{empty}
-%\input{appendices/app_case_study}
-%
-%%% -- Appendix 3 - Appendix results UQ -------------------------------------
-%\chapter{Pathway optimisation under uncertainties}
-%\label{app:results_UQ}
-%\thispagestyle{empty}
-%\input{appendices/app_results_UQ}
-%
-%
-%
-%\end{appendices}
+%% -- Appendix 0 - Taxonomy-------------------------------------
+\chapter{Taxonomy of the fuels in a whole-energy system}
+\label{app:Taxonomy}
+\thispagestyle{empty}
+\input{appendices/app_taxonomy}
+
+%% -- Appendix 1 - EnergyScope-------------------------------------
+\chapter{EnergyScope Pathway: Its choice and its formulation}
+\label{app:EnergyScope}
+\thispagestyle{empty}
+\input{appendices/app_EnergyScope}
+
+%% % -- Appendix 2 - Case study -------------------------------------
+\chapter{Case study: the Belgian energy system}
+\label{app:case_study}
+\thispagestyle{empty}
+\input{appendices/app_case_study}
+
+%% -- Appendix 3 - Appendix results UQ -------------------------------------
+\chapter{Pathway optimisation under uncertainties}
+\label{app:results_UQ}
+\thispagestyle{empty}
+\input{appendices/app_results_UQ}
+
+
+%% -- Appendix 4 - Appendix RL learning TD vs MO -------------------------------------
+\chapter{Reinforcement Learning on hourly and monthly models}
+\label{app:app_RL_TD_MO}
+\thispagestyle{empty}
+\input{appendices/app_RL_TD_MO}
+
+
+\end{appendices}
 
 
 \end{document}
