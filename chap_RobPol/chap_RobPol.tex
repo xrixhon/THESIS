@@ -17,7 +17,7 @@ The main contributions of this chapter is the application of the methodology pro
 
 \section{Definition of the principal components of the transition}
 \label{sec:RobPol:PC_transition}
-As detailed in Section \ref{subsec:meth:PCA:transition}, we have decided to define the directions of variation, \ie the robustness metrics, based on the installed capacities through the transition in the different end-use sectors, \ie electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{HVC}, ammonia and methanol. These capacities represent the technological roadmaps to supply these \gls{EUD} while respecting the \ce{CO2}-budget.  Data considered in this method come from the \gls{GSA} carried out on the perfect foresight optimisation of the Belgian transition pathway (see Chapter \ref{chap:atom_mol}). This gave 1260 different transitions resulting, for each of them, from the pathway optimisation subject to a sample of uncertain parameters (see Section \ref{subsec:uncert_charac}). Appendix \ref{app:UQ_tech_cap} gives the exhaustive distributions of the installed capacities among the different end-use sectors from the \gls{GSA}.
+The directions of variation, \ie the robustness metrics, are based on the installed capacities through the transition in the different end-use sectors, \ie electricity, \gls{HT} heat, \gls{LT} heat, passenger mobility, freight mobility, \gls{HVC}, ammonia and methanol (see Section \ref{subsec:meth:PCA:transition}). These capacities represent the technological roadmaps to supply these \gls{EUD} while respecting the \ce{CO2}-budget.  Data considered in this method come from the \gls{GSA} carried out on the perfect foresight optimisation of the Belgian transition pathway (see Chapter \ref{chap:atom_mol}). This gave 1260 different transitions resulting, for each of them, from the pathway optimisation subject to a sample of uncertain parameters (see Section \ref{subsec:uncert_charac}). Appendix \ref{app:UQ_tech_cap} gives the exhaustive distributions of the installed capacities among the different end-use sectors from the \gls{GSA}.
 
 \subsection{Principal components of each representative year}
 \label{subsec:RobPol:PC_year}
@@ -52,7 +52,7 @@ Then, keeping the \gls{PCs} capturing at least 90\% of the total variance of eac
 \label{fig:PC_over_the_years}
 \end{figure}
 
-Finally, we consider the respective contribution of the different technologies in the different $\text{PC}_{y}$, \ie their corresponding component in the different eigenvectors. Highlighting the top-5 technologies for $\text{PC}_{y,1}$, $\text{PC}_{y,2}$ and $\text{PC}_{y,3}$, we observe general trends over the whole transition as well as tipping year where there is a clear trade-off between several technologies (see Figure \ref{fig:Top5_PC_year}). As pointed out in Section \ref{subsec:meth:PCA:transition}, \gls{PCA} does not make any distinction between a vector of variation and its opposite. This is why $\text{PC}_{2025,1}$ and $\text{PC}_{2035,1}$ are actually very similar even though there are mostly on the opposite sides of the 0-axis.
+Finally, we consider the respective contribution of the different technologies in the different $\text{PC}_{y}$, \ie their corresponding component in the different eigenvectors. Highlighting the top-5 technologies for $\text{PC}_{y,1}$, $\text{PC}_{y,2}$ and $\text{PC}_{y,3}$, we observe general trends over the whole transition as well as tipping year where there is a clear trade-off between several technologies (see Figure \ref{fig:Top5_PC_year}). The top-5 technologies of $\text{PC}_{y,1}$ represent on average 99.4\% of the norm of their respective PC. For $\text{PC}_{y,2}$ and $\text{PC}_{y,3}$, this share decreases to 97.6\% and 90.9\%, respectively.  As pointed out in Section \ref{subsec:meth:PCA:transition}, \gls{PCA} does not make any distinction between a vector of variation and its opposite. This is why $\text{PC}_{2025,1}$ and $\text{PC}_{2035,1}$ are actually very similar even though there are mostly on the opposite sides of the 0-axis.
 
 \begin{figure}[!htbp]
 \centering
@@ -135,6 +135,7 @@ $\text{PC}_{\text{transition,5}}$ & $\text{PC}_{\text{2025,3}}$ & 3.4\\
 \end{tabular}
 \end{table}
 
+\newpage
 Averaging the components of similar $\text{PC}_y$ allows constructing the $\text{PC}_{\text{transition}}$ (see Figure \ref{fig:Top5_PC_transition}). These directions of variation form the robustness matrix on which it is possible to project the results of transition roadmaps tested under uncertainties and myopic pathway optimisation.
 
 \begin{figure}[!htbp]

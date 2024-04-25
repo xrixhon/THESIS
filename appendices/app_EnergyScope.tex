@@ -15,7 +15,7 @@
 Increasing the technical resolution of energy system models often comes at the expense of a shorter simulation horizon, and vice versa. For instance, day-ahead grid operation models prioritise accurate grid resolution and capacity reserves in case of foreseeable deviations, but they may not incorporate long-term market trends. Different model classes cater to various needs, with decreasing technical resolution. These include machine-level control, network dispatch, unit commitment, maintenance, power plant expansion, planning for new infrastructure, and scenario analysis. Each class serves a specific purpose, from fine-grained control within a machine to the exploration of multiple assumptions across different scenarios.
 
 % Specific need & criteria
-
+\newpage
 In accordance with the previous classification, models aimed at aiding decision-makers in the energy transition primarily fall under the categories of planning and scenario analysis, with a lower technical resolution than the other classes of model (see Figure \ref{fig:energy_models_classification}). Nonetheless, ensuring technical accuracy is of paramount importance to ensure the effective performance of future energy systems. Hence, these models should meet the following requirements as a minimum:
 (i) assessment of intermittent renewable energy integration thanks to an \textbf{hourly resolution} spanning a one-year time horizon;
 (ii) accounting for the \textbf{whole-energy system} by including all energy (\ie heat, electricity and mobility) and non-energy flows in different sectors, accounting for their respective greenhouse gas emissions, as well as all resources, conversion processes, and storage technologies;
@@ -65,7 +65,7 @@ GENeSYS-MOD & \cite{loffler2017designing} & \checkmark & \checkmark & \checkmark
  & \checkmark \\
 H2RES & \cite{herc2021energy} & \checkmark & {\color{gray} \xmark}
 %\footnote{\label{foot:h2res} In their review in 2021, \citet{prina2021bottom} classified H2RES as a simulation model on power sector only. In their work, \citet{herc2021energy} presented a new version of H2RES claiming to optimise the power system and partially represent other sectors. Their study applied the model to a transition pathway for Croatia. In the conclusion, it is claimed `\textit{H2RES offers practically unlimited potential for functionality expansion since it is an open-source program}´ which open the doors for future developments to encompass new features.}
-&  {\color{lightgray} \checkmark}\footref{foot:h2res} & \checkmark & \checkmark \\ 
+&  {\color{lightgray} \checkmark} & \checkmark & \checkmark \\ 
 iHOGA & \cite{ihoga} & \checkmark & {\color{gray} \xmark}\footref{foot:transportnotsaid}\footref{foot:industrynotaccounted}\footref{foot:dhnnotaccounted}\footref{foot:decLTHnotaccounted} & {\color{lightgray} \checkmark} \footref{foot:invopt} & \checkmark & {\color{lightgray} \checkmark} \footref{foot:freeundersomespecial} \\
 IMAKUS & \cite{kuhn2012iteratives} & \checkmark & {\color{lightgray} \checkmark}\footref{foot:transportnotsaid}\footref{foot:industrynotaccounted} & \checkmark & \checkmark & {\color{gray} \xmark} \footref{foot:paidlicenced} \\
 OpenDSS & \cite{opendss} & \checkmark & \checkmark & {\color{gray} \xmark} \footref{foot:simulation} & \checkmark & \checkmark \\
@@ -172,6 +172,7 @@ To break this curse, EnergyScope TD, like other models \cite{Gabrielli2018,Despr
 \label{fig:Typical_days}
 \end{figure}
 
+\newpage
 Finally, to properly capture the inter days dynamics, EnergyScope TD uses the ``Coupling typical days'' method from \citet{Gabrielli2018}. Among others, this allows representing the dynamics and the seasonality of storage capacities. This method as well as the clustering approach selected in our case, \ie k-medoids \cite{Kaufman2009,Park2009}, are extensively detailed and compared to other methods, in the work of \citet{limpens2019energyscope}. \\
 
 \myparagraph{Overview of the snapshot model}\\
@@ -307,6 +308,7 @@ In this section, we delve into the extension of EnergyScope TD from a static yea
 \label{fig:meth_path_methodology}
 \end{figure}
 
+\newpage
 The proposed formulation relies on representative years, selected every 5 years from 2020 to 2050.  The period between two of them is called `\emph{PHASE}´.
 For each of these 7 representative years, the EnergyScope TD model is run  using the relevant data (such as energy demand, technology costs or \gls{GHG} emissions constraints). 
 
@@ -321,8 +323,8 @@ At this stage, all years are independent. In the following, we introduce new con
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{path_e.g._tech.pdf}
-\caption{Example of how the technology capacities and associated variables are evolving. The example uses a technology with a 20 years lifetime. Initially 1~GW of capacity exists (\textbf{F\textsubscript{new}} during phase $2015\_2020$). Then another 1~GW is deployed (\textbf{F\textsubscript{new}} during phase $2020\_2025$). 15 years later, a part of the capacity reaches its lifetime limit and is removed (\textbf{F\textsubscript{old}} phase $2035\_2040$). 
-Moreover, during the latter phase, additional capacity is decommissioned  prematurely (\textbf{F\textsubscript{decom}}). Finally, the technology reaches its expected lifetime and is fully withdrawn (\textbf{F\textsubscript{old}}).}
+\caption{Example of how the technology capacities and associated variables are evolving. }
+%\caption{Example of how the technology capacities and associated variables are evolving. The example uses a technology with a 20 years lifetime. Initially 1~GW of capacity exists (\textbf{F\textsubscript{new}} during phase $2015\_2020$). Then another 1~GW is deployed (\textbf{F\textsubscript{new}} during phase $2020\_2025$). 15 years later, a part of the capacity reaches its lifetime limit and is removed (\textbf{F\textsubscript{old}} phase $2035\_2040$). Moreover, during the latter phase, additional capacity is decommissioned  prematurely (\textbf{F\textsubscript{decom}}). Finally, the technology reaches its expected lifetime and is fully withdrawn (\textbf{F\textsubscript{old}}).}
 \label{fig:path_eg_igcc}
 \end{figure}
 

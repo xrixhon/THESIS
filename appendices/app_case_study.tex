@@ -123,6 +123,13 @@ In the following paragraphs, the results are analysed from a cost perspective to
 
 Figure \ref{fig:pestd_cumul_inv} illustrates the cumulative investments made throughout the transition, amounting to a total of 377.8~b€. This makes 12.6~b€ on average per year, which represents 2.1\% of the current Belgian \gls{GDP}. This in the range of other studies on climate-neutral scenarios concluding additional investment needs of the order of 2 to 3\% of the \gls{GDP} on a global scale \cite{IEA2021,IRENA2021} or 2.7 to 3.8\% at the European level \cite{Widuto2023}.
 
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{Investment_transition.pdf}
+\caption{The cumulative investments over the transition are unequally spread between the sectors. The energy system in 2020 is imposed as the existing energy system and its expenses are split in three main categories: mobility (mainly vehicles), infrastructure (mainly grids) and electricity (mainly thermal power plants). The investments required during the transition represents 150\% the initial investment and mainly in the same three sectors. }
+\label{fig:pestd_cumul_inv}
+\end{figure}
+
 Initially, the infrastructure, transport, and electricity sectors each account for approximately one-third of the investments. The investments in infrastructure are primarily driven by the electricity grid and the \acrfull{DHN}, representing a combined investment of 73 b€. The electricity sector's investment is led by power plants, totalling 31.5 b€. Notably, the investment costs in the mobility sector are primarily attributed to private cars, constituting 71\% of the total. A rough estimation confirms the significant investment in cars, with an average of 500,000 vehicles registered annually in Belgium over the last decade \cite{febiac2021datadigest} and assuming an average cost of 20 k€ per car, the funds allocated to private cars amount to 10 b€ per year. This trend in private cars explains why the private mobility sector accounts for half of the investments required to achieve the transition by 2050. This finding aligns with other studies, such as \citet{Devogelaer2013}, which estimates cumulative investment expenditures of approximately 600 b€\textsubscript{2005} for the transport sector between 2013 and 2050, which confirms our conservative approach in the estimation.
 
 
@@ -130,14 +137,6 @@ As a comparison, the investments required to fully deploy the PV and wind potent
 
 %% INCREASE OF CAPEX in terms of GDP
 %At international level, work on climate-neutral scenarios indicates additional investment needs of the order of 2 to 3% of world GDP on average per year over the period between now and 2050, with levels of USD 4,800 billion according to IEA (2021) and IRENEA (2021) and USD 5,800 billion according to BNEF (2022). At European level, modelling work by the European Commission (EC, 2022) suggests additional investment of €360 billion on average per year, or in the region of 1.5 to 2% of GDP. National studies in the UK (CCC, 2020) and France (Pisani-Ferry, 2022) indicate similar levels, also between 1.5 and 2% of GDP. At Belgian level, McKinsey (2023) calculates an average annual additional requirement equivalent to 2 to 3% of GDP.
-
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{Investment_transition.pdf}
-\caption{The cumulative investments over the transition are unequally spread between the sectors. The energy system in 2020 is imposed as the existing energy system and its expenses are split in three main categories: mobility (mainly vehicles), infrastructure (mainly grids) and electricity (mainly thermal power plants). The investments required during the transition represents 150\% the initial investment and mainly in the same three sectors. }
-\label{fig:pestd_cumul_inv}
-\end{figure}
 
 A part of the investment will be recovered at the end of the transition based on the remaining lifespan of the technologies after 2050. Figure \ref{fig:pestd_inv_return} illustrates the salvage value by sectors, calculated according to Equation (\ref{eq:salvage}). Out of the 114.4~b€ of investments in the infrastructure (\ie mostly power grid and gas network), 55.9\% remain available after 2050, due to their long lifetime. On the contrary, private mobility has a lower salvage value due to a major drop within the first four years and an average lifetime below 10 years \cite{febiac2021datadigest}. 
 % Consequently, out the 240.5~b€, including the initial investment of 75.7~b€, only 13.9\% would remain available after 2050.
@@ -162,9 +161,10 @@ In addition to investment decisions, the \acrfull{OPEX}, which accounts for reso
 
 The annualised cost of the energy system in 2020 is estimated to 44.3~b€/y and increases by 5.5~b€/y to reach 49.8~b€/y by 2050. The work of \citet{My2050} estimates the annualised cost in 2050 between 63 and 82~b€/y, while other studies just indicate the cost increase compared to 2015 (+11.7 to +21) \citep{Devogelaer2013,PATHS2050}. The differences come from the scope of the energy system: as an example \citet{My2050} also account for the agriculture sector. These differences highlight the difficulty to compare different studies due to difference of scope and partial availability of used data. Overall, comparing with existing studies shows the consistency of the results provided by EnergyScope Pathway.
 
+\newpage
 \section{Myopic versus perfect foresight pathway optimisation}
 \label{app:my_vs_pf}
-This section aims at digging more into the details of the differences observed between the myopic approaches and the reference case (\ie hourly perfect foresight model).
+This section aims at digging more into the details of the differences observed between the myopic approaches and the reference case, the hourly perfect foresight model (see Table \ref{tab:PF_MY}).
 
 \begin{table}[htbp]
 \caption{Comparison between the two different foresight approaches: Perfect foresight (PF) and Myopic (MY). Differences with the reference case (PF) below 1\% are not shown ($\simeq$) and ones above 10\% are in bold.}
@@ -204,12 +204,7 @@ Computational time\footnote{\label{foot:comp_time}These computational times were
 \end{minipage}
 \end{table}
 
-
-
-
-Similarly to \citet{nerini2017myopic}, Figure \ref{fig:my_pestd_total_cost_cum_diff} shows that myopic optimisation ends up with a slightly more expensive energy transition by 2050 (\ie +3.2~b€), compared to the perfect foresight, despite the savings done at the early stages. Even though this over-cost is negligible compared to the overall cost of the transition (\ie $\sim$1000~b€), this is explained by the early investments in renewable technologies (\ie PVs and wind turbines) boosted by the significant salvage value retrieved from investing in the consequent reinforcement of the grid. 
-
-Figure \ref{fig:my_pestd_inv_return_area} highlights this as infrastructures and the electricity-technologies account respectively for 83.2 and 61.2~b€ in 2030 whereas the overall cumulative investments, so far, are 421.3~b€. The significant lifetime (\eg 80 years) and investment cost (\ie 368M€/GW$_\text{VRES}$ \cite{readthedocs_pathway}) of the power grid, and, on a smaller scale, the district heating network, explain why the myopic optimisation opts for a higher investment in these infrastructures, at early stages. Similarly to what \citet{keppo2010short} observed in their studies, these early investments consequently lead to more investments, later in the transition, to renew technologies that have become too old before 2050: during the phase between 2045 and 2050, the myopic approach needs to invest in 9.2GW of PVs that have been installed 25 years before whereas the perfect foresight, by smoothing its investments over the entire transition, has to renew only 2.5GW of PVs. 
+Similarly to \citet{nerini2017myopic}, Figure \ref{fig:my_pestd_total_cost_cum_diff} shows that myopic optimisation ends up with a slightly more expensive energy transition by 2050 (\ie +3.2~b€), compared to the perfect foresight, despite the savings done at the early stages. Even though this over-cost is negligible compared to the overall cost of the transition (\ie $\sim$1000~b€), this is explained by the early investments in renewable technologies (\ie PVs and wind turbines) boosted by the significant salvage value retrieved from investing in the consequent reinforcement of the grid.
 
 \begin{figure}[!htbp]
 \centering
@@ -218,11 +213,7 @@ Figure \ref{fig:my_pestd_inv_return_area} highlights this as infrastructures and
 \label{fig:my_pestd_total_cost_cum_diff}
 \end{figure}
 
-In 2050, the capacities installed in the different sectors, in other words the design of the system, are very similar between the two approaches. The passenger and freight mobility sectors are the same and differences smaller than 1GW are observed in other sectors. More interestingly, the myopic optimisation tends to postpone the decommissioning of capacities when the loss of salvage values at the end of an optimisation window would be bigger than the maintenance cost. For instance, in the myopic approach, 0.8GW of industrial coal boilers will remain installed in 2045 and 2050 or 3.6GW of naphtha-crackers to produce HVC in 2040, whereas these technologies are not used. This could be compare to the ``lock-ins" detailed in other studies \cite{heuberger2018impact,keppo2010short} where technologies installed at early stages of the transition remain in place. However, in our case, keeping in place unused technologies is due to the formulation of the salvage value. Indeed, to maximise the total transition cost, the model prefers recovering part of the salvage value of these assets rather than prematurely decommissioning them.
-
-Highlighted in Figure \ref{fig:my_pestd_res_cat_diff}, the earlier availability of renewable (and intermittent) electricity accelerates the electrification of the other sectors. For instance, in 2035, 3.7GW (+75\%) more of industrial electric heaters produce 5.1TWh/year (+130\%) of additional industrial heat. In the low-temperature heat sector, decentralised and centralised electric heat pumps capacities are, respectively, 2.2GW (+19\%) and 1GW (+8\%) higher for each of the representative years between 2030 and 2045, to produce, around 7.8TWh/year (+23\%) and 0.8TWh/year (+1\%), at the expense of other technologies such as gas heat pumps. Finally, public trains substitute from 2035 a higher share of the CNG-buses.
-
-In general, due to the formulation of the salvage value (see Equation (\ref{eq:salvage})), the myopic approach is more techno-oriented as investing more in technologies is beneficial, especially at the early stages of the transition. Therefore, before converging to a similar energy mix in 2050, the myopic system relies more on local renewables (\eg solar and wind) than on importing renewable energy carriers (\eg e-ammonia, e-methanol, e-hydrogen or e-methane), see Figure \ref{fig:my_pestd_res_cat_diff}. In parallel, in the near term, the system relies on average slightly more on conventional/non-renewable sources, like observed in other studies \cite{keppo2010short,nyqvist2005limited,hedenus2006induced}.
+Figure \ref{fig:my_pestd_inv_return_area} highlights this as infrastructures and the electricity-technologies account respectively for 83.2 and 61.2~b€ in 2030 whereas the overall cumulative investments, so far, are 421.3~b€. The significant lifetime (\eg 80 years) and investment cost (\ie 368M€/GW$_\text{VRES}$ \cite{readthedocs_pathway}) of the power grid, and, on a smaller scale, the district heating network, explain why the myopic optimisation opts for a higher investment in these infrastructures, at early stages. Similarly to what \citet{keppo2010short} observed in their studies, these early investments consequently lead to more investments, later in the transition, to renew technologies that have become too old before 2050: during the phase between 2045 and 2050, the myopic approach needs to invest in 9.2GW of PVs that have been installed 25 years before whereas the perfect foresight, by smoothing its investments over the entire transition, has to renew only 2.5GW of PVs. 
 
 \begin{figure}[!htbp]
 \centering
@@ -231,12 +222,19 @@ In general, due to the formulation of the salvage value (see Equation (\ref{eq:s
 \label{fig:my_pestd_inv_return_area}
 \end{figure}
 
+In 2050, the capacities installed in the different sectors, in other words the design of the system, are very similar between the two approaches. The passenger and freight mobility sectors are the same and differences smaller than 1GW are observed in other sectors. More interestingly, the myopic optimisation tends to postpone the decommissioning of capacities when the loss of salvage values at the end of an optimisation window would be bigger than the maintenance cost. For instance, in the myopic approach, 0.8GW of industrial coal boilers will remain installed in 2045 and 2050 or 3.6GW of naphtha-crackers to produce HVC in 2040, whereas these technologies are not used. This could be compare to the ``lock-ins" detailed in other studies \cite{heuberger2018impact,keppo2010short} where technologies installed at early stages of the transition remain in place. However, in our case, keeping in place unused technologies is due to the formulation of the salvage value. Indeed, to maximise the total transition cost, the model prefers recovering part of the salvage value of these assets rather than prematurely decommissioning them.
+
+Highlighted in Figure \ref{fig:my_pestd_res_cat_diff}, the earlier availability of renewable (and intermittent) electricity accelerates the electrification of the other sectors. For instance, in 2035, 3.7GW (+75\%) more of industrial electric heaters produce 5.1TWh/year (+130\%) of additional industrial heat. In the low-temperature heat sector, decentralised and centralised electric heat pumps capacities are, respectively, 2.2GW (+19\%) and 1GW (+8\%) higher for each of the representative years between 2030 and 2045, to produce, around 7.8TWh/year (+23\%) and 0.8TWh/year (+1\%), at the expense of other technologies such as gas heat pumps. Finally, public trains substitute from 2035 a higher share of the CNG-buses.
+
  \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{MY_resources_category_diff.pdf}
 \caption{Primary energy resources difference between the myopic and perfect foresight (PF) approaches. Positive values mean that the myopic approach is higher than perfect foresight.}
 \label{fig:my_pestd_res_cat_diff}
 \end{figure}
+
+In general, due to the formulation of the salvage value (see Equation (\ref{eq:salvage})), the myopic approach is more techno-oriented as investing more in technologies is beneficial, especially at the early stages of the transition. Therefore, before converging to a similar energy mix in 2050, the myopic system relies more on local renewables (\eg solar and wind) than on importing renewable energy carriers (\eg e-ammonia, e-methanol, e-hydrogen or e-methane), see Figure \ref{fig:my_pestd_res_cat_diff}. In parallel, in the near term, the system relies on average slightly more on conventional/non-renewable sources, like observed in other studies \cite{keppo2010short,nyqvist2005limited,hedenus2006induced}.
+
 
 \section{Assessment of different emissions-trajectories}
 \label{app:CO2_trajectories}
