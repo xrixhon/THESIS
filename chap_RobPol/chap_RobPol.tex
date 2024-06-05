@@ -148,7 +148,7 @@ Averaging the components of similar $\text{PC}_y$ allows constructing the $\text
 \newpage
 \section{Robustness assessment of pathway roadmaps}
 \label{sec:RobPol:Rob_Assessment}
-Now that the performance metric is defined, we can assess the robustness of different roadmaps. These roadmaps are defined as the technological mix given by the deterministic optimisation of the perfect foresight pathway under certain conditions. The two first roadmaps are the \textbf{REF} and \textbf{SMR} cases (see Chapter \ref{chap:atom_mol}). All the uncertain parameters are considered at their nominal value in these two cases. The only difference consists in allowing \gls{SMR} from 2040 onward in the \textbf{SMR} case. On top of these two cases, we add a so-called ``robust'' case, \textbf{ROB}, in the same sense as in the works of \citet{bertsimas2004price} or \citet{Moret2017PhDThesis} accounting for a ``protection parameter''. Then, we assess the robustness of these three roadmaps via a ``three-step rolling horizon approach'' extended from the work of \citet{moret2020overcapacity}: (i) setting the initial investment strategies provided by the roadmaps and, (ii) assessing the variation of investments needed through myopic pathway optimisation under uncertainties and, (iii) projecting the strategies from the myopic optimisations on the robustness metrics defined via \gls{PCA}.
+Now that the performance metric is defined, we can assess the robustness of different roadmaps. These roadmaps are defined as the technological mix given by the deterministic optimisation of the perfect foresight pathway under certain conditions. The two first roadmaps are the \textbf{REF} and \textbf{SMR} cases (see Chapter \ref{chap:atom_mol}). All the uncertain parameters are considered at their nominal value in these two cases. The only difference consists in allowing \gls{SMR} from 2040 onward in the \textbf{SMR} case. On top of these two cases, we add a so-called ``robust'' case, \textbf{ROB}, in the same sense as in the works of \citet{bertsimas2004price} or \citet{Moret2017PhDThesis} accounting for a ``protection parameter''. Then, we assess the robustness of these three roadmaps via a ``three-step rolling horizon approach'' extended from the work of \citet{moret2020overcapacity}: (i) setting the initial investment strategies provided by the roadmaps and, (ii) assessing the variation of additional investments needed through myopic pathway optimisation under uncertainties and, (iii) projecting the strategies from the myopic optimisations on the robustness metrics defined via \gls{PCA}. Finally, we assess the variation of the transition costs resulting from these myopic transitions under uncertainties.
 
 \subsection{A robust roadmap?}
 \label{subsec:RobPol:Rob_roadmap}
@@ -202,7 +202,7 @@ The ROB roadmap is more robust than the REF case for the first three PCs. About 
 & & SMR & ROB \\
 \midrule
 1 & \gls{PV} and electrification & $\simeq$ & +49\% \\
-2 & \gls{PV} and dec.heating & $\simeq$ & +37\%\\
+2 & \gls{PV} and dec. heating & $\simeq$ & +37\%\\
 3 & Freight transport & $\simeq$ & +33\%\\
 4 & Dec. oil boilers & $\simeq$ & $\simeq$ \\
 5 &  Naphtha-crackers and \gls{MTO} & +34\% & -21\%\\
@@ -223,12 +223,48 @@ When computing the \gls{PCs} of the different myopic transitions, the ROB case h
 \label{fig:Top5_PCtransition_cases}
 \end{figure}
 
+\subsection{What about the costs over the transition?}
+\label{subsec:RobPol:costs_comparison}
+Besides the additional capacities needed through the myopic transitions, this section takes a step back to assess the variations of costs over the transition: the total transition cost, the cumulative \gls{OPEX} by 2050 and the cumulative \gls{CAPEX} by 2050 (see Figure \ref{fig:Total_Opex_Capex_REF_ROB}). We observe that the differences are marginal. This validates the initial rationale to go beyond these costs to assess the robustness of roadmaps.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.325\textwidth]{Transition_cost_REF_ROB.pdf}
+\includegraphics[width=0.325\textwidth]{OPEX_2050_REF_ROB.pdf}
+\includegraphics[width=0.325\textwidth]{CAPEX_2050_REF_ROB.pdf}
+\caption{Comparison of total transition cost (left), cumulative OPEX (center) and CAPEX (right) by 2050 from the REF and ROB myopic transitions. The differences are marginal. However, the ROB roadmap lead to cheaper and less varying total transition cost. Requiring more investments at earlier stages, this roadmap is less affected by the variation of the operational costs.}
+\label{fig:Total_Opex_Capex_REF_ROB}
+\end{figure}
+
+Considering the median values, the ROB roadmap leads to a 1.6\% more expensive total transition. This comes from the earlier investments in \gls{PV} panels together with electrified solutions in the heating sector that need to be renewed before the end of the transition. The extra-\gls{CAPEX} also comes from more efficient (and more expensive) technologies such as \gls{CHP}. These decisions allow being less affected by the variation of the cumulative operational costs that are dominated ($\sim$\,70\%) by the cost of purchasing energy carriers.  This makes the investment-to-operation ratio slightly higher for the ROB case (46\%) than for the REF case (44\%). 
+
+We can assess the variation of these costs with the quartile coefficient of dispersion. This coefficient of dispersion is defined as $\left(Q_3-Q_1 \right)/\left(Q_3+Q_1 \right)$ where $Q_1=P_{25}$ and $Q_3=P_{75}$ are the first and third quartiles of the data, respectively. We observe that the ROB case has a smaller quartile coefficient of dispersion for the total transition cost and cumulative \gls{OPEX} but higher for the cumulative \gls{CAPEX} (see Table \ref{tab:quartile_coeff_dispersion}).The biggest decrease of these coefficients of dispersion between the REF and the ROB cases concerns the total transition cost. This means that the ROB case ensures to decrease more the uncertainty on this cost. 
+
+
+
+\begin{table}[htbp!]
+\caption{Quartile coefficient of dispersion for the total transition cost, cumulative OPEX and CAPEX by 2050 from the REF and ROB myopic transitions. The ROB case leads to more certain total transition cost and cumulative \gls{OPEX} than the REF case.}
+\label{tab:quartile_coeff_dispersion}
+\centering
+\begin{tabular}{l| c c}
+\toprule
+\textbf{Quartile coefficient of dispersion} &  REF  & ROB \\
+\midrule
+Total transition cost & 12.9\% & 12.2\%  \\
+Cumulative \gls{OPEX} by 2050 & 21.3\% & 21.1\% \\
+Cumulative \gls{CAPEX} by 2050 & 5.9\% & 6.0\%\\
+\bottomrule							
+\end{tabular}
+\end{table}
+
+All these conclusions are similar to the ones observed on the study of overcapacity of \citet{moret2020overcapacity}). Working on the snapshot model and fixing the installed capacities only in the power sector, they although observed bigger gain to opt for a robust strategy rather than the deterministic solution.
+
 \newpage
 \section{Conclusions}
 \label{sec:RobPol:Conclusions}
 In this chapter, we applied the \gls{PCA}-based approach detailed in Chapter \ref{chap:chap_methodo} to assess the robustness of different transition roadmaps for the case of Belgium. First, starting from the principal components of each representative year, we have computed the PCs of the transition to serve as robustness metric. This showed that the variation of installed capacities of \gls{PV}, industrial electric resistors and \gls{LT}-heat technologies drove the major share (75\%) of the variation of the transition design strategy.  
 
-Then, we have tested three roadmaps resulting from different perfect foresight optimisations: REF, SMR and ROB. Where the first two have been broadly discussed in Chapter \ref{chap:atom_mol}, the ``robust'' (ROB) case was considering the worst value of the uncertain parameters impacting the most the total transition cost following the same approach as \citet{Moret2017PhDThesis}. From these roadmaps setting the minimal installed capacities over the transition, we have assessed the variation of the additional capacities needed in myopic optimisations subject to uncertainties. This showed that counting on the installation of \gls{SMR} by 2040 was providing the same level of robustness as the reference case in the key directions of variation. However, the robust (ROB) investment roadmap --- which, in our case, anticipates the full deployment of local \gls{VRES} and the integration of efficient technologies --- is more robust than the reference scenario. Even though this roadmap represents 2.6\% more cumulative \gls{CAPEX} over the transition than the REF case, it provides more robustness towards the variations of \gls{PV} supported by the electrification of \gls{HT} and \gls{LT} heating sectors (49\%) and technologies in the transport of freight (33\%). 
+Then, we have tested three roadmaps resulting from different perfect foresight optimisations: REF, SMR and ROB. Where the first two have been broadly discussed in Chapter \ref{chap:atom_mol}, the ``robust'' (ROB) case was considering the worst value of the uncertain parameters impacting the most the total transition cost following the same approach as \citet{Moret2017PhDThesis}. From these roadmaps setting the minimal installed capacities over the transition, we have assessed the variation of the additional capacities needed in myopic optimisations subject to uncertainties. This showed that counting on the installation of \gls{SMR} by 2040 was providing the same level of robustness as the reference case in the key directions of variation. However, the robust (ROB) investment roadmap --- which, in our case, anticipates the full deployment of local \gls{VRES} and the integration of efficient technologies --- is more robust than the reference scenario. Even though this roadmap represents 7.4\% more cumulative \gls{CAPEX} over the transition than the REF case, it provides more robustness towards the variations of \gls{PV} supported by the electrification of \gls{HT} and \gls{LT} heating sectors (49\%) and technologies in the transport of freight (33\%).  On top of decreasing the risk to invest into additional capacities, the ROB is also less sensitive to the variation of the costs of purchasing the energy carriers that are the main contributors of uncertainty.
 
 Overall, this \gls{PCA}-based approach allows evaluating the variation of multiple-year transition pathway of a whole-energy system and assessing its robustness. Doing so, it brings more information than when considering only the variation of the objective function.
 
