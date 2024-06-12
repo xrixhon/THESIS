@@ -149,7 +149,7 @@ Failure & 0.61 & 0.24 \\
 \end{table}
 
 \newpage
-Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is increased more than the one of electrofuels (see Table \ref{tab:param_RL}). In other words, to have higher chances to succeed a myopic transition, the key factor is to reduce the uncertainty on the cost of purchasing electrofuels or to increase the cost of fossil fuels. Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and interest rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
+Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is increased more than the one of electrofuels (see Table \ref{tab:param_RL}). In other words, to have higher chances to succeed a myopic transition, the key factor is to reduce the uncertainty on the cost of purchasing electrofuels or to increase the cost of fossil fuels. Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and discount rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
 
 \begin{table}[htbp!]
 \caption{Uncertain parameters impacting the most the total transition cost, their Sobol' index and, for the successful transitions, their mean of their values between 0 and 100\%, $\mu$, and their skewness, $\gamma$. On top of being supported by the agent's actions, successful transitions occur when the cost of purchasing fossil fuels is more increased than the one of electrofuels.}
@@ -161,7 +161,7 @@ Finally, we observe that the majority of the successful transitions are cheaper 
 \midrule
 Purchase electrofuels & 50.4\% & 0.004  \\
 Industry EUD & 49.8\% & 0.026 \\
-Interest rate & 48.4\% & 0.089\\
+Discount rate & 48.4\% & 0.089\\
 Purchase fossil fuels  & 55.0\% & -0.068\\
 \bottomrule							
 

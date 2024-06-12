@@ -3,7 +3,7 @@
 
 \Cref{tab:UQ_full} gives the ranking and total Sobol index over the total transition cost of each of the 34 parameters listed in \Cref{tab:UC_full}. The first column shows these indicators for the \gls{GSA} applied on the hourly pathway model. For information, the second column gives the same indicators but for an uncertainty quantification carried out on the monthly pathway model that has some limitations \cite{limpens2024pathway} but has the main advantage to run much faster. Given the similar rankings of the parameters between these two, this comparison shows that the monthly model can be a computationally efficient proxy to quantify the uncertainties of the actual hourly model and point out the key parameters on optimisation-driving objective, the total transition cost. 
 
-Besides the top-4 parameters, rankings are slightly different. The main difference in terms of ranking relates to the import of electricity from abroad, \ie its cost of purchasing and its availability. Indeed, as observed by \citet{limpens2024pathway}, the monthly model does not require this import given the easier integration of monthly-averaged local \gls{VRES}. However, this does not jeopardize the comparative analysis given the similar Sobol' indices. Given their wide range of uncertainty [-64.3\%; 179.8\%] and their significant role to meet the \ce{CO2}-budget, the cost of purchasing electrofuels is the first, by far, impacting parameter. Next, comes, naturally, the industrial \gls{EUD}, representing, at the nominal value, 60\% of the total demands by 2050. The top-3 is completed by the variation of the interest rate, directly impacting the annualisation and the salvage values of the assets. Finally, since the current Belgian whole-energy system deeply relies on fossil resources, and would still do in the near future, the cost of purchasing fossil fuels is part of the impacting parameters. On the contrary, due to the very low annualised, cost, long lifetime leading to a significant salvage value and a low-emitting fuel, the parameters related to \gls{SMR} barely impact the total transition cost.
+Besides the top-4 parameters, rankings are slightly different. The main difference in terms of ranking relates to the import of electricity from abroad, \ie its cost of purchasing and its availability. Indeed, as observed by \citet{limpens2024pathway}, the monthly model does not require this import given the easier integration of monthly-averaged local \gls{VRES}. However, this does not jeopardize the comparative analysis given the similar Sobol' indices. Given their wide range of uncertainty [-64.3\%; 179.8\%] and their significant role to meet the \ce{CO2}-budget, the cost of purchasing electrofuels is the first, by far, impacting parameter. Next, comes, naturally, the industrial \gls{EUD}, representing, at the nominal value, 60\% of the total demands by 2050. The top-3 is completed by the variation of the discount rate, directly impacting the annualisation and the salvage values of the assets. Finally, since the current Belgian whole-energy system deeply relies on fossil resources, and would still do in the near future, the cost of purchasing fossil fuels is part of the impacting parameters. On the contrary, due to the very low annualised, cost, long lifetime leading to a significant salvage value and a low-emitting fuel, the parameters related to \gls{SMR} barely impact the total transition cost.
 
 
 \begin{table}[htbp!]
@@ -19,7 +19,7 @@ Besides the top-4 parameters, rankings are slightly different. The main differen
 \midrule
 \textbf{Purchase electrofuels} & 1 & (46.8\%) & 1 & (47.4\%) \\
 Industry EUD & 2 & (23.2\%) & 2 & (23.5\%) \\
-Interest rate & 3 & (12.0\%) & 3 & (11.0\%) \\
+Discount rate & 3 & (12.0\%) & 3 & (11.0\%) \\
 Purchase fossil fuels & 4 & (5.7\%) & 4 & (6.9\%) \\
 \midrule
 Variable OPEX of technologies & 5 & (3.1\%) & 5 & (2.9\%)\\
@@ -73,7 +73,7 @@ CAPEX power grid & 34 & ($<$0.1\%) & 31 & ($<$0.1\%) \\
 %\midrule
 %\textbf{Purchase electrofuels} & 1 & (46.8\%) & 1 & (47.4\%) & 1 & (44.4\%) \\
 %Industry EUD & 2 & (23.2\%) & 2 & (23.5\%) & 2 & (26.4\%)  \\
-%Interest rate & 3 & (12.0\%) & 3 & (11.0\%) &  3 & (13.2\%)  \\
+%Discount rate & 3 & (12.0\%) & 3 & (11.0\%) &  3 & (13.2\%)  \\
 %Purchase fossil fuels & 4 & (5.7\%) & 4 & (6.9\%) & 4 & (6.9\%)   \\
 %\midrule
 %Variable OPEX of technologies & 5 & (3.1\%) & 5 & (2.9\%) & 6 & (3.0\%) \\

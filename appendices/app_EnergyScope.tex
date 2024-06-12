@@ -224,7 +224,7 @@ This work uses the following nomenclature: SETs are in capital letters, \textbf{
  \endgroup
  
 The objective, Equation (\ref{eq:obj_func_app}), is the minimisation of the total annual cost of the energy system (\textbf{C\textsubscript{tot}}), defined as the sum of the annualised investment cost of the technologies (\textbf{$\tau$}$\cdot$\textbf{C\textsubscript{inv}}), the operating and maintenance costs of the technologies (\textbf{C\textsubscript{maint}}) and the operating cost of the resources (\textbf{C\textsubscript{op}}).
-The annualised factor $\tau$ is computed \emph{a priori} based on the interest rate (\emph{i\textsubscript{rate}}) and the technology lifetime, (\emph{lifetime}), Equation (\ref{eq:tau_app}).
+The annualised factor $\tau$ is computed \emph{a priori} based on the discount rate (\emph{i\textsubscript{rate}}) and the technology lifetime, (\emph{lifetime}), Equation (\ref{eq:tau_app}).
 
 
 \begingroup
@@ -312,7 +312,7 @@ In this section, we delve into the extension of EnergyScope TD from a static yea
 The proposed formulation relies on representative years, selected every 5 years from 2020 to 2050.  The period between two of them is called `\emph{PHASE}´.
 For each of these 7 representative years, the EnergyScope TD model is run  using the relevant data (such as energy demand, technology costs or \gls{GHG} emissions constraints). 
 
-As a consequence, a new dimension `\emph{year}' is added to all \textbf{Variables} and parameters, except the interest rate (\emph{i\textsubscript{rate}}) assumed constant during the transition. This new dimension is necessary to represent the changes of technology and resource characteristics over the representative years. 
+As a consequence, a new dimension `\emph{year}' is added to all \textbf{Variables} and parameters, except the discount rate (\emph{i\textsubscript{rate}}) assumed constant during the transition. This new dimension is necessary to represent the changes of technology and resource characteristics over the representative years. 
 As an example, the investment cost (\emph{c}\textsubscript{\emph{inv}}) of solar photovoltaic panels could drastically vary in the next decades (e.g. data used ranges between 1220 to 870  [€/kW] between 2020 and 2035). \\
 
 \myparagraph{Linking years}\\
@@ -469,7 +469,7 @@ Concerning the first one, all costs are expressed in €\textsubscript{2020} and
 
 As an extension of Equation \ref{eq:obj_func_app}, the objective function to be minimised is the total transition cost of the energy system (\textbf{C\textsubscript{tot,trans}}), 
 defined as the sum of the total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) and the \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}), according to Equation (\ref{eq:obj_func_v2_app}). The total \gls{CAPEX} (\textbf{C\textsubscript{tot,capex}}) is the sum of the investment during each phase (\textbf{C\textsubscript{inv,phase}}), Equation (\ref{eq:Capex_v2_app}), to which the residual asset value in 2050 is withdrawn (\textbf{C\textsubscript{inv,return}}). Thus, the investments account for the installation and dismantlement costs of the technologies. The total \gls{OPEX} (\textbf{C\textsubscript{tot,opex}}) is the sum of the \gls{OPEX} in 2020 and the annualised sum of the \gls{OPEX} during each phase (\textbf{C\textsubscript{opex}}), Equation (\ref{eq:Copex_tot_v2_app}). During a phase, the system \gls{OPEX} is 
-the product of the annualised phase factor, defined in Equation (\ref{eq:path_annu_factor_app}), and the arithmetic average of \gls{OPEX} cost for the representative years before and after the phase. The annualised phase factor is defined based on an average interest rate during the transition.
+the product of the annualised phase factor, defined in Equation (\ref{eq:path_annu_factor_app}), and the arithmetic average of \gls{OPEX} cost for the representative years before and after the phase. The annualised phase factor is defined based on an average discount rate during the transition.
 %assumed to be the annualised average of its first and last year. The annualised phase factor  ($\tau$\textsubscript{\emph{phase}}) is defined in Eq.~(\ref{eq:path_annu_factor_app}).
 
 \begingroup
