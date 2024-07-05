@@ -18,7 +18,7 @@ To ensure the energy supply of a growing and more demanding population in a cont
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{IEA_WEO_2019.pdf}
-\caption{Energy-related CO2 emissions and reductions by sources in the Sustainable Development Scenario of the \citet{iea2020world}.}
+\caption{Energy-related \ce{CO2} emissions and reductions by sources in the Sustainable Development Scenario of the \citet{iea2020world}.}
 \label{fig:intro:IEA_WEO_2019}
 \end{figure}
 
@@ -37,7 +37,7 @@ Concerning storage,  batteries exhibit limited storage capacity (up to 10\,MWh) 
 \begin{figure}[htbp!]
 \centering
 \includegraphics[width=0.9\textwidth]{Storage_electrofuels.pdf}
-\caption{Energy carriers and technologies to store electricity. Electrofuels provide a solution for high capacity and long-term storage of energy. Graph adapted from \cite{ISPT2017}.}
+\caption{Energy carriers and technologies to store electricity. Electrofuels provide a solution for high-capacity and long-term storage of energy. Graph adapted from \cite{ISPT2017}.}
 \label{fig:intro:Storage_electrofuels}
 \end{figure}
 
@@ -77,7 +77,7 @@ Finally, in the objective to assess the sensitivity to uncertainties of differen
 All this work has been applied to the case of Belgium, a densely populated country with a limited potential of renewable energies, which represents roughly half of the forecast energy demand \cite{Limpens2020}. This makes it a challenging case to go from a highly fossil-dominated system in 2020 (73\% of the primary energy mix \cite{spf_economy_2022}) to carbon-neutrality by 2050.\\
 
 \noindent
-This thesis is composed of five chapters to provide answers to the different research questions. Chapter \ref{chap:chap_methodo} details the tools and methods we used. It starts with the main constraints, parameters and variables of EnergyScope Pathway, the whole-energy system optimisation model. Then, it explains the \acrfull{UQ} approach and the way it has been adapted to the case of Belgium and its transition pathway. Finally, general fundamentals and more case-specific considerations are brought up about the \gls{RL} and \gls{PCA}-based robustness approaches.
+This thesis is composed of five chapters to provide answers to the different research questions (see Figure \ref{fig:intro:Thesis_Structure}). Chapter \ref{chap:chap_methodo} details the tools and methods we used. It starts with the main constraints, parameters and variables of EnergyScope Pathway, the whole-energy system optimisation model. Then, it explains the \acrfull{UQ} approach and the way it has been adapted to the case of Belgium and its transition pathway. Finally, general fundamentals and more case-specific considerations are brought up about the \gls{RL} and \gls{PCA}-based robustness approaches.
 
 Chapter \ref{chap:case_study} presents the case study of this work: Belgium and its energy transition. Without exhaustively detailing the data used from the work of \citet{limpens2021generating}, this chapter focuses on the main contributions of this work regarding the case study: the \gls{NED}, the implementation of electrofuels and their respective routes of production and consumption, limiting  the cumulative emissions of the transition to a certain \ce{CO2}-budget rather than a prescribed emissions-trajectory and the data related to \gls{SMR} as an option to produce nuclear-based electricity in the future.
 
@@ -88,3 +88,11 @@ In Chapter \ref{chap:chap_RL}, we detail the rules of the ``\gls{RL} game''. In 
 Chapter \ref{chap:chap_RobPol} assesses the robustness of different roadmaps resulting from deterministic perfect foresight optimisation under certain conditions: REF, SMR and ROB. The first one, the reference case, considers nominal values for all the uncertain parameters. The SMR case is the one introduced in Chapter \ref{chap:atom_mol} where we allow the model to install \gls{SMR} from 2040 onward. Eventually, the ROB case accounts for the highest values of parameters having the biggest impact on the total cost of transition (\ie cost of purchasing energy carriers, industrial \gls{EUD}, discount rate and variable \gls{OPEX} of technologies).
 
 Finally, we draw the main conclusions of this work: near-term actions are needed to respect ambitious \ce{CO2}-budget and investing into electrofuels provides robustness to uncertainties and the limited foresight into the future.  Perspectives are suggested for future research on further developments and uses of the methodological tools.
+
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\textwidth]{Thesis_Structure.pdf}
+\caption{Structure of the thesis. Beyond Chapter 2 that describes the case study of Belgium, Chapters 3, 4 and 5 collect the analyses resulting from the application of the different methodologies developed in Chapter 1. Given the (quasi-)independence of the analyses presented in the last three chapters, they can be read separately.}
+\label{fig:intro:Thesis_Structure}
+\end{figure}

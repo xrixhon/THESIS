@@ -69,7 +69,7 @@ The system reaches its upper bound (\ie maximum emissions) every year.
  \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{Gwp_per_sector.pdf}
-\caption{Energy sectors have different rate to reduce \gls{GHG} emissions over the transition. The system uses all the allowed \gls{GHG} prescribed by the linear decrease from the emissions in 2020 until carbon-neutrality in 2050.}
+\caption{Energy sectors have different rates to reduce \gls{GHG} emissions over the transition. The system uses all the allowed \gls{GHG} prescribed by the linear decrease from the emissions in 2020 until carbon-neutrality in 2050.}
 \label{fig:pestd_ghg}
 \end{figure}
 
@@ -155,7 +155,7 @@ In addition to investment decisions, the \acrfull{OPEX}, which accounts for reso
 \centering
 \includegraphics[width=\textwidth]{Operation_transition.pdf}
 \includegraphics[width=\textwidth]{System_cost.pdf}
-\caption{The yearly system cost shows the shift from non-renewable to renewable resources (mainly electrofuels). Operation cost and maintenance represents almost 50\% of the expenses.}
+\caption{The yearly system cost shows the shift from non-renewable to renewable resources (mainly electrofuels). Operation and maintenance costs represents almost 50\% of the expenses.}
 \label{fig:pestd_cumul_op}
 \end{figure}
 
@@ -222,14 +222,14 @@ Figure \ref{fig:my_pestd_inv_return_area} highlights this as infrastructures and
 \label{fig:my_pestd_inv_return_area}
 \end{figure}
 
-In 2050, the capacities installed in the different sectors, in other words the design of the system, are very similar between the two approaches. The passenger and freight mobility sectors are the same and differences smaller than 1GW are observed in other sectors. More interestingly, the myopic optimisation tends to postpone the decommissioning of capacities when the loss of salvage values at the end of an optimisation window would be bigger than the maintenance cost. For instance, in the myopic approach, 0.8GW of industrial coal boilers will remain installed in 2045 and 2050 or 3.6GW of naphtha-crackers to produce HVC in 2040, whereas these technologies are not used. This could be compare to the ``lock-ins" detailed in other studies \cite{heuberger2018impact,keppo2010short} where technologies installed at early stages of the transition remain in place. However, in our case, keeping in place unused technologies is due to the formulation of the salvage value. Indeed, to maximise the total transition cost, the model prefers recovering part of the salvage value of these assets rather than prematurely decommissioning them.
+In 2050, the capacities installed in the different sectors, in other words the design of the system, are very similar between the two approaches. The passenger and freight mobility sectors are the same and differences smaller than 1GW are observed in other sectors. More interestingly, the myopic optimisation tends to postpone the decommissioning of capacities when the loss of salvage values at the end of an optimisation window would be bigger than the maintenance cost. For instance, in the myopic approach, 0.8GW of industrial coal boilers will remain installed in 2045 and 2050 or 3.6GW of naphtha-crackers to produce HVC in 2040, whereas these technologies are not used. This could be compare to the ``lock-ins'' detailed in other studies \cite{heuberger2018impact,keppo2010short} where technologies installed at early stages of the transition remain in place. However, in our case, keeping in place unused technologies is due to the formulation of the salvage value. Indeed, to maximise the total transition cost, the model prefers recovering part of the salvage value of these assets rather than prematurely decommissioning them.
 
 Highlighted in Figure \ref{fig:my_pestd_res_cat_diff}, the earlier availability of renewable (and intermittent) electricity accelerates the electrification of the other sectors. For instance, in 2035, 3.7GW (+75\%) more of industrial electric heaters produce 5.1TWh/year (+130\%) of additional industrial heat. In the low-temperature heat sector, decentralised and centralised electric heat pumps capacities are, respectively, 2.2GW (+19\%) and 1GW (+8\%) higher for each of the representative years between 2030 and 2045, to produce, around 7.8TWh/year (+23\%) and 0.8TWh/year (+1\%), at the expense of other technologies such as gas heat pumps. Finally, public trains substitute from 2035 a higher share of the CNG-buses.
 
  \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{MY_resources_category_diff.pdf}
-\caption{Primary energy resources difference between the myopic and perfect foresight (PF) approaches. Positive values mean that the myopic approach is higher than perfect foresight.}
+\caption{Difference of primary energy resources between the myopic and perfect foresight (PF) approaches. Positive values mean that the myopic approach is higher than perfect foresight.}
 \label{fig:my_pestd_res_cat_diff}
 \end{figure}
 
@@ -343,7 +343,7 @@ However, averaging time series of end-use demands and renewable productions brin
 \label{fig:MO_Share_VRES_elec_mix}
 \end{figure}
 
-When considering the system overall, this averaged time-variability requires a more limited sector-coupling in the monthly model to absorb the intermittency of renewables. Industrial and decentralised heat demands are less electrified (see \autoref{tab:TD_MO}). This leads to 30\% electrification of the overall system versus 36\% for the hourly approach. This smaller production of electricity is done to the detriment of direct import of electricity, completely removed from the primary mix, as assumed to keep on having a higher global warming potential than conventional assets (\eg \gls{CCGT} running on gas and, later on, renewable gas and ammonia). Then, the generation mix in heating sectors or non-energy demands is less diversified, leading the sharper and later switch of resources and technologies. For instance, lignocellulosic biomass is ``cannibalized" by industrial boilers to the detriment of biomass-to-methanol or \gls{HVC}. Besides this, in general, we observe an overestimation of conventional technologies (\eg running on gas or oil) generation, either by installing more capacities or having a higher load factor for similar capacities. In line with \citet{Poncelet2016}, this leads to an overall underestimation of the operational (and investment) costs (see \autoref{tab:TD_MO}).
+When considering the system overall, this averaged time-variability requires a more limited sector-coupling in the monthly model to absorb the intermittency of renewables. Industrial and decentralised heat demands are less electrified (see \autoref{tab:TD_MO}). This leads to 30\% electrification of the overall system versus 36\% for the hourly approach. This smaller production of electricity is done to the detriment of direct import of electricity, completely removed from the primary mix, as assumed to keep on having a higher global warming potential than conventional assets (\eg \gls{CCGT} running on gas and, later on, renewable gas and ammonia). Then, the generation mix in heating sectors or non-energy demands is less diversified, leading the sharper and later switch of resources and technologies. For instance, lignocellulosic biomass is ``cannibalised'' by industrial boilers to the detriment of biomass-to-methanol or \gls{HVC}. Besides this, in general, we observe an overestimation of conventional technologies (\eg running on gas or oil) generation, either by installing more capacities or having a higher load factor for similar capacities. In line with \citet{Poncelet2016}, this leads to an overall underestimation of the operational (and investment) costs (see \autoref{tab:TD_MO}).
 
 Finally, in the mobility sectors, there is no difference between low and high time resolutions. This is due to the fact that these demands are assumed to stay the same over the different hours of the year (\ie freight mobility) or have a favorite technology to supply them (\eg \gls{BEV} for private mobility).
 
