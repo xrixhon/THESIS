@@ -282,7 +282,7 @@ Since infeasible cases or those that overshoot the \ce{CO2}-budget are discarded
 \noindent I agree and have gone through all the figures of the manuscript to clarify them by adding axes labels or extending the caption where it was needed. Figures where y-axis (and its label) is missing are distribution (or density) plots (\ie Figures 3.6, 4.4, 4.5, 4.6, 4.8 and E.1).  Consequently, similarly to an histogram, the feature of interest and its span of values are represented on the x-axis. The y-axis has no real interest in terms of information. What matters is the shape of the curve to be able to point out for which values/ranges of values, the feature of interest occurred more or less often.  For this reason, I have not added y-axis for the aforementioned figures but rather improved their respective caption, emphasising, among other things, that these figures represent distribution of occurrences. For instance, the caption of {\color{blue}Figure 4.4} is now more explicit:
 
 \begin{mdframed}[style=manuscript] % Comment from the reviewer
-Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. 
+Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. 
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -561,8 +561,6 @@ After assessing the sensitivity of the formulation of the salvage value (see App
 \label{fig:tau_phase}
 \end{figure}
 
-
-
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
 In EnergyScope Pathway, $\tau\textsubscript{\emph{phase}}$ aims at depreciating the value of expenses done in the future. The discount rate accounted for in this annualisation factor, $i_{\text{rate}}$, is considered as identical for all the technologies of the system. In line with \citet{limpens2021generating}, we set the nominal value to $i_{\text{rate}}=1.5\%$ which is lower than values taken in other studies, between 7.5\% and 12\% \cite{meinke2017energy,simoes2013jrc,EuropeanCommission2016}. Having a low value of discount rate favours less late expenses compared to a higher value of discount rate.
 \end{mdframed}
@@ -579,16 +577,22 @@ Regarding the impact on the results, my educated guess is that this impact would
 
 Given these further explanations, I have not brought any modification to manuscript in this regard.
 
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{teal} \textbf{Stefan}} - Interest rate must be revisited if a paper is published.
+\end{mdframed}
+
+\noindent See previous comments.
+
 \subsubsection{Power grid and transport infrastructure}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - How do you model the power grid interconnections with the neighbouring countries as well as the transport network of the different energy carriers within the country?
+{\color{purple} \textbf{Sylvain}} - How do you model the power grid interconnections with the neighbouring countries as well as the transport network of the different energy carriers within the country? p.63 - The model decides to use ammonia instead of SNG $\rightarrow$ is the transport infrastructure accounted for? p.73 - How is the transport infrastructure accounted for?
 \end{mdframed}
 
-\noindent Copper-plate assumption $\rightarrow$ no representation of the transport sector of either electricity or gaseous and liquid energy carriers. However, one technology called ``GRID'' accounts for the additional investments in the power grid needed when deploying more VRES like PV panels and wind turbines but there is not an actual spatial representation of this grid. {\color{blue} }.
+\noindent Regarding the power grid interconnections with the neighbouring countries, similarly to the import of other energy carriers, there is no representation of those physical routes. The whole-energy system of the country is represented as a single-node and the imported energy commodities are available ``at the front door'' of the system. It goes the same way for the infrastructures to transport energy carriers within the system. As it is represented assuming a copper-plate approach, all the demands/resources/conversion technologies are concentrated in one single node. This is now explicitly written {\color{blue}in a new paragraph of Section 2.2}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
+Regarding the power grid interconnections with the neighbouring countries, similarly to the import of other energy carriers, there is no representation of those physical routes. The imported energy commodities are available ``at the front door'' of the system.  In terms of spatial resolution of the country itself, it is modelled as a single-node. This is similar to the copper plate model of a power grid. In other words, the infrastructures to transport the energy carriers within the country are not considered.  It is assumed that the demands have to be supplied by the production, regardless of the flows between the producers and the consumers. Yet, adapting the networks is accounted for in terms of the required investments. For instance, a high share of VRES requires an investment to reinforce the power grid (\ie 368\,M€/GW of additional installed capacity of VRES). 
 \end{mdframed}
 
 \subsection{Uncertainty quantification}
@@ -823,6 +827,12 @@ On top of the uncertainty applied to the CAPEX of SMR [-40\%, 44\%] considered i
 \end{figure}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{teal} \textbf{Stefan}} - SMR must be revisited if a paper is published.
+\end{mdframed}
+
+\noindent See previous comments.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 53 What about fuel cost?
 \end{mdframed}
 
@@ -920,9 +930,11 @@ Given the uncertainty characterisation presented in Section 2.4, there are 60\% 
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p. 71, Table 3.1: isn’t the low impact simply due to the low assumed potential? Is this finding meaningful?
+
+\noindent {\color{purple} \textbf{Sylvain}} - p. 70 - But that's because the CAPEX is way too low. With more realistic values, the Sobol would be much higher.
 \end{mdframed}
 
-\noindent This low assumed potential is indeed one of the reasons why the SMR-related uncertain parameters have a limited impact on the total transition cost as already stated in the first paragraph of Section 3.2.1: ``However, given its limited deployment, up to 6\,GW, SMR-related parameters have a lower impact on the variation of the total transition cost.''. However, this is not the only reasons as detailed earlier in the same paragraph: the late potential availability (2040 at the soonest) as well as the ``cheap and low-emitting fuel, the long lifetime leading to lower annualised CAPEX and higher salvage value.''. 
+\noindent These assumed low potential and CAPEX are indeed some reasons why the SMR-related uncertain parameters have a limited impact on the variation of the total transition cost as already stated in the first paragraph of Section 3.2.1: ``However, given its limited deployment, up to 6\,GW, SMR-related parameters have a lower impact on the variation of the total transition cost.''. However, this is not the only reasons as detailed earlier in the same paragraph: the late potential availability (2040 at the soonest) as well as the ``cheap and low-emitting fuel, the long lifetime leading to lower annualised CAPEX and higher salvage value.''. 
 
 Given these explanations and what is already written in the manuscript, I have not brought further modification to the manuscript in this regard.
 
@@ -956,21 +968,9 @@ Overall, given the restriction on yearly availability and the slightly higher el
 {\color{purple} \textbf{Sylvain}} - p. 64 - 15 GW of PV in 2025. Realistic?
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent In the continuity of Gauthier Limpens' thesis  and in line with the rest of the research field, the objective of this thesis is to ``illustrate the priorities to be taken in each of the sectors and the efforts to make in one sector to facilitate the integration of certain technologies into other sectors'' \cite{limpens2021generating}. This work highlights the ``must-do'' or ``no-regret investments'' to respect the (very) ambitious \ce{CO2} budget imposed to the model. In this sense, besides the maximum potential of 59\,GW solar-PV, we have not made assumption on the rate of deployment. 15\,GW of PV in 2025 can be considered as very optimistic and Elia forecasts to have these 15\,GW by 2030 \cite{Elia_2024_2034}. I agree that not limiting the rate of deployment of PV (and wind turbines) is a strong assumption. For this reason, in the perspectives of this work (see Conclusion), I have already pointed this out as ``a future work would be to constrain the deployment of local renewables.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 65 - Decides to use ammonia instead of SNG => is the transport infrastructure accounted for?
-\end{mdframed}
-
-\noindent {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+Given these explanations, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 67 - It really depends on what is considered primary energy in the case of nuclear
@@ -982,31 +982,19 @@ Overall, given the restriction on yearly availability and the slightly higher el
 {\color{purple} \textbf{Sylvain}} - p. 69 - No curtailment at all? It would be nice to have the exact number.
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent There is indeed some curtailment, which remains very limited compared to the total production of solar-PV: 0.3\,TWh versus 61\,TWh. This information has been added {\color{blue}in the paragraph dedicated to ``High-temperature heat'' of Section 3.1.3}: 
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
+In the REF case, industrial electric heaters are mainly used to absorb the ``over-production'' of the 59\,GW solar-PV when fully deployed, in the sunny days, and limit the yearly curtailment to a maximum of 0.3\,TWh, 0.5\% of the yearly 61\,TWh produced by solar-PV.
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 69 - Very strange. Should be the same as for industrial boilers. No smart charging?
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent The difference between BEV and industrial electric heaters is that BEV is already a preferred option for electrification, even the REF case. BEV completely substitute diesel and gasoline-cars as soon as possible in the transition and there cannot be more cars as private mobility is limited to supply up to 50\% of the demand of passengers mobility. Unlike high-temperature heat, there is no modal swap due to the installation of SMR.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 70 - But that's because the CAPEX is way too low. With more realistic values, the Sobol would be much higher.
-\end{mdframed}
-
-\noindent {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+Given these explanations, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p.71 - Differentiated discount rates could be useful.
@@ -1022,49 +1010,25 @@ The discount rate accounted for in the annualisation factor is considered as ide
 {\color{purple} \textbf{Sylvain}} - p. 72 - Battery trucks are gaining momentum. Is the hydrogen route really the way to go?
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent In general, the model gives fuel-cell trucks as the favoured option for the future of road freight transport given more cost-competitive options for electrification like private mobility and low-temperature heat. However, as illustrated in the ROB roadmap (see Section 5.2.1), battery trucks seem to be the cost-optimal solution to transition between diesel and either hydrogen trucks, when fossil and electrofuels are assumed to be expensive. 
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+In the Global Sensitivity Analysis, electric trucks are the favoured option for a limited set of samples, about 10\% (see Appendix D.3).
 
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 73 - How is the transport infrastructure accounted for?
-\end{mdframed}
-
-\noindent {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 78 - Why this threshold? Shouldn't it follow the potential capacity?
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent The threshold locates at 60\% of the uncertain parameter $f_{\mathrm{max,SMR}}$ which represents the potential capacity of SMR. As presented in Section 2.4, this threshold corresponds to the possibility to install up to 6\,GW of SMR in 2050. As already written in Section 3.2.2: ``For the installed capacity of SMR, it is the availability of the technology that drives its installation (Figure 3.12). Not shown here but all the samples of the GSA highlight that SMR is installed to its maximum capacity, \ie 6GW, as soon as possible.'' To smooth the trend curves of the different uncertain parameters, I have applied a rolling average.  For this reason, the 60\%-threshold does not appear on the Figure as sharp as it actually is.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{teal} \textbf{Stefan}} - Lot of the results hinge on the import of e-fuels with the assumption that they have GWP = 0; is it justified? Those fuels are directly available knowing they are no.
 \end{mdframed}
 
 \noindent Perhaps reinforce the message as you answered the question $\rightarrow$ We need to go for radical changes, a “unicorn” solution, and one option would be the import of renewable molecules {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
-
-
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - SMR / interest rate must be revisited if a paper is published.
-\end{mdframed}
-
-\noindent {\color{blue} }. 
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
 
@@ -1164,7 +1128,9 @@ The discount rate accounted for in the annualisation factor is considered as ide
 {\color{orange} \textbf{Stefano}} - p. 94: Figure 4.6 seems to be less revealing than other figures. Also the figure caption seems to contradict the first statement following the figure. It would be important to clarify: which are the actions that emerge to actually matter?
 \end{mdframed}
 
-\noindent 
+\noindent Indeed, Figure 4.6 is less revealing as it shows no big trend in terms of neither impacting actions nor their timing in the transition.  It is detailed in the first paragraph of Section 4.2.3 after which the figure should appear in the manuscript. I have worked to make Figures as close as possible to their related paragraph. However, in some cases, several other paragraphs come between them. To identify the actions that emerge to actually matter, we need to check if they are binding or not, as detailed in the subsequent paragraphs and in Figure 4.7.
+
+Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard, except minor adjustment to get Figure 4.6 as close as possible to its related paragraph.
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
 
@@ -1184,20 +1150,27 @@ The discount rate accounted for in the annualisation factor is considered as ide
 {\color{purple} \textbf{Sylvain}} - p. 87 - What is a step?
 \end{mdframed}
 
-\noindent To define in Section 1.3.2 and remind here {\color{blue} }. 
+\noindent In the context of Reinforcement Learning, a step consists in taking an action, collecting a reward based on the previous state and the taken action and ending in a new state. Even though it was already mentioned in Chapter 1, the fact that the results come further from the methodology part makes it harder for the reader to remember the meaning of a step. It is now more explicitly defined {\color{blue}in the first paragraph of Section 1.3.2}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
+From this state, the agent takes a step: action, reward, new state.
 \end{mdframed}
+
+\noindent and reminded {\color{blue}in the first sentence of Section 4.2.1}:
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+The learning phase has been split into batches of 500 steps,\ie 500 sequences of state-action-reward-new state. 
+\end{mdframed}
+
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 96 - The early constraints on generation avoid lock-in situations correct?
 \end{mdframed}
 
-\noindent {\color{blue} }. 
+\noindent Correct. This confirms what \citet{vogt2018starting} detailed in their works. To emphasise on this point, I have added one sentence {\color{blue}in Section 4.2.3}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
+In line with \citet{vogt2018starting}, the early constraints on generation and the sharper decrease of the emissions avoid lock-in situations.
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -1224,22 +1197,15 @@ The discount rate accounted for in the annualisation factor is considered as ide
 {\color{purple} \textbf{Sylvain}} - p. 100 - What/where are the no-go zones? Is there a narrative to describe them ?
 \end{mdframed}
 
-\noindent  {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+\noindent No-go zones are introduced in the second paragraph of Chapter 4: ``[...] as well as no-go zones where the chances of succeeding the transition, i.e., respecting the \ce{CO2}-budget, are very limited.'' It is then detailed at the end of Section 4.2.2: ``Below the near-term threshold of $\sim$60\%, this is the ``no-go zone'' where succeeding the transition becomes unlikely, except
+if betting on the future installation of SMR. '' and in the caption of the related figure. Given the information already present in the manuscript, no modification has been brought in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{violet} \textbf{Christophe}} - The concept of binding constraint was not clear.
 \end{mdframed}
 
 \noindent
-Besides the information given in Section 4.2.3 of the manuscript (and reminded here below), I do not see further explanations that could clarify the concept of binding constraint in a Linear Programming (LP) problem. Consequently, regarding this comment, there has not been further modification brought to the manuscript.
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-To identify the actions that have an actual impact on the environment, we can check if they are binding or not. In a LP problem, constraints represent hyperplanes in the domain of variables. In a two-dimension space, these are straight lines (see Figure 4.7). When the problem is bounded and feasible, these lines are the edges of a convex polygon: the domain of feasibility. The optimal solution, $\textbf{x}^*$, is the combination of variables leading to the optimal value of the objective function. Besides being within the domain of feasibility, it is proven that this optimal solution, when unique\footnote{There are cases where the objective function has the same optimal value along an entire edge. In this case, there is an infinity of solutions and the problem is indeterminate.}, locates on a vertex of the domain \cite{bertsimas1997introduction}. The constraints intersecting at this vertex are considered as binding, actually limiting the objective function to be more optimal. In other words, binding constraints, when tightened, aggravate the objective value function. If these are inequality constraints, as represented in Figure 4.7, it means that their left and right sides of the equation are equal.
-\end{mdframed}
+Besides the information given in Section 4.2.3 of the manuscript, I do not see further explanations that could clarify more the concept of binding constraint in a Linear Programming (LP) problem. Consequently, regarding this comment, there has not been further modification brought to the manuscript.
 
 \section{Chapter 5 - Principal Component Analysis}
 \label{PCA}
@@ -1280,25 +1246,20 @@ Moreover, this means that \textbf{the coefficient} $\alpha_{ki}$, \ie the compon
 \label{Conclusion}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} \& {\color{purple} \textbf{Sylvain}} - p. 119: the statement mentioning the ``major added value of the perfect foresight'' approach seems surprising and needs to be clarified. 
+{\color{orange} \textbf{Stefano}} \& {\color{purple} \textbf{Sylvain}} - p. 119: the statement mentioning the ``major added value of the perfect foresight'' approach seems surprising and needs to be clarified.  The decreasing \ce{CO2} emissions trajectories shouldn't be a S-shaped (logistic) curve?
 \end{mdframed}
 
-\noindent 
+\noindent I agree that this sentence and what came next focused on the perfect foresight approach whereas the rest of the paragraph rather targets the RL-based myopic results. Therefore, I have reformulated {\color{blue}the end of this paragraph} and focused on the shape of the decreasing \ce{CO2} trajectories. These are indeed S-shaped curves but that are sharper for the myopic approach than in the PF results.
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
+This work also highlighted a major difference between the perfect foresight (PF) approach and the agent-based myopic transitions. Given the assumed full knowledge on the future, the trajectories to decrease the \ce{CO2} emissions resulting from perfect foresight are more progressive, and foreseen to be more applicable, compared to a sharper drop at the early stages of the transition, like in the myopic approach.
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - The conclusion is a summary and should rather be a discussion (\eg discard coal as soon as possible is obvious).
+{\color{teal} \textbf{Stefan}} - The conclusion is a summary and should rather be a discussion.
 \end{mdframed}
 
-\noindent To explain in the definition of the action {\color{blue} }. 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
-
+\noindent I decided to split the conclusion into four blocks of paragraphs. The first two (from page 117 to the top of page 120, in the version of the manuscript submitted before the private defense) are indeed a summary of (1) what we have done in this thesis (case study and methodology) and (2) the results we have got. The two last blocks, however, take a step back from the results and aim at drawing main conclusions, discussing them and providing decision-makers with further insightful information and methods to plan the energy transition. Consequently, I have not brought modification to the manuscript in this regard.
 
 \clearpage
 \def\bibfont{\scriptsize}

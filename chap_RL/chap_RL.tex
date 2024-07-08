@@ -90,7 +90,7 @@ Before comparing the agent's optimised policy with references, the first step co
 \subsection{Reward and success}
 \label{subsec:RL:learning:rew_succ}
 
-The learning phase has been split into batches of 500 steps. %For the first 100 steps of each batch, the \gls{RL}-model collects transitions before learning starts. This makes sure replay buffer is full enough for useful updates. 
+The learning phase has been split into batches of 500 steps,\ie 500 sequences of state-action-reward-new state. %For the first 100 steps of each batch, the \gls{RL}-model collects transitions before learning starts. This makes sure replay buffer is full enough for useful updates. 
 At the end of each batch, the up-to-date policy, \ie the \gls{NN}, is saved. This way, we can assess the progress in the learning process and its convergence (see Figure \ref{fig:reward_success}).  The mean reward increases rapidly at the beginning of the learning process before reaching a plateau where the optimisation of the policy becomes more marginal.  As this successes drive indirectly the agent's optimisation, it shows that the reward function (see Figure \ref{fig:Reward}) leads towards more and more successes. However, given the wide range of uncertainty of some parameters and the agent's levers of action, this success rate stays limited at the end of the learning process. In other words, there are conditions where it is impossible for the agent to succeed the transition.
 
 \begin{figure}[!htbp]
@@ -125,7 +125,7 @@ The first two dimensions of the state space are the cumulative emissions and cos
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Cum_gwp_cost_3.pdf}
-\caption{Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. }
+\caption{Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. }
 \label{fig:Cum_gwp_cost}
 \end{figure}
 
@@ -175,7 +175,7 @@ The efficiency, as defined in Section \ref{sec:RL:act_states_rew}, gives less va
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{RE_in_mix_Efficiency.pdf}
-\caption{Exploration of the state space over the learning process: distribution of occurrence of share of renewable energy carriers in the primary energy mix (left) and efficiency (right).  Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. Integration of local \gls{VRES} at early stages then massive import of electrofuels later are needed to secure successful transitions. Below a near-term threshold ($\sim$60\%), the chances of success are limited, \ie no-go zones. Efficiency is a less valuable information for the agent to succeed transitions as failures and successes indistinguishably spread over the whole range.}
+\caption{Exploration of the state space over the learning process: distribution of occurrence of share of renewable energy carriers in the primary energy mix (left) and efficiency (right).  Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. Integration of local \gls{VRES} at early stages then massive import of electrofuels later are needed to secure successful transitions. Below a near-term threshold ($\sim$60\%), the chances of success are limited, \ie no-go zones. Efficiency is a less valuable information for the agent to succeed transitions as failures and successes indistinguishably spread over the whole range.}
 \label{fig:RE_in_mix_Efficiency}
 \end{figure}
 
@@ -187,7 +187,7 @@ After investigating the intermediate milestones to meet the \ce{CO2}-budget by 2
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Actions_learning.pdf}
-\caption{Exploration of the action space over the learning process: distribution of occurrence of the different actions at the time they are taken by the agent. Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. Besides this wide exploration, successes and failures indistinguishably spread over the whole ranges of actions. In other words, it does not seem to be any clear set of actions to support successful transitions.}
+\caption{Exploration of the action space over the learning process: distribution of occurrence of the different actions at the time they are taken by the agent. Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. Besides this wide exploration, successes and failures indistinguishably spread over the whole ranges of actions. In other words, it does not seem to be any clear set of actions to support successful transitions.}
 \label{fig:Actions_learning}
 \end{figure}
 
@@ -200,7 +200,7 @@ To identify the actions that have an actual impact on the environment, we can ch
 \label{fig:Binding_constr}
 \end{figure} 
 
-After filtering out failures of the learning episodes and keeping only the successful transitions, only a limited set of the actions are binding and have an actual impact on the result of the optimisation in EnergyScope Pathway (see Figure \ref{fig:Binding_learning}). This allows identifying key actions to support the myopic transition. Limiting the \gls{GWP} in the near-term is a key-factor for success. However, this action has a binding effect on the environment only at the end of the transition. The range over which limiting the use of fossil gas binds the optimisation is wider. Compared to other non-renewable fuels, this is due to the longer use of this energy carrier favoured by its low \gls{GWP} (the second after uranium) and its versatility (applications in the electricity, heat and mobility sectors).
+After filtering out failures of the learning episodes and keeping only the successful transitions, only a limited set of the actions are binding and have an actual impact on the result of the optimisation in EnergyScope Pathway (see Figure \ref{fig:Binding_learning}). This allows identifying key actions to support the myopic transition. Limiting the \gls{GWP} in the near-term is a key-factor for success. However, this action has a binding effect on the environment only at the end of the transition. The range over which limiting the use of fossil gas binds the optimisation is wider. Compared to other non-renewable fuels, this is due to the longer use of this energy carrier favoured by its low \gls{GWP} (the second after uranium) and its versatility (applications in the electricity, heat and mobility sectors). In line with \citet{vogt2018starting}, the early constraints on generation and the sharper decrease of the emissions avoid lock-in situations.
 
 \begin{figure}[!htbp]
 \centering
