@@ -465,20 +465,17 @@ In this sense, this work provided insight about possible transition pathways for
 To keep this low computational time, crossover was disabled to solve the optimisation problem. This had no observed impact regarding the values of the objective function or the design variables at the optimum.
 \end{mdframed}
 
-\subsubsection{End-of-time-horizon}
-
+\subsubsection{End-of-time-horizon, myopic pathway and salvage value}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - Often, multi-stage models are affected by the end-of-time-horizon effects. Did you observe those and how did you deal with them? See, e.g. Figure 3.3 p. 66.
 \end{mdframed}
 
-% \noindent Better highlight the importance, discuss the finetuning, discuss  alternatives (e.g. adding time windows at the end that are thrown afterwards).
+ \noindent To cope with these ``end-of-time-horizon effects'', we have implemented the salvage value, $\textbf{C\textsubscript{inv,return}}$. This represents the residual investment that would remain after 2050. As detailed in Section 1.1.1: ``the salvage value avoids penalising the capital intensive technologies towards the end of the transition'' \cite{poncelet2016myopic}. The sensitivity analysis on the formulation of the salvage value has been added in Appendix B.2.2 (see further comments on the salvage value).
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
+As discussed during the private defense, instead of implementing a salvage value another alternative would be to implement artificial representative years after 2050 that are then excluded from the total transition cost and emissions in while post-processing the results of the optimisation. Even though the choice of the formulation of the salvage value accounts for assumptions (discussed in Appendix B.2.2), we opted for this rather than ``artificial future years'' for several reasons. First of all, it allows mitigating the computational burden of the pathway problem. Indeed, the more there are representative years, the bigger are the matrices and the longer it takes to solve the problem. Second, the salvage value-approach is also used in other works \cite{poncelet2016myopic,prina2019transition}. Finally, implementing ``artificial  future years'' would require to either collect more data, which is quite time-consuming, or make other kind of assumptions on the evolution of costs, GWP and other features beyond 2050.
 
-\end{mdframed}
-
-\subsubsection{Myopic pathway and salvage value}
+Since the implementation of the salvage value and the formulation choices is the work developed by \citet{limpens2024pathway} (partly integrated in Appendix B) and given the above explanations, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p.17-19: is the myopic version modeled as a single LP or as a sequence of LPs? This should be better clarified. The diagram at p. 19 focuses on the code, it would be better replaced by a code showcasing the logic of the approach.
@@ -506,14 +503,12 @@ The myopic approach (in pink) uses several instances of the pathway model, illus
 \end{figure}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - With the myopic approach, are you predicting what will come or drawing a path that is the best? Is that a desirable feature to mimic the way we proceed now. why artificially limit the model as we know we have to go to zero in 2050.
+{\color{teal} \textbf{Stefan}} - With the myopic approach, are you predicting what will come or drawing a path that is the best? Is that a desirable feature to mimic the way we proceed now. Why artificially limit the model as we know we have to go to zero in 2050?
 \end{mdframed}
 
-\noindent Link to salvage value
+\noindent As written in the manuscript and discussed during the private defense, the purpose of the myopic approach is to challenge the assumption of the complete knowledge about the uncertain future and mimic the short-sightedness of the decision-making process. This sequential optimisation allows showcasing robust policies to support myopic transitions (see Chapter 4) and the robustness of roadmaps (see Chapter 5). The myopic approach is also the methodological basement to support the implementation of the RL and PCA-based methods. 
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
-\end{mdframed}
+Given these explanations and what is already in the manuscript, I have not brought modification in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{teal} \textbf{Stefan}} - p.18 : Surprising that myopic leads to a sooner investment to the transition ? Is it an effect of the salvage value? was there a sensitivity analysis on this salvage value? Perhaps include more details on this. The salvage value plays a large role in the decision of the model. Give more details to give more confidence in the choice.
@@ -602,13 +597,11 @@ Regarding the power grid interconnections with the neighbouring countries, simil
 {\color{orange} \textbf{Stefano}} - Can you explain the choice of N=5 for the uncertainty ranges?
 \end{mdframed}
 
-\noindent
+\noindent As detailed by \citet{Moret2017PhDThesis}: ``the ranges resulting from the uncertainty characterisation, are defined for a specific point in time in the planning horizon, usually its last year. Therefore, they need to be scaled accordingly when used in the optimisation model. Without this scaling, it would mean assuming that the uncertainty for year $N$ stands for all the years in the planning horizon''. In his thesis, Moret considered $N=20$ as the duration of the planning horizon between 2015, the year of Moret's work, and the snapshot optimisation of the Swiss case study in 2035. In my case, the planning horizon is 5-year long as the duration of a phase between two representative years of the transition. Referring to \citet{Moret2017PhDThesis} for the interested reader, I have explained a bit more the reason for this scaling factor {\color{blue}in the second paragraph of Section 2.4}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
-
+In this work, following the approach of \citet{Moret2017PhDThesis}, we have defined ranges of uncertainties for the model parameters.  For the operation-type parameters (types II and III), a scaling factor needs to be considered to avoid assuming that the uncertainty for the last year of the planning horizon ($N$) is representative for all years in the planning horizon \citet{Moret2017PhDThesis}. In EnergyScope Pathway, as the model optimises the system every 5 years, $N=5$ has been selected to get the final ranges of uncertainties of type II and III. 
 \end{mdframed}
-
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p. 20: ``inspired by Guevara et al.'' $\rightarrow$ how was their approach used in your work?
@@ -674,21 +667,17 @@ Section 2.4 gathers the list of the uncertain parameters considered in this work
 {\color{orange} \textbf{Stefano}} - p. 31: Can you explain the need of using NN here? Couldn’t you just run the energyscope model?
 \end{mdframed}
 
-\noindent 
+\noindent The need of using NN is in the learning phase of the RL approach, not in running EnergyScope. The justification to use NN is already detailed in Section 1.3.2: ``Before jumping to the choice of the learning algorithm, it is worth noting that we opted for the combination of RL with Deep Neural Network (DNN), called Deep Reinforcement Learning (DRL). Among others, one of the main drawbacks of traditional RL algorithms, \ie without the use of Neural Network (NN),  is that it suffers from the ``curse of dimensionality'' when facing problems with continuous action and state spaces (see Chapter 4). By approximating the state-action function with its parameters (\ie weights and biases), DNN can address this difficulty. ''
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
-\end{mdframed}
+Given what is already written in the manuscript, I have not brought modification in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 27 When presenting the advantages of RL, you mention model-free approach. Ok, but you have a representation of the real world available to train the model!
 \end{mdframed}
 
-\noindent {\color{blue} }.
+\noindent Indeed, we know the input parameters, the constraints and the objective function implemented in EnergyScope to optimise the transition pathway of the whole-energy system. In the RL framework, a model is representation of how the environment will respond to the agent's actions. Unlike other cases such as grid world\footnote{\url{https://towardsdatascience.com/reinforcement-learning-implement-grid-world-from-scratch-c5963765ebff}} or chess, the dynamics of the environment, \ie the transition from one state to another given the uncertainties and the actions taken by the agent or the consequent reward function, is not known.  Going for a model-free approach, we avoid building a model within the agent to inform it about this (complex) dynamics.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
+This aspect is already explained in Section 1.3.2: ``Given the assumed absence of knowledge of the agent about the dynamics of the environment, i.e., its transition or reward functions, we needed a so-called ``model-free'' learning algorithm.'' Given what is already written in the manuscript, I have not brought modification in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{teal} \textbf{Stefan}} - Justification of the actions selected? why no other actions like the cost of some technologies? 
@@ -741,13 +730,10 @@ Section 2.4 gathers the list of the uncertain parameters considered in this work
 \label{methodo_general}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - I am a bit underwhelmed by the many nitty-gritty data in this Chapter. While it is surely important to document everything, couldn’t at least part of this be moved to the Appendix?\end{mdframed}
-
-\noindent 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
+{\color{orange} \textbf{Stefano}} - I am a bit underwhelmed by the many nitty-gritty data in this Chapter. While it is surely important to document everything, couldn’t at least part of this be moved to the Appendix?
 \end{mdframed}
+
+\noindent Most of the data about the Belgian case study have been collected by \citet{limpens2021generating}. The objective of this Chapter was to focus on my contributions: non-energy demand (NED), electrofuels, SMR, uncertain ranges for the pathway model and \ce{CO2}-budget. However, to put these contributions in perspective with similar features in the model, I have decided to keep general information about the end-use demands, the resources and the conversion technologies. Consequently, I have kept the same level of information in Chapter 2 rather than in appendix.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 45 How is the range accounted for the characterisation of private mobility technologies?
