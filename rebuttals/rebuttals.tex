@@ -353,8 +353,8 @@ The reader interested by the results of the PCA-based method is invited to go to
 \noindent This choice to sometimes refer to own works was made to focus only on the main contributions of the thesis. However, I agree that some content should be included in the thesis to enhance its reading. I hereby list the references to works I have been involved in (with the reference number of the manuscript version submitted before the private defense) and detail the potential modifications brought to the manuscript for each of them.
 
 \begin{itemize}
-\item \emph{[40] Limpens et al., Energyscope pathway: an open-source model to optimise the energy transition pathways of a regional whole-energy system}: Mostly cited to give credits to Gauthier Limpens' work in developing the Pathway version of EnergyScope, I have decided to refer to the paper about the formulation choices rather than including them in the thesis manuscript. Consequently, no further modification regarding this reference.
-\item \emph{[48] Limpens et al., The impact of uncertainties on the Belgian energy system: Application of the Polynomial Chaos Expansion to the EnergyScope model}: The table gathering the results of the comparison between Morris' and PCE methods has been included {\color{blue}at the end of Section 1.2.2}:
+\item \emph{\cite{limpens2024pathway} Limpens et al., Energyscope pathway: an open-source model to optimise the energy transition pathways of a regional whole-energy system}: Mostly cited to give credits to Gauthier Limpens' work in developing the Pathway version of EnergyScope, I have decided to refer to the paper about the formulation choices rather than including them in the thesis manuscript. Consequently, no further modification regarding this reference.
+\item \emph{\cite{limpens2020impact} Limpens et al., The impact of uncertainties on the Belgian energy system: Application of the Polynomial Chaos Expansion to the EnergyScope model}: The table gathering the results of the comparison between Morris' and PCE methods has been included {\color{blue}at the end of Section 1.2.2}:
 \end{itemize} 
 
 \begin{mdframed}[style=manuscript] % Comment from the reviewer
@@ -388,13 +388,12 @@ In \cite{limpens2020impact}, we have assessed the PCE approach on the cost-optim
 \end{table}
 
 \begin{itemize}
-\item \emph{[49] Rixhon et al., The role of electrofuels under uncertainties for the Belgian energy transition}: This paper is cited to highlight the GSA performed on the snapshot model with different GWP limits. The main contribution of this work in the context of the thesis was to provide a preliminary screening and selection of parameters to carry out the GSA on the pathway model. The result of this selection is given in Section 2.4 where the uncertain parameters and their respective ranges are listed. Consequently, no further modification regarding this reference.
-\item \emph{[104] Rixhon et al., Integration of non-energy among the end-use demands of bottom-up whole-energy system models}: Reference used to highlight the fact that whole-energy systems usually do not account for the non-energy demand. Consequently, no further modification regarding this reference.
-\item \emph{[116] Rixhon et al., Comprehensive
+\item \emph{\cite{rixhon2021role} Rixhon et al., The role of electrofuels under uncertainties for the Belgian energy transition}: This paper is cited to highlight the GSA performed on the snapshot model with different GWP limits. The main contribution of this work in the context of the thesis was to provide a preliminary screening and selection of parameters to carry out the GSA on the pathway model. The result of this selection is given in Section 2.4 where the uncertain parameters and their respective ranges are listed. Consequently, no further modification regarding this reference.
+\item \emph{\cite{rixhon2022integration} Rixhon et al., Integration of non-energy among the end-use demands of bottom-up whole-energy system models}: Reference used to highlight the fact that whole-energy systems usually do not account for the non-energy demand. Consequently, no further modification regarding this reference.
+\item \emph{\cite{rixhon2021comprehensive} Rixhon et al., Comprehensive
 integration of the non-energy demand within a whole-energy system: towards a defossilisation of the chemical industry in Belgium}: Reference to graphs that have either been adapted from the paper or directly taken from it. Consequently, no further modification regarding this reference.
-\item \emph{[128] Rixhon et al., Taxonomy of the fuels in a whole-energy system}: Where the content of this paper is the Appendix A of the thesis, some references to this paper aimed at clarifying the meaning of ``renewable fuels'' (Section 2.2) or the fact that uranium is considered neither fossil nor renewable (Sections 3.1.2 and 4.2.2). Consequently, no further modification regarding this reference.
+\item \emph{\cite{rixhon2021terminology} Rixhon et al., Taxonomy of the fuels in a whole-energy system}: Where the content of this paper is the Appendix A of the thesis, some references to this paper aimed at clarifying the meaning of ``renewable fuels'' (Section 2.2) or the fact that uranium is considered neither fossil nor renewable (Sections 3.1.2 and 4.2.2). Consequently, no further modification regarding this reference.
 \end{itemize}
-
 
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -675,20 +674,9 @@ Given what is already written in the manuscript, I have not brought modification
 {\color{purple} \textbf{Sylvain}} - p. 27 When presenting the advantages of RL, you mention model-free approach. Ok, but you have a representation of the real world available to train the model!
 \end{mdframed}
 
-\noindent Indeed, we know the input parameters, the constraints and the objective function implemented in EnergyScope to optimise the transition pathway of the whole-energy system. In the RL framework, a model is representation of how the environment will respond to the agent's actions. Unlike other cases such as grid world\footnote{\url{https://towardsdatascience.com/reinforcement-learning-implement-grid-world-from-scratch-c5963765ebff}} or chess, the dynamics of the environment, \ie the transition from one state to another given the uncertainties and the actions taken by the agent or the consequent reward function, is not known.  Going for a model-free approach, we avoid building a model within the agent to inform it about this (complex) dynamics.
+\noindent Indeed, we know the input parameters, the constraints and the objective function implemented in EnergyScope to optimise the transition pathway of the whole-energy system. In the RL framework, a model is representation of how the environment will respond to the agent's actions. Unlike other cases such as grid world, the dynamics of the environment, \ie the transition from one state to another given the uncertainties and the actions taken by the agent or the consequent reward function, is not known.  Going for a model-free approach, we avoid building a model within the agent to inform it about this (complex) dynamics.
 
 This aspect is already explained in Section 1.3.2: ``Given the assumed absence of knowledge of the agent about the dynamics of the environment, i.e., its transition or reward functions, we needed a so-called ``model-free'' learning algorithm.'' Given what is already written in the manuscript, I have not brought modification in this regard.
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - Justification of the actions selected? why no other actions like the cost of some technologies? 
-\end{mdframed}
-
-\noindent These actions have a direct translation in constraints and we can therefore assess their effectiveness through the fact they are binding or not. Give examples of actions tried during the work (incentivize renewables) or other from Assemblée citoyenne in France and explain why they’re not as good as those chosen in the thesis. Explain history of what we tried/consider? 
- {\color{blue} }.
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-
-\end{mdframed}
 
 \subsection{Principal Component Analysis}
 \label{methodo_PCA}
@@ -1048,41 +1036,42 @@ Given these explanations and what is already present in the text, I have not bro
 {\color{orange} \textbf{Stefano}} - p. 85, Figure 4.1: Does it mean we can run ``infinite energy transitions''? Is this realistic? Isn’t the ``learning'' supposed to happen during the different stages?
 \end{mdframed}
 
-\noindent 
+\noindent Even though Reinforcement Learning can be applied to problems with infinite time-horizon discounting reward coming further in the future, it is not the case in my thesis. Indeed, each episode (\ie the transition) is finite. The purpose of Figure 4.1 was to focus on the reward function and how it articulates in the action-state-reward process. As already represented in this figure, three situations can terminate an episode: (i) infeasible optimisation, (ii) overshot \ce{CO2}-budget before 2050 or, (iii) reaching 2050. This is now clarified {\color{blue}in the caption of Figure 4.1}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
+Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost, and the episode terminates. After terminating an episode, the process starts over at the initial state, \ie 2020.
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - How can you account for pivotal events / shocks in the system?
+{\color{orange} \textbf{Stefano}} - How can you account for pivotal events/shocks in the system?
 \end{mdframed}
 
-\noindent 
+\noindent Given the limited foresight of the myopic approach, we can implement, pivotal events/shocks can be implemented through uncertain parameters. For instance, this is how we have implemented the potential to install SMR in 2040 at the soonest. Given the probability described in Section 2.4, the technology can (or not) be installed. However, as detailed in Section 1.2.1, for the other uncertain parameters, they keep the same value relatively to their type and range for the whole transition. In other words, we do not allow zig-zag where, for instance, a cost of purchasing an energy carrier was low for the first half of the transition and, suddenly, in 2040, becomes very high.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
-\end{mdframed}
+Given these explanations and what is already written, I have not brought modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p. 89: Figure 4.3 seems to deliver an important message (early action is needed to ensure we meet climate goals), but it is not clearly explained. Improve captions / add axes. 	Where do I see the ``tipping points'' in this figure?
 \end{mdframed}
 
-\noindent 
+\noindent Like other figures in this Chapter, Figure 4.3 represents distributions of features spreading over the x-axis. In this case, these are distributions of the rewards collected by the agent at the end of each episode of its learning process. For this reason, labelling the axis does not seem obligatory as the x-axis is nothing else than the feature (here, the reward) and the y-axis has no physical meaning expect representing how often the feature of interest took a certain value/range of values. Compared to the other similar figures of the chapter, I have not labelled the x-axis as, for Figure 4.3, the reward is the only feature represented whereas two or more features are gathered on the same figure.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
+With this in mind and what is already written in the caption of the figure and the core of the text, we can infer from the right hand side that 2040 is the ``tipping year'' as it represents the year at which the failures occur more often, compared to the other representative years. 
 
-\end{mdframed}
+Given these explanations and what is already in the text, I have not brought modifications to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - Overall, I suggest adding a diagram to Chapter 4, detailing what are the actions available to the decision-maker.
 \end{mdframed}
 
-\noindent 
+\noindent Complementary to the text in the core of the manuscript, I have added a diagram to detail the agent's actions and how they impact the model: taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
-\end{mdframed}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Schematic_actions.pdf}
+\caption{Actions available to the decision-maker. Taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.}
+\label{fig:Schematic_actions}
+\end{figure}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} \& {\color{purple} \textbf{Sylvain}} - How does this approach compare, for example, to stochastic programming?
@@ -1094,21 +1083,29 @@ Given these explanations and what is already present in the text, I have not bro
 {\color{orange} \textbf{Stefano}} - p. 90: What does it mean to succeed/fail in 2030? And why are the number of attempts reduced going down in the graph?
 \end{mdframed}
 
-\noindent 
+\noindent As discussed during the private defense, the grey curves represent the distribution of occurrences failing (\ie infeasible optimisation or overshooting \ce{CO2}-budget) by 2050 at the latest. The number of remaining attempts reduce as prematurely ended episode are removed from the further counts. The purpose of displaying these numbers of ``Total attempts'' is to explain why the areas below the orange curves increase relatively to the grey curves. These two aspects are now explicitly explained {\color{blue}in the caption of Figure 4.4 and the other similar figures}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
+Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). \textbf{Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest.} The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. 
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p.91, Table 4.2: how do you differentiate between actions that depend on the agent and exogenous uncertainties? More in general: how is uncertainty integrated in the RL framework?
 \end{mdframed}
 
-\noindent 
+\noindent Both, agent's actions and exogenous uncertainties, change the value of some parameters of EnergyScope Pathway. However, where the sample of uncertainties is drawn once and for all at the beginning of the episode as explained in Section 1.2.1, the agent's actions are taken at the beginning of each 10-year time window. This is now clarified {\color{blue}at the beginning of Section 1.3.2 and the updated version of Figure 1.7, and its caption} (see Figure \ref{fig:Schematics_RL} in the present document):
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-
+Before starting an episode, a sample of uncertain parameters is drawn and affects the environment, EnergyScope Pathway, according to the methodology detailed in Section 1.2.1. 
 \end{mdframed}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Schematics_RL.pdf}
+\caption{The Reinforcement Learning (RL) framework applied to the myopic optimisation of the energy transition pathway between 2020 and 2050. Here, the agent interacts with its environment, \ie the energy-system model on a limited decision window of 10 years. At the beginning of each episode, one different sample of uncertain parameters is drawn and affects the environment, EnergyScope Pathway, according to the methodology detailed in Section 1.2.1.}
+\label{fig:Schematics_RL}
+\end{figure}
+
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p. 94: Figure 4.6 seems to be less revealing than other figures. Also the figure caption seems to contradict the first statement following the figure. It would be important to clarify: which are the actions that emerge to actually matter?
@@ -1164,6 +1161,17 @@ In line with \citet{vogt2018starting}, the early constraints on generation and t
 \end{mdframed}
 
 \noindent To explain in the definition of the action {\color{blue} }. 
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+
+\end{mdframed}
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{teal} \textbf{Stefan}} - Justification of the actions selected? why no other actions like the cost of some technologies? 
+\end{mdframed}
+
+\noindent These actions have a direct translation in constraints and we can therefore assess their effectiveness through the fact they are binding or not. Give examples of actions tried during the work (incentivize renewables) or other from Assemblée citoyenne in France and explain why they’re not as good as those chosen in the thesis. Explain history of what we tried/consider? 
+ {\color{blue} }.
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
 

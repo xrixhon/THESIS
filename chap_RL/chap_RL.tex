@@ -57,7 +57,14 @@ Three additional actions support the strict limitation of yearly emissions: limi
 \endgroup
 
 \noindent
-where $\mathrm{act}\textsubscript{fossil gas}$, $\mathrm{act}\textsubscript{LFO}$ and $\mathrm{act}\textsubscript{coal}$ can take values between 0 and 1. These complete the action space of the agent, $A\in \mathbb{R}^4_{[0,1]}$.
+where $\mathrm{act}\textsubscript{fossil gas}$, $\mathrm{act}\textsubscript{LFO}$ and $\mathrm{act}\textsubscript{coal}$ can take values between 0 and 1. These complete the action space of the agent, $A\in \mathbb{R}^4_{[0,1]}$ (see Figure \ref{fig:Schematic_actions}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Schematic_actions.pdf}
+\caption{Actions available to the decision-maker. Taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.}
+\label{fig:Schematic_actions}
+\end{figure} 
 
 \subsection{Reward}
 \label{subsec:RL:act_states_rew:rew}
@@ -69,7 +76,7 @@ Through its maximisation of the expected return (see Section \ref{subsec:meth_RL
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Reward.pdf}
-\caption{Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost.}
+\caption{Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost, and the episode terminates. After terminating an episode, the process starts over at the initial state, \ie 2020.}
 \label{fig:Reward}
 \end{figure} 
 
@@ -152,7 +159,7 @@ Failure & 0.61 & 0.24 \\
 Finally, we observe that the majority of the successful transitions are cheaper than the reference transition cost, 1.1\,b€. Among the parameters impacting the most the total transition cost, we observe that success occurs when, on average,  the cost of purchasing fossil fuels is increased more than the one of electrofuels (see Table \ref{tab:param_RL}). In other words, to have higher chances to succeed a myopic transition, the key factor is to reduce the uncertainty on the cost of purchasing electrofuels or to increase the cost of fossil fuels. Given the skewness that is positive and negative for the electrofuels and the fossil fuels, respectively, these cases represent more than the majority of the successful cases. On top of this, total transition costs of successful episodes are lower due to lower industrial \gls{EUD} and discount rate. These favourable conditions combined with the right agent's actions led to transitions respecting the \ce{CO2}-budget.
 
 \begin{table}[htbp!]
-\caption{Uncertain parameters impacting the most the total transition cost, their Sobol' index and, for the successful transitions, their mean of their values between 0 and 100\%, $\mu$, and their skewness, $\gamma$. On top of being supported by the agent's actions, successful transitions occur when the cost of purchasing fossil fuels is more increased than the one of electrofuels.}
+\caption{Uncertain parameters impacting the most the total transition cost and, for the successful transitions, the mean of their values between 0 and 100\%, $\mu$, and their skewness, $\gamma$. On top of being supported by the agent's actions, successful transitions occur when the cost of purchasing fossil fuels is more increased than the one of electrofuels.}
 \label{tab:param_RL}
 \centering
 \begin{tabular}{l c c c}
