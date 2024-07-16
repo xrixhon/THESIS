@@ -22,7 +22,9 @@ Usually, applications of \gls{RL} focus more on the result of the learning proce
 
 \section{Definition of the actions, reward and states}
 \label{sec:RL:act_states_rew}
-As already introduced in Section \ref{subsec:meth_RL_algo}, the environment with which the \gls{RL}-agent interacts is the optimisation of the transition pathway of a whole-energy system on a specific time window, \eg 2020-2030 then 2025-2035 and so on, until 2040-2050 (see Figure \ref{fig:Schematics_RL}). In a nutshell, starting from the initial state of the environment (\ie the whole-energy system in 2020), the agent takes a set of actions that influence the environment, \ie that affects parameters of the Linear Programming in EnergyScope Pathway. Then, the window 2020-2030 is optimised via EnergyScope. Some of the outputs of this optimisation feed the agent with either the new state of the system or the reward, \ie telling the agent how good the actions were at the state he took it. Based on the new state and the reward, the agent takes another set of actions and the window 2025-2035 is optimised. This goes on until 2050.
+As already introduced in Section \ref{subsec:meth_RL_algo}, the environment with which the \gls{RL}-agent interacts is the optimisation of the transition pathway of a whole-energy system on a specific time window, \eg 2020-2030 then 2025-2035 and so on, until 2040-2050 (see Figure \ref{fig:Schematics_RL}). In a nutshell, starting from the initial state of the environment (\ie the whole-energy system in 2020), the agent takes a set of actions that influence the environment, \ie that affects parameters of the Linear Programming in EnergyScope Pathway. Then, the window 2020-2030 is optimised via EnergyScope. Some of the outputs of this optimisation feed the agent with either the new state of the system or the reward, \ie telling the agent how good the actions were at the state the agent took it. Based on the new state and the reward, the agent takes another set of actions and the window 2025-2035 is optimised. This goes on until 2050.
+
+
 
 \subsection{Actions}
 \label{subsec:RL:act_states_rew:act}
@@ -62,7 +64,7 @@ where $\mathrm{act}\textsubscript{fossil gas}$, $\mathrm{act}\textsubscript{LFO}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Schematic_actions.pdf}
-\caption{Actions available to the decision-maker. Taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.}
+\caption{Actions available to the decision-maker. Taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$. Unlike the first action that sets a target for the end of the time-window, the last three aim at limiting the consumption of these fossil resources over the whole time-window.}
 \label{fig:Schematic_actions}
 \end{figure} 
 
@@ -93,6 +95,8 @@ Consequently, after testing several state spaces and observing the convergence o
 \label{sec:RL:learning}
 
 Before comparing the agent's optimised policy with references, the first step consists in assessing the learning of the \gls{NN}, also called ``training''. For this, numerous episodes are played through the myopic optimisation of the transition pathway of Belgium. At the beginning of each episode, the agent starts with the Belgian energy system of 2020 (see Appendix \ref{app:bel_2020}). Then, a sample of values, drawn for the uncertain parameters, affects the model for the 2020-2030 time window. This single draw will affect the parameters for all the subsequent time windows (see Figure \ref{fig:ranges_transition}).  Then, the agent takes a set of actions, affecting the environment that feeds back the agent with a new state and a reward. This goes on until the end of the episode. For the next episode, similarly to the \gls{UQ} analysis (see Section \ref{sec:meth:UQ}), another sample of uncertain parameters is drawn following the quasi-random Sobol' sampling technique \cite{bratley2003implementing}.
+
+We end this section with justifications of actions, reward and states implemented in this work as well as guidelines for researchers that would like to apply the RL approach on their own case study with their own model.
 
 \subsection{Reward and success}
 \label{subsec:RL:learning:rew_succ}
@@ -220,30 +224,45 @@ When it comes to limiting the use of \gls{LFO} and coal, the conclusions are mor
 
 On the contrary, limiting coal is always binding. Before all, this is due because coal is a cheap resource (17\,€/MWh). In other words, the cost-driven environment will favour it. Then, as the maximum amount of coal (28\,TWh) is much smaller than fossil gas and \gls{LFO}, high value of $\mathrm{act}\textsubscript{coal}$ still represents small consumption of coal.
 
+\subsection{Discussion and guidelines for future researchers}
+\label{subsec:RL:act_states_rew:discussion}
+As introduced in Chapter \ref{chap:chap_methodo}, most of the work in applying \gls{RL} is the definition of the interactions between the agent and its environment (\ie actions, reward and states) that are very dependent on the case study and the research questions to answer. The elements presented in this work result from several trial and errors to end up with meaningful results according to our research questions.
+
+Besides mimicking potential actual policies, the actions chosen in this work have a direct translation into constraints and we can therefore assess their effectiveness through the fact they are binding or not. In this work, we have investigated other actions like incentivising solar \gls{PV} panels and wind turbines by ``artificially'' reducing their \gls{CAPEX}. The result was not conclusive as these technologies need to take part to the Belgian energy transition and because it was harder to assess the impact of this action. 
+
+The reward function was designed to first aiming at respecting the \ce{CO2}-budget then minimising the total transition cost. The -300 penalty given in case of an infeasible optimisation problem was arbitrarily set. \textit{A posteriori}, it seems to be a well-defined penalty given its significant relative difference with the values taken by the reward otherwise, between -120 and 44 (see Figure \ref{fig:reward_status}). Besides this penalty and given the observed results, we recommend to start with the same reward function if the objective is similar, first target cumulative emissions then cumulative costs. This requires to define the \ce{CO2}-budget according to a certain sharing principle (see Section \ref{sec:cs:CO2-budget}) and to compute reference total transition cost. However, other researches focusing on reaching carbon-neutrality by 2050 could define a binary reward function as +1 for reaching the objective and -1 otherwise.
+
+Finally, states aim at representing the information relevant to the agent to efficiently learn and progress through the transitions. For this reason, on top reward-related features (cumulative emissions and costs), we added other indicators that are actually monitored to help decision-makers assessing their policies to reach their targets (share of renewables in the mix and the system overall efficiency). For other studies, one might consider other information like the metrics considered by \citet{pickering2022diversity} (\eg heat electrification, average national import or level of curtailment).
+
+In conclusion, future studies might start from the actions-reward-states defined in this work and adapt these rules depending on the research questions to answer, the case study and the energy system optimisation model.
+
 \newpage
 \section{Comparison with references}
 \label{sec:RL:testing}
 After investigating the exploration of myopic transition, this section compares these results with the perfect foresight under uncertainties from the \gls{UQ} analysis presented in Chapter \ref{chap:atom_mol}. To reduce the computational time, the monthly model could also be used to carry out \gls{RL}-based exploration of myopic pathways. Appendix \ref{app:app_RL_TD_MO} presents the comparison between the results obtained from the learning process on the hourly and monthly models.
 
-\gls{RL}-based myopic optimisation provides \ce{CO2}-emissions pathways different from the perfect foresight approach to respect the same \ce{CO2}-budget (see Figure \ref{fig:Gwp_pathway}). However, driven first by this \ce{CO2}-budget, the agent often reaches much lower cumulative emissions when succeeding the transition (see Figure \ref{fig:Cum_gwp_cost}). This comes from the agent's actions that limit the emissions and/or the consumption of fossil resources at the early stages. Thanks to the bigger reduction of emissions at these early stages, the \gls{RL}-based optimisation can benefit from a ``\ce{CO2}-buffer'' at the end of the transition. This buffer is compensated by the end of the transition where 50\% of the myopic transitions reach 2050 with 10 or more remaining Mt$_{\ce{CO2},\text{eq}}$ compared to 4 for the perfect foresight approach. These remaining emissions by 2050 come from the consumption in industrial boilers of waste and coal that account for 3.5\% and 2.4\% on average by 2050. Finally, the long-term vision of the perfect foresight approach results in smoother reduction of the emissions to end up with less emissions by 2050.
+\gls{RL}-based myopic optimisation provides \ce{CO2}-emissions pathways different from the perfect foresight approach to respect the same \ce{CO2}-budget (see left side of Figure \ref{fig:Gwp_pathway_total_tran_cost}). However, driven first by this \ce{CO2}-budget, the agent often reaches much lower cumulative emissions when succeeding the transition (see Figure \ref{fig:Cum_gwp_cost}). This comes from the agent's actions that limit the emissions and/or the consumption of fossil resources at the early stages. Thanks to the bigger reduction of emissions at these early stages, the \gls{RL}-based optimisation can benefit from a ``\ce{CO2}-buffer'' at the end of the transition. This buffer is compensated by the end of the transition where 50\% of the myopic transitions reach 2050 with 10 or more remaining Mt$_{\ce{CO2},\text{eq}}$ compared to 4 for the perfect foresight approach. These remaining emissions by 2050 come from the consumption in industrial boilers of waste and coal that account for 3.5\% and 2.4\% on average by 2050. Finally, the long-term vision of the perfect foresight approach results in smoother reduction of the emissions to end up with less emissions by 2050.
 
 The comparison between the failures and the pathways demonstrates the added-value brought by myopic pathway optimisation. In the near-term (2025-2030), levels of emission are similar between perfect foresight and myopic cases that have failed. This shows that limited foresight encourages to strongly act at the early stages. On top of this, following the initial steps of \ce{CO2}-emissions pathways resulting from PF approach would likely ($\sim$80\%) lead to fail the transition. 
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{Gwp_pathway_core.pdf}
-\caption{Comparison of \ce{CO2}-emissions pathways from the perfect foresight optimisation under uncertainties and the \gls{RL}-based myopic optimisation. }
-\label{fig:Gwp_pathway}
-\end{figure}
-
-The transition pathways of the annual system cost show another impact of the agent in the \gls{RL}-based exploration (see Figure \ref{fig:System_cost_pathway}). Via its actions and its cost-based reward, the agent can reach systems that are cheaper than any other solution obtained by the perfect foresight approach. The perfect foresight approach gives a wider variability in its cost since this method always found a solution even in worst conditions such as high cost of purchasing resources and high \gls{EUD}. 
+Looking at the total transition cost, the combination of the agent's actions and favourable economic conditions (see Section \ref{subsec:RL:learning:states}) make the myopic transitions cheaper, on average, than the PF cases (see right side of Figure \ref{fig:Gwp_pathway_total_tran_cost}). This is also due to the fact that the perfect foresight approach always finds a solution even in worst conditions such as high cost of purchasing resources and high \gls{EUD}. This explains the wider variability of the results too. However, with the same sample of uncertain parameters, given the assumed full knowledge over the whole time horizon, PF naturally results in a cheaper transition than its myopic equivalent.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{System_cost_pathway_core.pdf}
-\caption{Comparison of annual system costs pathways from the perfect foresight optimisation under uncertainties and the \gls{RL}-based myopic optimisation.}
-\label{fig:System_cost_pathway}
+\includegraphics[height=3.5cm]{Gwp_pathway_core.pdf}
+\includegraphics[height=3.5cm]{Transition_cost_comp_2.pdf}
+\caption{Comparison of \ce{CO2}-emissions pathways (left) and total transition cost (right) from the perfect foresight optimisation under uncertainties and the \gls{RL}-based myopic optimisation. Myopic transitions succeed with a more drastic reduction of emissions in the short-term and, on average, more favourable economic conditions.}
+\label{fig:Gwp_pathway_total_tran_cost}
 \end{figure}
+
+%The transition pathways of the annual system cost show another impact of the agent in the \gls{RL}-based exploration (see Figure \ref{fig:System_cost_pathway}). Via its actions and its cost-based reward, the agent can reach systems that are cheaper than any other solution obtained by the perfect foresight approach. The perfect foresight approach gives a wider variability in its cost since this method always found a solution even in worst conditions such as high cost of purchasing resources and high \gls{EUD}. 
+
+%\begin{figure}[!htbp]
+%\centering
+%\includegraphics[width=0.8\textwidth]{System_cost_pathway_core.pdf}
+%\caption{Comparison of annual system costs pathways from the perfect foresight optimisation under uncertainties and the \gls{RL}-based myopic optimisation.}
+%\label{fig:System_cost_pathway}
+%\end{figure}
 
 \newpage
 The analysis of the cumulative costs shows that the \gls{OPEX} is the main difference between myopic and perfect foresight transitions (see Figure \ref{fig:Opex_Capex_Salvage_comp}). Supported by the agent's actions, successful myopic transitions have a lower \gls{OPEX} than the perfect foresight ones.
