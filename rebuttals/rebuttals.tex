@@ -204,9 +204,9 @@ New version of the text in the manuscript.
 % {\color{violet} \textbf{Christophe}}
 
 \clearpage
-%\tableofcontents
-%
-%\clearemptydoublepage
+\tableofcontents
+
+\clearemptydoublepage
 
 \section{General comments/questions}
 \label{General}
@@ -231,11 +231,11 @@ Given what is detailed further in this document and what has been discussed duri
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}}, {\color{purple} \textbf{Sylvain}} \& {\color{teal} \textbf{Stefan}} - Many assumptions, e.g., alpha = 85\% (p. 40) or reward = -300 (Chapter 4). How sensitive are the results to these assumptions? It looks like all these parameters have been tuned to obtain the desired results. How robust are they? Can the methodology be generalized to other models? Can we keep the same values for other applications? You need a model that runs pretty fast, right?
 
-{\color{teal} \textbf{Stefan}} - Justification of the RL actions selected? why no other actions like the cost of some technologies?
+\noindent {\color{teal} \textbf{Stefan}} - Justification of the RL actions selected? why no other actions like the cost of some technologies?
 
-{\color{purple} \textbf{Sylvain}} - p. 86 - A lot of heuristic and trial and error. Can the methodology be generalized to other models?
+\noindent {\color{purple} \textbf{Sylvain}} - p. 86 - A lot of heuristic and trial and error. Can the methodology be generalized to other models?
 
-{\color{purple} \textbf{Sylvain}} - Make sure to discuss the hypotheses because one might not agree with all of them. So, it could provide more context but also some limitations and indications of the alternatives (and the spectrum of what is possible).
+\noindent {\color{purple} \textbf{Sylvain}} - Make sure to discuss the hypotheses because one might not agree with all of them. So, it could provide more context but also some limitations and indications of the alternatives (and the spectrum of what is possible).
 \end{mdframed}
 
 \noindent I have not carried out analysis to assess the sensitivity of the results to these assumptions. They result either from trial and error or observations made \textit{a posteriori}. However, to discuss these assumptions and the methodological choices, I have added a specific section to each methodological parts of Chapter 1 to provide future users and developers of the methods proposed in this work with guidelines. These aim at helping other researchers in either using the same methodologies and assumptions on their own case study or keep on developing and improving these methodologies.
@@ -243,7 +243,7 @@ Given what is detailed further in this document and what has been discussed duri
 \begin{mdframed}[style=manuscript]
 \textbf{1.1.3 Discussion and guidelines for future researchers} [EnergyScope Pathway]
 
-Given the research questions targeted in this work, EnergyScope Pathway was the right model to choose for several reasons: its low computational burden, its hourly time-resolution, its operation and design optimisation of a whole-energy system and the openness of the code and availability of the documentation (see Appendix B.1). 
+Given the research questions targeted in this work, EnergyScope Pathway was the right model to choose for several reasons: its low computational burden, its hourly time resolution, its operation and design optimisation of a whole-energy system and the openness of the code and availability of the documentation (see Appendix B.1). 
 
 However, depending on the research questions to address, other pathway energy system models might be more appropriate given their better spatial resolution or higher techno-economical details, for instance. Such models can be used and combined with the other methodological tools presented in this chapter. Although, the main (and only) requirement is to keep a low computational time as getting relevant results from the following approaches usually requires $10^3\sim 10^4$ runs.  In our case, we have implemented the model to keep the time to run a pathway composed of 7 representative years below 15 minutes on a personal laptop.
 \end{mdframed}
@@ -285,7 +285,7 @@ As introduced in Chapter 1, most of the work in applying RL is the definition of
 
 Besides mimicking potential actual policies, the actions chosen in this work have a direct translation into constraints and we can therefore assess their effectiveness through the fact they are binding or not. In this work, we have investigated other actions like incentivising solar PV panels and wind turbines by ``artificially'' reducing their CAPEX. The result was not conclusive as these technologies need to take part to the Belgian energy transition and because it was harder to assess the impact of this action. 
 
-The reward function was designed to first aiming at respecting the \ce{CO2}-budget then minimising the total transition cost. The -300 penalty given in case of an infeasible optimisation problem was arbitrarily set. \textit{A posteriori}, it seems to be a well-defined penalty given its significant relative difference with the values taken by the reward otherwise, between -120 and 44 (see Figure 4.4). Besides this penalty and given the observed results, we recommend to start with the same reward function if the objective is similar, first target cumulative emissions then cumulative costs. This requires to define the \ce{CO2}-budget according to a certain sharing principle (see Section 2.5) and to compute reference total transition cost. However, other researches focusing on reaching carbon-neutrality by 2050 could define a binary reward function as +1 for reaching the objective and -1 otherwise.
+The reward function was designed to first aiming at respecting the \ce{CO2} budget then minimising the total transition cost. The -300 penalty given in case of an infeasible optimisation problem was arbitrarily set. \textit{A posteriori}, it seems to be a well-defined penalty given its significant relative difference with the values taken by the reward otherwise, between -120 and 44 (see Figure 4.4). Besides this penalty and given the observed results, we recommend to start with the same reward function if the objective is similar, first target cumulative emissions then cumulative costs. This requires to define the \ce{CO2} budget according to a certain sharing principle (see Section 2.5) and to compute reference total transition cost. However, other researches focusing on reaching carbon neutrality by 2050 could define a binary reward function as +1 for reaching the objective and -1 otherwise.
 
 Finally, states aim at representing the information relevant to the agent to efficiently learn and progress through the transitions. For this reason, on top reward-related features (cumulative emissions and costs), we added other indicators that are actually monitored to help decision-makers assessing their policies to reach their targets (share of renewables in the mix and the system overall efficiency). For other studies, one might consider other information like the metrics considered by \citet{pickering2022diversity} (\eg heat electrification, average national import or level of curtailment).
 
@@ -302,23 +302,13 @@ Besides the formulated recommendations, the assumptions and the formulation choi
 \label{general_graphs_results}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - Work on the graph of slide 19 (there is a misunderstanding on the fact that the grey curve is labelled as failure but they are failures in the future)
-\end{mdframed}
-
-\noindent To clarify this point, I have extended the caption of the related figures (see previous comments) and added two sentences in {\color{blue} Section 4.2.2}:
-
-\begin{mdframed}[style=manuscript] % Comment from the reviewer
-Since infeasible cases or those that overshoot the \ce{CO2}-budget are discarded before reaching 2050 (see Section 4.1.2), the number of attempts that reach further steps in the transition progressively decreases. Consequently, the share of successful transitions compared to failures progressively increases with time. 
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}}, {\color{teal} \textbf{Stefan}} \& {\color{purple} \textbf{Sylvain}} - Many axes labels are missing, and the captions are often insufficient to read the figures. 
 \end{mdframed}
 
 \noindent I agree and have gone through all the figures of the manuscript to clarify them by adding axes labels or extending the caption where it was needed. Figures where y-axis (and its label) is missing are distribution (or density) plots (\ie Figures 3.6, 4.4, 4.5, 4.6, 4.8 and E.1).  Consequently, similarly to an histogram, the feature of interest and its span of values are represented on the x-axis. The y-axis has no real interest in terms of information. What matters is the shape of the curve to be able to point out for which values/ranges of values, the feature of interest occurred more or less often.  For this reason, I have not added y-axis for the aforementioned figures but rather improved their respective caption, emphasising, among other things, that these figures represent distribution of occurrences. For instance, the caption of {\color{blue}Figure 4.4} is now more explicit:
 
 \begin{mdframed}[style=manuscript] % Comment from the reviewer
-Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. 
+Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2} budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2} budget by 2050 at the latest. The majority of successful transitions have cumulative emissions much lower than the \ce{CO2} budget and are cheaper than the REF case. 
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -333,6 +323,26 @@ Exploration of the state space over the learning process: distribution of occurr
 \caption{Storage installed capacities for the REF case}
 \label{fig:STORAGE_2}
 \end{figure}
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{teal} \textbf{Stefan}} - Lot of the results hinge on the import of e-fuels with the assumption that they have GWP = 0; is it justified? Those fuels are directly available knowing they are no.
+\end{mdframed}
+
+\noindent To succeed its energy transition, Belgium will need radical changes, ``unicorn'' solutions, and one of them would be the import of electrofuels. As presented in the introduction and reminded in the conclusion of the manuscript: ``Chemically similar to their fossil-based equivalents, they [the electrofuels] can benefit from the current infrastructures and provide seasonal storage and flexibility against the intrinsic intermittency of solar and wind electricity.'' Besides these intrinsic advantages, considering these fuels as infinitely available (like their fossil equivalents) and with 0-GWP allow finding a solution for the Belgian case study, without considering a decrease of the demands.  These are strong assumptions that can be challenged as suggested in the conclusion: ``A future work would be to constrain the deployment of local renewables or the availability of electrofuels. This could provide different pathways where electrofuels would be produced more locally using carbon capture technologies. This could also show the limits of the Belgian energy system to meet such an ambitious CO2-budget in its energy transition when solely relying on technological progress, highlighting the need for demand reduction. ''
+
+The assumption about 0-GWP molecules is similar to the one considered \cite{PATHS2050} which is the most recent study that addressed the case of the Belgian energy transition. 
+
+As discussed during the private defense, the first key-message of this work is the need for this (mix of) ``unicorn'' solution(s) given the ambitious objectives set to mitigate climate change.  This need for this radical change and the fact that solutions rely a lot on assumed to be carbon neutral and directly available electrofuels are explicitly mentioned {\color{blue}in the conclusions of Chapter 3}: 
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+Given the ambitious \ce{CO2} budget (\ie 30-year budget representing 10 years of the current emissions), the global sensitivity analysis highlights the need for radical changes. Assumed to be carbon neutral and directly available to a large amount, one of the ``unicorn'' solution for the case of Belgium is the import of renewable electrofuels, even at early stages of the transition. This is why the most impacting parameter on the variability of the total transition cost (around 45\%) is the cost of purchasing these energy carriers.
+\end{mdframed}
+
+and reminded {\color{blue}in the conclusions of the manuscript}:
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+Besides a wider electrification of the system and the integration of more efficient technologies, Belgium needs to go for radical changes, ``unicorn'' solutions. One robust policy would consist in massively investing in electrofuels.
+\end{mdframed}
 
 \subsection{Structure}
 \label{structure}
@@ -436,11 +446,7 @@ It is an interesting topic for further investigations, especially how they addre
 {\color{orange} \textbf{Stefano}} - While a more ``friendly'' writing style can be pleasant, there are many colloquial expressions that not do not fit well in the thesis, \eg ``carrot and stick'', ``apples with apples'', etc. I recommend reducing them to the bare minimum, or completely getting rid of them. 
 \end{mdframed}
 
-\noindent
-
-\begin{mdframed}[style=manuscript] % Comment from the reviewer
-
-\end{mdframed}
+\noindent The listed colloquial expressions have been transformed and, overall, I have reviewed the manuscript to reduce them. For instance, {\color{blue} in the contributions of Chapter 2}, I have changed ``lion's share'' into ``bigger share''.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 There are various typos in the thesis, e.g. ``storagR'' (page 3), ``therefore, therefore'' (p. 11), ``The'' (p.14), ``Moleclues'' (p. 61), etc.. Also, the use English language can be improved, e.g. ``calls FOR a variety'' (p. 9), ``cumulative emissions ARE'' (p. 14), ``than to'' (p. 34), etc. The document will benefit from a spelling/grammar check.
@@ -500,7 +506,7 @@ To keep this low computational time, crossover was disabled to solve the optimis
 
 As discussed during the private defense, instead of implementing a salvage value another alternative would be to implement artificial representative years after 2050 that are then excluded from the total transition cost and emissions in while post-processing the results of the optimisation. Even though the choice of the formulation of the salvage value accounts for assumptions (discussed in Appendix B.2.2), we opted for this rather than ``artificial future years'' for several reasons. First of all, it allows mitigating the computational burden of the pathway problem. Indeed, the more there are representative years, the bigger are the matrices and the longer it takes to solve the problem. Second, the salvage value-approach is also used in other works \cite{poncelet2016myopic,prina2019transition}. Finally, implementing ``artificial  future years'' would require to either collect more data, which is quite time-consuming, or make other kind of assumptions on the evolution of costs, GWP and other features beyond 2050.
 
-Since the implementation of the salvage value and the formulation choices is the work developed by \citet{limpens2024pathway} (partly integrated in Appendix B) and given the above explanations, I have not brought further modification to the manuscript in this regard.
+Since the implementation of the salvage value and the formulation choices are the work developed by \citet{limpens2024pathway} (partly integrated in Appendix B) and given the above explanations, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p.17-19: is the myopic version modeled as a single LP or as a sequence of LPs? This should be better clarified. The diagram at p. 19 focuses on the code, it would be better replaced by a code showcasing the logic of the approach.
@@ -509,7 +515,7 @@ Since the implementation of the salvage value and the formulation choices is the
 \noindent Even though this sequence of LPs was already mentioned {\color{blue}in the caption of Figure 1.3}, I have complemented the text {\color{blue} in the paragraph ``Myopic pathway implementation'' of Section 1.1.2}, 
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-[...] The myopic optimisation of the pathway consists of a sequence of smaller LP problems limited to their respective 10-year time-window, until eventually reaching 2050.
+[...] The myopic optimisation of the pathway consists of a sequence of smaller LP problems limited to their respective 10-year time window, until eventually reaching 2050.
 \end{mdframed}
 
 \noindent reminded it in the caption of Figure 1.2
@@ -523,7 +529,7 @@ The myopic approach (in pink) uses several instances of the pathway model, illus
 \begin{figure}[htbp!]
 \centering
 \includegraphics[width=10cm]{MY_process_code.pdf}
-\caption{Diagram of the iterative optimisation of the whole-energy system transition pathway. Myopic optimisation of the pathway consists of a sequence of smaller LP problems limited to their respective 10-year time-window. If the optimisation is not deterministic, step 3.3 is the one where the value of some parameters is changed due to uncertainties (see Section 1.2) or the actions taken by the Reinforcement Learning-agent (see Chapter 4)}
+\caption{Diagram of the iterative optimisation of the whole-energy system transition pathway. Myopic optimisation of the pathway consists of a sequence of smaller LP problems limited to their respective 10-year time window. If the optimisation is not deterministic, step 3.3 is the one where the value of some parameters is changed due to uncertainties (see Section 1.2) or the actions taken by the Reinforcement Learning-agent (see Chapter 4)}
 \label{fig:MY_process_code}
 \end{figure}
 
@@ -536,7 +542,7 @@ The myopic approach (in pink) uses several instances of the pathway model, illus
 Given these explanations and what is already in the manuscript, I have not brought modification in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - p.18 : Surprising that myopic leads to a sooner investment to the transition ? Is it an effect of the salvage value? was there a sensitivity analysis on this salvage value? Perhaps include more details on this. The salvage value plays a large role in the decision of the model. Give more details to give more confidence in the choice.
+{\color{teal} \textbf{Stefan}} - p.18 : Surprising that myopic leads to a sooner investment to the transition? Is it an effect of the salvage value? was there a sensitivity analysis on this salvage value? Perhaps include more details on this. The salvage value plays a large role in the decision of the model. Give more details to give more confidence in the choice.
 \end{mdframed}
 
 \noindent Indeed, it is an effect of the salvage value as already written in the last paragraph ``Impact of myopic formulation on the system'' of Section 1.1: ``The main difference lies in the myopic transition itself and especially in the earlier
@@ -586,9 +592,9 @@ In EnergyScope Pathway, $\tau\textsubscript{\emph{phase}}$ aims at depreciating 
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p.13: Why no annualizing over the lifetime of the unit? Would that lead to different results? 
-
 {\color{orange} \textbf{Stefano}} - Can you explain the logic of the annualization factor in the pathway model?
+
+\noindent {\color{purple} \textbf{Sylvain}} - p.13: Why no annualizing over the lifetime of the unit? Would that lead to different results? 
 \end{mdframed}
 
 \noindent Accounting for the depreciation of money with time (see previous comment), we considered that the assets are fully paid at the moment they are installed. For this reason, we consider the arithmetic average between the investment cost of the assets at the year starting the phase of installation and the year ending it. This choice was done for two main reasons: potential decommissioning and lack of data beyond 2050. In the Pathway version of EnergyScope, the asset will be used over its whole lifetime unless it is prematurely decommissioned. Therefore, annualising over the entire lifetime of the unit might induce a bias in case of this premature decommissioning. Then, for assets with longer lifetime and/or installed later in the transition, annualising over the lifetime would require to have data beyond 2050. Effort that I have not decided to make.
@@ -596,6 +602,16 @@ In EnergyScope Pathway, $\tau\textsubscript{\emph{phase}}$ aims at depreciating 
 Regarding the impact on the results, my educated guess is that this impact would be limited as the technologies of a same sector are assumed to have similar trends in terms of the evolution with time of their respective investment costs. Consequently, the major impact would be to end up with a lower total transition costs but the design of the system would be marginally impacted.
 
 Given these further explanations, I have not brought any modification to manuscript in this regard.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{purple} \textbf{Sylvain}} - p.71 - Differentiated discount rates could be useful.
+\end{mdframed}
+
+\noindent As written in Chapter 3: ``In practice, the discount rate would vary depending on the technology investment risk''. Depending on the technology readiness level, private investors would be more or less risk-averse. However, EnergyScope only considers a vision of a central-planner where a single agent makes the investment decisions without differentiating the sources of the capitals, \ie private and public. Assuming a differentiated discount rate would require to make assumptions about the private-public distribution of the capitals. These further explanations for keeping a single value of discount rate have been added {\color{blue} after Eq. (1.3) when discussing the annualised phase factor}.
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
+The discount rate accounted for in the annualisation factor is considered as identical for all the technologies of the system. In practice, the discount rate would vary depending on the technology investment risk. Depending on the technology readiness level, private investors would be more or less risk-averse. However, EnergyScope only considers the vision of a central-planner where a single agent makes the investment decisions without differentiating the sources of the capitals, \ie private and public. Assuming a differentiated discount rate would require to make assumptions about the private-public distribution of the capitals. For this reason, we have decided to keep an identical value of discount rate for all the technologies.
+\end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{teal} \textbf{Stefan}} - Interest rate must be revisited if a paper is published.
@@ -609,7 +625,7 @@ Given these further explanations, I have not brought any modification to manuscr
 {\color{purple} \textbf{Sylvain}} - How do you model the power grid interconnections with the neighbouring countries as well as the transport network of the different energy carriers within the country? p.63 - The model decides to use ammonia instead of SNG $\rightarrow$ is the transport infrastructure accounted for? p.73 - How is the transport infrastructure accounted for?
 \end{mdframed}
 
-\noindent Regarding the power grid interconnections with the neighbouring countries, similarly to the import of other energy carriers, there is no representation of those physical routes. The whole-energy system of the country is represented as a single-node and the imported energy commodities are available ``at the front door'' of the system. It goes the same way for the infrastructures to transport energy carriers within the system. As it is represented assuming a copper-plate approach, all the demands/resources/conversion technologies are concentrated in one single node. This is now explicitly written {\color{blue}in a new paragraph of Section 2.2}:
+\noindent Regarding the power grid interconnections with the neighbouring countries, similarly to the import of other energy carriers, there is no representation of those physical routes. The whole-energy system of the country is represented as a single-node and the imported energy commodities are available ``at the front door'' of the system. It goes the same way for the infrastructures to transport energy carriers within the system. As it is represented assuming a copper-plate approach, all the demands, resources and conversion technologies are concentrated in one single node. This is now explicitly written {\color{blue}in a new paragraph of Section 2.2}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
 Regarding the power grid interconnections with the neighbouring countries, similarly to the import of other energy carriers, there is no representation of those physical routes. The imported energy commodities are available ``at the front door'' of the system.  In terms of spatial resolution of the country itself, it is modelled as a single-node. This is similar to the copper plate model of a power grid. In other words, the infrastructures to transport the energy carriers within the country are not considered.  It is assumed that the demands have to be supplied by the production, regardless of the flows between the producers and the consumers. Yet, adapting the networks is accounted for in terms of the required investments. For instance, a high share of VRES requires an investment to reinforce the power grid (\ie 368\,M€/GW of additional installed capacity of VRES). 
@@ -629,7 +645,7 @@ In this work, following the approach of \citet{Moret2017PhDThesis}, we have defi
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 20: ``inspired by Guevara et al.'' $\rightarrow$ how was their approach used in your work?
+{\color{orange} \textbf{Stefano}} - p. 20 - ``inspired by Guevara et al.'' $\rightarrow$ how was their approach used in your work?
 \end{mdframed}
 
 \noindent \citet{guevara2022modeling} implemented a stochastic process to maintain realism in the evolution of uncertainty through the transition. In this sense, they avoid a parameter to go from the upper bound at year $y$ to the lower bound 5 years later. It allows zigzag from one time step to another. (see Figure \ref{fig:Guevara}). In my case, once the sample of uncertain parameters is drawn, there is no zigzag ($\alpha=0$ in \cite{guevara2022modeling}) but without especially be at the nominal value. Besides this, the inspiration does not go further. Given this explanation, I have not brought modification to the manuscript in this regard.
@@ -648,7 +664,6 @@ In this work, following the approach of \citet{Moret2017PhDThesis}, we have defi
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
 As second order PCE is the minimum to ensure accuracy of the surrogate model, selecting and grouping the parameters as presented in Section 1.2.3 is compulsory to alleviate the computational burden. Otherwise, considering thousands of independent uncertain parameters would lead to millions of EnergyScope Pathway runs, if no more. Another alternative to reduce the computational cost of the GSA would be to consider the monthly (instead of hourly) time resolution for the runs of EnergyScope Pathway. However, despite its shorter computation time (\ie couple of seconds), the main drawback of the monthly model is its poor representation of the integration of VRES \cite{limpens2024pathway}. 
-
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -684,6 +699,12 @@ Section 2.4 gathers the list of the uncertain parameters considered in this work
 \end{mdframed}
 
 \noindent See previous comment.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{purple} \textbf{Sylvain}} - p. 57: Why a uniform distribution? A gaussian would clearly be more appropriate. Maybe some uncertainties are underestimated (because clipped by uniform distribution).
+\end{mdframed}
+
+\noindent As already written in the first paragraph of Section 1.2.1, given the scarcity of data to actually define a distribution of uncertainty for the parameters, the common practice is to consider uniform distribution. As detailed by \citet{coppittersthesis}: ``Distributions are typically defined based on large datasets, which are not always at hand for each parameter. Therefore, when no meaningful information can be extracted on the distribution from a limited dataset, a uniform distribution is typically assumed, which assigns an equal probability to each value within a range. This approach is similar to assigning an interval to a parameter, but takes advantage of the central tendency when uniform distributions are propagated through a system model (\ie central limit theorem)''. Given what is already in the thesis manuscript and these further explanation, no modification has been brought to the manuscript in this regard. 
 
 \subsection{Reinforcement Learning}
 \label{methodo_RL}
@@ -743,7 +764,7 @@ Given what is already in the text and these explanations, I have not brought mod
 {\color{orange} \textbf{Stefano}} - I am a bit underwhelmed by the many nitty-gritty data in this Chapter. While it is surely important to document everything, couldn’t at least part of this be moved to the Appendix?
 \end{mdframed}
 
-\noindent Most of the data about the Belgian case study have been collected by \citet{limpens2021generating}. The objective of this Chapter was to focus on my contributions: non-energy demand (NED), electrofuels, SMR, uncertain ranges for the pathway model and \ce{CO2}-budget. However, to put these contributions in perspective with similar features in the model, I have decided to keep general information about the end-use demands, the resources and the conversion technologies. Consequently, I have kept the same level of information in Chapter 2 rather than in appendix.
+\noindent Most of the data about the Belgian case study have been collected by \citet{limpens2021generating}. The objective of this Chapter was to focus on my contributions: non-energy demand (NED), electrofuels, SMR, uncertain ranges for the pathway model and \ce{CO2} budget. However, to put these contributions in perspective with similar features in the model, I have decided to keep general information about the end-use demands, the resources and the conversion technologies. Consequently, I have kept the same level of information in Chapter 2 rather than in appendix.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 45 How is the range accounted for the characterisation of private mobility technologies?
@@ -755,9 +776,6 @@ Given what is already in the text and these explanations, I have not brought mod
 Regarding BEV, while the CAPEX has been kept unchanged, the efficiency and the battery capacity have been increased. 
 \end{mdframed}
 
-\subsection{End-use demands}
-\label{methodo_eud}
-
 \subsection{Resources}
 \label{methodo_resources}
 
@@ -765,7 +783,7 @@ Regarding BEV, while the CAPEX has been kept unchanged, the efficiency and the b
 {\color{purple} \textbf{Sylvain}} - p. 51 Last paragraph of p. 51 is not clear. Are we talking about the purchase cost or the CO2 content?
 \end{mdframed}
 
-\noindent There was indeed a confusion in the information to deliver in this paragraph. For the sake of clarity, I have restructured Section 2.2. After the introductory paragraph, the graphs and the following paragraph focus on the cost of purchasing. The two last paragraphs address the aspects of availabilities and global warming potentials, respectively.
+\noindent There was indeed a confusion in the information to deliver in this paragraph. For the sake of clarity, I have restructured {\color{blue}Section 2.2}. After the introductory paragraph, the graphs and the following paragraph focus on the cost of purchasing. The two last paragraphs address the aspects of availabilities and global warming potentials, respectively.
 
 \subsection{Conversion technologies}
 \label{methodo_technologies}
@@ -878,14 +896,10 @@ Schematic view of the different resources able to produce HVC, ammonia and metha
 [...] (ix) other parameters like the discount rate or the \textbf{exogenous} modal share change in different key sectors.
 \end{mdframed}
 
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 57: Why a uniform distribution? A gaussian would clearly be more appropriate. Maybe some uncertainties are underestimated (because clipped by uniform distribution).
-\end{mdframed}
-
-\noindent As already written in the first paragraph of Section 1.2.1, given the scarcity of data to actually define a distribution of uncertainty for the parameters, the common practice is to consider uniform distribution. As detailed by \citet{coppittersthesis}: ``Distributions are typically defined based on large datasets, which are not always at hand for each parameter. Therefore, when no meaningful information can be extracted on the distribution from a limited dataset, a uniform distribution is typically assumed, which assigns an equal probability to each value within a range. This approach is similar to assigning an interval to a parameter, but takes advantage of the central tendency when uniform distributions are propagated through a system model (\ie central limit theorem)''. Given what is already in the thesis manuscript and these further explanation, no modification has been brought to the manuscript in this regard. 
-
 \section{Chapter 3 - Atom-vs-molecules}
 \label{Chap_atom_vs_molecules}
+
+\subsection{General}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - Would it be fair to say that the scope of this Chapter is adding one technology (SMR) to the model? Is this a significant contribution?
@@ -909,10 +923,28 @@ This GSA applied to a model optimising the transition pathway of a whole-energy 
 \item To minimise the variation of the total transition cost, the key parameter is the cost of purchasing electrofuels where parameters related to SMR (availability and CAPEX) have much lower impact;
 \item E-ammonia and, to a lesser extent, e-methane imports by 2050 are impacted by the availability of SMR whereas e-hydrogen and e-methanol are rather influenced by variation related to transport technologies and non-energy demand, respectively;
 \item Even though SMR and electrofuels are in competition, they do not limit the deployment of VRES in Belgium. In other words, investing in wind and solar is a must-do for the Belgian energy transition;
-\item Given the set of assumptions, especially considering the end-use-demands and the local potential of VRES, Belgium will need to import molecules in the near future. On top of investing into VRES, it seems reasonable to invest in the imports of these electrofuels as betting on SMR means letting the short-term emissions go up and, potentially, requiring significant (and quick) adjustments in case the technology is not ready on time to still respect the \ce{CO2}-budget.
+\item Given the set of assumptions, especially considering the end-use-demands and the local potential of VRES, Belgium will need to import molecules in the near future. On top of investing into VRES, it seems reasonable to invest in the imports of these electrofuels as betting on SMR means letting the short-term emissions go up and, potentially, requiring significant (and quick) adjustments in case the technology is not ready on time to still respect the \ce{CO2} budget.
 \end{itemize}
 
-Given these explanations and what is already written in the manuscript, I have not brought further modification to the manuscript in this regard.
+Given these explanations and what is already written in the text, I have not brought further modification to the manuscript in this regard.
+
+\subsection{Graphs}
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{orange} \textbf{Stefano}} - p. 74 - Figure 3.8: this graphs looks potentially interesting but it is not sufficiently well explained.
+\end{mdframed}
+
+\noindent The objective of this set of figures is to point out the key parameters that drive the variation of some outputs of interest. Taking the case of Figure 3.8, we focus on the import of e-methanol in 2050. On the x-axis, we represent the value taken by the uncertain parameters in the different samples. As the range is not the same for all the parameters, we have limited this axis from ``Min'' to ``Max''. The y-axis represents the feature of interest. The drawn lines represent average trend lines between the output of interest and one specific parameter. For the case of Industry EUD, for samples of the GSA where this uncertain parameter is at 35\% of its range, the mean value of methanol imported in 2050 is roughly 50\,TWh. The distributions present on the extreme left and right of the graphs correspond to the distributions of the output of interest for the samples of the GSA where the considered parameter takes a value in the bottom (left) or top (right) 15\% of its range. 
+
+To improve the readability of this figure, I have updated the text zones to specify that these lines and distributions represent results of some specific samples of the GSA. Additionally, I have added a text zone to remind that the value between brackets is the Sobol' index of the considered parameter regarding this specific output of interest, and added this information in the caption of the figure:
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.8\textwidth]{UQ_Methanol_samples_2.pdf}
+\caption{Trend lines of the key parameters (and their Sobol' index) on the import of e-methanol in 2050. Around these lines, box plots point out the distribution of the output of interest for the extreme values (either bottom-15\% or top-15\%) of some parameters. The grey dashed line gives the value of the output of interest in the REF case. }
+\label{fig:results_uq_samples_methanol}
+\end{figure}
+
+\subsection{SMR}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{orange} \textbf{Stefano}} - p. 70: ``in other words, the variation of the parameter $f_{\mathrm{max,SMR}}$…''. I am not sure that this sentence is equivalent to the previous one. Please clarify.
@@ -935,30 +967,20 @@ Given the uncertainty characterisation presented in Section 2.4, there are 60\% 
 Given these explanations and what is already written in the manuscript, I have not brought further modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 74, Figure 3.8: this graphs looks potentially interesting but it is not sufficiently well explained.
+{\color{purple} \textbf{Sylvain}} - p. 67 - It really depends on what is considered primary energy in the case of nuclear
 \end{mdframed}
 
-\noindent The objective of this set of figures is to point out the key parameters that drive the variation of some outputs of interest. Taking the case of Figure 3.8, we focus on the import of e-methanol in 2050. On the x-axis, we represent the value taken by the uncertain parameters in the different samples. As the range is not the same for all the parameters, we have limited this axis from ``Min'' to ``Max''. The y-axis represents the feature of interest. The drawn lines represent average trend lines between the output of interest and one specific parameter. For the case of Industry EUD, for samples of the GSA where this uncertain parameter is at 35\% of its range, the mean value of methanol imported in 2050 is roughly 50\,TWh. The distributions present on the extreme left and right of the graphs correspond to the distributions of the output of interest for the samples of the GSA where the considered parameter takes a value in the bottom (left) or top (right) 15\% of its range. 
-
-To improve the readability of this figure, I have updated the text zones to specify that these lines and distributions represent results of some specific samples of the GSA. Additionally, I have added a text zone to remind that the value between brackets is the Sobol' index of the considered parameter regarding this specific output of interest, and added this information in the caption of the figure:
-
-\begin{figure}[htbp!]
-\centering
-\includegraphics[width=0.8\textwidth]{UQ_Methanol_samples_2.pdf}
-\caption{Trend lines of the key parameters (and their Sobol' index) on the import of e-methanol in 2050. Around these lines, box plots point out the distribution of the output of interest for the extreme values (either bottom-15\% or top-15\%) of some parameters. The grey dashed line gives the value of the output of interest in the REF case. }
-\label{fig:results_uq_samples_methanol}
-\end{figure}
-
+\noindent As specified in the table about SMR features (see previous comment), the considered fuel for SMR is uranium, as it is the case for conventional nuclear power plants. Given this, I have not brought modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 63 What does efficiency change in the installed capacity?
+{\color{purple} \textbf{Sylvain}} - p. 78 - Why this threshold? Shouldn't it follow the potential capacity?
 \end{mdframed}
 
-\noindent Indeed, the efficiency only has an impact on the amount of primary uranium needed to produce the electricity. Consequently, I have removed this part of the sentence {\color{blue}in the first paragraph of Section 3.1.1}. 
+\noindent The threshold locates at 60\% of the uncertain parameter $f_{\mathrm{max,SMR}}$ which represents the potential capacity of SMR. As presented in Section 2.4, this threshold corresponds to the possibility to install up to 6\,GW of SMR in 2050. As already written in Section 3.2.2: ``For the installed capacity of SMR, it is the availability of the technology that drives its installation (Figure 3.12). Not shown here but all the samples of the GSA highlight that SMR is installed to its maximum capacity, \ie 6GW, as soon as possible.'' To smooth the trend curves of the different uncertain parameters, I have applied a rolling average.  For this reason, the 60\%-threshold does not appear on the Figure as sharp as it actually is.
 
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-Overall, given the restriction on yearly availability and the slightly higher electrification [...]
-\end{mdframed}
+Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard.
+
+\subsection{PV and wind}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 64 - 15 GW of PV in 2025. Realistic?
@@ -967,12 +989,6 @@ Overall, given the restriction on yearly availability and the slightly higher el
 \noindent In the continuity of Gauthier Limpens' thesis  and in line with the rest of the research field, the objective of this thesis is to ``illustrate the priorities to be taken in each of the sectors and the efforts to make in one sector to facilitate the integration of certain technologies into other sectors'' \cite{limpens2021generating}. This work highlights the ``must-do'' or ``no-regret investments'' to respect the (very) ambitious \ce{CO2} budget imposed to the model. In this sense, besides the maximum potential of 59\,GW solar-PV, we have not made assumption on the rate of deployment. 15\,GW of PV in 2025 can be considered as very optimistic and Elia forecasts to have these 15\,GW by 2030 \cite{Elia_2024_2034}. I agree that not limiting the rate of deployment of PV (and wind turbines) is a strong assumption. For this reason, in the perspectives of this work (see Conclusion), I have already pointed this out as ``a future work would be to constrain the deployment of local renewables.
 
 Given these explanations, I have not brought further modification to the manuscript in this regard.
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 67 - It really depends on what is considered primary energy in the case of nuclear
-\end{mdframed}
-
-\noindent As specified in the table about SMR features (see previous comment), the considered fuel for SMR is uranium, as it is the case for conventional nuclear power plants. Given this, I have not brought modification to the manuscript in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 69 - No curtailment at all? It would be nice to have the exact number.
@@ -992,14 +1008,17 @@ In the REF case, industrial electric heaters are mainly used to absorb the ``ove
 
 Given these explanations, I have not brought further modification to the manuscript in this regard.
 
+
+\subsection{Others}
+
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p.71 - Differentiated discount rates could be useful.
+{\color{purple} \textbf{Sylvain}} - p. 63 What does efficiency change in the installed capacity?
 \end{mdframed}
 
-\noindent As written in Chapter 3: ``In practice, the discount rate would vary depending on the technology investment risk''. Depending on the technology readiness level, private investors would be more or less risk-averse. However, EnergyScope only considers a vision of a central-planner where a single agent makes the investment decisions without differentiating the sources of the capitals, \ie private and public. Assuming a differentiated discount rate would require to make assumptions about the private-public distribution of the capitals. These further explanations for keeping a single value of discount rate have been added {\color{blue} after Eq. (1.3) when discussing the annualised phase factor}.
+\noindent Indeed, the efficiency only has an impact on the amount of primary uranium needed to produce the electricity. Consequently, I have removed this part of the sentence {\color{blue}in the first paragraph of Section 3.1.1}. 
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-The discount rate accounted for in the annualisation factor is considered as identical for all the technologies of the system. In practice, the discount rate would vary depending on the technology investment risk. Depending on the technology readiness level, private investors would be more or less risk-averse. However, EnergyScope only considers the vision of a central-planner where a single agent makes the investment decisions without differentiating the sources of the capitals, \ie private and public. Assuming a differentiated discount rate would require to make assumptions about the private-public distribution of the capitals. For this reason, we have decided to keep an identical value of discount rate for all the technologies.
+Overall, given the restriction on yearly availability and the slightly higher electrification [...]
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -1012,103 +1031,19 @@ In the Global Sensitivity Analysis, electric trucks are the favoured option for 
 
 Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard.
 
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 78 - Why this threshold? Shouldn't it follow the potential capacity?
-\end{mdframed}
-
-\noindent The threshold locates at 60\% of the uncertain parameter $f_{\mathrm{max,SMR}}$ which represents the potential capacity of SMR. As presented in Section 2.4, this threshold corresponds to the possibility to install up to 6\,GW of SMR in 2050. As already written in Section 3.2.2: ``For the installed capacity of SMR, it is the availability of the technology that drives its installation (Figure 3.12). Not shown here but all the samples of the GSA highlight that SMR is installed to its maximum capacity, \ie 6GW, as soon as possible.'' To smooth the trend curves of the different uncertain parameters, I have applied a rolling average.  For this reason, the 60\%-threshold does not appear on the Figure as sharp as it actually is.
-
-Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard.
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - Lot of the results hinge on the import of e-fuels with the assumption that they have GWP = 0; is it justified? Those fuels are directly available knowing they are no.
-\end{mdframed}
-
-\noindent To succeed its energy transition, Belgium will need radical changes, ``unicorn'' solutions, and one of them would be the import of electrofuels. As presented in the introduction and reminded in the conclusion of the manuscript: ``Chemically similar to their fossil-based equivalents, they [the electrofuels] can benefit from the current infrastructures and provide seasonal storage and flexibility against the intrinsic intermittency of solar and wind electricity.'' Besides these intrinsic advantages, considering these fuels as infinitely available (like their fossil equivalents) and with 0-GWP allow finding a solution for the Belgian case study, without considering a decrease of the demands.  These are strong assumptions that can be challenged as suggested in the conclusion: ``A future work would be to constrain the deployment of local renewables or the availability of electrofuels. This could provide different pathways where electrofuels would be produced more locally using carbon capture technologies. This could also show the limits of the Belgian energy system to meet such an ambitious CO2-budget in its energy transition when solely relying on technological progress, highlighting the need for demand reduction. ''
-
-The assumption about 0-GWP molecules is similar to the one considered \cite{PATHS2050} which is the most recent study that addressed the case of the Belgian energy transition. 
-
-As discussed during the private defense, the first key-message of this work is the need for this (mix of) ``unicorn'' solution(s) given the ambitious objectives set to mitigate climate change.  This need for this radical change and the fact that solutions rely a lot on assumed to be carbon-neutral and directly available electrofuels are explicitly mentioned {\color{blue}in the conclusions of Chapter 3}: 
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-Given the ambitious \ce{CO2}-budget (\ie 30-year budget representing 10 years of the current emissions), the global sensitivity analysis highlights the need for radical changes. Assumed to be carbon-neutral and directly available to a large amount, one of the ``unicorn'' solution for the case of Belgium is the import of renewable electrofuels, even at early stages of the transition. This is why the most impacting parameter on the variability of the total transition cost (around 45\%) is the cost of purchasing these energy carriers.
-\end{mdframed}
-
-and reminded {\color{blue}in the conclusions of the manuscript}:
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript 
-Besides a wider electrification of the system and the integration of more efficient technologies, Belgium needs to go for radical changes, ``unicorn'' solutions. One robust policy would consist in massively investing in electrofuels.
-\end{mdframed}
-
 \section{Chapter 4 - Reinforcement Learning}
 \label{Chap_RL}
 
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{purple} \textbf{Sylvain}} - p. 96 - Why 10 years if the step is 5?
-\end{mdframed}
-
-\noindent Because the action limits the emissions of the system at the end of the 10-year time-window whereas limiting the consumption of fossil gas, LFO and coal is done over the whole time-window, as detailed in Section 4.1.1. Given what is already written in the manuscript, I have not brought modification to the manuscript in this regard.
-
-\subsection{Graphs and results}
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{teal} \textbf{Stefan}} - What is the potential of what we can learn from the results of the innovative methods like RL? We could go further in the analysis as we know we have to phase out coal, install renewables.
-\end{mdframed}
-
-\noindent The outcome is a bit too obvious (e.g. getting rid of the coal) $\rightarrow$ go a bit in the details. Explain why the method is taking better decisions but explain why. $\rightarrow$ go beyond what we know
-
-\begin{mdframed}[style=manuscript] % Comment from the reviewer
-
-\end{mdframed}
+\subsection{General}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}}, {\color{teal} \textbf{Stefan}} \& {\color{purple} \textbf{Sylvain}} - Graphs like the ones presented during the private defense (slides 22 and 24) should be better explained. In general, improve the presentation of the results, especially for the RL chapter.
+{\color{orange} \textbf{Stefano}} - p. 85 - Figure 4.1: Does it mean we can run ``infinite energy transitions''? Is this realistic? Isn’t the ``learning'' supposed to happen during the different stages?
 \end{mdframed}
 
-\noindent 
-
-\begin{mdframed}[style=manuscript] % Comment from the reviewer
-
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 89: Figure 4.3 seems to deliver an important message (early action is needed to ensure we meet climate goals), but it is not clearly explained. Improve captions / add axes. 	Where do I see the ``tipping points'' in this figure?
-\end{mdframed}
-
-\noindent Like other figures in this Chapter, Figure 4.3 represents distributions of features spreading over the x-axis. In this case, these are distributions of the rewards collected by the agent at the end of each episode of its learning process. For this reason, labelling the axis does not seem obligatory as the x-axis is nothing else than the feature (here, the reward) and the y-axis has no physical meaning expect representing how often the feature of interest took a certain value/range of values. Compared to the other similar figures of the chapter, I have not labelled the x-axis as, for Figure 4.3, the reward is the only feature represented whereas two or more features are gathered on the same figure.
-
-With this in mind and what is already written in the caption of the figure and the core of the text, we can infer from the right hand side that 2040 is the ``tipping year'' as it represents the year at which the failures occur more often, compared to the other representative years. 
-
-Given these explanations and what is already in the text, I have not brought modifications to the manuscript in this regard.
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 90: What does it mean to succeed/fail in 2030? And why are the number of attempts reduced going down in the graph?
-\end{mdframed}
-
-\noindent As discussed during the private defense, the grey curves represent the distribution of occurrences failing (\ie infeasible optimisation or overshooting \ce{CO2}-budget) by 2050 at the latest. The number of remaining attempts reduce as prematurely ended episode are removed from the further counts. The purpose of displaying these numbers of ``Total attempts'' is to explain why the areas below the orange curves increase relatively to the grey curves. These two aspects are now explicitly explained {\color{blue}in the caption of Figure 4.4 and the other similar figures}:
+\noindent Even though Reinforcement Learning can be applied to problems with infinite time-horizon discounting reward coming further in the future, it is not the case in my thesis. Indeed, each episode (\ie the transition) is finite. The purpose of Figure 4.1 was to focus on the reward function and how it articulates in the action-state-reward process. As already represented in this figure, three situations can terminate an episode: (i) infeasible optimisation, (ii) overshot \ce{CO2} budget before 2050 or, (iii) reaching 2050. This is now clarified {\color{blue}in the caption of Figure 4.1}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). \textbf{Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2}-budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2}-budget by 2050 at the latest.} The majority of successful transitions have cumulative emissions much lower than the \ce{CO2}-budget and are cheaper than the REF case. 
-\end{mdframed}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 94: Figure 4.6 seems to be less revealing than other figures. Also the figure caption seems to contradict the first statement following the figure. It would be important to clarify: which are the actions that emerge to actually matter?
-\end{mdframed}
-
-\noindent Indeed, Figure 4.6 is less revealing as it shows no big trend in terms of neither impacting actions nor their timing in the transition.  It is detailed in the first paragraph of Section 4.2.3 after which the figure should appear in the manuscript. I have worked to make Figures as close as possible to their related paragraph. However, in some cases, several other paragraphs come between them. To identify the actions that emerge to actually matter, we need to check if they are binding or not, as detailed in the subsequent paragraphs and in Figure 4.7.
-
-Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard, except minor adjustment to get Figure 4.6 as close as possible to its related paragraph.
-
-
-\subsection{Others}
-
-\begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 85, Figure 4.1: Does it mean we can run ``infinite energy transitions''? Is this realistic? Isn’t the ``learning'' supposed to happen during the different stages?
-\end{mdframed}
-
-\noindent Even though Reinforcement Learning can be applied to problems with infinite time-horizon discounting reward coming further in the future, it is not the case in my thesis. Indeed, each episode (\ie the transition) is finite. The purpose of Figure 4.1 was to focus on the reward function and how it articulates in the action-state-reward process. As already represented in this figure, three situations can terminate an episode: (i) infeasible optimisation, (ii) overshot \ce{CO2}-budget before 2050 or, (iii) reaching 2050. This is now clarified {\color{blue}in the caption of Figure 4.1}:
-
-\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2}-budget is exceeded. If the optimisation provides a solution and the \ce{CO2}-budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost, and the episode terminates. After terminating an episode, the process starts over at the initial state, \ie 2020.
+Reward function, $R$. Before reaching 2050, the episode is prematurely ended and a negative reward is given if the optimisation is infeasible or if the \ce{CO2} budget is exceeded. If the optimisation provides a solution and the \ce{CO2} budget is not exceeded, the episode continues. Finally, if the episode goes until 2050, the reward is a weighted sum between the capped cumulative emissions and the total transition cost, and the episode terminates. After terminating an episode, the process starts over at the initial state, \ie 2020.
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -1123,12 +1058,12 @@ Given these explanations and what is already written, I have not brought modific
 {\color{orange} \textbf{Stefano}} - Overall, I suggest adding a diagram to Chapter 4, detailing what are the actions available to the decision-maker.
 \end{mdframed}
 
-\noindent Complementary to the text in the core of the manuscript, I have added a diagram to detail the agent's actions and how they impact the model: taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.
+\noindent Complementary to the text in the core of the manuscript, I have added a diagram to detail the agent's actions and how they impact the model: taken at the beginning of the time window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{Schematic_actions.pdf}
-\caption{Actions available to the decision-maker. Taken at the beginning of the time-window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time-window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$. Unlike the first action that sets a target for the end of the time-window, the last three aim at limiting the consumption of these fossil resources over the whole time-window.}
+\caption{Actions available to the decision-maker. Taken at the beginning of the time window to optimise (year $Y$), the four actions impact (i) the emissions of the system at the end of the time window (year $Y+10$) and, (ii-iv) the consumption of fossil gas, LFO and coal at years $Y+5$ and $Y+10$. Unlike the first action that sets a target for the end of the time window, the last three aim at limiting the consumption of these fossil resources over the whole time window.}
 \label{fig:Schematic_actions}
 \end{figure}
 
@@ -1159,9 +1094,91 @@ Before starting an episode, a sample of uncertain parameters is drawn and affect
 {\color{orange} \textbf{Stefano}} - Explain more in details the different steps in the RL approach.
 \end{mdframed}
 
-\noindent Besides the general concepts/fundamentals detailed in Section 1.3.1, the application of the RL approach on the myopic optimisation of the energy transition of a whole-energy system is detailed in Section 1.3.2. Now, Figure 1.7 has been updated to clarify the difference between the uncertainty of parameters and the agent's actions as well as the interactions between the RL code (action, state, reward) and EnergyScope Pathway (optimisation of the concerned 10-year time-window). I have also added a diagram to explain the impact that the agent's actions have on some parameters of the model. 
+\noindent Besides the general concepts/fundamentals detailed in Section 1.3.1, the application of the RL approach on the myopic optimisation of the energy transition of a whole-energy system is detailed in Section 1.3.2. Now, Figure 1.7 has been updated to clarify the difference between the uncertainty of parameters and the agent's actions as well as the interactions between the RL code (action, state, reward) and EnergyScope Pathway (optimisation of the concerned 10-year time window). I have also added a diagram to explain the impact that the agent's actions have on some parameters of the model. 
 
 Given what was already in the manuscript and the aforementioned modifications, I have not added further information to detail the different steps of the RL approach.
+
+
+\subsection{Graphs and results}
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{orange} \textbf{Stefano}} - Work on the graph of slide 19 (there is a misunderstanding on the fact that the grey curve is labelled as failure but they are failures in the future)
+\end{mdframed}
+
+\noindent To clarify this point, I have extended the caption of the related figures (see previous comments) and added two sentences in {\color{blue} Section 4.2.2}:
+
+\begin{mdframed}[style=manuscript] % Comment from the reviewer
+Since infeasible cases or those that overshoot the \ce{CO2} budget are discarded before reaching 2050 (see Section 4.1.2), the number of attempts that reach further steps in the transition progressively decreases. Consequently, the share of successful transitions compared to failures progressively increases with time. 
+\end{mdframed}
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+\noindent {\color{orange} \textbf{Stefano}}, {\color{teal} \textbf{Stefan}} \& {\color{purple} \textbf{Sylvain}} - Graphs like the ones presented during the private defense (slides 22 and 24) should be better explained. In general, improve the presentation of the results, especially for the RL chapter.
+\end{mdframed}
+
+\noindent Beside extending the captions and clarifying the reasons why the number of total attempts decreases when going down the graph, as detailed in the previous comment, I have brought smaller modifications into the text to improve the presentation of the results, especially in the RL chapter.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{teal} \textbf{Stefan}} - What is the potential of what we can learn from the results of the innovative methods like RL? We could go further in the analysis as we know we have to phase out coal, install renewables.
+\end{mdframed}
+
+\noindent First, I focus here below on each of the results sections of Chapter 4 highlighting the key conclusions already in the manuscript:
+
+\begin{itemize}
+\item \textbf{4.2.1 Reward and success}: (i) We have convergence of the learning process; (ii) Limiting success rate given the wide uncertainty ranges of some key parameters and the set of actions given to the agent; (iii) Near-term actions are needed.
+\item \textbf{4.2.2 States}: (i) Validation of the formulation of the reward function (first respect the \ce{CO2} budget then minimise the cost); (ii) Reminder of the need for near-term actions; (iii) No-go zones in terms of share of renewables in the primary mix; (iv) Efficiency of the system does not give effective information for the agent to act upon.
+\item \textbf{4.2.3 Actions}: (i) Limiting GWP and consumption of fossil gas are the keys; (ii) Even in a myopic perspective, limiting LFO is ineffective as it is phased out by the cost-driven model; (iii) Unlike coal that would still be part of the mix if the agent did not limit its consumption.
+\item \textbf{4.3 Comparison with PF}: (i) Following \ce{CO2}-trajectory prescribed by PF would likely lead to failing the transitions with limited knowledge into the future; (ii) Succeeding myopic transitions relies more often on importing more electrofuels, mostly e-ammonia. 
+\end{itemize}
+
+Phasing out coal is, of course, necessary as it is a highly-polluting resource. However, what this work shows is that, whatever the stage in the transition, a policy limiting the use of coal will always be effective, whereas one could think that coal should be limited only at early stages to get rid of coal-driven technologies once and for all for the rest of the transition. Consistency towards banning coal through the whole transition is needed. To insist on this aspect, this has been added {\color{blue}at the end of Section 4.2.3}:
+
+\begin{mdframed}[style=manuscript] 
+Whatever the stage in the transition, a policy limiting the use of coal will always be effective, whereas one could think that coal should be limited only at early stages to get rid of coal-driven technologies once and for all for the rest of the transition. Consistency towards banning coal is needed.
+\end{mdframed}
+
+About the installation of renewables, not only it is (obviously) necessary to maximise the chance to succeed the transition (see Chapters 3 and 4) but it also provides robustness towards additional investments to make when deploying a roadmap through a (more realistic) myopic transition (see Chapter 5). This conclusion was already drawn by \citet{moret2020overcapacity} for the snapshot model and targeting the power sector only. Here, we extend this work and validate this conclusion for the whole transition pathway and addressing the additional investments in all the sectors.
+
+Through the application of RL on the optimisation of the transition pathway, we are able to assess the effectiveness of a policy, which could be of interest to other researchers. This has been added {\color{blue}at the end of the conclusions of Chapter 4}:
+
+\begin{mdframed}[style=manuscript] 
+This framework allows future research to test other policies on other case studies and identify the key actions and the timing to take them through the transition.
+\end{mdframed}
+
+In conclusion, besides the results coming from the application to the specific case study of Belgium, a major added-value of this work is also to validate innovative approaches (RL and PCA) when applied to explore and optimise transition pathways under uncertainties. For instance, Section 4.2.2 shows that the reward function was properly defined to aim first at respecting the \ce{CO2} budget then minimising the cost. It also provides innovative ways to visually present results in the field of the optimisation of transition pathway under uncertainties that suffers from the (overwhelming) curse of dimensionality. Via distributions or principal components, this work summarises a lof of information into graspable visuals that allow drawing effective conclusions such as the identification of sweet-spots and no-go zones.
+
+Given these explanations and what is already written in the manuscript, I have not brought other modification to the text.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{orange} \textbf{Stefano}} - p. 89: Figure 4.3 seems to deliver an important message (early action is needed to ensure we meet climate goals), but it is not clearly explained. Improve captions / add axes. 	Where do I see the ``tipping points'' in this figure?
+\end{mdframed}
+
+\noindent Like other figures in this Chapter, Figure 4.3 represents distributions of features spreading over the x-axis. In this case, these are distributions of the rewards collected by the agent at the end of each episode of its learning process. For this reason, labelling the axis does not seem obligatory as the x-axis is nothing else than the feature (here, the reward) and the y-axis has no physical meaning expect representing how often the feature of interest took a certain value/range of values. Compared to the other similar figures of the chapter, I have not labelled the x-axis as, for Figure 4.3, the reward is the only feature represented whereas two or more features are gathered on the same figure.
+
+With this in mind and what is already written in the caption of the figure and the core of the text, we can infer from the right hand side that 2040 is the ``tipping year'' as it represents the year at which the failures occur more often, compared to the other representative years. 
+
+Given these explanations and what is already in the text, I have not brought modifications to the manuscript in this regard.
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{orange} \textbf{Stefano}} - p. 90: What does it mean to succeed/fail in 2030? And why are the number of attempts reduced going down in the graph?
+\end{mdframed}
+
+\noindent As discussed during the private defense, the grey curves represent the distribution of occurrences failing (\ie infeasible optimisation or overshooting \ce{CO2} budget) by 2050 at the latest. The number of remaining attempts reduce as prematurely ended episode are removed from the further counts. The purpose of displaying these numbers of ``Total attempts'' is to explain why the areas below the orange curves increase relatively to the grey curves. These two aspects are now explicitly explained {\color{blue}in the caption of Figure 4.4 and the other similar figures}:
+
+\begin{mdframed}[style=manuscript] % Modification brought to the manuscript
+Exploration of the state space over the learning process: distribution of occurrence of cumulative emissions (left) and costs (right). \textbf{Number of remaining attempts decrease with time since infeasible problem and solutions overshooting the \ce{CO2} budget are discarded prematurely, \ie before reaching 2050. Besides infeasible problems, distributions labelled as ``Failure'' represent the attempts that overshot the \ce{CO2} budget by 2050 at the latest.} The majority of successful transitions have cumulative emissions much lower than the \ce{CO2} budget and are cheaper than the REF case. 
+\end{mdframed}
+
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{orange} \textbf{Stefano}} - p. 94: Figure 4.6 seems to be less revealing than other figures. Also the figure caption seems to contradict the first statement following the figure. It would be important to clarify: which are the actions that emerge to actually matter?
+\end{mdframed}
+
+\noindent Indeed, Figure 4.6 is less revealing as it shows no big trend in terms of neither impacting actions nor their timing in the transition.  It is detailed in the first paragraph of Section 4.2.3 after which the figure should appear in the manuscript. I have worked to make Figures as close as possible to their related paragraph. However, in some cases, several other paragraphs come between them. To identify the actions that emerge to actually matter, we need to check if they are binding or not, as detailed in the subsequent paragraphs and in Figure 4.7.
+
+Given these explanations and what is already present in the text, I have not brought further modification to the manuscript in this regard, except minor adjustment to get Figure 4.6 as close as possible to its related paragraph.
+
+
+\subsection{Others}
+
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
 {\color{purple} \textbf{Sylvain}} - p. 87 - What is a step?
@@ -1211,7 +1228,7 @@ Looking at the total transition cost, the combination of the agent's actions and
 {\color{purple} \textbf{Sylvain}} - p. 100 - What/where are the no-go zones? Is there a narrative to describe them ?
 \end{mdframed}
 
-\noindent No-go zones are introduced in the second paragraph of Chapter 4: ``[...] as well as no-go zones where the chances of succeeding the transition, i.e., respecting the \ce{CO2}-budget, are very limited.'' It is then detailed at the end of Section 4.2.2: ``Below the near-term threshold of $\sim$60\%, this is the ``no-go zone'' where succeeding the transition becomes unlikely, except
+\noindent No-go zones are introduced in the second paragraph of Chapter 4: ``[...] as well as no-go zones where the chances of succeeding the transition, i.e., respecting the \ce{CO2} budget, are very limited.'' It is then detailed at the end of Section 4.2.2: ``Below the near-term threshold of $\sim$60\%, this is the ``no-go zone'' where succeeding the transition becomes unlikely, except
 if betting on the future installation of SMR. '' and in the caption of the related figure. Given the information already present in the manuscript, no modification has been brought in this regard.
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
@@ -1221,19 +1238,25 @@ if betting on the future installation of SMR. '' and in the caption of the relat
 \noindent
 Besides the information given in Section 4.2.3 of the manuscript, I do not see further explanations that could clarify more the concept of binding constraint in a Linear Programming (LP) problem. Consequently, regarding this comment, there has not been further modification brought to the manuscript.
 
+\begin{mdframed}[style=comment] % Comment from the reviewer
+{\color{purple} \textbf{Sylvain}} - p. 96 - Why 10 years if the step is 5?
+\end{mdframed}
+
+\noindent Because the action limits the emissions of the system at the end of the 10-year time window whereas limiting the consumption of fossil gas, LFO and coal is done over the whole time window, as detailed in Section 4.1.1. Given what is already written in the manuscript, I have not brought modification to the manuscript in this regard.
+
 \section{Chapter 5 - Principal Component Analysis}
 \label{PCA}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 101: you mention different definitions of ``robustness'': which one do you use in your work?
+{\color{orange} \textbf{Stefano}} - p. 101 - you mention different definitions of ``robustness'': which one do you use in your work?
 \end{mdframed}
 
-\noindent This work assesses the robustness of the decision-making process in two different ways. On the one hand, using a Reinforcement Learning (RL) approach, it allows highlighting the key actions to take to support a myopic transition and maximise the chances to respect the emissions-budget. On the other hand, after drawing a robustness-metric based on a Principal Component Analysis (PCA) approach, this work investigates how much a planned roadmap is sensitive to additional investments required in a myopic transition with progressively unveiled uncertainties. In other words, we use two different definitions of robustness: (i) the ability of a policy to maximise the chances to succeed a myopic transition under uncertainties to meet a \ce{CO2}-budget, (ii) the ability of a technological roadmap to limit the investment into additional capacities when tested in myopic conditions. 
+\noindent This work assesses the robustness of the decision-making process in two different ways. On the one hand, using a Reinforcement Learning (RL) approach, it allows highlighting the key actions to take to support a myopic transition and maximise the chances to respect the emissions-budget. On the other hand, after drawing a robustness-metric based on a Principal Component Analysis (PCA) approach, this work investigates how much a planned roadmap is sensitive to additional investments required in a myopic transition with progressively unveiled uncertainties. In other words, we use two different definitions of robustness: (i) the ability of a policy to maximise the chances to succeed a myopic transition under uncertainties to meet a \ce{CO2} budget, (ii) the ability of a technological roadmap to limit the investment into additional capacities when tested in myopic conditions. 
 
 These two definitions are now clearly introduced {\color{blue}in the introduction of the manuscript}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
-Chapter 4 focuses on the robustness of a policy as its ability to maximise the chances to succeed a myopic transition under uncertainties to meet a \ce{CO2}-budget.
+Chapter 4 focuses on the robustness of a policy as its ability to maximise the chances to succeed a myopic transition under uncertainties to meet a \ce{CO2} budget.
 
 Chapter 5 assesses the robustness of different technological roadmaps as their ability to limit the investment into additional capacities when tested in myopic conditions. 
 \end{mdframed}
@@ -1260,10 +1283,10 @@ Finally, I have gone through the manuscript and made sure that RL-based approach
 
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} - p. 109: how is Gamma-robustness implemented here? It seems like it is in some sense ``manually'' forced? Explain better how the ROB solution is derived.
+{\color{orange} \textbf{Stefano}} - p. 109 - how is Gamma-robustness implemented here? It seems like it is in some sense ``manually'' forced? Explain better how the ROB solution is derived.
 \end{mdframed}
 
-\noindent To my understanding, the $\Gamma$-robustness consists in considering a number, $\Gamma$, of uncertain parameters taking their worst-case value simultaneously and ``evaluate how the solution of the optimisation problem changes when varying $\Gamma$'' \cite{moret2020overcapacity}. Inspired by this approach, we have arbitrarily set this value to $\Gamma=6$ to consider the six first uncertain parameters impacting the most the variation of the total transition cost. Consequently, the ROB technological roadmap is obtained from the deterministic optimisation of the perfect foresight pathway accounting for these six parameters (\ie costs of purchasing electrofuels, fossil fuels and biofuels as well as the industry EUD, the interest rate and the variable OPEX of technologies) at their respective worst-case value. As it does not exactly follow the robust approach of \citet{bertsimas2004price} and \citet{Moret2017PhDThesis}, I have changed {\color{blue}the first sentence of Section 5.2.1:
+\noindent To my understanding, the $\Gamma$-robustness consists in considering a number, $\Gamma$, of uncertain parameters taking their worst-case value simultaneously and ``evaluate how the solution of the optimisation problem changes when varying $\Gamma$'' \cite{moret2020overcapacity}. Inspired by this approach, we have arbitrarily set this value to $\Gamma=6$ to consider the six first uncertain parameters impacting the most the variation of the total transition cost. Consequently, the ROB technological roadmap is obtained from the deterministic optimisation of the perfect foresight pathway accounting for these six parameters (\ie costs of purchasing electrofuels, fossil fuels and biofuels as well as the industry EUD, the interest rate and the variable OPEX of technologies) at their respective worst-case value. As it does not exactly follow the robust approach of \citet{bertsimas2004price} and \citet{Moret2017PhDThesis}, I have changed {\color{blue}the first sentence of Section 5.2.1}:
 
 \begin{mdframed}[style=manuscript] % Modification brought to the manuscript
 Rather than considering all the uncertain parameters at their worst values as in the work of \citet{soyster1973convex}, we follow a \textbf{method inspired by} the robust approach of \citet{bertsimas2004price} and \citet{Moret2017PhDThesis}.
@@ -1276,7 +1299,7 @@ In the present analysis, we label the roadmap as ``robust'' (ROB) by arbitrarily
 \end{mdframed}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{violet} \textbf{Christophe}} When using the word ``component'', there seems to be a confusion and it is not always easy to understand if you refer to the vector or the coefficient related to one of the original variable.
+{\color{violet} \textbf{Christophe}} - When using the word ``component'', there seems to be a confusion and it is not always easy to understand if you refer to the vector or the coefficient related to one of the original variable.
 \end{mdframed}
 
 \noindent The confusion probably comes from the fact a Principal Component (PC) actually represents an eigenvector of the covariance matrix. This vector is, by definition, composed of \textbf{components}, each of them being a coefficient related to a specific original variable. Parts where the word ``component'' is not directly linked to ``vector'', ``eigenvector'' or ``PC'' are those that could mislead the reader. Modifications have been brought to these parts.
@@ -1291,7 +1314,7 @@ Moreover, this means that \textbf{the coefficient} $\alpha_{ki}$, \ie the compon
 \label{Conclusion}
 
 \begin{mdframed}[style=comment] % Comment from the reviewer
-{\color{orange} \textbf{Stefano}} \& {\color{purple} \textbf{Sylvain}} - p. 119: the statement mentioning the ``major added value of the perfect foresight'' approach seems surprising and needs to be clarified.  The decreasing \ce{CO2} emissions trajectories shouldn't be a S-shaped (logistic) curve?
+{\color{orange} \textbf{Stefano}} \& {\color{purple} \textbf{Sylvain}} - p. 119 -  the statement mentioning the ``major added value of the perfect foresight'' approach seems surprising and needs to be clarified.  The decreasing \ce{CO2} emissions trajectories shouldn't be a S-shaped (logistic) curve?
 \end{mdframed}
 
 \noindent I agree that this sentence and what came next focused on the perfect foresight approach whereas the rest of the paragraph rather targets the RL-based myopic results. Therefore, I have reformulated {\color{blue}the end of this paragraph} and focused on the shape of the decreasing \ce{CO2} trajectories. These are indeed S-shaped curves but that are sharper for the myopic approach than in the PF results.
