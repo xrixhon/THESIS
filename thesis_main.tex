@@ -31,14 +31,18 @@
 %\include{frontend/abstract}
 %\clearemptydoublepage
 %
-%% -- Quote ---------------------------------------------------------
-%\input{frontend/citation}
-%\clearemptydoublepage
+% -- Quote ---------------------------------------------------------
+\input{frontend/dedication}
+\clearemptydoublepage
+
+% -- Quote ---------------------------------------------------------
+\input{frontend/citation}
+\clearemptydoublepage
 %
-%% -- Remerciements -------------------------------------------------
-%\chapter*{Remerciements}
-%\input{frontend/merci}
-%\clearemptydoublepage
+% -- Remerciements -------------------------------------------------
+\chapter*{Remerciements}
+\input{frontend/merci}
+\clearemptydoublepage
 
 % -- Contents ------------------------------------------------------
 \thispagestyle{empty}
@@ -46,7 +50,7 @@
 \tableofcontents*
 \clearemptydoublepage
 
-\printunsrtglossaries
+\printunsrtglossary[title={Acronyms}]
 
 % -- Abstract ------------------------------------------------------
 \include{frontend/publications}
