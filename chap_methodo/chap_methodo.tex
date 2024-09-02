@@ -298,7 +298,7 @@ Starting this work in 2017, AMPL Optimization Inc. has developed a Python \gls{A
 
 \begin{figure}[htbp!]
 \centering
-\includegraphics[width=10cm]{MY_process_code.pdf}
+\includegraphics[width=\textwidth]{MY_process_code.pdf}
 \caption{Diagram of the iterative optimisation of the whole-energy system transition pathway. Myopic optimisation of the pathway consists of a sequence of smaller \gls{LP} problems limited to their respective 10-year time window. If the optimisation is not deterministic, step 3.3 is the one where the values of some parameters are changed due to uncertainties (see Section \ref{sec:meth:UQ}) or the actions taken by the Reinforcement Learning-agent (see Chapter \ref{chap:chap_RL})}
 \label{fig:MY_process_code}
 \end{figure}
@@ -385,7 +385,6 @@ Following the methodology defined by \citet{Moret2017}, uncertainties of types I
 \label{fig:ranges_transition}
 \end{figure}
 
-\newpage
 Finally, the model accounts for thousands of parameters. The computational burden of considering all of them separately would be completely overwhelming ($\sim 10^7$ model runs). Similarly to other works \cite{Moret2017,limpens2020impact}, the model parameters that would follow the same uncertainty have been grouped into one single uncertain parameter. On top of mitigating the computational burden, this aims at grouping parameters that are closely linked with each other. For instance, the uncertainty on the cost of purchasing renewable electrofuels, $c_{\mathrm{op,electrofuels}}$, identically affects the cost of e-hydrogen, e-methane, e-ammonia and e-methanol. Indeed, besides their respective specificities, each of these fuels will be similarly affected by the variation in the cost of electricity or the electrolyser, which drive the majority of their cost of purchasing \cite{h2coalition}. Similarly, the uncertainties impacting the industrial demand, $industry\_\emph{EUD}$, alters equally the industrial high- and low-temperature and electricity demands as well as the non-energy demand. Section \ref{sec:cs:uncertainty} gathers the list of the uncertain parameters considered in this work.
 
 \subsection{Polynomial Chaos Expansion}
@@ -576,7 +575,6 @@ Before starting an episode, a sample of uncertain parameters is drawn and affect
 
 A learning episode is a succession of such learning steps. In the context of the transition pathway between 2020 and 2050, an episode can come to an end for different reasons. First, if the actions taken by the agent make the optimisation infeasible, the episode is prematurely stopped before reaching 2050. Similarly, cumulative emissions of the system over the predefined \ce{CO2} budget (see Section \ref{sec:cs:CO2-budget}) lead to an anticipated end of the episode. Finally, the ``natural'' end is the prescribed end of the transition, \ie 2050. Consequently, the maximum value of steps for an episode is equal to $N=5$. 
 
-\newpage
 Before jumping to the choice of the learning algorithm, it is worth noting that we opted for the combination of \gls{RL} with \gls{DNN}, called \gls{DRL}. Among others, one of the main drawbacks of traditional \gls{RL} algorithms, \ie without the use of \gls{NN},  is that it suffers from the ``curse of dimensionality'' when facing problems with continuous action and state spaces (see Chapter \ref{chap:chap_RL}). By approximating the state-action function with its parameters (\ie weights and biases), \gls{DNN} can address this difficulty. 
 
 Given the assumed absence of knowledge of the agent about the dynamics of the environment, \ie its transition or reward functions, we needed a so-called ``model-free'' learning algorithm. In Reinforcement Learning, the ``model'' stands for the dynamics ``action-state-reward'' between the environment and the agent. In practice, in a model-free approach, the agent estimates the optimal policy directly from experience and without estimating the dynamics of the environment. However, model-free methods suffer from two major drawbacks: their sample inefficiency and their sensitivity concerning their hyper-parameters (\eg learning rates, exploration constants) \cite{haarnoja2018soft}. The former leads to a too-expensive computational burden while the second requires meticulous settings to get good results.  To overcome these two challenges, we needed to choose between an ``on-policy'' or ``off-policy'' algorithm. In a nutshell, in on-policy learning, the agent learns the value function or policy based on the data it generates by following its current policy whereas, in off-policy, the agent can learn from data collected by any policy, not just the one it is currently following, which provides greater flexibility and potential for reusing data stored in the so-called replay buffer. This makes off-policy algorithms more data efficient and ensures better exploration by reusing past experiences or even following random exploration \cite{haarnoja2018soft}.
@@ -590,6 +588,7 @@ To optimise the mapping between the observations and the actions, the policy $\p
 \label{fig:Actor-critic}
 \end{figure}
 
+\newpage
 \gls{SAC} is a model-free and off-policy actor-critic deep \gls{RL} algorithm based on the entropy-augmented objective function (see Equation (\ref{eq:SAC_objective})). The word ``augmented'' here is in opposition to the conventional \gls{RL} objective function that is only based on the cumulative reward, \ie the first term of Equation (\ref{eq:SAC_objective}). In the \gls{RL} context, entropy, also called ``Shannon entropy'', stands for the randomness or stochasticity of the policy.
 
 \begin{equation}
@@ -625,6 +624,7 @@ Easier to represent in two dimensions, let us consider a vector $\mathbf{x}$ com
 \label{fig:PCA_intro_original}
 \end{figure}
 
+\newpage
 From these observations, the main objective of \gls{PCA} is to find the linear combination, \ie projection, of the original variables that maximise their spread, \ie variance (see Figure \ref{fig:PCA_intro_proj}).  Another way to understand this is to look at the other side of the same coin. Indeed, \gls{PCA} also looks for properties that allow reconstructing the original features as accurately as possible. In practice, it aims at minimising the total reconstruction error which is the average squared distance between the original observations and their respective projection. 
 
 \begin{figure}[!htbp]
@@ -706,6 +706,7 @@ To do so, we have arbitrarily considered these shares from the REF case, where t
 
 One can notice that this second scaling factor omits the infrastructure and storage technologies. In the process of defining ``metrics'' to assess the robustness of a roadmap for the case of Belgium, this has a negligible impact. Indeed, the variation of the installed capacity of these technologies is either limited compared to end-use-type (EUT) technologies, \ie limiting their influence in the definition of PCs, or directly linked to these EUT technologies. For instance, \gls{DHN} installed capacity is directly proportional to technologies producing \gls{LT} heat in \gls{DHN} or the additional capacity of the grid is caused by additional capacities of \gls{VRES}. \\
 
+\newpage
 \myparagraph{Outliers management}\\
 
 \begin{wrapfigure}{r}{3cm}
@@ -759,7 +760,6 @@ In our case, we have decided to set the value of $\alpha$ to 85\% as, beyond thi
 \label{fig:PC_y_share_tot_var}
 \end{figure}
 
-\newpage
 \myparagraph{Robustness assessment of roadmaps}\\
 
 \noindent
